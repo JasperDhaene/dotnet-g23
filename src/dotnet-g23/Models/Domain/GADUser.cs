@@ -25,6 +25,11 @@ namespace dotnet_g23.Models.Domain
         public GADUser(String email, IUserRole userRole)
         {
             Email = email;
+            SetUserRole(userRole);
+        }
+
+        private void SetUserRole(IUserRole userRole)
+        {
             UserRole = userRole;
         }
     }
