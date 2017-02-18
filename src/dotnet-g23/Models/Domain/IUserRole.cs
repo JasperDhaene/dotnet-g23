@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain
 {
-    interface IUserRole
+    public interface IUserRole
     {
     }
 }
