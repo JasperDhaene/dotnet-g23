@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain
 {
-    public interface IOrganizationRole
+    public interface IOrganizationRepository
     {
+
     }
 }
