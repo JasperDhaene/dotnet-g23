@@ -7,8 +7,8 @@ namespace dotnet_g23.Models.Domain
 {
     public interface IOrganizationRepository
     {
-        Organization GetBy(String naam);
-        Organization GetByLocation(String locatie);
+        Organization GetBy(String organizationName);
+        Organization GetByLocation(String organizationLocation);
         IEnumerable<Organization> GetAll();
         void SaveChanges();
     }
