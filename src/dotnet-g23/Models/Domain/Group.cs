@@ -13,7 +13,7 @@ namespace dotnet_g23.Models.Domain
         public String Naam{
             get { return _naam; }
             private set {
-                if(value.Equals(null) || value.Trim().Equals(null))
+                if(value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
                 {
                     throw new ArgumentException("Naam mag niet leeg zijn!");
                 }
