@@ -4,8 +4,8 @@ namespace dotnet_g23.Models.Domain
 {
     public class GADOrganization
     {
-        private String _naam;
-        private String _locatie;
+        private String _name;
+        private String _location;
         private IOrganizationRole _organizationRole;
 
         public IOrganizationRole OrganizationRole
@@ -14,14 +14,14 @@ namespace dotnet_g23.Models.Domain
             set { _organizationRole = value; }
         }
 
-        public String Naam { get { return _naam; } private set { _naam = value; } }
+        public String Name { get { return _name; } private set { _name = value; } }
 
-        public String Locatie { get { return _locatie; } private set { _locatie = value; } }
+        public String Location { get { return _location; } private set { _location = value; } }
 
-        public GADOrganization(String naam, String locatie, IOrganizationRole organizationRole)
+        public GADOrganization(String name, String location, IOrganizationRole organizationRole)
         {
-            Naam = naam;
-            Locatie = locatie;
+            Name = name;
+            Location = location;
             SetOrganizationRole(organizationRole);
         }
 

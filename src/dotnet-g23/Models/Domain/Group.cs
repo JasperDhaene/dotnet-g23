@@ -7,27 +7,27 @@ namespace dotnet_g23.Models.Domain
 {
     public class Group
     {
-        private String _naam;
-        private Boolean _isGesloten = true;
+        private String _name;
+        private Boolean _isClosed = true;
 
-        public String Naam{
-            get { return _naam; }
+        public String Name {
+            get { return _name; }
             private set {
                 if(value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
                 {
-                    throw new ArgumentException("Naam mag niet leeg zijn!");
+                    throw new ArgumentException("Name cannot be empty!");
                 }
-                _naam = value;
+                _name = value;
             } }
 
-        public Group(String naam)
+        public Group(String name)
         {
-            Naam = naam;
+            Name = name;
         }
 
-        public Group(String naam, Boolean isGesloten) : this(naam)
+        public Group(String name, Boolean isClosed) : this(name)
         {
-            _isGesloten = isGesloten;
+            _isClosed = isClosed;
         }
     }
 }
