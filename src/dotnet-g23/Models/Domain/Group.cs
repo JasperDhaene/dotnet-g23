@@ -41,5 +41,10 @@ namespace dotnet_g23.Models.Domain
             _isClosed = isClosed;
         }
         #endregion
+
+        public Boolean GetIsClosed()
+        {
+            return _isClosed;
+        }
     }
 }
