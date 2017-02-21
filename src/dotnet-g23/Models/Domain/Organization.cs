@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain
 {
-    public class Organization: IOrganizationRole
+    public class Organization: OrganizationRole
     {
     }
 }

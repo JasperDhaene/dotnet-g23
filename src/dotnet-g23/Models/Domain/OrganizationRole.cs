@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain
 {
-    public interface IOrganizationRole
+    public abstract class OrganizationRole
     {
+        #region Properties
+        public int OrganizationRoleId { get; set; }
+        #endregion
     }
 }
