@@ -20,7 +20,7 @@ namespace dotnet_g23.Models.Domain
             private set {
                 if(value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
                 {
-                    throw new ArgumentException("Name cannot be empty!");
+                    throw new ArgumentException("Name can not be empty!");
                 }
                 _name = value;
             }
