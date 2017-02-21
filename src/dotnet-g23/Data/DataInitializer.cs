@@ -13,10 +13,5 @@ namespace dotnet_g23.Data
         {
             _context = context;
         }
-
-        public async Task InitializeData()
-        {
-            // Initialize data
-        }
     }
 }

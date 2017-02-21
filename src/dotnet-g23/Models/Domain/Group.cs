@@ -7,10 +7,15 @@ namespace dotnet_g23.Models.Domain
 {
     public class Group
     {
+        #region Fields
         private String _name;
         private Boolean _isClosed = true;
+        #endregion
 
-        public String Name {
+        #region Properties
+        public int GroupId { get; set; }
+        public String Name
+        {
             get { return _name; }
             private set {
                 if(value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
@@ -18,8 +23,11 @@ namespace dotnet_g23.Models.Domain
                     throw new ArgumentException("Name cannot be empty!");
                 }
                 _name = value;
-            } }
+            }
+        }
+        #endregion
 
+        #region Constructors
         public Group(String name)
         {
             Name = name;
@@ -29,5 +37,6 @@ namespace dotnet_g23.Models.Domain
         {
             _isClosed = isClosed;
         }
+        #endregion
     }
 }
