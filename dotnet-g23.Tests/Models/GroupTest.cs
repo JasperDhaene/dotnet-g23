@@ -57,13 +57,13 @@ namespace dotnet_g23.Tests.Models
         [Fact]
         public void ConstructorShouldNotCreateNewOpenGroupBecauseNameIsEmpty()
         {
-            Assert.Throws<ArgumentException>(() => new Group(""));
+            Assert.Throws<ArgumentException>(() => new Group("", false));
         }
 
         [Fact]
         public void ConstructorShouldNotCreateNewOpenGroupBecauseNameIsNull()
         {
-            Assert.Throws<ArgumentException>(() => new Group(null));
+            Assert.Throws<ArgumentException>(() => new Group(null, false));
         }
 
         [Fact]
