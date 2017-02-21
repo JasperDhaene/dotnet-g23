@@ -22,6 +22,9 @@ namespace dotnet_g23.Data
         private static void MapGADUser(EntityTypeBuilder<GADUser> u)
         {
             u.ToTable("GADUser");
+            u.HasKey(gu => gu.UserId);
+            u.HasOne(gu => gu.UserRole)
+                .WithOne();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace dotnet_g23.Models.Domain
             Naam = naam;
         }
 
-        public Group(String naam, Boolean isGesloten) : base(naam)
+        public Group(String naam, Boolean isGesloten) : this(naam)
         {
             _isGesloten = isGesloten;
         }
