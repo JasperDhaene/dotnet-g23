@@ -9,7 +9,7 @@ namespace dotnet_g23.Models.Domain
     {
         #region Fields
         private String _email;
-        private IUserRole _userRole;
+        private UserRole _userRole;
         #endregion
 
         #region Properties
@@ -21,7 +21,7 @@ namespace dotnet_g23.Models.Domain
             set { _email = value; }
         }
 
-        public IUserRole UserRole
+        public UserRole UserRole
         {
             get { return _userRole; }
             set { _userRole = value; }
@@ -29,7 +29,7 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
-        public GADUser(String email, IUserRole userRole)
+        public GADUser(String email, UserRole userRole)
         {
             Email = email;
             SetUserRole(userRole);
@@ -37,7 +37,7 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Methods
-        private void SetUserRole(IUserRole userRole)
+        private void SetUserRole(UserRole userRole)
         {
             UserRole = userRole;
         }

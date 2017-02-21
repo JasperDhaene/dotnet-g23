@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain
 {
-    public class Lector : IUserRole
+    public class Lector : UserRole
     {
+        #region Properties
+        public ICollection<Group> Groups { get; set; }
+        #endregion
     }
 }

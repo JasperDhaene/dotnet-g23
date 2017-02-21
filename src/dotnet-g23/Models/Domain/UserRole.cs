@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain
 {
-    public interface IUserRole
+    public abstract class UserRole
     {
+        #region Properties
+        public int UserRoleId { get; set; }
+        #endregion
     }
 }

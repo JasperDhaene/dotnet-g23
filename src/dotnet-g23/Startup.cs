@@ -46,8 +46,8 @@ namespace dotnet_g23
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
 
-            services.AddScoped<IGADUserRepository, GADUserRepository>();
-            services.AddScoped<IGADOrganizationRepository, GADOrganizationRepository>();
+            //services.AddScoped<IGADUserRepository, GADUserRepository>();
+            //services.AddScoped<IGADOrganizationRepository, GADOrganizationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

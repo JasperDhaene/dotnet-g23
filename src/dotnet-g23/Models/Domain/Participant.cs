@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain
 {
-    public class Participant : IUserRole
+    public class Participant : UserRole
     {
-        public Participant()
-        {
-
-        }
+        #region Properties
+        public Group Group { get; set; }
+        #endregion
     }
 }
