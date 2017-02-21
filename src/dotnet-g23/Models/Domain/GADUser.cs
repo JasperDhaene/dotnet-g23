@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain
@@ -18,7 +19,21 @@ namespace dotnet_g23.Models.Domain
         public String Email
         {
             get { return _email; }
-            set { _email = value; }
+            set
+            {
+                Regex regex = new Regex(@"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|"
+    + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)"
+    + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$");
+                Match match = regex.Match(value);
+                if (match.Success)
+                {
+                    _email = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Email address is incorrect, please try again.");
+                }
+            }
         }
 
         public UserRole UserRole
