@@ -30,6 +30,58 @@ namespace dotnet_g23.Tests.Models
             Assert.Equal(role, organization.OrganizationRole);
         }
 
+        [Fact]
+        public void ConstructorShouldNotCreateNewGADOrganizationBecauseNameIsNull()
+        {
+            Assert.Throws<ArgumentException>(() => new GADOrganization(null, "Ieper", new GBOrganization()));
+        }
 
+        [Fact]
+        public void ConstructorShouldNotCreateNewGADOrganizationBecauseNameIsEmpty()
+        {
+            Assert.Throws<ArgumentException>(() => new GADOrganization("", "Ieper", new GBOrganization()));
+        }
+
+        [Fact]
+        public void ConstructorShouldNotCreateNewGADOrganizationBecauseNameIsSpaces()
+        {
+            Assert.Throws<ArgumentException>(() => new GADOrganization("            ", "Ieper", new GBOrganization()));
+        }
+
+        [Fact]
+        public void ConstructorShouldNotCreateNewGADOrganizationBecauseLocationIsSpaces()
+        {
+            Assert.Throws<ArgumentException>(() => new GADOrganization("Organization", "          ", new GBOrganization()));
+        }
+
+        [Fact]
+        public void ConstructorShouldNotCreateNewGADOrganizationBecauseLocationIsEmpty()
+        {
+            Assert.Throws<ArgumentException>(() => new GADOrganization("Organization", "", new GBOrganization()));
+        }
+
+        [Fact]
+        public void ConstructorShouldNotCreateNewGADOrganizationBecauseLocationIsNull()
+        {
+            Assert.Throws<ArgumentException>(() => new GADOrganization(null, null, new GBOrganization()));
+        }
+
+        [Fact]
+        public void ConstructorShouldNotCreateNewGADOrganizationBecauseBothArgumentsAreSpaces()
+        {
+            Assert.Throws<ArgumentException>(() => new GADOrganization("           ", "          ", new GBOrganization()));
+        }
+
+        [Fact]
+        public void ConstructorShouldNotCreateNewGADOrganizationBecauseBothArgumentsAreEmpty()
+        {
+            Assert.Throws<ArgumentException>(() => new GADOrganization("", "", new GBOrganization()));
+        }
+
+        [Fact]
+        public void ConstructorShouldNotCreateNewGADOrganizationBecauseBothArgumentsAreNull()
+        {
+            Assert.Throws<ArgumentException>(() => new GADOrganization(null, null, new GBOrganization()));
+        }
     }
 }

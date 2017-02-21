@@ -6,6 +6,7 @@ namespace dotnet_g23.Models.Domain
     {
         #region Fields
         private String _name;
+        private String _location;
         private OrganizationRole _organizationRole;
         #endregion
 
@@ -17,8 +18,28 @@ namespace dotnet_g23.Models.Domain
             set { _organizationRole = value; }
         }
 
-        public String Name { get { return _name; } private set { _name = value; } }
-        public string Location { get; set; }
+        public String Name {
+            get { return _name; }
+            private set
+            {
+                if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
+                {
+                    throw new ArgumentException("Name can not be empty!");
+                }
+                _name = value;
+            }
+        }
+        public string Location {
+            get { return _location; }
+            private set
+            {
+                if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
+                {
+                    throw new ArgumentException("Location can not be empty!");
+                }
+                _location = value;
+            }
+        }
         #endregion
 
         #region Constructors
