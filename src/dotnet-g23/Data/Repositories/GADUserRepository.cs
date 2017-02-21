@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using dotnet_g23.Models.Domain;
@@ -18,22 +19,24 @@ namespace dotnet_g23.Data.Repositories
 
         public IEnumerable<GADUser> GetAll()
         {
-            throw new NotImplementedException();
+            return _gadUsers.Include(u => u.UserRole).ToList();
         }
 
         public GADUser GetBy(int userId)
         {
-            throw new NotImplementedException();
+            return _gadUsers.Include(u => u.UserRole)
+                            .SingleOrDefault(u => u.UserId == userId);
         }
 
         public GADUser GetByEmail(string userEmail)
         {
-            throw new NotImplementedException();
+            return _gadUsers.Include(u => u.UserRole)
+                            .SingleOrDefault(u => u.Email == userEmail);
         }
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
     }
 }

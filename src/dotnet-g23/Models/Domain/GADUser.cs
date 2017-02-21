@@ -7,8 +7,13 @@ namespace dotnet_g23.Models.Domain
 {
     public class GADUser
     {
+        #region Fields
         private String _email;
         private IUserRole _userRole;
+        #endregion
+
+        #region Properties
+        public int UserId { get; set; }
 
         public String Email
         {
@@ -21,16 +26,21 @@ namespace dotnet_g23.Models.Domain
             get { return _userRole; }
             set { _userRole = value; }
         }
+        #endregion
 
+        #region Constructors
         public GADUser(String email, IUserRole userRole)
         {
             Email = email;
             SetUserRole(userRole);
         }
+        #endregion
 
+        #region Methods
         private void SetUserRole(IUserRole userRole)
         {
             UserRole = userRole;
         }
+        #endregion
     }
 }
