@@ -13,7 +13,7 @@ namespace dotnet_g23.Models.Domain
 		#endregion
 
 		#region Methods
-		private void CreateGroup(string name)
+		public void CreateGroup(string name)
 		{
 			Group group = new Group(name);
 			Groups.Add(group);
