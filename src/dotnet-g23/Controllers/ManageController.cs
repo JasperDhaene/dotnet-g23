@@ -48,8 +48,15 @@ namespace dotnet_g23.Controllers
 		public IActionResult Register(string name) {
 			// find group, check if user isn't registered and register user with group
 
-			//Group group = _user.Organization.GetGroups().Where(o => o.Name == name).First();
+			//Group group = _groupRepo.GetByName(name);
 			//group.Participants.Add(_user);
+
+			//if (_user.Group != null)
+			//{
+				//ViewData["Message"] = "Error: already registered";
+				//return View();
+			//}
+
 
 			// redirect to group detail
 			return RedirectToAction("Index", "ManageController");
@@ -68,12 +75,12 @@ namespace dotnet_g23.Controllers
 			}
 
 			// check if groupname unique and not empty
-			//GBOrganization org = _user.Organization;
+			//GBOrganization org = _user.Group.GBOrganization;
 			//Group group = org.CreateGroup(name);
 			//group.Participants.Add(_user);
 
 			// notify lector
-			//Lector lector = _user.Lector;
+			//_user.Lector.Notify();
 			return View();
 		}
 
@@ -94,7 +101,7 @@ namespace dotnet_g23.Controllers
 			}
 
 			// notify lector
-			//Lector lector = _user.Lector;
+			//_user.Lector.Notify();
 			return View();
 		}
 		#endregion
