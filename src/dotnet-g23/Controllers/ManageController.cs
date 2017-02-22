@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnet_g23.Helpers;
 using dotnet_g23.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,8 +49,10 @@ namespace dotnet_g23.Controllers
 		{
 			foreach (string address in addresses)
 			{
-				// validate mail address
-				// invite mail address
+				if (MailHelper.VerifyMailAddress(address))
+				{
+					// invite mail address
+				}
 			}
 
 			// notify lector
