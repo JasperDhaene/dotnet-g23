@@ -19,6 +19,8 @@ namespace dotnet_g23.Controllers
 		public ManageController(IGADUserRepository userRepository, IGADOrganizationRepository orgRepository) {
 			_userRepository = userRepository;
 			_orgRepository = orgRepository;
+
+			_user = _userRepository.GetAll().First();
 		}
 
 		[Route("groups")]
