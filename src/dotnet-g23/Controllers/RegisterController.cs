@@ -16,6 +16,8 @@ namespace dotnet_g23.Controllers {
 		public RegisterController(IGADUserRepository userRepository, IGADOrganizationRepository orgRepository) {
 			_userRepository = userRepository;
 			_orgRepository = orgRepository;
+
+			_user = _userRepository.GetAll().First();
 		}
 
 		[Route("organizations")]
@@ -23,7 +25,7 @@ namespace dotnet_g23.Controllers {
 			// return filtered list with name & location of GB organisations
 			IEnumerable<GADOrganization> list = _orgRepository.GetAll().Where(o => o.OrganizationRole.ToString() == "GBOrganization" );
 			if (query != null)
-				list = list.Where(o => (o.Name.IndexOf(query) > -1 | o.Location.IndexOf(query) > -1));
+				list = list.Where(o => (o.Name.IndexOf(query) > -1 || o.Location.IndexOf(query) > -1));
 			return View("Index");
 		}
 
