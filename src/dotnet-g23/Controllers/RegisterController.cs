@@ -10,7 +10,7 @@ namespace dotnet_g23.Controllers {
 		// GET: /register/
 		public IActionResult Index(string query = null) {
 			// return filtered list with name & location of GB organisations
-			GBOrganization[] list = OrganizationRepository.getAll();
+			GBOrganization[] list = GADOrganizationRepository.getAll().Where(o => o.OrganizationRole.ToString() == "GBOrganization" );
 			if (query != null)
 				list = list.Where(o => (o.Name.IndexOf(query) > -1 | o.Location.IndexOf(query) > -1));
 			return View("Index");
@@ -22,7 +22,7 @@ namespace dotnet_g23.Controllers {
 
 			// validate & register user or throw error
 			if (Array.IndexOf(ApprovedMailExtensions, GetMailExtension(user.Email)) > -1) {
-				//org.RegisterUser(user);
+				org.RegisterParticipant(user);
 				// redirect to group
 				return View();
 			}
@@ -32,7 +32,7 @@ namespace dotnet_g23.Controllers {
 			}
 		}
 
-		private string GetMailExtension(String address) {
+		private string GetMailExtension(string address) {
 			return address.Substring(address.IndexOf('@'), address.Length - 1);
 		}
 

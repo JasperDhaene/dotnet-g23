@@ -13,13 +13,21 @@ namespace dotnet_g23.Controllers
 		public IActionResult Index()
 		{
 			// show list of open groups
-			return View("Index");
+			GBOrganization[] orgList = GADOrganizationRepository.getAll().Where(o => o.OrganizationRole.ToString() == "GBOrganization");
+			Group[] list = {};
+
+			foreach (GBOrganization org in orgList)
+				foreach (Group group in org.Groups)
+					if (!group.GetIsClosed())
+						list[list.Length-1] = group;
+
+			return View("Index",list);
 		}
 
 		public IActionResult Register(string name, Participant user) {
 			// find group, check if user isn't registered and register user with group
 
-			// redirect to group
+			// redirect to group detail
 			return View();
 		}
 
@@ -28,9 +36,8 @@ namespace dotnet_g23.Controllers
 			// validate name, make new group and register user
 
 			// check if groupname unique and not empty
-
-			//GBOrganization org = GBOrganization.RegisterGroup(name);
-			//org.RegisterUser(user);
+			GBOrganization org = GBOrganization.CreateGroup(name);
+			org.RegisterUser(user);
 
 			//notify lector
 			return View("Create");
@@ -41,11 +48,11 @@ namespace dotnet_g23.Controllers
 		{
 			foreach (string address in addresses)
 			{
-				//validate mail address
-				//invite mail address
+				// validate mail address
+				// invite mail address
 			}
 
-			//notify lector
+			// notify lector
 			return View();
 		}
 
