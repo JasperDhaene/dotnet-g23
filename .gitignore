@@ -243,3 +243,4 @@ ModelManifest.xml
 
 # Visual Paradigm backup files
 *.bak_*
+*.lck
