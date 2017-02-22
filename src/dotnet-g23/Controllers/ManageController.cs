@@ -23,7 +23,7 @@ namespace dotnet_g23.Controllers
 			_userRepository = userRepository;
 			_orgRepository = orgRepository;
 
-			_user = _userRepository.GetAll().First();
+			//_user = _userRepository.GetAll().First();
 		}
 		#endregion
 
@@ -32,7 +32,7 @@ namespace dotnet_g23.Controllers
 		public IActionResult Index()
 		{
 			// show list of open groups
-			IEnumerable<GBOrganization> orgList = _orgRepository.GetAll().Where(o => o.OrganizationRole.ToString() == "GBOrganization").Cast<GBOrganization>();
+			//IEnumerable<GBOrganization> orgList = _orgRepository.GetAll().Where(o => o.OrganizationRole.ToString() == "GBOrganization").Cast<GBOrganization>();
 			Group[] list = {};
 
 			foreach (GBOrganization org in orgList)
