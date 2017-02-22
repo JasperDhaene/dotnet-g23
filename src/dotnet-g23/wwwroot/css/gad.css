@@ -14072,6 +14072,15 @@ a.fc-more:hover {
     /*background-color: pink;*/
 }
 
+.GBContainer h1 {
+    text-align: center;
+    margin: 5%;
+}
+
+.GBContainer strong {
+    font-weight:bold;
+}
+
 .GBCard {
     background-color: white;
     padding: 2%;
@@ -14090,6 +14099,7 @@ a.fc-more:hover {
     margin: 0 10px;
     border-radius: 5px;
     padding: 1%;
+    color: white;
 }
 
 .GBCardSubmit:hover {

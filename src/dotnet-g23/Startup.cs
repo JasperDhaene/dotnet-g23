@@ -76,7 +76,7 @@ namespace dotnet_g23
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Manage}/{action=Index}/{id?}");
+                    template: "{controller=Register}/{action=Index}/{id?}");
             });
         }
     }
