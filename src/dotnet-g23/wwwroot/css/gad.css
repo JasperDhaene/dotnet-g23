@@ -1343,7 +1343,7 @@ output {
 
 .fa-group:before,
 .fa-users:before {
-    content: ""
+    content: "\f007"
 }
 
 .fa-chain:before,
