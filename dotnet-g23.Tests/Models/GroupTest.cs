@@ -67,7 +67,7 @@ namespace dotnet_g23.Tests.Models
         }
 
         [Fact]
-        public void ParticipantsAddedToICollectionGroup()
+        public void ParticipantsAddedToCollectionOfParticipantsInGroup()
         {
             Group group = new Group("group");
             group.Participants.Add(new Participant());

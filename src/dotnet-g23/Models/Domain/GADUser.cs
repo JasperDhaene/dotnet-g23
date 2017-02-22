@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain
 {
@@ -52,7 +49,7 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Methods
-        private void SetUserRole(UserRole userRole)
+        public void SetUserRole(UserRole userRole)
         {
             UserRole = userRole;
         }

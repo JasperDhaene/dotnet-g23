@@ -50,7 +50,15 @@ namespace dotnet_g23.Tests.Models
             string _email = "student.hogent.be";
             UserRole _participant = new Participant();
             Assert.Throws<ArgumentException>(() => new GADUser(_email, _participant));
+        }
 
+        [Fact]
+        public void ChangeUserRoleShouldChangeRole()
+        {
+            GADUser g = new GADUser("test@test.be", new Volunteer());
+            Assert.True(g.UserRole.GetType().Name.Equals("Volunteer"));
+            g.SetUserRole(new Participant());
+            Assert.True(g.UserRole.GetType().Name.Equals("Participant"));
         }
     }
 }

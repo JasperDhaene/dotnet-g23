@@ -52,7 +52,7 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Methods
-        private void SetOrganizationRole(OrganizationRole organizationRole)
+        public void SetOrganizationRole(OrganizationRole organizationRole)
         {
             OrganizationRole = organizationRole;
         }

@@ -83,5 +83,14 @@ namespace dotnet_g23.Tests.Models
         {
             Assert.Throws<ArgumentException>(() => new GADOrganization(null, null, new GBOrganization()));
         }
+
+        [Fact]
+        public void ChangeOrganizationRoleShouldChangeRole()
+        {
+            GADOrganization g = new GADOrganization("Test", "Gent", new Organization());
+            Assert.True(g.OrganizationRole.GetType().Name.Equals("Organization"));
+            g.SetOrganizationRole(new GBOrganization());
+            Assert.True(g.OrganizationRole.GetType().Name.Equals("GBOrganization"));
+        }
     }
 }
