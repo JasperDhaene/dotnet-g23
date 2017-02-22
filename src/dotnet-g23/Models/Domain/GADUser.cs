@@ -41,6 +41,12 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
+        private GADUser()
+        {
+            Email = "";
+            SetUserRole(null);
+        }
+
         public GADUser(String email, UserRole userRole)
         {
             Email = email;

@@ -41,6 +41,8 @@ namespace dotnet_g23.Controllers
 						list[list.Length-1] = group;
 
 			return View(list);
+            
+		    
 		}
 
 		[HttpPost]

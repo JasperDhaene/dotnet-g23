@@ -19,7 +19,14 @@ namespace dotnet_g23.Data.Repositories
 
         public IEnumerable<GADUser> GetAll()
         {
-            return _gadUsers.Include(u => u.UserRole).ToList();
+            //ERROR trying to access Manage > Index
+            //A parameterless constructor was not found on entity type 'GADUser'.
+            //In order to create an instance of 'GADUser' EF requires that a parameterless constructor be declared.
+
+            //AND
+            //Cannot open database "DotNetG23" requested by the login. The login failed.
+            //Login failed for user 'Jasper-PC\Jasper'.
+                        return _gadUsers.Include(u => u.UserRole).ToList();
         }
 
         public GADUser GetBy(int userId)
