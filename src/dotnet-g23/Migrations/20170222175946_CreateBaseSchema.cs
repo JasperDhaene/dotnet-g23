@@ -50,11 +50,18 @@ namespace dotnetg23.Migrations
                     UserRoleId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     user_role_type = table.Column<string>(nullable: false),
-                    GroupId = table.Column<int>(nullable: true)
+                    GroupId = table.Column<int>(nullable: true),
+                    LectorUserRoleId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserRoles", x => x.UserRoleId);
+                    table.ForeignKey(
+                        name: "FK_UserRoles_UserRoles_LectorUserRoleId",
+                        column: x => x.LectorUserRoleId,
+                        principalTable: "UserRoles",
+                        principalColumn: "UserRoleId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,6 +135,11 @@ namespace dotnetg23.Migrations
                 name: "IX_UserRoles_GroupId",
                 table: "UserRoles",
                 column: "GroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoles_LectorUserRoleId",
+                table: "UserRoles",
+                column: "LectorUserRoleId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_UserRoles_Groups_GroupId",

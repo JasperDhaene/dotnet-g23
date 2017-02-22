@@ -55,7 +55,6 @@ namespace dotnet_g23.Data
         {
             u.ToTable("GADUser");
             u.HasKey(gu => gu.UserId);
-            u.HasOne(gu => gu.UserRole);
         }
 
         private static void MapGroup(EntityTypeBuilder<Group> g)

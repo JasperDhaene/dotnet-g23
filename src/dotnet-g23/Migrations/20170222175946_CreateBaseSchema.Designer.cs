@@ -8,7 +8,7 @@ using dotnet_g23.Data;
 namespace dotnetg23.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170221172546_CreateBaseSchema")]
+    [Migration("20170222175946_CreateBaseSchema")]
     partial class CreateBaseSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,7 +137,11 @@ namespace dotnetg23.Migrations
 
                     b.Property<int?>("GroupId");
 
+                    b.Property<int?>("LectorUserRoleId");
+
                     b.HasIndex("GroupId");
+
+                    b.HasIndex("LectorUserRoleId");
 
                     b.ToTable("Participants");
 
@@ -184,6 +188,10 @@ namespace dotnetg23.Migrations
                     b.HasOne("dotnet_g23.Models.Domain.Group", "Group")
                         .WithMany("Participants")
                         .HasForeignKey("GroupId");
+
+                    b.HasOne("dotnet_g23.Models.Domain.Lector", "Lector")
+                        .WithMany("Participants")
+                        .HasForeignKey("LectorUserRoleId");
                 });
         }
     }
