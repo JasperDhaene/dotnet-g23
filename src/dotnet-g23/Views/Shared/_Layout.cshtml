@@ -6,8 +6,7 @@
     <title>@ViewData["Title"] - dotnet_g23</title>
 
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/gad.css" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -18,51 +17,102 @@
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+<div id="wrapper">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <a type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">dotnet_g23</a>
+                    <i class="fa fa-bars"></i>
+                </a>
+                <a href="https://www.giveaday.be/" class="navbar-brand">
+                    <img src="https://www.giveaday.be/design/img/logo.svg" alt="Give a Day logo" class="logo">
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li class="nav-item">
+                        <a href="https://www.giveaday.be/" class="nav-link">
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Manage" asp-action="Index" class="nav-link">
+                            <span>Organisatie zoeken</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-area="" asp-controller="Register" asp-action="Index" class="nav-link">
+                            <span>Groep aanmaken</span>
+                        </a>
+                    </li>
+                    <li class="nav-divider"></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i>
+                            <span>Mijn account</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a id="login-link" href="https://www.giveaday.be/login?redirect=user" class="nav-link">
+                                    <i class="fa fa-sign-in"></i>
+                                    <span>Log in</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://www.giveaday.be/user/register/register" class="nav-link">
+                                    <i class="fa fa-user-plus"></i>
+                                    <span>Registreren</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://www.giveaday.be/recoverAccount" class="nav-link">
+                                    <i class="fa fa-question-circle"></i>
+                                    <span>Wachtwoord vergeten</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
+    </nav>
+    <div id="page-wrapper" class="home">
+        <div class="container">
+            <div class="row">
+                @RenderBody()
+            </div>
+        </div>
         <hr />
-        <footer>
-            <p>&copy; 2017 - dotnet_g23</p>
-        </footer>
+
+
+
+        <environment names="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery">
+
+
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+
+
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
+
+        @RenderSection("scripts", required: false)
     </div>
-
-    <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment names="Staging,Production">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
-    @RenderSection("scripts", required: false)
+</div>
+    <footer>
+        <p>&copy; Group 23: Jasper D'haene | Florian Dejonckheere | Tuur Lievens | Preben Leroy</p>
+    </footer> 
 </body>
 </html>
