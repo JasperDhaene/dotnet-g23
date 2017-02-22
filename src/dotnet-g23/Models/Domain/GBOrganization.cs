@@ -9,6 +9,7 @@ namespace dotnet_g23.Models.Domain
     {
         #region Properties
         public ICollection<Group> Groups { get; set; }
+        public ICollection<Participant> Participants { get; set; }
 		#endregion
 
 		#region Methods
