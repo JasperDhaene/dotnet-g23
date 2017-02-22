@@ -25,7 +25,6 @@ namespace dotnet_g23.Models.Domain
                 _name = value;
             }
         }
-        public Lector Lector { get; set; }
         public ICollection<Participant> Participants { get; set; }
         public GBOrganization GBOrganization { get; set; }
         #endregion

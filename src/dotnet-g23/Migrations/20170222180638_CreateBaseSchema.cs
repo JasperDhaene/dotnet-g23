@@ -44,6 +44,26 @@ namespace dotnetg23.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Groups",
+                columns: table => new
+                {
+                    GroupId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    GBOrganizationOrganizationRoleId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Groups", x => x.GroupId);
+                    table.ForeignKey(
+                        name: "FK_Groups_OrganizationRoles_GBOrganizationOrganizationRoleId",
+                        column: x => x.GBOrganizationOrganizationRoleId,
+                        principalTable: "OrganizationRoles",
+                        principalColumn: "OrganizationRoleId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserRoles",
                 columns: table => new
                 {
@@ -56,6 +76,12 @@ namespace dotnetg23.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserRoles", x => x.UserRoleId);
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Groups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "Groups",
+                        principalColumn: "GroupId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserRoles_UserRoles_LectorUserRoleId",
                         column: x => x.LectorUserRoleId,
@@ -84,33 +110,6 @@ namespace dotnetg23.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Groups",
-                columns: table => new
-                {
-                    GroupId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    GBOrganizationOrganizationRoleId = table.Column<int>(nullable: true),
-                    LectorUserRoleId = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Groups", x => x.GroupId);
-                    table.ForeignKey(
-                        name: "FK_Groups_OrganizationRoles_GBOrganizationOrganizationRoleId",
-                        column: x => x.GBOrganizationOrganizationRoleId,
-                        principalTable: "OrganizationRoles",
-                        principalColumn: "OrganizationRoleId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Groups_UserRoles_LectorUserRoleId",
-                        column: x => x.LectorUserRoleId,
-                        principalTable: "UserRoles",
-                        principalColumn: "UserRoleId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_GADOrganization_OrganizationRoleId",
                 table: "GADOrganization",
@@ -127,11 +126,6 @@ namespace dotnetg23.Migrations
                 column: "GBOrganizationOrganizationRoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Groups_LectorUserRoleId",
-                table: "Groups",
-                column: "LectorUserRoleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_GroupId",
                 table: "UserRoles",
                 column: "GroupId");
@@ -140,26 +134,10 @@ namespace dotnetg23.Migrations
                 name: "IX_UserRoles_LectorUserRoleId",
                 table: "UserRoles",
                 column: "LectorUserRoleId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_UserRoles_Groups_GroupId",
-                table: "UserRoles",
-                column: "GroupId",
-                principalTable: "Groups",
-                principalColumn: "GroupId",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Groups_OrganizationRoles_GBOrganizationOrganizationRoleId",
-                table: "Groups");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Groups_UserRoles_LectorUserRoleId",
-                table: "Groups");
-
             migrationBuilder.DropTable(
                 name: "GADOrganization");
 
@@ -167,13 +145,13 @@ namespace dotnetg23.Migrations
                 name: "GADUser");
 
             migrationBuilder.DropTable(
-                name: "OrganizationRoles");
-
-            migrationBuilder.DropTable(
                 name: "UserRoles");
 
             migrationBuilder.DropTable(
                 name: "Groups");
+
+            migrationBuilder.DropTable(
+                name: "OrganizationRoles");
         }
     }
 }
