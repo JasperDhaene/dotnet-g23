@@ -9,6 +9,14 @@ namespace dotnet_g23.Models.Domain
     {
         #region Properties
         public ICollection<Group> Groups { get; set; }
-        #endregion
-    }
+		#endregion
+
+		#region Methods
+		private void CreateGroup(string name)
+		{
+			Group group = new Group(name);
+			Groups.Add(group);
+		}
+		#endregion
+	}
 }
