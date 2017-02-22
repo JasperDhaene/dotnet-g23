@@ -12,30 +12,35 @@ namespace dotnet_g23.Controllers
 	public class ManageController : Controller
 	{
 
+		#region Fields
 		private GADUser _user;
 		private readonly IGADUserRepository _userRepository;
 		private readonly IGADOrganizationRepository _orgRepository;
+		#endregion
 
+		#region Constructors
 		public ManageController(IGADUserRepository userRepository, IGADOrganizationRepository orgRepository) {
 			_userRepository = userRepository;
 			_orgRepository = orgRepository;
 
 			_user = _userRepository.GetAll().First();
 		}
+		#endregion
 
+		#region Methods
 		[Route("groups")]
 		public IActionResult Index()
 		{
 			// show list of open groups
-			GADOrganization[] orgList = _orgRepository.GetAll().Where(o => o.OrganizationRole.ToString() == "GBOrganization").ToArray();
+			IEnumerable<GBOrganization> orgList = _orgRepository.GetAll().Where(o => o.OrganizationRole.ToString() == "GBOrganization").Cast<GBOrganization>();
 			Group[] list = {};
 
-			//foreach (GADOrganization org in orgList)
-				//foreach (Group group in org.Groups)
-					//if (!group.GetIsClosed())
-						//list[list.Length-1] = group;
+			foreach (GBOrganization org in orgList)
+				foreach (Group group in org.Groups)
+					if (!group.GetIsClosed())
+						list[list.Length-1] = group;
 
-			return View("Index",list);
+			return View(list);
 		}
 
 		[HttpPost]
@@ -43,8 +48,11 @@ namespace dotnet_g23.Controllers
 		public IActionResult Register(string name) {
 			// find group, check if user isn't registered and register user with group
 
+			//Group group = _user.Organization.GetGroups().Where(o => o.Name == name).First();
+			//group.Participants.Add(_user);
+
 			// redirect to group detail
-			return View();
+			return RedirectToAction("Index", "ManageController");
 		}
 
 		[HttpPost]
@@ -53,20 +61,20 @@ namespace dotnet_g23.Controllers
 		{
 			// validate name, make new group and register user
 
-			// show error
 			if (name == null)
 			{
 				ViewData["Message"] = "Error: Wrong name";
 				return View();
 			}
 
-
 			// check if groupname unique and not empty
-			//GBOrganization org = GBOrganization.CreateGroup(name);
-			//org.RegisterUser(_user);
+			//GBOrganization org = _user.Organization;
+			//Group group = org.CreateGroup(name);
+			//group.Participants.Add(_user);
 
 			// notify lector
-			return View("Create");
+			//Lector lector = _user.Lector;
+			return View();
 		}
 
 		[HttpPost]
@@ -86,8 +94,10 @@ namespace dotnet_g23.Controllers
 			}
 
 			// notify lector
+			//Lector lector = _user.Lector;
 			return View();
 		}
+		#endregion
 
 	}
 }
