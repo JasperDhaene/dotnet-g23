@@ -8909,7 +8909,8 @@ a.text-danger:hover {
 
 #page-wrapper {
     padding-top: 80px;
-    overflow-x: hidden
+    overflow-x: hidden;
+    min-height: 90vh;
 }
 
 #page-wrapper.home {
