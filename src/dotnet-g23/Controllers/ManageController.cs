@@ -13,7 +13,7 @@ namespace dotnet_g23.Controllers
 	{
 
 		#region Fields
-		private GADUser _user;
+		//private GADUser _user;
 		private readonly IGADUserRepository _userRepository;
 		private readonly IGADOrganizationRepository _orgRepository;
 		#endregion
@@ -28,11 +28,13 @@ namespace dotnet_g23.Controllers
 		#endregion
 
 		#region Methods
-		[Route("groups")]
+		//[Route("groups")]
 		public IActionResult Index()
 		{
-			// show list of open groups
-			//IEnumerable<GBOrganization> orgList = _orgRepository.GetAll().Where(o => o.OrganizationRole.ToString() == "GBOrganization").Cast<GBOrganization>();
+
+            // show list of open groups
+            /*IEnumerable<GBOrganization> orgList = _orgRepository.GetAll().Where(o => o.OrganizationRole.ToString() == "GBOrganization").Cast<GBOrganization>();
+
 			Group[] list = {};
 
 			foreach (GBOrganization org in orgList)
@@ -41,12 +43,14 @@ namespace dotnet_g23.Controllers
 						list[list.Length-1] = group;
 
 			return View(list);
-            
-		    
-		}
+            */
+            return View();
 
-		[HttpPost]
-		[Route("groups/register")]
+
+        }
+
+		//[HttpPost]
+		//[Route("groups/register")]
 		public IActionResult Register(string name) {
 			// find group, check if user isn't registered and register user with group
 
@@ -61,11 +65,11 @@ namespace dotnet_g23.Controllers
 
 
 			// redirect to group detail
-			return RedirectToAction("Index", "ManageController");
+			return RedirectToAction("Index", "Manage");
 		}
 
-		[HttpPost]
-		[Route("groups/create")]
+		//[HttpPost]
+		//[Route("groups/create")]
 		public IActionResult Create(string name = null, bool closed = false)
 		{
 			// validate name, make new group and register user
@@ -86,8 +90,8 @@ namespace dotnet_g23.Controllers
 			return View();
 		}
 
-		[HttpPost]
-		[Route("groups/invite")]
+		//[HttpPost]
+		//[Route("groups/invite")]
 		public IActionResult Invite(string[] addresses = null)
 		{
 

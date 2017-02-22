@@ -14061,3 +14061,43 @@ a.fc-more:hover {
 .fc-unthemed .fc-list-empty {
     background-color: #eee
 }
+
+#page-wrapper {
+    background-color: #f4f4f4;
+}
+
+.GBContainer {
+    width: 100%;
+    height: 80vh;
+    /*background-color: pink;*/
+}
+
+.GBCard {
+    background-color: white;
+    padding: 2%;
+    height: 85px;
+    margin: 4% 0;
+    border-radius: 10px;
+}
+.GBCard span {
+    margin: 0 1%;
+}
+.GBCardSubmit {
+    background-color: #63B1BC;
+    width: auto;
+    display: inline-block;
+    float: right;
+    margin: 0 10px;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+.GBCardSubmit:hover {
+    background-color: #E73C3E;
+}
+
+.GBFooter {
+    background-color: #63B1BC;
+    text-align: center;
+    padding: 1%;
+}
