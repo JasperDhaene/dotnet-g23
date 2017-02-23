@@ -130,9 +130,13 @@ namespace dotnetg23.Migrations
                 {
                     b.HasBaseType("dotnet_g23.Models.Domain.UserRole");
 
+                    b.Property<int?>("GBOrganizationOrganizationRoleId");
+
                     b.Property<int?>("GroupId");
 
                     b.Property<int?>("LectorUserRoleId");
+
+                    b.HasIndex("GBOrganizationOrganizationRoleId");
 
                     b.HasIndex("GroupId");
 
@@ -176,6 +180,10 @@ namespace dotnetg23.Migrations
 
             modelBuilder.Entity("dotnet_g23.Models.Domain.Participant", b =>
                 {
+                    b.HasOne("dotnet_g23.Models.Domain.GBOrganization", "GBOrganization")
+                        .WithMany("Participants")
+                        .HasForeignKey("GBOrganizationOrganizationRoleId");
+
                     b.HasOne("dotnet_g23.Models.Domain.Group", "Group")
                         .WithMany("Participants")
                         .HasForeignKey("GroupId");
