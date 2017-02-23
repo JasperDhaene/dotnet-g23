@@ -1,13 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Create";
 }
-
-<div class="content">
-    <div class="GBCard">
-        <span>Poverello</span> - <span>Brugge</span>
-        <form asp-action="Register">
-            <input type="submit" value="registreer"/>
-        </form>
+<div class="GBRegistrationContainer">
+    <div class="GBRegistrationCard">
+        <form>
+            <input type="text" placeholder="Groepsnaam" />
+            <input type="radio" name="type" value="gesloten" checked> Gesloten
+            <input type="radio" name="type" value="open"> Open<br>
+            <input type="text" placeholder="Email teamlid" />
+        </form> 
+        <div class="GBRegistrationCardSubmit">
+            <span>registreer</span>
+        </div>
     </div>
 
 </div>

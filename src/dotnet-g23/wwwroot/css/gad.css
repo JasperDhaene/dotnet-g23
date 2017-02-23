@@ -14081,10 +14081,40 @@ a.fc-more:hover {
     font-weight:bold;
 }
 
+.GBRegistrationContainer {
+    width: 50%;
+    height: 80vh;
+    margin: auto;
+}
+
+.GBRegistrationContainer input[type="text"] {
+    width: 100%;
+    border-bottom: gray 1px solid;
+    
+    
+}
+
+.GBRegistrationContainer input {
+    margin: 5% 1%;
+}
+
+.GBRegistrationContainer input:focus {
+    outline: none;
+}
+
 .GBCard {
     background-color: white;
     padding: 2%;
     height: 85px;
+    margin: 4% 0;
+    border-radius: 10px;
+}
+
+.GBRegistrationCard {
+    background-color: white;
+    padding: 2%;
+    height: 70vh;
+    width: auto;
     margin: 4% 0;
     border-radius: 10px;
 }
@@ -14102,7 +14132,22 @@ a.fc-more:hover {
     color: white;
 }
 
+.GBRegistrationCardSubmit {
+    background-color: #63B1BC;
+    width: 100px;
+    text-align: center;
+    display: block;
+    margin: 10% auto;
+    border-radius: 5px;
+    padding: 1%;
+    color: white;
+}
+
 .GBCardSubmit:hover {
+    background-color: #E73C3E;
+}
+
+.GBRegistrationCardSubmit:hover {
     background-color: #E73C3E;
 }
 
