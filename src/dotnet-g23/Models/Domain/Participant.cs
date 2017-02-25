@@ -12,5 +12,12 @@ namespace dotnet_g23.Models.Domain
         public Lector Lector { get; set; }
         public GBOrganization GBOrganization { get; set; }
         #endregion
+
+        #region Constructors
+        public Participant(GBOrganization organization)
+        {
+            GBOrganization = organization;
+        }
+        #endregion
     }
 }

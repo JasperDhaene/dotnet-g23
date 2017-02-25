@@ -11,7 +11,7 @@ namespace dotnet_g23.Tests.Models
         {
             string _email = "rowan.atkinson@student.hogent.be";
             UserRole _volunteer = new Volunteer();
-            GADUser g = new GADUser(_email, _volunteer);
+            User g = new User(_email, _volunteer);
             Assert.Equal(_email, g.Email);
             Assert.True(g.UserRole == _volunteer);
         }
@@ -21,7 +21,7 @@ namespace dotnet_g23.Tests.Models
         {
             string _email = "rowan.atkinson@student.hogent.be";
             UserRole _participant = new Participant();
-            GADUser g = new GADUser(_email, _participant);
+            User g = new User(_email, _participant);
             Assert.Equal(_email, g.Email);
             Assert.True(g.UserRole == _participant);
         }
@@ -31,7 +31,7 @@ namespace dotnet_g23.Tests.Models
         {
             string _email = "rowan.atkinson@hogent.be";
             UserRole _lector = new Volunteer();
-            GADUser g = new GADUser(_email, _lector);
+            User g = new User(_email, _lector);
             Assert.Equal(_email, g.Email);
             Assert.True(g.UserRole == _lector);
         }
@@ -41,7 +41,7 @@ namespace dotnet_g23.Tests.Models
         {
             string _email = "rowan.atkinson";
             UserRole _lector = new Volunteer();
-            Assert.Throws<ArgumentException>(() => new GADUser(_email, _lector));
+            Assert.Throws<ArgumentException>(() => new User(_email, _lector));
         }
 
         [Fact]
@@ -49,13 +49,13 @@ namespace dotnet_g23.Tests.Models
         {
             string _email = "student.hogent.be";
             UserRole _participant = new Participant();
-            Assert.Throws<ArgumentException>(() => new GADUser(_email, _participant));
+            Assert.Throws<ArgumentException>(() => new User(_email, _participant));
         }
 
         [Fact]
         public void ChangeUserRoleShouldChangeRole()
         {
-            GADUser g = new GADUser("test@test.be", new Volunteer());
+            User g = new User("test@test.be", new Volunteer());
             Assert.True(g.UserRole.GetType().Name.Equals("Volunteer"));
             g.SetUserRole(new Participant());
             Assert.True(g.UserRole.GetType().Name.Equals("Participant"));

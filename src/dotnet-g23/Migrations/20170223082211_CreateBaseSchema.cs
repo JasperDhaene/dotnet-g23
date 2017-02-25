@@ -23,7 +23,7 @@ namespace dotnetg23.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GADOrganization",
+                name: "Organization",
                 columns: table => new
                 {
                     OrganizationId = table.Column<int>(nullable: false)
@@ -98,7 +98,7 @@ namespace dotnetg23.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GADUser",
+                name: "User",
                 columns: table => new
                 {
                     UserId = table.Column<int>(nullable: false)
@@ -119,12 +119,12 @@ namespace dotnetg23.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_GADOrganization_OrganizationRoleId",
-                table: "GADOrganization",
+                table: "Organization",
                 column: "OrganizationRoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GADUser_UserRoleId",
-                table: "GADUser",
+                table: "User",
                 column: "UserRoleId");
 
             migrationBuilder.CreateIndex(
@@ -151,10 +151,10 @@ namespace dotnetg23.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GADOrganization");
+                name: "Organization");
 
             migrationBuilder.DropTable(
-                name: "GADUser");
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");

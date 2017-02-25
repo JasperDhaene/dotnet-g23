@@ -7,9 +7,9 @@ namespace dotnet_g23.Models.Domain
 {
     public interface IGADOrganizationRepository
     {
-        GADOrganization GetBy(int orgId);
-        GADOrganization GetByName(String orgName);
-        IEnumerable<GADOrganization> GetAll();
+        Organization GetBy(int orgId);
+        Organization GetByName(String orgName);
+        IEnumerable<Organization> GetAll();
         void SaveChanges();
     }
 }

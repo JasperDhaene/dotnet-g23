@@ -11,7 +11,7 @@ namespace dotnet_g23.Tests.Models
         {
             Group g = new Group("ClosedGroup");
             Assert.Equal("ClosedGroup", g.Name);
-            Assert.True(g.GetIsClosed());
+            Assert.True(g.IsClosed());
         }
 
         [Fact]
@@ -19,7 +19,7 @@ namespace dotnet_g23.Tests.Models
         {
             Group g = new Group("OpenGroup", false);
             Assert.Equal("ClosedGroup", g.Name);
-            Assert.False(g.GetIsClosed());
+            Assert.False(g.IsClosed());
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace dotnet_g23.Tests.Models
         {
             Group g = new Group("ClosedGroup", true);
             Assert.Equal("ClosedGroup", g.Name);
-            Assert.True(g.GetIsClosed());
+            Assert.True(g.IsClosed());
         }
 
         [Fact]

@@ -6,7 +6,7 @@ namespace dotnet_g23.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<GADUser> GADUsers { get; set; }
+        public DbSet<User> GADUsers { get; set; }
 
         // UserRole
         public DbSet<Volunteer> Volunteers { get; set; }
@@ -15,7 +15,7 @@ namespace dotnet_g23.Data
         public DbSet<UserRole> UserRoles { get; set; }
 
         public DbSet<Group> Groups { get; set; }
-        public DbSet<GADOrganization> GADOrganizations { get; set; }
+        public DbSet<Organization> GADOrganizations { get; set; }
 
         // OrganizationRole
         public DbSet<Organization> Organizations { get; set; }
@@ -31,7 +31,7 @@ namespace dotnet_g23.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<GADUser>(MapGADUser);
+            builder.Entity<User>(MapGADUser);
             builder.Entity<Volunteer>().ToTable("Volunteers");
             builder.Entity<Participant>().ToTable("Participants");
             builder.Entity<Lector>().ToTable("Lectors");
@@ -42,7 +42,7 @@ namespace dotnet_g23.Data
                 .HasValue<Lector>("user_role_lector");
             builder.Entity<Group>(MapGroup);
 
-            builder.Entity<GADOrganization>(MapGADOrganization);
+            builder.Entity<Organization>(MapGADOrganization);
             builder.Entity<Organization>().ToTable("Organizations");
             builder.Entity<GBOrganization>().ToTable("GBOrganizations");
             builder.Entity<OrganizationRole>()
@@ -51,9 +51,9 @@ namespace dotnet_g23.Data
                 .HasValue<GBOrganization>("organization_role_gb_organization");
         }
 
-        private static void MapGADUser(EntityTypeBuilder<GADUser> u)
+        private static void MapGADUser(EntityTypeBuilder<User> u)
         {
-            u.ToTable("GADUser");
+            u.ToTable("User");
             u.HasKey(gu => gu.UserId);
         }
 
@@ -63,9 +63,9 @@ namespace dotnet_g23.Data
             g.HasKey(gr => gr.GroupId);
         }
 
-        private static void MapGADOrganization(EntityTypeBuilder<GADOrganization> u)
+        private static void MapGADOrganization(EntityTypeBuilder<Organization> u)
         {
-            u.ToTable("GADOrganization");
+            u.ToTable("Organization");
             u.HasKey(o => o.OrganizationId);
             u.HasOne(o => o.OrganizationRole);
         }

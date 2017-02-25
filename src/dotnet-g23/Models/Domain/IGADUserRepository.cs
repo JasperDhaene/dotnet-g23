@@ -7,9 +7,9 @@ namespace dotnet_g23.Models.Domain
 {
     public interface IGADUserRepository
     {
-        GADUser GetBy(int userId);
-        GADUser GetByEmail(String userEmail);
-        IEnumerable<GADUser> GetAll();
+        User GetBy(int userId);
+        User GetByEmail(String userEmail);
+        IEnumerable<User> GetAll();
         void SaveChanges();
     }
 }

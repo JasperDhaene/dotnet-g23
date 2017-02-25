@@ -14,7 +14,7 @@ namespace dotnet_g23.Data.Repositories
     {
 
         private readonly ApplicationDbContext _context;
-        private readonly DbSet<GADOrganization> _gadOrganizations;
+        private readonly DbSet<Organization> _gadOrganizations;
 
         public GADOrganizationRepository(ApplicationDbContext context)
         {
@@ -22,19 +22,19 @@ namespace dotnet_g23.Data.Repositories
             _gadOrganizations = context.GADOrganizations;
         }
 
-        public GADOrganization GetBy(int orgId)
+        public Organization GetBy(int orgId)
         {
             return _gadOrganizations.Include(u => u.OrganizationRole)
                             .SingleOrDefault(u => u.OrganizationId == orgId);
         }
 
-        public GADOrganization GetByName(string orgName)
+        public Organization GetByName(string orgName)
         {
             return _gadOrganizations.Include(u => u.OrganizationRole)
                             .SingleOrDefault(u => u.Name == orgName);
         }
 
-        public IEnumerable<GADOrganization> GetAll()
+        public IEnumerable<Organization> GetAll()
         {
             return _gadOrganizations.Include(u => u.OrganizationRole).ToList();
         }

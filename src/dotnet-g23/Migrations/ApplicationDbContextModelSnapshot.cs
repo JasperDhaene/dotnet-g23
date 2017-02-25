@@ -16,7 +16,7 @@ namespace dotnetg23.Migrations
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("dotnet_g23.Models.Domain.GADOrganization", b =>
+            modelBuilder.Entity("dotnet_g23.Models.Domain.Organization", b =>
                 {
                     b.Property<int>("OrganizationId")
                         .ValueGeneratedOnAdd();
@@ -31,10 +31,10 @@ namespace dotnetg23.Migrations
 
                     b.HasIndex("OrganizationRoleId");
 
-                    b.ToTable("GADOrganization");
+                    b.ToTable("Organization");
                 });
 
-            modelBuilder.Entity("dotnet_g23.Models.Domain.GADUser", b =>
+            modelBuilder.Entity("dotnet_g23.Models.Domain.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd();
@@ -47,7 +47,7 @@ namespace dotnetg23.Migrations
 
                     b.HasIndex("UserRoleId");
 
-                    b.ToTable("GADUser");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("dotnet_g23.Models.Domain.Group", b =>
@@ -157,14 +157,14 @@ namespace dotnetg23.Migrations
                     b.HasDiscriminator().HasValue("user_role_volunteer");
                 });
 
-            modelBuilder.Entity("dotnet_g23.Models.Domain.GADOrganization", b =>
+            modelBuilder.Entity("dotnet_g23.Models.Domain.Organization", b =>
                 {
                     b.HasOne("dotnet_g23.Models.Domain.OrganizationRole", "OrganizationRole")
                         .WithMany()
                         .HasForeignKey("OrganizationRoleId");
                 });
 
-            modelBuilder.Entity("dotnet_g23.Models.Domain.GADUser", b =>
+            modelBuilder.Entity("dotnet_g23.Models.Domain.User", b =>
                 {
                     b.HasOne("dotnet_g23.Models.Domain.UserRole", "UserRole")
                         .WithMany()

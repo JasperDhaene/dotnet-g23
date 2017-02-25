@@ -9,7 +9,7 @@ namespace dotnet_g23.Data.Repositories
     public class GADUserRepository : IGADUserRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly DbSet<GADUser> _gadUsers;
+        private readonly DbSet<User> _gadUsers;
 
         public GADUserRepository(ApplicationDbContext context)
         {
@@ -17,20 +17,20 @@ namespace dotnet_g23.Data.Repositories
             _gadUsers = context.GADUsers;
         }
 
-        public IEnumerable<GADUser> GetAll()
+        public IEnumerable<User> GetAll()
         {
             //Cannot open database "DotNetG23" requested by the login. The login failed.
             //Login failed for user 'Jasper-PC\Jasper'.
             return _gadUsers.Include(u => u.UserRole).ToList();
         }
 
-        public GADUser GetBy(int userId)
+        public User GetBy(int userId)
         {
             return _gadUsers.Include(u => u.UserRole)
                             .SingleOrDefault(u => u.UserId == userId);
         }
 
-        public GADUser GetByEmail(string userEmail)
+        public User GetByEmail(string userEmail)
         {
             return _gadUsers.Include(u => u.UserRole)
                             .SingleOrDefault(u => u.Email == userEmail);

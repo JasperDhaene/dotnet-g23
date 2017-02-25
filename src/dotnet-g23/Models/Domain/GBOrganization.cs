@@ -5,18 +5,23 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain
 {
-    public class GBOrganization : OrganizationRole
+    public class GBOrganization : Organization
     {
         #region Properties
         public ICollection<Group> Groups { get; set; }
         public ICollection<Participant> Participants { get; set; }
-		#endregion
+        #endregion
 
-		#region Methods
-		public void CreateGroup(string name)
+        #region Constructors
+        public GBOrganization(String name, String location): base(name, location)
+        {
+        }
+        #endregion
+
+        #region Methods
+        public void CreateGroup(string name)
 		{
-			Group group = new Group(name);
-			Groups.Add(group);
+			Groups.Add(new Group(name));
 		}
 		#endregion
 	}

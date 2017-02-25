@@ -3,16 +3,13 @@ using System.Text.RegularExpressions;
 
 namespace dotnet_g23.Models.Domain
 {
-    public class GADUser
+    public class User
     {
         #region Fields
         private String _email;
-        private UserRole _userRole;
         #endregion
 
         #region Properties
-        public int UserId { get; set; }
-
         public String Email
         {
             get { return _email; }
@@ -32,31 +29,14 @@ namespace dotnet_g23.Models.Domain
                 }
             }
         }
-
-        public UserRole UserRole
-        {
-            get { return _userRole; }
-            set { _userRole = value; }
-        }
+        public int UserId { get; set; }
+        public UserRole UserRole { get; set; }
         #endregion
 
         #region Constructors
-        private GADUser()
-        {
-            Email = "";
-            SetUserRole(null);
-        }
-
-        public GADUser(String email, UserRole userRole)
+        public User(String email, UserRole userRole)
         {
             Email = email;
-            SetUserRole(userRole);
-        }
-        #endregion
-
-        #region Methods
-        public void SetUserRole(UserRole userRole)
-        {
             UserRole = userRole;
         }
         #endregion

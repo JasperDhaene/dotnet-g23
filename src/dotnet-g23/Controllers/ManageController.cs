@@ -13,7 +13,7 @@ namespace dotnet_g23.Controllers
 	{
 
 		#region Fields
-		//private GADUser _user;
+		//private User _user;
 		private readonly IGADUserRepository _userRepository;
 		private readonly IGADOrganizationRepository _orgRepository;
 		#endregion
@@ -39,7 +39,7 @@ namespace dotnet_g23.Controllers
 
 			foreach (GBOrganization org in orgList)
 				foreach (Group group in org.Groups)
-					if (!group.GetIsClosed())
+					if (!group.IsClosed())
 						list[list.Length-1] = group;
 
 			return View(list);

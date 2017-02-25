@@ -7,7 +7,7 @@ namespace dotnet_g23.Models.Domain
     {
         #region Fields
         private String _name;
-        private Boolean _isClosed = true;
+        private Boolean _closed;
         #endregion
 
         #region Properties
@@ -24,6 +24,7 @@ namespace dotnet_g23.Models.Domain
             }
         }
         public ICollection<Participant> Participants { get; set; }
+        public ICollection<Lector> Lectors { get; set; }
         public GBOrganization GBOrganization { get; set; }
         #endregion
 
@@ -31,17 +32,18 @@ namespace dotnet_g23.Models.Domain
         public Group(String name)
         {
             Name = name;
+            _closed = true;
         }
 
-        public Group(String name, Boolean isClosed) : this(name)
+        public Group(String name, Boolean closed) : this(name)
         {
-            _isClosed = isClosed;
+            _closed = closed;
         }
         #endregion
 
-        public Boolean GetIsClosed()
+        public Boolean IsClosed()
         {
-            return _isClosed;
+            return _closed;
         }
     }
 }
