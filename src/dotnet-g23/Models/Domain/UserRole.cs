@@ -9,6 +9,7 @@ namespace dotnet_g23.Models.Domain
     {
         #region Properties
         public int UserRoleId { get; set; }
+        public User User { get; set; }
         #endregion
     }
 }

@@ -11,6 +11,7 @@ namespace dotnet_g23.Models.Domain
 
         #region Properties
         public int OrganizationId { get; set; }
+        public GBOrganization GBOrganization { get; set; }
 
         public String Name {
             get { return _name; }
