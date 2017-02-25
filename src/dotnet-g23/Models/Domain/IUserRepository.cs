@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain
 {
-    public interface IGADOrganizationRepository
+    public interface IUserRepository
     {
-        Organization GetBy(int orgId);
-        Organization GetByName(String orgName);
-        IEnumerable<Organization> GetAll();
+        User GetBy(int userId);
+        User GetByEmail(String userEmail);
+        IEnumerable<User> GetAll();
         void SaveChanges();
     }
 }

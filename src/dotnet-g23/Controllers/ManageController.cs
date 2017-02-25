@@ -14,12 +14,12 @@ namespace dotnet_g23.Controllers
 
 		#region Fields
 		//private User _user;
-		private readonly IGADUserRepository _userRepository;
-		private readonly IGADOrganizationRepository _orgRepository;
+		private readonly IUserRepository _userRepository;
+		private readonly IOrganizationRepository _orgRepository;
 		#endregion
 
 		#region Constructors
-		public ManageController(IGADUserRepository userRepository, IGADOrganizationRepository orgRepository) {
+		public ManageController(IUserRepository userRepository, IOrganizationRepository orgRepository) {
 			_userRepository = userRepository;
 			_orgRepository = orgRepository;
 

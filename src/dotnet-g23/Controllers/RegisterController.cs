@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnet_g23.Data.Repositories;
 using dotnet_g23.Helpers;
 using dotnet_g23.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,12 @@ namespace dotnet_g23.Controllers {
 
 		#region Fields
 		//private User _user;
-		private readonly IGADUserRepository _userRepository;
-		private readonly IGADOrganizationRepository _orgRepository;
+		private readonly IUserRepository _userRepository;
+		private readonly IOrganizationRepository _orgRepository;
 		#endregion
 
 		#region Constructors
-		public RegisterController(IGADUserRepository userRepository, IGADOrganizationRepository orgRepository) {
+		public RegisterController(UserRepository userRepository, OrganizationRepository orgRepository) {
 			_userRepository = userRepository;
 			_orgRepository = orgRepository;
 
