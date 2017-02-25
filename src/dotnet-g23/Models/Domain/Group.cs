@@ -25,7 +25,7 @@ namespace dotnet_g23.Models.Domain
         public Boolean Closed { get; set; }
         public ICollection<Participant> Participants { get; set; }
         public ICollection<Lector> Lectors { get; set; }
-        public GBOrganization GBOrganization { get; set; }
+        public Organization Organization { get; set; }
         #endregion
 
         #region Constructors

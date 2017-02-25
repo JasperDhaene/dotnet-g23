@@ -20,21 +20,18 @@ namespace dotnet_g23.Data.Repositories
         public IEnumerable<Organization> GetAll()
         {
             return _organizations
-                .Include(o => o.GBOrganization)
                 .ToList();
         }
 
         public Organization GetBy(int OrganizationId)
         {
             return _organizations
-                .Include(o => o.GBOrganization)
                 .SingleOrDefault(o => o.OrganizationId == OrganizationId);
         }
 
         public Organization GetByName(string orgName)
         {
             return _organizations
-                .Include(o => o.GBOrganization)
                 .SingleOrDefault(o => o.Name  == orgName);
         }
 

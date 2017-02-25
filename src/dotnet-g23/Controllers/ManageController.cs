@@ -33,11 +33,11 @@ namespace dotnet_g23.Controllers
 		{
 
             // show list of open groups
-            /*IEnumerable<GBOrganization> orgList = _orgRepository.GetAll().Where(o => o.OrganizationRole.ToString() == "GBOrganization").Cast<GBOrganization>();
+            /*IEnumerable<Organization> orgList = _orgRepository.GetAll().Where(o => o.OrganizationRole.ToString() == "Organization").Cast<Organization>();
 
 			Group[] list = {};
 
-			foreach (GBOrganization org in orgList)
+			foreach (Organization org in orgList)
 				foreach (Group group in org.Groups)
 					if (!group.IsClosed())
 						list[list.Length-1] = group;
@@ -81,7 +81,7 @@ namespace dotnet_g23.Controllers
 			}
 
 			// check if groupname unique and not empty
-			//GBOrganization org = _user.Group.GBOrganization;
+			//Organization org = _user.Group.Organization;
 			//Group group = org.CreateGroup(name);
 			//group.Participants.Add(_user);
 

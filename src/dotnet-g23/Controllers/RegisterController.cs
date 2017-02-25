@@ -29,7 +29,7 @@ namespace dotnet_g23.Controllers {
 		//[Route("organizations")]
 		public IActionResult Index(string query = null) {
 			// return filtered list with name & location of GB organisations
-			/*IEnumerable<Organization> list = _orgRepository.GetAll().Where(o => o.OrganizationRole.ToString() == "GBOrganization" );
+			/*IEnumerable<Organization> list = _orgRepository.GetAll().Where(o => o.OrganizationRole.ToString() == "Organization" );
 			if (query != null)
 				list = list.Where(o => (o.Name.IndexOf(query) > -1 || o.Location.IndexOf(query) > -1));*/
 			return View();
