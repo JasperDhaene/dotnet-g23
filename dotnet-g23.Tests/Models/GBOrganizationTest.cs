@@ -12,7 +12,7 @@ namespace dotnet_g23.Tests.Models
         [Fact]
         public void CreateGroupShouldCreateNewGroup()
         {
-            GBOrganization g = new GBOrganization();
+            GBOrganization g = new GBOrganization("Name", "Location");
             g.CreateGroup("NewGroup");
             Assert.Equal(1, g.Groups.Count);
             Assert.Equal("NewGroup", g.Groups.OfType<Group>()

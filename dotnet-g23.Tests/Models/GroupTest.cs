@@ -11,7 +11,7 @@ namespace dotnet_g23.Tests.Models
         {
             Group g = new Group("ClosedGroup");
             Assert.Equal("ClosedGroup", g.Name);
-            Assert.True(g.IsClosed());
+            Assert.True(g.Closed);
         }
 
         [Fact]
@@ -19,7 +19,7 @@ namespace dotnet_g23.Tests.Models
         {
             Group g = new Group("OpenGroup", false);
             Assert.Equal("ClosedGroup", g.Name);
-            Assert.False(g.IsClosed());
+            Assert.False(g.Closed);
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace dotnet_g23.Tests.Models
         {
             Group g = new Group("ClosedGroup", true);
             Assert.Equal("ClosedGroup", g.Name);
-            Assert.True(g.IsClosed());
+            Assert.True(g.Closed);
         }
 
         [Fact]
@@ -70,10 +70,10 @@ namespace dotnet_g23.Tests.Models
         public void ParticipantsAddedToCollectionOfParticipantsInGroup()
         {
             Group group = new Group("group");
-            group.Participants.Add(new Participant());
-            group.Participants.Add(new Participant());
-            group.Participants.Add(new Participant());
-            group.Participants.Add(new Participant());
+            group.Participants.Add(new Participant(null));
+            group.Participants.Add(new Participant(null));
+            group.Participants.Add(new Participant(null));
+            group.Participants.Add(new Participant(null));
             Assert.True(group.Participants.Count > 0);
             Assert.Equal(4, group.Participants.Count);
         }

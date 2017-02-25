@@ -4,60 +4,50 @@ using Xunit;
 
 namespace dotnet_g23.Tests.Models
 {
-    public class GADUserTest
+    public class UserTest
     {
         [Fact]
-        public void newGADUserShouldCreateGADUserAsVolunteerWhenSuccesfull()
+        public void newUserShouldCreateUserAsParticipantWhenSuccesfull()
         {
             string _email = "rowan.atkinson@student.hogent.be";
-            UserRole _volunteer = new Volunteer();
-            User g = new User(_email, _volunteer);
-            Assert.Equal(_email, g.Email);
-            Assert.True(g.UserRole == _volunteer);
-        }
-
-        [Fact]
-        public void newGADUserShouldCreateGADUserAsParticipantWhenSuccesfull()
-        {
-            string _email = "rowan.atkinson@student.hogent.be";
-            UserRole _participant = new Participant();
+            UserRole _participant = new Participant(null);
             User g = new User(_email, _participant);
             Assert.Equal(_email, g.Email);
             Assert.True(g.UserRole == _participant);
         }
 
         [Fact]
-        public void newGADUserShouldCreateGADUserAsLectorWhenSuccesfull()
+        public void newUserShouldCreateUserAsLectorWhenSuccesfull()
         {
             string _email = "rowan.atkinson@hogent.be";
-            UserRole _lector = new Volunteer();
+            UserRole _lector = new Lector();
             User g = new User(_email, _lector);
             Assert.Equal(_email, g.Email);
             Assert.True(g.UserRole == _lector);
         }
 
         [Fact]
-        public void newGADUserShouldThrowArgumentExceptionCreateGADUserAsLectorWhenEmailIncorrect()
+        public void newUserShouldThrowArgumentExceptionCreateUserAsLectorWhenEmailIncorrect()
         {
             string _email = "rowan.atkinson";
-            UserRole _lector = new Volunteer();
+            UserRole _lector = new Lector();
             Assert.Throws<ArgumentException>(() => new User(_email, _lector));
         }
 
         [Fact]
-        public void newGADUserShouldThrowArgumentExceptionCreateGADUserAsParticipantWhenEmailIncorrect()
+        public void newUserShouldThrowArgumentExceptionCreateUserAsParticipantWhenEmailIncorrect()
         {
             string _email = "student.hogent.be";
-            UserRole _participant = new Participant();
+            UserRole _participant = new Participant(null);
             Assert.Throws<ArgumentException>(() => new User(_email, _participant));
         }
 
         [Fact]
         public void ChangeUserRoleShouldChangeRole()
         {
-            User g = new User("test@test.be", new Volunteer());
+            User g = new User("test@test.be", new Lector());
             Assert.True(g.UserRole.GetType().Name.Equals("Volunteer"));
-            g.SetUserRole(new Participant());
+            g.UserRole = new Participant(null);
             Assert.True(g.UserRole.GetType().Name.Equals("Participant"));
         }
     }

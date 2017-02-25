@@ -8,7 +8,6 @@ namespace dotnet_g23.Tests.Data
 {
     public class DummyApplicationDbContext
     {
-        private readonly User _userVolunteer;
         private readonly User _userParticipant;
         private readonly User _userLector;
 
@@ -27,11 +26,9 @@ namespace dotnet_g23.Tests.Data
         public DummyApplicationDbContext()
         {
             _users = new List<User>();
-            _userVolunteer = new User("volunteer@hogent.be", new Volunteer());
-            _userParticipant = new User("participant@hogent.be", new Participant());
+            _userParticipant = new User("participant@hogent.be", new Participant(null));
             _userLector = new User("lector@hogent.be", new Lector());
 
-            _users.Add(_userVolunteer);
             _users.Add(_userParticipant);
             _users.Add(_userLector);
 
@@ -43,8 +40,8 @@ namespace dotnet_g23.Tests.Data
             _groups.Add(_closedGroup);
 
             _organizations = new List<Organization>();
-            _gbOrganization = new Organization("GBOrg", "Gent", new GBOrganization());
-            _organization = new Organization("Org", "Gent", new Organization());
+            _gbOrganization = new Organization("GBOrg", "Gent");
+            _organization = new Organization("Org", "Gent");
 
             _organizations.Add(_gbOrganization);
             _organizations.Add(_organization);
