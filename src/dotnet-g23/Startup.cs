@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Data.Repositories;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using dotnet_g23.Services;
 
 namespace dotnet_g23
 {
@@ -41,6 +42,7 @@ namespace dotnet_g23
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
+            services.AddSession();
             services.AddMvc();
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -53,6 +55,10 @@ namespace dotnet_g23
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+
+            // Add application services.
+            services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
