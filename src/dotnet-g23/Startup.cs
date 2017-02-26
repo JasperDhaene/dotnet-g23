@@ -11,6 +11,7 @@ using dotnet_g23.Data;
 using Microsoft.EntityFrameworkCore;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Data.Repositories;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace dotnet_g23
 {
@@ -45,6 +46,10 @@ namespace dotnet_g23
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
