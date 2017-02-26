@@ -8,9 +8,10 @@ using dotnet_g23.Data;
 namespace dotnet_g23.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170226085709_AddUniqueUserEmailAndGroupName")]
+    partial class AddUniqueUserEmailAndGroupName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")

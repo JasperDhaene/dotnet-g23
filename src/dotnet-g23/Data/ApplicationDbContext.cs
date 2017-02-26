@@ -47,6 +47,9 @@ namespace dotnet_g23.Data
             u.HasKey(user => user.UserId);
             u.Property(user => user.Email).IsRequired();
 
+            // Email is unique
+            u.HasAlternateKey(user => user.Email);
+
             u.HasOne(user => user.UserRole)
                 .WithOne(userRole => userRole.User)
                 .HasForeignKey<UserRole>(userRole => userRole.UserRoleId);
@@ -93,6 +96,9 @@ namespace dotnet_g23.Data
             g.HasKey(gr => gr.GroupId);
             g.Property(gr => gr.Name).IsRequired();
             g.Property(gr => gr.Closed).IsRequired();
+
+            // Name is unique
+            g.HasAlternateKey(gr => gr.Name);
 
             g.HasMany(group => group.Participants)
                 .WithOne(p => p.Group);
