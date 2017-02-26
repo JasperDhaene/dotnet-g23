@@ -39,6 +39,7 @@ namespace dotnet_g23.Data
             builder.Entity<Lector>(MapLector);
 
             builder.Entity<Group>(MapGroup);
+            builder.Entity<Motivation>(MapMotivation);
         }
 
         private static void MapUser(EntityTypeBuilder<User> u)
@@ -106,6 +107,30 @@ namespace dotnet_g23.Data
                 .WithOne(l => l.Group);
             g.HasOne(group => group.Organization)
                 .WithMany(org => org.Groups);
+            g.HasOne(group => group.Motivation)
+                .WithOne(m => m.Group);
+        }
+
+        private static void MapMotivation(EntityTypeBuilder<Motivation> m)
+        {
+            m.ToTable("Motivations");
+            m.HasKey(mo => mo.MotivationId);
+
+            m.Property(mo => mo.Approved).IsRequired();
+            m.Property(mo => mo.MotivationText).IsRequired();
+            m.Property(mo => mo.OrganizationName).IsRequired();
+            m.Property(mo => mo.OrganizationAddress).IsRequired();
+            m.Property(mo => mo.OrganizationWebsite).IsRequired();
+            m.Property(mo => mo.OrganizationEmail).IsRequired();
+
+            m.Property(mo => mo.OrganizationContactTitle);
+            m.Property(mo => mo.OrganizationContactFirstName);
+            m.Property(mo => mo.OrganizationContactName);
+            m.Property(mo => mo.OrganizationContactEmail);
+
+            m.HasOne(mo => mo.Group)
+                .WithOne(g => g.Motivation)
+                .HasForeignKey<Group>(g => g.GroupId);
         }
     }
 }

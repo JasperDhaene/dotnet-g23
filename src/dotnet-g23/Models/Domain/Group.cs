@@ -26,6 +26,7 @@ namespace dotnet_g23.Models.Domain
         public ICollection<Participant> Participants { get; set; }
         public ICollection<Lector> Lectors { get; set; }
         public Organization Organization { get; set; }
+        public Motivation Motivation { get; set; }
         #endregion
 
         #region Constructors
