@@ -245,4 +245,4 @@ ModelManifest.xml
 *.bak_*
 *.lck
 
-*.vscode/*
+src/dotnet-g23/.vscode/
