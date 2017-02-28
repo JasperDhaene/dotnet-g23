@@ -14075,6 +14075,21 @@ a.fc-more:hover {
     min-height: 95vh;
 }
 
+.card { /* css rule for a bootstrap well */
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #e8e8e8;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+    width: 300px;
+}
+
 .GBContainer {
     width: 100%;
     height: 80vh;
