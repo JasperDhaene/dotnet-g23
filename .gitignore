@@ -246,3 +246,4 @@ ModelManifest.xml
 *.lck
 
 src/dotnet-g23/.vscode/
+ignore/
