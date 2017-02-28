@@ -12,10 +12,10 @@ namespace dotnet_g23.Models.ViewModels.AccountViewModels
 
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = "Onthou dit browser?")]
         public bool RememberBrowser { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Onthou mij?")]
         public bool RememberMe { get; set; }
     }
 }

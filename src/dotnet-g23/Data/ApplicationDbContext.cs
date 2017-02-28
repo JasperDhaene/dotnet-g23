@@ -1,17 +1,21 @@
-﻿using dotnet_g23.Models.Domain;
+﻿using System;
+using dotnet_g23.Models.Domain;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ApplicationUser = dotnet_g23.Models.Domain.ApplicationUser;
 
 namespace dotnet_g23.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         // GiveADay database entities
-        public DbSet<User> Users { get; set; }
+        public DbSet<GUser> User { get; set; }
         public DbSet<Organization> Organizations { get; set; }
 
         // User hierarchy
-        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<UserState> UserStates { get; set; }
         public DbSet<Participant> Participants { get; set; }
         public DbSet<Lector> Lectors { get; set; }
 
@@ -27,14 +31,14 @@ namespace dotnet_g23.Data
             base.OnModelCreating(builder);
 
             // GiveADay database entities
-            builder.Entity<User>(MapUser);
+            builder.Entity<GUser>(MapUser);
             builder.Entity<Organization>(MapOrganization);
 
             // User hierarchy
-            builder.Entity<UserRole>()
-                .HasDiscriminator<string>("user_role_type")
-                .HasValue<Participant>("user_role_participant")
-                .HasValue<Lector>("user_role_lector");
+            builder.Entity<UserState>(MapUserRole);
+                //.HasDiscriminator<string>("user_role_type")
+                //.HasValue<Participant>("user_role_participant")
+                //.HasValue<Lector>("user_role_lector");
             builder.Entity<Participant>(MapParticipant);
             builder.Entity<Lector>(MapLector);
 
@@ -42,7 +46,7 @@ namespace dotnet_g23.Data
             builder.Entity<Motivation>(MapMotivation);
         }
 
-        private static void MapUser(EntityTypeBuilder<User> u)
+        private static void MapUser(EntityTypeBuilder<GUser> u)
         {
             u.ToTable("User");
             u.HasKey(user => user.UserId);
@@ -53,7 +57,15 @@ namespace dotnet_g23.Data
 
             u.HasOne(user => user.UserRole)
                 .WithOne(userRole => userRole.User)
-                .HasForeignKey<UserRole>(userRole => userRole.UserRoleId);
+                .HasForeignKey<UserState>(userRole => userRole.UserRoleId);
+        }
+
+        public static void MapUserRole(EntityTypeBuilder<UserState> u) {
+            u.ToTable("UserRole");
+            u.HasKey(userRole => userRole.UserRoleId);
+            u.HasDiscriminator<string>("user_role_type")
+                .HasValue<Participant>("user_role_participant")
+                .HasValue<Lector>("user_role_lector");
         }
 
         private static void MapOrganization(EntityTypeBuilder<Organization> o)
@@ -72,6 +84,7 @@ namespace dotnet_g23.Data
         {
             p.ToTable("Participants");
 
+            //p.HasKey(participant => participant.ParticipantId);
             p.HasOne(participant => participant.Organization)
                 .WithMany(org => org.Participants)
                 .IsRequired();
@@ -85,6 +98,7 @@ namespace dotnet_g23.Data
         {
             l.ToTable("Lectors");
 
+            //l.HasKey(lector => lector.LectorId);
             l.HasMany(lector => lector.Participants)
                 .WithOne(p => p.Lector);
             l.HasOne(lector => lector.Group)

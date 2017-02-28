@@ -7,9 +7,9 @@ namespace dotnet_g23.Models.Domain
 {
     public interface IUserRepository
     {
-        User GetBy(int userId);
-        User GetByEmail(String userEmail);
-        IEnumerable<User> GetAll();
+        GUser GetBy(int userId);
+        GUser GetByEmail(String userEmail);
+        IEnumerable<GUser> GetAll();
         void SaveChanges();
     }
 }

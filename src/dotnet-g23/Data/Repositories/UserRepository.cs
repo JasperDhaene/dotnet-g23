@@ -9,29 +9,29 @@ namespace dotnet_g23.Data.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly DbSet<User> _users;
+        private readonly DbSet<GUser> _users;
 
         public UserRepository(ApplicationDbContext context)
         {
             _context = context;
-            _users = context.Users;
+            _users = context.User;
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<GUser> GetAll()
         {
             return _users
                 .Include(u => u.UserRole)
                 .ToList();
         }
 
-        public User GetBy(int userId)
+        public GUser GetBy(int userId)
         {
             return _users
                 .Include(u => u.UserRole)
                 .SingleOrDefault(u => u.UserId == userId);
         }
 
-        public User GetByEmail(string userEmail)
+        public GUser GetByEmail(string userEmail)
         {
             return _users
                 .Include(u => u.UserRole)

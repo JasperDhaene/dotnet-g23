@@ -5,14 +5,14 @@ namespace dotnet_g23.Models.ViewModels.ManageViewModels
     public class SetPasswordViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Het {0} moet minstens {2} en maximaal {1} karakters lang zijn.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Nieuw paswoord")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Bevestig nieuw wachtwoord")]
+        [Compare("NewPassword", ErrorMessage = "Het nieuwe en bevestig wachtwoord komen niet overeen.")]
         public string ConfirmPassword { get; set; }
     }
 }
