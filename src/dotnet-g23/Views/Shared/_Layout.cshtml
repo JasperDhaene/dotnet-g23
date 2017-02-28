@@ -7,10 +7,15 @@
     <title>Goed Bezig - @ViewData["Title"]</title>
 
     <environment names="Development">
+       
         <link rel="stylesheet" href="~/css/gad.css" />
+        <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" /> -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     </environment>
     <environment names="Staging,Production">
+       <!-- <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" /> -->
         <link rel="stylesheet" href="~/css/gad.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     </environment>
@@ -78,7 +83,7 @@
             </div>
         </div>
     </nav>
-    <div id="page-wrapper">
+    <div id="page-wrapper" class="gb">
         
         <div class="container">
             <div class="row">
@@ -113,9 +118,26 @@
         @RenderSection("scripts", required: false)
     </div>
 </div>
-<footer class="GBFooter">
-    
-        &copy; Group 23: Jasper D'haene | Florian Dejonckheere | Tuur Lievens | Preben Leroy
-</footer> 
+<div class="footer">
+        <div class="bottom copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>
+                                <span>&copy; Group 23:  <a href="users.hogent.be/jasperdhaene">Jasper D'haene</a></span>
+                                <span class="splitter">|</span>
+                                <a href="https://florian.dejonckhee.re/">Florian Dejonckheere</a></span>
+                                <span class="splitter">|</span>
+                                <a href="http://users.hogent.be/~531789pl/eportfolio/">Preben Leroy</a></span>
+                                <span class="splitter">|</span>
+                                <a href="http://tuurlievens.net/">Tuur Lievens</a></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div> 
+
+
 </body>
 </html>
