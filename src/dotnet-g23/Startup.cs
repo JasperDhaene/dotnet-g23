@@ -113,7 +113,10 @@ namespace dotnet_g23 {
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            initializer.InitializeData().Wait();
+            try {
+                initializer.InitializeData().Wait();
+            }
+            catch(Exception ex) {}
         }
     }
 }
