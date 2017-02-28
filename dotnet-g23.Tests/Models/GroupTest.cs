@@ -1,81 +1,59 @@
-﻿//using dotnet_g23.Models.Domain;
-//using System;
-//using Xunit;
+﻿using dotnet_g23.Models.Domain;
+using System;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal;
+using Xunit;
 
-//namespace dotnet_g23.Tests.Models
-//{
-//    public class GroupTest
-//    {
-//        [Fact]
-//        public void ConstructorShouldCreateNewClosedGroup()
-//        {
-//            Group g = new Group("ClosedGroup");
-//            Assert.Equal("ClosedGroup", g.Name);
-//            Assert.True(g.Closed);
-//        }
+namespace dotnet_g23.Tests.Models
+{
+    public class GroupTest
+    {
+        [Fact]
+        public void GroupHasValidName()
+        {
+            String name = "foobar";
+            Group group = new Group(name);
 
-//        [Fact]
-//        public void ConstructorShouldCreateNewOpenGroup()
-//        {
-//            Group g = new Group("OpenGroup", false);
-//            Assert.Equal("ClosedGroup", g.Name);
-//            Assert.False(g.Closed);
-//        }
+            Assert.Equal(name, group.Name);
+        }
 
-//        [Fact]
-//        public void ConstructorShouldCreateNewClosedGroupWithOverloadedConstructor()
-//        {
-//            Group g = new Group("ClosedGroup", true);
-//            Assert.Equal("ClosedGroup", g.Name);
-//            Assert.True(g.Closed);
-//        }
+        [Fact]
+        public void GroupThrowsExceptionOnEmptyName()
+        {
+            String name = "";
 
-//        [Fact]
-//        public void ConstructorShouldNotCreateNewClosedGroupBecauseNameIsNull()
-//        {
-//            Assert.Throws<ArgumentException>(() => new Group(null));
-//        }
+            Assert.Throws<ArgumentException>(() => new Group(name));
+        }
 
-//        [Fact]
-//        public void ConstructorShouldNotCreateNewClosedGroupBecauseNameIsEmpty()
-//        {
-//            Assert.Throws<ArgumentException>(() => new Group(""));
-//        }
+        [Fact]
+        public void GroupThrowsExceptionOnNoName()
+        {
+            String name = null;
 
-//        [Fact]
-//        public void ConstructorShouldNotCreateNewClosedGroupBecauseNameIsSpaces()
-//        {
-//            Assert.Throws<ArgumentException>(() => new Group("          "));
-//        }
+            Assert.Throws<ArgumentException>(() => new Group(name));
+        }
 
-//        [Fact]
-//        public void ConstructorShouldNotCreateNewOpenGroupBecauseNameIsSpaces()
-//        {
-//            Assert.Throws<ArgumentException>(() => new Group("          ", false));
-//        }
+        [Fact]
+        public void GroupThrowsExceptionOnWhitespaceName()
+        {
+            String name = " ";
 
-//        [Fact]
-//        public void ConstructorShouldNotCreateNewOpenGroupBecauseNameIsEmpty()
-//        {
-//            Assert.Throws<ArgumentException>(() => new Group("", false));
-//        }
+            Assert.Throws<ArgumentException>(() => new Group(name));
+        }
 
-//        [Fact]
-//        public void ConstructorShouldNotCreateNewOpenGroupBecauseNameIsNull()
-//        {
-//            Assert.Throws<ArgumentException>(() => new Group(null, false));
-//        }
+        [Fact]
+        public void GroupIsClosedByDefault()
+        {
+            Group group = new Group("foobar");
 
-//        [Fact]
-//        public void ParticipantsAddedToCollectionOfParticipantsInGroup()
-//        {
-//            Group group = new Group("group");
-//            group.Participants.Add(new Participant(null));
-//            group.Participants.Add(new Participant(null));
-//            group.Participants.Add(new Participant(null));
-//            group.Participants.Add(new Participant(null));
-//            Assert.True(group.Participants.Count > 0);
-//            Assert.Equal(4, group.Participants.Count);
-//        }
-//    }
-//}
+            Assert.True(group.Closed);
+        }
+
+        [Fact]
+        public void GroupIsOpenWhenSpecified()
+        {
+            Group group = new Group("foobar", false);
+
+            Assert.False(group.Closed);
+        }
+    }
+}
