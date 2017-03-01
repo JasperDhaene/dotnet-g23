@@ -5,13 +5,10 @@ using System.Threading.Tasks;
 using dotnet_g23.Models.Domain;
 using Xunit;
 
-namespace dotnet_g23.Tests.Models
-{
-    public class MotivationTest
-    {
+namespace dotnet_g23.Tests.Models {
+    public class MotivationTest {
         [Fact]
-        public void MotivationHasValidMotivationText()
-        {
+        public void MotivationHasValidMotivationText() {
             String text =
                 "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed " +
                 "doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam";
@@ -21,22 +18,23 @@ namespace dotnet_g23.Tests.Models
         }
 
         [Fact]
-        public void MotivationThrowsExceptionOnShortMotivationText()
-        {
+        public void MotivationThrowsExceptionOnToShortMotivationText() {
             // < 99 chars
             String text = "Lorem ipsum dolor sit amet";
 
             Assert.Throws<ArgumentException>(() => new Motivation(text));
 
+        }
+
+        public void MotivationThrowsExceptionOnShortMotivationText() {
             // 99 chars
-            text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmod tempor incididunt ut labore";
+            String text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmod tempor incididunt ut labore";
 
             Assert.Throws<ArgumentException>(() => new Motivation(text));
         }
 
         [Fact]
-        public void MotivationThrowsExceptionOnLongMotivationText()
-        {
+        public void MotivationThrowsExceptionOnToLongMotivationText() {
             // > 250 chars
             String text =
                 "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmod tempor incididunt " +
@@ -44,9 +42,13 @@ namespace dotnet_g23.Tests.Models
                 "laboris nisi utaliquip ex ea commodo consequat. Duis aute irure dolor inreprehenderit";
 
             Assert.Throws<ArgumentException>(() => new Motivation(text));
+        }
+
+        [Fact]
+        public void MotivationThrowsExceptionOnLongMotivationText() {
 
             // 251 chars
-            text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmod tempor incididunt " +
+            String text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmod tempor incididunt " +
                    "ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco " +
                    "laboris nisi utaliquip ex ea commodo consequat. Duis aute irure dolo";
 
@@ -54,8 +56,7 @@ namespace dotnet_g23.Tests.Models
         }
 
         [Fact]
-        public void MotivationIsNotApprovedByDefault()
-        {
+        public void MotivationIsNotApprovedByDefault() {
             String text =
                 "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed " +
                 "doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam";

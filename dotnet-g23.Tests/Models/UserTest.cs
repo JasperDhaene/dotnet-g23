@@ -9,7 +9,7 @@ namespace dotnet_g23.Tests.Models
         [Fact]
         public void UserHasValidEmail()
         {
-            string email = "foo@bar";
+            string email = "foo@bar.be";
             GUser user = new GUser(email, null);
 
             Assert.Equal(email, user.Email);
@@ -19,6 +19,20 @@ namespace dotnet_g23.Tests.Models
         public void UserThrowsExceptionOnInvalidEmail()
         {
             string email = "foobar";
+
+            Assert.Throws<ArgumentException>(() => new GUser(email, null));
+        }
+
+        [Fact]
+        public void UserThrowsExceptionOnMissingAt() {
+            string email = "foobar.be";
+
+            Assert.Throws<ArgumentException>(() => new GUser(email, null);
+        }
+
+        [Fact]
+        public void UserThrowsExceptionOnMissingServiceProvider() {
+            string email = "foobar@";
 
             Assert.Throws<ArgumentException>(() => new GUser(email, null));
         }

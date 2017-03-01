@@ -68,5 +68,26 @@ namespace dotnet_g23.Tests.Models
             String location = " ";
             Assert.Throws<ArgumentException>(() => new Organization("foo", location));
         }
+
+        [Fact]
+        public void OrganizationThrowsExceptionOnWhitespaceBothThings() {
+            String location = " ";
+            String name = " ";
+            Assert.Throws<ArgumentException>(() => new Organization(name, location));
+        }
+
+        [Fact]
+        public void OrganizationThrowsExceptionOnEmptyBothThings() {
+            String location = "";
+            String name = "";
+            Assert.Throws<ArgumentException>(() => new Organization(name, location));
+        }
+
+        [Fact]
+        public void OrganizationThrowsExceptionOnNullForBothThings() {
+            String location = null;
+            String name = null;
+            Assert.Throws<ArgumentException>(() => new Organization(name, location));
+        }
     }
 }
