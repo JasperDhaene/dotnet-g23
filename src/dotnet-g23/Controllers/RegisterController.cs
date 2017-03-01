@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_g23.Controllers {
-	[Authorize]
-	public class RegisterController : Controller {
+    [Authorize(Policy = "participant")]
+    public class RegisterController : Controller {
 
 		#region Fields
 		private readonly IUserRepository _userRepository;

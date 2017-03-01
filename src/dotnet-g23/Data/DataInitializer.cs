@@ -40,24 +40,24 @@ namespace dotnet_g23.Data {
 
                 ApplicationUser user1 = new ApplicationUser { UserName = preben.Email, Email = preben.Email };
                 await _userManager.CreateAsync(user1, "P@ssword1");
-                //await _userManager.AddClaimAsync(user1, new Claim(ClaimTypes.Role, "participant"));
+                await _userManager.AddClaimAsync(user1, new Claim(ClaimTypes.Role, "participant"));
 
                 ApplicationUser user2 = new ApplicationUser { UserName = tuur.Email, Email = tuur.Email };
                 await _userManager.CreateAsync(user2, "P@ssword2");
-                //await _userManager.AddClaimAsync(user2, new Claim(ClaimTypes.Role, "participant"));
+                await _userManager.AddClaimAsync(user2, new Claim(ClaimTypes.Role, "participant"));
 
                 ApplicationUser user3 = new ApplicationUser { UserName = florian.Email, Email = florian.Email };
                 await _userManager.CreateAsync(user3, "P@ssword3");
-                //await _userManager.AddClaimAsync(user3, new Claim(ClaimTypes.Role, "lector"));
+                await _userManager.AddClaimAsync(user3, new Claim(ClaimTypes.Role, "lector"));
 
                 ApplicationUser user4 = new ApplicationUser { UserName = jasper.Email, Email = jasper.Email };
                 await _userManager.CreateAsync(user4, "P@ssword4");
-                //await _userManager.AddClaimAsync(user4, new Claim(ClaimTypes.Role, "lector"));
+                await _userManager.AddClaimAsync(user4, new Claim(ClaimTypes.Role, "lector"));
 
                 string eMailAddress = "admin@giveaday.be";
                 ApplicationUser user = new ApplicationUser { UserName = eMailAddress, Email = eMailAddress };
                 await _userManager.CreateAsync(user, "P@ssword5");
-                //await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "admin"));
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "admin"));
 
                 _context.SaveChanges();
             }

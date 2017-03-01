@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_g23.Controllers
 {
-	[Authorize]
-	public class GroupManageController : Controller
+    [Authorize(Policy = "participant")]
+    public class GroupManageController : Controller
 	{
 
 		#region Fields
@@ -75,21 +75,21 @@ namespace dotnet_g23.Controllers
 			return RedirectToAction("Index", "GroupManageController");
 		}
 
-		[HttpPost]
+		//[HttpPost]
 		//[Route("groups/create")]
 		public IActionResult Create(string name = null, bool closed = false)
 		{
 			// validate name, make new group and register user
 
-			if (name == null)
-			{
-				ViewData["Message"] = "Error: Wrong name";
-				return View();
-			}
+			//if (name == null)
+			//{
+			//	ViewData["Message"] = "Error: Wrong name";
+			//	return View();
+			//}
 
-			// check if groupname unique and not empty
-			var authuser = _userManager.FindByNameAsync(User.Identity.Name);
-			GUser user = _userRepository.GetByEmail(authuser.Result.Email);
+			//// check if groupname unique and not empty
+			//var authuser = _userManager.FindByNameAsync(User.Identity.Name);
+			//GUser user = _userRepository.GetByEmail(authuser.Result.Email);
 
 			/*Organization org = user.Organization;
 			Group group = new Group(name);
