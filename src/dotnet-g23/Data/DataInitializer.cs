@@ -19,7 +19,6 @@ namespace dotnet_g23.Data {
         public async Task InitializeData() {
             _context.Database.EnsureDeleted();
             if (_context.Database.EnsureCreated()) {
-                //await InitializeUsers();
                 Organization org1 = new Organization("HoGent", "Gent");
                 Organization org2 = new Organization("Howest", "Kortrijk");
                 Organization org3 = new Organization("Organization", "Gent");
