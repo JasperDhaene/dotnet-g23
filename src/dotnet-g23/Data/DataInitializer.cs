@@ -33,10 +33,10 @@ namespace dotnet_g23.Data {
                 GUser florian = new GUser("florian.dejonckheere@hogent.be", new Lector());
                 GUser jasper = new GUser("jasper.dhaene@organization.be", new Lector());
 
-                _context.User.Add(preben);
-                _context.User.Add(tuur);
-                _context.User.Add(florian);
-                _context.User.Add(jasper);
+                _context.GUsers.Add(preben);
+                _context.GUsers.Add(tuur);
+                _context.GUsers.Add(florian);
+                _context.GUsers.Add(jasper);
 
                 ApplicationUser user1 = new ApplicationUser { UserName = preben.Email, Email = preben.Email };
                 await _userManager.CreateAsync(user1, "P@ssword1");

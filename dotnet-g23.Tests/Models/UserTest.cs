@@ -27,7 +27,7 @@ namespace dotnet_g23.Tests.Models
         public void UserThrowsExceptionOnMissingAt() {
             string email = "foobar.be";
 
-            Assert.Throws<ArgumentException>(() => new GUser(email, null);
+            Assert.Throws<ArgumentException>(() => new GUser(email, null));
         }
 
         [Fact]

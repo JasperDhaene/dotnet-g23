@@ -116,7 +116,9 @@ namespace dotnet_g23 {
             try {
                 initializer.InitializeData().Wait();
             }
-            catch(Exception ex) {}
+            catch(Exception ex) {
+                Console.Write(ex.Message);
+            }
         }
     }
 }
