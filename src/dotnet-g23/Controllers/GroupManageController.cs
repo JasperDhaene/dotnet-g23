@@ -106,14 +106,17 @@ namespace dotnet_g23.Controllers
 		public IActionResult Invite(string[] addresses = null)
 		{
 
+			var authuser = _userManager.FindByNameAsync(User.Identity.Name);
+			GUser user = _userRepository.GetByEmail(authuser.Result.Email);
+
 			if (addresses != null)
 			{
 				foreach (string address in addresses)
 				{
-					if (MailHelper.VerifyMailAddress(address))
+					/*if (MailHelper.VerifyMailAddress(address, user.Group.Organization.Domain))
 					{
 						// invite mail address
-					}
+					}*/
 				}
 			}
 

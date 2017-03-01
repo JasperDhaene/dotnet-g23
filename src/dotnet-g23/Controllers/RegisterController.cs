@@ -47,14 +47,13 @@ namespace dotnet_g23.Controllers {
 			Organization org = _orgRepository.GetByName(orgname);
 			var user = _userManager.FindByNameAsync(User.Identity.Name);
 
-			if (MailHelper.VerifyMailAddress(user.Result.Email)) {
+			/*if (MailHelper.VerifyMailAddress(user.Result.Email, org.Domain)) {
 				org.Participants.Add(new Participant(org));
 				return RedirectToAction("Index", "GroupManageController");
-			}
-			else {
-				ViewData["Message"] = "Error: Wrong mail address";
-				return View();
-			}
+			}*/
+
+			ViewData["Message"] = "Error: Wrong mail address";
+			return View();
 
 		}
 		#endregion
