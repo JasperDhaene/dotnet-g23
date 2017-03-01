@@ -14,7 +14,7 @@ namespace dotnet_g23.Data.Repositories
         public UserRepository(ApplicationDbContext context)
         {
             _context = context;
-            _users = context.User;
+            _users = context.Users;
         }
 
         public IEnumerable<GUser> GetAll()

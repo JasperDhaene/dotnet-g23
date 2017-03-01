@@ -11,7 +11,7 @@ namespace dotnet_g23.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         // GiveADay database entities
-        public DbSet<GUser> User { get; set; }
+        public DbSet<GUser> Users { get; set; }
         public DbSet<Organization> Organizations { get; set; }
 
         // User hierarchy
