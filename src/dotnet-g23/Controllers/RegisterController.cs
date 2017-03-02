@@ -40,11 +40,11 @@ namespace dotnet_g23.Controllers {
 		}
 
 		[HttpPost]
-		public IActionResult Register(string orgname) {
+		public IActionResult Register() {
 			// validate & register user with org or throw error
 
-			Organization org = _orgRepository.GetByName(orgname);
-			var user = _userManager.FindByNameAsync(User.Identity.Name);
+		    Organization org = _orgRepository.GetBy(Int32.Parse(Request.Form["OrganizationId"]));
+			var user = _userManager.FindByNameAsync(User.Identity.Name).Result;
 
 			/*if (MailHelper.VerifyMailAddress(user.Result.Email, org.Domain)) {
 				org.Participants.Add(new Participant(org));
@@ -52,8 +52,7 @@ namespace dotnet_g23.Controllers {
 			}*/
 
 			ViewData["Message"] = "Error: Wrong mail address";
-			return View();
-
+			return View(org);
 		}
 		#endregion
 

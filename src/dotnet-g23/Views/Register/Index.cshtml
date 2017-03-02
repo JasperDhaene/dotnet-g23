@@ -12,6 +12,7 @@
         <div class="GBCard">
             <form asp-controller="Register" asp-action="Register" method="post" class="form-horizontal">
                 <span>@org.Name - @org.Location</span>
+                <input type="hidden" value="@org.OrganizationId" name="OrganizationId"/>
                 <input type="submit" value="registreer" class="GBCardSubmit"/>
             </form>
         </div>

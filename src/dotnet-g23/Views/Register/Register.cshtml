@@ -1,0 +1,15 @@
+﻿@model dotnet_g23.Models.Domain.Organization
+
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+<div class="GBContainer">
+    <div class="row">
+        <div class="col-lg-12">
+            <p>
+                U bent geregistreerd bij de volgende organizatie: <strong>@Model.Name</strong> (@Model.Location)
+            </p>
+        </div>
+    </div>
+</div>
