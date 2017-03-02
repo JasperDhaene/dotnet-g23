@@ -34,7 +34,7 @@ namespace dotnet_g23.Controllers {
 
 			IEnumerable<Organization> list = _orgRepository.GetAll();
 			if (query != null)
-				list = list.Where(o => (o.Name.IndexOf(query) > -1 || o.Location.IndexOf(query) > -1));
+				list = list.Where(o => (o.Name.Contains(query) || o.Location.Contains(query)));
 
 			return View(list);
 		}
