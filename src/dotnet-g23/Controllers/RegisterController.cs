@@ -28,7 +28,7 @@ namespace dotnet_g23.Controllers {
 		#endregion
 
 		#region Methods
-		[Route("organizations")]
+		[Route("Organizations")]
 		public IActionResult Index(string query = null) {
 			// return filtered list with name & location of GB organisations
 
@@ -36,8 +36,7 @@ namespace dotnet_g23.Controllers {
 			if (query != null)
 				list = list.Where(o => (o.Name.IndexOf(query) > -1 || o.Location.IndexOf(query) > -1));
 
-			ViewData["organizations"] = list;
-			return View();
+			return View(list);
 		}
 
 		[HttpPost]

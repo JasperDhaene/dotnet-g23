@@ -40,6 +40,12 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
+
+        public Organization()
+        {
+            
+        }
+
         public Organization(String name, String location)
         {
             Name = name;
