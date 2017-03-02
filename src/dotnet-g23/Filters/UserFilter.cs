@@ -1,11 +1,11 @@
 ﻿using dotnet_g23.Models.Domain;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Beerhall.Filters {
-    public class CustomerFilter : ActionFilterAttribute {
+namespace dotnet_g23.Filters {
+    public class UserFilter : ActionFilterAttribute {
         private readonly IUserRepository _userRepository;
 
-        public CustomerFilter(IUserRepository userRespoitory) {
+        public UserFilter(IUserRepository userRespoitory) {
             _userRepository = userRespoitory;
         }
 
