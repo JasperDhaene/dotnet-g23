@@ -20,21 +20,21 @@ namespace dotnet_g23.Data.Repositories
         public IEnumerable<GUser> GetAll()
         {
             return _users
-                .Include(u => u.UserRole)
+                .Include(u => u.UserState)
                 .ToList();
         }
 
         public GUser GetBy(int userId)
         {
             return _users
-                .Include(u => u.UserRole)
+                .Include(u => u.UserState)
                 .SingleOrDefault(u => u.UserId == userId);
         }
 
         public GUser GetByEmail(string userEmail)
         {
             return _users
-                .Include(u => u.UserRole)
+                .Include(u => u.UserState)
                 .SingleOrDefault(u => u.Email == userEmail);
         }
 

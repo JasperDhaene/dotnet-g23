@@ -30,14 +30,14 @@ namespace dotnet_g23.Models.Domain
             }
         }
         public int UserId { get; set; }
-        public UserState UserRole { get; set; }
+        public UserState UserState { get; set; }
         #endregion
 
         #region Constructors
-        public GUser(String email, UserState userRole)
+        public GUser(String email, UserState userState)
         {
             Email = email;
-            UserRole = userRole;
+            UserState = userState;
         }
         #endregion
     }

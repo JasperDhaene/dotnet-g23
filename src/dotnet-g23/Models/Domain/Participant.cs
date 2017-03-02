@@ -11,7 +11,6 @@ namespace dotnet_g23.Models.Domain
         public Group Group { get; set; }
         public Lector Lector { get; set; }
         public Organization Organization { get; set; }
-        public int ParticipantId { get; set; }
         #endregion
 
         #region Constructors

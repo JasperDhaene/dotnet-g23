@@ -35,10 +35,7 @@ namespace dotnet_g23.Data
             builder.Entity<Organization>(MapOrganization);
 
             // User hierarchy
-            builder.Entity<UserState>(MapUserRole);
-                //.HasDiscriminator<string>("user_role_type")
-                //.HasValue<Participant>("user_role_participant")
-                //.HasValue<Lector>("user_role_lector");
+            builder.Entity<UserState>(MapUserState);
             builder.Entity<Participant>(MapParticipant);
             builder.Entity<Lector>(MapLector);
 
@@ -55,17 +52,17 @@ namespace dotnet_g23.Data
             // Email is unique
             u.HasAlternateKey(user => user.Email);
 
-            u.HasOne(user => user.UserRole)
-                .WithOne(userRole => userRole.User)
-                .HasForeignKey<UserState>(userRole => userRole.UserRoleId);
+            u.HasOne(user => user.UserState)
+                .WithOne(userState => userState.User)
+                .HasForeignKey<UserState>(userState => userState.UserStateId);
         }
 
-        public static void MapUserRole(EntityTypeBuilder<UserState> u) {
-            u.ToTable("UserRole");
-            u.HasKey(userRole => userRole.UserRoleId);
-            u.HasDiscriminator<string>("user_role_type")
-                .HasValue<Participant>("user_role_participant")
-                .HasValue<Lector>("user_role_lector");
+        public static void MapUserState(EntityTypeBuilder<UserState> u) {
+            u.ToTable("UserState");
+            u.HasKey(userState => userState.UserStateId);
+            u.HasDiscriminator<string>("user_state_type")
+                .HasValue<Participant>("user_state_participant")
+                .HasValue<Lector>("user_state_lector");
         }
 
         private static void MapOrganization(EntityTypeBuilder<Organization> o)

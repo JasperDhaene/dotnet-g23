@@ -35,7 +35,7 @@ namespace dotnet_g23.Data.Repositories
                 .Include(p => p.Lector)
                 .Include(p => p.Organization)
                 .Include(p => p.User)
-                .SingleOrDefault(p => p.UserRoleId == userStateId);
+                .SingleOrDefault(p => p.UserStateId == userStateId);
         }
 
         public Participant GetByUser(int userId)

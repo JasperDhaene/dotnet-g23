@@ -8,7 +8,7 @@ namespace dotnet_g23.Models.Domain
     public abstract class UserState
     {
         #region Properties
-        public int UserRoleId { get; set; }
+        public int UserStateId { get; set; }
         public GUser User { get; set; }
         #endregion
     }
