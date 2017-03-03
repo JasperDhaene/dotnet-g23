@@ -4,11 +4,11 @@ using Newtonsoft.Json;
 using dotnet_g23.Models.Domain;
 
 namespace dotnet_g23.Filters {
-    public class GroupSessionFilter : ActionFilterAttribute {
+    public class GroupFilter : ActionFilterAttribute {
         private readonly IGroupRepository _groupRepository;
         private Group _group;
 
-        public GroupSessionFilter(IGroupRepository groupRepository) {
+        public GroupFilter(IGroupRepository groupRepository) {
             _groupRepository = groupRepository;
         }
 

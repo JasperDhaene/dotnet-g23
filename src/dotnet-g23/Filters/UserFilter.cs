@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace dotnet_g23.Filters {
     public class UserFilter : ActionFilterAttribute {
-        //TODO ParticipantFilter & LectorFilter
         private readonly IUserRepository _userRepository;
 
         public UserFilter(IUserRepository userRespoitory) {
