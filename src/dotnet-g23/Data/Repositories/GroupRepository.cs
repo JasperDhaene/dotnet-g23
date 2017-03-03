@@ -47,7 +47,17 @@ namespace dotnet_g23.Data.Repositories
                 .SingleOrDefault(g => g.Name == groupName);
         }
 
-        public void SaveChanges()
+		public IEnumerable<Group> GetByOrganization(Organization organization) {
+			return _groups
+				.Include(g => g.Organization)
+				.Include(g => g.Motivation)
+				.Include(g => g.Lectors)
+				.Include(g => g.Participants)
+				.Where(g => g.Organization == organization)
+				.ToList();
+		}
+
+		public void SaveChanges()
         {
             _context.SaveChanges();
         }
