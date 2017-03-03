@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using dotnet_g23.Data.Repositories;
+using dotnet_g23.Filters;
 using dotnet_g23.Helpers;
 using dotnet_g23.Models.Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -10,49 +11,47 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_g23.Controllers {
-    [Authorize(Policy = "participant")]
-    public class RegisterController : Controller {
+    //[Authorize(Policy = "participant")]
+	[ServiceFilter(typeof(UserFilter))]
+	public class RegisterController : Controller {
 
 		#region Fields
-		private readonly IUserRepository _userRepository;
 		private readonly IOrganizationRepository _orgRepository;
-		private readonly UserManager<ApplicationUser> _userManager;
 		#endregion
 
 		#region Constructors
-		public RegisterController(IUserRepository userRepository, IOrganizationRepository orgRepository, UserManager<ApplicationUser> userManager) {
-			_userRepository = userRepository;
+		public RegisterController(IOrganizationRepository orgRepository) {
 			_orgRepository = orgRepository;
-			_userManager = userManager;
 		}
 		#endregion
 
 		#region Methods
 		[Route("Organizations")]
-		public IActionResult Index(string query = null) {
-			// return filtered list with name & location of GB organisations
+		public IActionResult Index(GUser user, string query = null) {
+			// return filtered list with name & location of organisations
 
-			IEnumerable<Organization> list = _orgRepository.GetAll();
+			/*IEnumerable<Organization> list = _orgRepository.GetAll().Where(o => o.Domain == MailHelper.GetMailDomain(user.Email));
 			if (query != null)
 				list = list.Where(o => (o.Name.Contains(query) || o.Location.Contains(query)));
 
-			return View(list);
+			ViewData["organizations"] = list;*/
+			return View();
 		}
 
 		[HttpPost]
-		public IActionResult Register() {
-			// validate & register user with org or throw error
+		[Route("Organization/Register")]
+		public IActionResult Register(GUser user, int id) {
+			// register user with organization
 
-		    Organization org = _orgRepository.GetBy(Int32.Parse(Request.Form["OrganizationId"]));
-			var user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+			Organization org = _orgRepository.GetBy(id);
 
-			/*if (MailHelper.VerifyMailAddress(user.Result.Email, org.Domain)) {
-				org.Participants.Add(new Participant(org));
+			/*if (MailHelper.GetMailDomain(user.Email) == org.Domain) {
+				//org.Register(user);
 				return RedirectToAction("Index", "GroupManageController");
 			}*/
 
 			ViewData["Message"] = "Error: Wrong mail address";
-			return View(org);
+			return View();
 		}
 		#endregion
 
