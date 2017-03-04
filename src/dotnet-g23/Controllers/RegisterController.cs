@@ -46,7 +46,7 @@ namespace dotnet_g23.Controllers {
 			Organization org = _orgRepository.GetBy(id);
 
 			if (MailHelper.GetMailDomain(user.Email) == org.Domain) {
-				//org.Register(user);
+				org.Register(user);
 				return RedirectToAction("Index", "GroupManageController");
 			}
 
