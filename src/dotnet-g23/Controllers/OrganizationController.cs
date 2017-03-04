@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_g23.Controllers {
+    [ServiceFilter(typeof(UserFilter))]
     //[Authorize(Policy = "participant")]
-	[ServiceFilter(typeof(UserFilter))]
-	public class OrganizationController : Controller {
+    public class OrganizationController : Controller {
 
 		#region Fields
 		private readonly IOrganizationRepository _orgRepository;
