@@ -1,54 +1,40 @@
-﻿//using dotnet_g23.Models.Domain;
-//using System;
-//using Xunit;
+﻿using System;
+using dotnet_g23.Models.Domain;
+using Xunit;
 
-//namespace dotnet_g23.Tests.Models
-//{
-//    public class UserTest
-//    {
-//        [Fact]
-//        public void newUserShouldCreateUserAsParticipantWhenSuccesfull()
-//        {
-//            string _email = "rowan.atkinson@student.hogent.be";
-//            UserRole _participant = new Participant(null);
-//            User g = new User(_email, _participant);
-//            Assert.Equal(_email, g.Email);
-//            Assert.True(g.UserRole == _participant);
-//        }
+namespace dotnet_g23.Tests.Models
+{
+    public class UserTest
+    {
+        [Fact]
+        public void UserHasValidEmail()
+        {
+            string email = "foo@bar.be";
+            GUser user = new GUser(email, null);
 
-//        [Fact]
-//        public void newUserShouldCreateUserAsLectorWhenSuccesfull()
-//        {
-//            string _email = "rowan.atkinson@hogent.be";
-//            UserRole _lector = new Lector();
-//            User g = new User(_email, _lector);
-//            Assert.Equal(_email, g.Email);
-//            Assert.True(g.UserRole == _lector);
-//        }
+            Assert.Equal(email, user.Email);
+        }
 
-//        [Fact]
-//        public void newUserShouldThrowArgumentExceptionCreateUserAsLectorWhenEmailIncorrect()
-//        {
-//            string _email = "rowan.atkinson";
-//            UserRole _lector = new Lector();
-//            Assert.Throws<ArgumentException>(() => new User(_email, _lector));
-//        }
+        [Fact]
+        public void UserThrowsExceptionOnInvalidEmail()
+        {
+            string email = "foobar";
 
-//        [Fact]
-//        public void newUserShouldThrowArgumentExceptionCreateUserAsParticipantWhenEmailIncorrect()
-//        {
-//            string _email = "student.hogent.be";
-//            UserRole _participant = new Participant(null);
-//            Assert.Throws<ArgumentException>(() => new User(_email, _participant));
-//        }
+            Assert.Throws<ArgumentException>(() => new GUser(email, null));
+        }
 
-//        [Fact]
-//        public void ChangeUserRoleShouldChangeRole()
-//        {
-//            User g = new User("test@test.be", new Lector());
-//            Assert.True(g.UserRole.GetType().Name.Equals("Volunteer"));
-//            g.UserRole = new Participant(null);
-//            Assert.True(g.UserRole.GetType().Name.Equals("Participant"));
-//        }
-//    }
-//}
+        [Fact]
+        public void UserThrowsExceptionOnMissingAt() {
+            string email = "foobar.be";
+
+            Assert.Throws<ArgumentException>(() => new GUser(email, null));
+        }
+
+        [Fact]
+        public void UserThrowsExceptionOnMissingServiceProvider() {
+            string email = "foobar@";
+
+            Assert.Throws<ArgumentException>(() => new GUser(email, null));
+        }
+    }
+}

@@ -9,7 +9,7 @@ namespace dotnet_g23.Models.ViewModels.ManageViewModels
 
         [Required]
         [Phone]
-        [Display(Name = "Phone number")]
+        [Display(Name = "Telefoonnummer")]
         public string PhoneNumber { get; set; }
     }
 }

@@ -3,112 +3,95 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using dotnet_g23.Data.Repositories;
+using dotnet_g23.Filters;
 using dotnet_g23.Helpers;
 using dotnet_g23.Models.Domain;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_g23.Controllers
 {
+    [Authorize(Policy = "participant")]
+	[ServiceFilter(typeof(UserFilter))]
 	public class GroupManageController : Controller
 	{
 
 		#region Fields
-		//private User _user;
-		private readonly IUserRepository _userRepository;
-		private readonly IOrganizationRepository _orgRepository;
+		private readonly IGroupRepository _groupRepository;
 		#endregion
 
 		#region Constructors
-		public GroupManageController(IUserRepository userRepository, IOrganizationRepository orgRepository) {
-			_userRepository = userRepository;
-			_orgRepository = orgRepository;
-
-			//_user = _userRepository.GetAll().First();
+		public GroupManageController(IGroupRepository groupRepository) {
+			_groupRepository = groupRepository;
 		}
 		#endregion
 
 		#region Methods
-		//[Route("groups")]
-		public IActionResult Index()
+		[Route("Groups")]
+		public IActionResult Index(Participant user)
 		{
-
-            // show list of open groups
-            /*IEnumerable<Organization> orgList = _orgRepository.GetAll().Where(o => o.OrganizationRole.ToString() == "Organization").Cast<Organization>();
-
-			Group[] list = {};
-
-			foreach (Organization org in orgList)
-				foreach (Group group in org.Groups)
-					if (!group.IsClosed())
-						list[list.Length-1] = group;
-
-			return View(list);
-            */
-            return View();
-
-
-        }
-
-		//[HttpPost]
-		//[Route("groups/register")]
-		public IActionResult Register(string name) {
-			// find group, check if user isn't registered and register user with group
-
-			//Group group = _groupRepo.GetByName(name);
-			//group.Participants.Add(_user);
-
-			//if (_user.Group != null)
-			//{
-				//ViewData["Message"] = "Error: already registered";
-				//return View();
-			//}
-
-
-			// redirect to group detail
-			return RedirectToAction("Index", "Manage");
-		}
-
-		//[HttpPost]
-		//[Route("groups/create")]
-		public IActionResult Create(string name = null, bool closed = false)
-		{
-			// validate name, make new group and register user
-
-			if (name == null)
-			{
-				ViewData["Message"] = "Error: Wrong name";
-				return View();
-			}
-
-			// check if groupname unique and not empty
-			//Organization org = _user.Group.Organization;
-			//Group group = org.CreateGroup(name);
-			//group.Participants.Add(_user);
-
-			// notify lector
-			//_user.Lector.Notify();
+			// show list of open groups
+			IEnumerable<Group> groups = _groupRepository.GetByOrganization(user.Organization).Where(g => !g.Closed);
+			ViewData["groups"] = groups;
 			return View();
 		}
 
-		//[HttpPost]
-		//[Route("groups/invite")]
-		public IActionResult Invite(string[] addresses = null)
+		[HttpPost]
+		[Route("Group/Register")]
+		public IActionResult Register(Participant user, int id) {
+			// register user with group
+
+			if (user.Group != null)
+			{
+				//part.Organization.Register(user);
+				ViewData["Message"] = "Error: already registered";
+				return RedirectToAction("Index", "GroupManageController");
+			}
+
+			Group group = _groupRepository.GetBy(id);
+			//group.Register(user);
+
+			// redirect to group detail
+			return RedirectToAction("RegisterMotivation", "MotivationController");
+		}
+
+		[HttpPost]
+		[Route("Group/Create")]
+		public IActionResult Create(Participant user, string name = null, bool closed = false)
 		{
+			// create new group with organization
+
+			if (name != null)
+			{
+				//user.Organization.CreateGroup(name, closed);
+				// notify lector
+				return RedirectToAction("Invite", "GroupManageController");
+			}
+
+			//return View();
+			return RedirectToAction("Index", "GroupManageController");
+		}
+
+		[HttpPost]
+		[Route("Group/Invite")]
+		public IActionResult Invite(Participant user, string[] addresses = null)
+		{
+
+			// invite new users to group
 
 			if (addresses != null)
 			{
 				foreach (string address in addresses)
 				{
-					if (MailHelper.VerifyMailAddress(address))
-					{
-						// invite mail address
-					}
+					//part.Group.Invite(address);
 				}
+				// notify lector
+				return RedirectToAction("RegisterMotivation", "MotivationController");
 			}
 
-			// notify lector
-			//_user.Lector.Notify();
-			return View();
+			//return View();
+			return RedirectToAction("Index", "GroupManageController");
 		}
 		#endregion
 

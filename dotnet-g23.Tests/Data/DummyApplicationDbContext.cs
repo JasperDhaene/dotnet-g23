@@ -1,56 +1,52 @@
-﻿//using dotnet_g23.Models.Domain;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
+﻿using dotnet_g23.Models.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-//namespace dotnet_g23.Tests.Data
-//{
-//    public class DummyApplicationDbContext
-//    {
-//        private readonly User _userParticipant;
-//        private readonly User _userLector;
+namespace dotnet_g23.Tests.Data {
+    public class DummyApplicationDbContext {
+        public GUser Preben { get; set; }
+        public GUser Tuur { get; set; }
+        public GUser Jasper { get; set; }
+        public GUser Florian { get; set; }
+        public ICollection<GUser> GUsers { get; set; }
+        public ICollection<Organization> Organizations { get; set; }
+        public Motivation Motivation { get; set; }
 
-//        private readonly ICollection<User> _users;
+        private readonly ICollection<Group> _groups;
 
-//        private readonly Group _openGroup;
-//        private readonly Group _closedGroup;
+        public DummyApplicationDbContext() {
+            Organization org1 = new Organization("HoGent", "Gent");
+            Organization org2 = new Organization("Howest", "Kortrijk");
+            Organization org3 = new Organization("Organization", "Gent");
 
-//        private readonly ICollection<Group> _groups;
+            Organizations.Add(org1);
+            Organizations.Add(org2);
+            Organizations.Add(org3);
 
-//        private readonly Organization _gbOrganization;
-//        private readonly Organization _organization;
+            Preben = new GUser("preben.leroy@hogent.be", new Participant(org1));
+            Tuur = new GUser("tuur.lievens@organization.be", new Participant(org3));
+            Florian = new GUser("florian.dejonckheere@hogent.be", new Lector());
+            Jasper = new GUser("jasper.dhaene@organization.be", new Lector());
 
-//        private readonly ICollection<Organization> _organizations;
+            GUsers.Add(Preben);
+            GUsers.Add(Tuur);
+            GUsers.Add(Florian);
+            GUsers.Add(Jasper);
 
-//        public DummyApplicationDbContext()
-//        {
-//            _users = new List<User>();
-//            _userParticipant = new User("participant@hogent.be", new Participant(null));
-//            _userLector = new User("lector@hogent.be", new Lector());
+            _groups = new List<Group>();
+            Group _openGroup = new Group("OpenGroup", false);
+            Group _closedGroup = new Group("ClosedGroup");
 
-//            _users.Add(_userParticipant);
-//            _users.Add(_userLector);
+            _groups.Add(_closedGroup);
+            _groups.Add(_openGroup);
 
-//            _groups = new List<Group>();
-//            _openGroup = new Group("OpenGroup", false);
-//            _closedGroup = new Group("ClosedGroup");
+            String text1 = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed " +
+                "doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam";
+            Motivation = new Motivation(text1);
+        }
+        public ICollection<Group> Groups => _groups;
+    }
+}
 
-//            _groups.Add(_openGroup);
-//            _groups.Add(_closedGroup);
-
-//            _organizations = new List<Organization>();
-//            _gbOrganization = new Organization("GBOrg", "Gent");
-//            _organization = new Organization("Org", "Gent");
-
-//            _organizations.Add(_gbOrganization);
-//            _organizations.Add(_organization);
-//        }
-
-//        public IEnumerable<Organization> Organizations => _organizations;
-
-//        public IEnumerable<User> Users => _users;
-
-//        public IEnumerable<Group> Groups => _groups;
-//    }
-//}

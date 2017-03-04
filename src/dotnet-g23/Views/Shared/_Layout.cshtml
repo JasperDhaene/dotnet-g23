@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using System.Threading.Tasks
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,68 +25,81 @@
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
-<div id="wrapper">
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <i class="fa fa-bars"></i>
-                </a>
-                <!--<a href="https://www.giveaday.be/" class="navbar-brand">
-                    <img src="https://www.giveaday.be/design/img/logo.svg" alt="Give a Day logo" class="logo">
-                </a> -->
-                <a href="https://www.giveaday.be/" class="navbar-brand">
-                    <img src="~/images/logoGoedBezig.png" alt="Give a Day logo" class="logo">
-                </a>
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    <a href="https://www.giveaday.be/" class="navbar-brand">
+                        <img src=~/images/logoGoedBezig.png" alt="Goed Bezig logo" class="logo">
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        @if (await AuthorizationService.AuthorizeAsync(User, "participant")) {
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Register" asp-action="Index" class="nav-link">
+                                    <span>Registratie</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="GroupManage" asp-action="Create" class="nav-link">
+                                    <span>Groep aanmaken</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Motivation" asp-action="RegisterMotivation" class="nav-link">
+                                    <span>Motivatie ingeven</span>
+                                </a>
+                            </li>
+                        }
+                        @if (await AuthorizationService.AuthorizeAsync(User, "lector")) {
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Motivation" asp-action="CheckMotivation" class="nav-link">
+                                    <span>Motivaties controleren</span>
+                                </a>
+                            </li>
+                        }
+                        <li class="nav-divider"></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user"></i>
+                                <span>Mijn account</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @*<li class="nav-item">
+                                        <a id="login-link" href="https://www.giveaday.be/login?redirect=user" class="nav-link">
+                                            <i class="fa fa-sign-in"></i>
+                                            <span>Log in</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="https://www.giveaday.be/user/register/register" class="nav-link">
+                                            <i class="fa fa-user-plus"></i>
+                                            <span>Registreren</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="https://www.giveaday.be/recoverAccount" class="nav-link">
+                                            <i class="fa fa-question-circle"></i>
+                                            <span>Wachtwoord vergeten</span>
+                                        </a>
+                                    </li>*@
+                                @await Html.PartialAsync("_LoginPartial")
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="nav-item">
-                        <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-area="" asp-controller="Register" asp-action="Index" class="nav-link">
-                            <span>Registratie</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-area="" asp-controller="Manage" asp-action="Create" class="nav-link">
-                            <span>Groep aanmaken</span>
-                        </a>
-                    </li>
-                    <li class="nav-divider"></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-user"></i>
-                            <span>Mijn account</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item">
-                                <a id="login-link" href="https://www.giveaday.be/login?redirect=user" class="nav-link">
-                                    <i class="fa fa-sign-in"></i>
-                                    <span>Log in</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.giveaday.be/user/register/register" class="nav-link">
-                                    <i class="fa fa-user-plus"></i>
-                                    <span>Registreren</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.giveaday.be/recoverAccount" class="nav-link">
-                                    <i class="fa fa-question-circle"></i>
-                                    <span>Wachtwoord vergeten</span>
-                                </a>
-                            </li>
-                            @*@await Html.PartialAsync("_LoginPartial")*@
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+<<<<<<< HEAD
         </div>
     </nav>
     <div id="page-wrapper" class="gb">
@@ -92,34 +108,45 @@
             <div class="row">
                 <div class="col-lg-12">
                     @RenderBody()
+=======
+        </nav>
+        <div id="page-wrapper">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @RenderBody()
+                    </div>
+>>>>>>> master
                 </div>
             </div>
+            <environment names="Development">
+                <script src="~/lib/jquery/dist/jquery.js"></script>
+                <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+                <script src="~/js/site.js" asp-append-version="true"></script>
+            </environment>
+            <environment names="Staging,Production">
+                <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                        asp-fallback-test="window.jQuery">
+
+
+
+                </script>
+                <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+
+
+
+                </script>
+                <script src="~/js/site.min.js" asp-append-version="true"></script>
+            </environment>
+
+            @RenderSection("scripts", required: false)
         </div>
-        <environment names="Development">
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
-        <environment names="Staging,Production">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery">
-
-
-            
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-
-
-            
-            </script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
-        </environment>
-
-        @RenderSection("scripts", required: false)
     </div>
+<<<<<<< HEAD
 </div>
 <div class="footer">
         <div class="bottom copyright">
@@ -142,5 +169,11 @@
 </div> 
 
 
+=======
+    <footer class="GBFooter">
+
+        &copy; Group 23: Jasper D'haene | Florian Dejonckheere | Tuur Lievens | Preben Leroy
+    </footer>
+>>>>>>> master
 </body>
 </html>

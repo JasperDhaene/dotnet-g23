@@ -1,25 +1,21 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿﻿@using Microsoft.AspNetCore.Identity
 @using dotnet_g23.Models
 @using dotnet_g23.Models.Domain
-
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
-@if (SignInManager.IsSignedIn(User))
-{
+@if (SignInManager.IsSignedIn(User)) {
     <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        <ul>
+            <li class="nav-item">
+                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage" class="nav-link">Hallo @UserManager.GetUserName(User).Split('@')[0].Split('.')[0].ToUpper()!</a>
             </li>
-            <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button>
+            <li class="nav-item">
+                <button type="submit" class="btn btn-link navbar-btn navbar-link nav-link">Uitloggen</button>
             </li>
         </ul>
     </form>
 }
-else
-{
+else {
     <ul>
         <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="Register" class="nav-link"><i class="fa fa-user-plus"></i> Registreren</a></li>
         <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link"><i class="fa fa-sign-in"></i> Log in</a></li>

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace dotnet_g23.Models.Domain
 {
-    public class User
+    public class GUser
     {
         #region Fields
         private String _email;
@@ -30,14 +30,14 @@ namespace dotnet_g23.Models.Domain
             }
         }
         public int UserId { get; set; }
-        public UserRole UserRole { get; set; }
+        public UserState UserState { get; set; }
         #endregion
 
         #region Constructors
-        public User(String email, UserRole userRole)
+        public GUser(String email, UserState userState)
         {
             Email = email;
-            UserRole = userRole;
+            UserState = userState;
         }
         #endregion
     }

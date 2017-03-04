@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain
 {
-    public interface IUserRepository
+    public interface IParticipantRepository
     {
-        GUser GetBy(int userId);
-        GUser GetByEmail(String userEmail);
-        IEnumerable<GUser> GetAll();
+        Participant GetBy(int userStateId);
+        Participant GetByUser(int userId);
+        IEnumerable<Participant> GetAll();
         void SaveChanges();
     }
 }

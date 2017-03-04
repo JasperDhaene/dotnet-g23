@@ -1,13 +1,11 @@
-﻿@using dotnet_g23.Models.ViewModels.AccountViewModels
+﻿﻿@using dotnet_g23.Models.ViewModels.AccountViewModels
 @model dotnet_g23.Models.ViewModels.AccountViewModels.RegisterViewModel
 @{
     ViewData["Title"] = "Registratie";
 }
-
 <br />
 <br />
 <h2>@ViewData["Title"].</h2>
-
 <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
     <h4>Maak een nieuw account aan</h4>
     <hr />
@@ -46,7 +44,6 @@
         </div>
     </div>
 </form>
-
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

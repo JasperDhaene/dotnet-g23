@@ -1,26 +1,23 @@
-﻿@{
+﻿@using System.Threading.Tasks
+@using dotnet_g23.Models.Domain
+
+@{
     ViewData["Title"] = "Register";
 }
 <!--
+@model IEnumerable<Organization>
+
 <div class="GBContainer">
-    <div class="GBCard">
-        <span>Poverello</span> - <span>Brugge</span>
-        <div class="GBCardSubmit">
-            <span>registreer</span>
+    @foreach (var org in Model)
+    {
+        <div class="GBCard">
+            <form asp-controller="Register" asp-action="Register" method="post" class="form-horizontal">
+                <span>@org.Name - @org.Location</span>
+                <input type="hidden" value="@org.OrganizationId" name="OrganizationId"/>
+                <input type="submit" value="registreer" class="GBCardSubmit"/>
+            </form>
         </div>
-    </div>
-    <div class="GBCard">
-        <span>CM Oppas Aan Huis</span> - <span>Antwerpen</span>
-        <div class="GBCardSubmit">
-            <span>registreer</span>
-        </div>
-    </div>
-    <div class="GBCard">
-        <span>Le Crayon Taalkampen</span> - <span>Kuurne</span>
-        <div class="GBCardSubmit">
-            <span>registreer</span>
-        </div>
-    </div>
+    }
 </div>
 -->
 <div class="content">
