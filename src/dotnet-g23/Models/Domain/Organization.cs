@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using dotnet_g23.Controllers;
 
 namespace dotnet_g23.Models.Domain
 {
@@ -62,6 +63,14 @@ namespace dotnet_g23.Models.Domain
             Location = location;
 	        Domain = domain;
         }
-        #endregion
-    }
+		#endregion
+
+	    #region Methods
+	    public void Register(GUser user)
+	    {
+			//user.UserState = new Participant(this);
+			//Participants.Add( user );
+	    }
+	    #endregion
+	}
 }
