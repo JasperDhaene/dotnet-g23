@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using dotnet_g23.Models.Domain.State;
 
 namespace dotnet_g23.Models.Domain
 {
@@ -28,6 +29,7 @@ namespace dotnet_g23.Models.Domain
         public Organization Organization { get; set; }
         public Motivation Motivation { get; set; }
         public ICollection<Invitation> Invitations { get; set; }
+        public Context Context { get; private set; }
         #endregion
 
         #region Constructors
@@ -41,6 +43,7 @@ namespace dotnet_g23.Models.Domain
         {
             Name = name;
             Closed = false;
+            Context = new Context();
         }
 
         public Group(String name, Boolean closed) : this(name)
