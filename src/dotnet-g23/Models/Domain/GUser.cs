@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace dotnet_g23.Models.Domain
@@ -31,6 +32,7 @@ namespace dotnet_g23.Models.Domain
         }
         public int UserId { get; set; }
         public UserState UserState { get; set; }
+        public ICollection<Notification> Notifications { get; set; }
         #endregion
 
         #region Constructors

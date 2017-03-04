@@ -18,6 +18,7 @@ namespace dotnet_g23.Data
         public DbSet<UserState> UserStates { get; set; }
         public DbSet<Participant> Participants { get; set; }
         public DbSet<Lector> Lectors { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         public DbSet<Group> Groups { get; set; }
 
@@ -38,6 +39,7 @@ namespace dotnet_g23.Data
             builder.Entity<UserState>(MapUserState);
             builder.Entity<Participant>(MapParticipant);
             builder.Entity<Lector>(MapLector);
+            builder.Entity<Notification>(MapNotification);
 
             builder.Entity<Group>(MapGroup);
             builder.Entity<Motivation>(MapMotivation);
@@ -101,6 +103,23 @@ namespace dotnet_g23.Data
                 .WithOne(p => p.Lector);
             l.HasOne(lector => lector.Group)
                 .WithMany(g => g.Lectors);
+        }
+
+        private static void MapNotification(EntityTypeBuilder<Notification> n)
+        {
+            n.ToTable("Notifications");
+
+            n.HasKey(no => no.NotificationId);
+            n.Property(no => no.Message).IsRequired();
+            n.Property(no => no.DateCreated).IsRequired();
+            n.Property(no => no.DateRead);
+            n.Property(no => no.IsRead).IsRequired();
+            n.HasOne(no => no.User)
+                .WithMany(u => u.Notifications)
+                .IsRequired();
+            n.HasOne(no => no.Group)
+                .WithMany(g => g.Notifications)
+                .IsRequired();
         }
 
         private static void MapGroup(EntityTypeBuilder<Group> g)
