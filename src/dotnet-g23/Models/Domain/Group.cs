@@ -10,7 +10,7 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Properties
-        public int GroupId { get; set; }
+        public int GroupId { get; private set; }
         public String Name
         {
             get { return _name; }

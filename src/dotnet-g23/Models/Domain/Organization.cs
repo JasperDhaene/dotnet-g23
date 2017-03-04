@@ -13,7 +13,7 @@ namespace dotnet_g23.Models.Domain
 		#endregion
 
 		#region Properties
-		public int OrganizationId { get; set; }
+		public int OrganizationId { get; private set; }
         public ICollection<Group> Groups { get; set; }
         public ICollection<Participant> Participants { get; set; }
 

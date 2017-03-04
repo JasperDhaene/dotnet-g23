@@ -10,7 +10,7 @@ namespace dotnet_g23.Models.Domain
     public class Notification
     {
         #region Properties
-        public int NotificationId { get; set; }
+        public int NotificationId { get; private set; }
         public GUser User { get; private set; }
         public Group Group { get; private set; }
         public String Message { get; private set; }

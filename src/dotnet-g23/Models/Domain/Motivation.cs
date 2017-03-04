@@ -12,7 +12,7 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Properties
-        public int MotivationId { get; set; }
+        public int MotivationId { get; private set; }
 
         public String MotivationText
         {
