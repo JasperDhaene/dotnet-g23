@@ -44,13 +44,12 @@ namespace dotnet_g23.Controllers
 
 			if (user.Group != null)
 			{
-				//part.Organization.Register(user);
 				ViewData["Message"] = "Error: already registered";
 				return RedirectToAction("Index", "GroupManageController");
 			}
 
 			Group group = _groupRepository.GetBy(id);
-			//group.Register(user);
+			group.Register(user);
 
 			// redirect to group detail
 			return RedirectToAction("RegisterMotivation", "MotivationController");
@@ -70,12 +69,11 @@ namespace dotnet_g23.Controllers
 
 			if (name != null)
 			{
-				//user.Organization.CreateGroup(name, closed);
+				user.Organization.CreateGroup(user, name);
 				// notify lector
 				return RedirectToAction("Invite", "GroupManageController");
 			}
 
-			//return View();
 			return RedirectToAction("Index", "GroupManageController");
 		}
 
@@ -90,7 +88,7 @@ namespace dotnet_g23.Controllers
 			{
 				foreach (string address in addresses)
 				{
-					//part.Group.Invite(address);
+					//Invite(address);
 				}
 				// notify lector
 				return RedirectToAction("RegisterMotivation", "MotivationController");
