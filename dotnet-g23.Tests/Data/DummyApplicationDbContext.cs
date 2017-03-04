@@ -17,9 +17,9 @@ namespace dotnet_g23.Tests.Data {
         private readonly ICollection<Group> _groups;
 
         public DummyApplicationDbContext() {
-            Organization org1 = new Organization("HoGent", "Gent");
-            Organization org2 = new Organization("Howest", "Kortrijk");
-            Organization org3 = new Organization("Organization", "Gent");
+            Organization org1 = new Organization("HoGent", "Gent", "hogent.be");
+            Organization org2 = new Organization("Howest", "Kortrijk", "howest.be");
+            Organization org3 = new Organization("Organization", "Gent", "organization.be");
 
             Organizations.Add(org1);
             Organizations.Add(org2);
