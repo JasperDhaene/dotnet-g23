@@ -40,6 +40,15 @@ namespace dotnet_g23.Models.Domain
         {
             Closed = closed;
         }
-        #endregion
-    }
+		#endregion
+
+		#region Constructors
+
+	    public void Register(Participant user)
+	    {
+		    user.Group = this;
+			Participants.Add(user);
+	    }
+		#endregion
+	}
 }
