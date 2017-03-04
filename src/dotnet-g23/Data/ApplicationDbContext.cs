@@ -72,6 +72,7 @@ namespace dotnet_g23.Data
 
             o.Property(org => org.Name).IsRequired();
             o.Property(org => org.Location).IsRequired();
+            o.Property(org => org.Domain).IsRequired();
 
             o.HasMany(org => org.Groups)
                 .WithOne(g => g.Organization);
