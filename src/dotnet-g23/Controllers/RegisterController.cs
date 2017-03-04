@@ -30,11 +30,11 @@ namespace dotnet_g23.Controllers {
 		public IActionResult Index(GUser user, string query = null) {
 			// return filtered list with name & location of organisations
 
-			/*IEnumerable<Organization> list = _orgRepository.GetAll().Where(o => o.Domain == MailHelper.GetMailDomain(user.Email));
+			IEnumerable<Organization> list = _orgRepository.GetAll().Where(o => o.Domain == MailHelper.GetMailDomain(user.Email));
 			if (query != null)
 				list = list.Where(o => (o.Name.Contains(query) || o.Location.Contains(query)));
 
-			ViewData["organizations"] = list;*/
+			ViewData["organizations"] = list;
 			return View();
 		}
 
@@ -45,10 +45,10 @@ namespace dotnet_g23.Controllers {
 
 			Organization org = _orgRepository.GetBy(id);
 
-			/*if (MailHelper.GetMailDomain(user.Email) == org.Domain) {
+			if (MailHelper.GetMailDomain(user.Email) == org.Domain) {
 				//org.Register(user);
 				return RedirectToAction("Index", "GroupManageController");
-			}*/
+			}
 
 			ViewData["Message"] = "Error: Wrong mail address";
 			return View();

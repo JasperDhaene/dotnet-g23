@@ -8,10 +8,11 @@ namespace dotnet_g23.Models.Domain
         #region Fields
         private String _name;
         private String _location;
-        #endregion
+		private String _domain;
+		#endregion
 
-        #region Properties
-        public int OrganizationId { get; set; }
+		#region Properties
+		public int OrganizationId { get; set; }
         public ICollection<Group> Groups { get; set; }
         public ICollection<Participant> Participants { get; set; }
 
@@ -37,19 +38,29 @@ namespace dotnet_g23.Models.Domain
                 _location = value;
             }
         }
-        #endregion
+		public string Domain {
+			get { return _domain; }
+			private set {
+				if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty) {
+					throw new ArgumentException("Domain can not be empty!");
+				}
+				_domain = value;
+			}
+		}
+		#endregion
 
-        #region Constructors
+		#region Constructors
 
-        public Organization()
+		public Organization()
         {
             
         }
 
-        public Organization(String name, String location)
+        public Organization(String name, String location, String domain)
         {
             Name = name;
             Location = location;
+	        Domain = domain;
         }
         #endregion
     }

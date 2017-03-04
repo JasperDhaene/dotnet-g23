@@ -34,7 +34,7 @@ namespace dotnet_g23.Filters
 
         private Organization ReadOrganizationFromSession(HttpContext context) {
             Organization organization = context.Session.GetString("organization") == null ?
-                new Organization(null, null) : JsonConvert.DeserializeObject<Organization>(context.Session.GetString("organization"));
+                new Organization(null, null, null) : JsonConvert.DeserializeObject<Organization>(context.Session.GetString("organization"));
             foreach(var l in organization.Groups) {
                 l.Organization = _organizationRepository.GetBy(l.Organization.OrganizationId);
             }
