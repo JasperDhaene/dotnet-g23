@@ -71,6 +71,12 @@ namespace dotnet_g23.Models.Domain
 			//user.UserState = new Participant(this);
 			//Participants.Add( user );
 	    }
-	    #endregion
+
+		public void CreateGroup(Participant user, string name) {
+			Group group = new Group(name);
+			group.Register(user);
+			Groups.Add(group);
+		}
+		#endregion
 	}
 }
