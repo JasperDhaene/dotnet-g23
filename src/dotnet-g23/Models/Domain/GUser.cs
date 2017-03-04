@@ -37,9 +37,10 @@ namespace dotnet_g23.Models.Domain
 
         #region Constructors
 
-        private GUser()
+        public GUser()
         {
         }
+
         public GUser(String email, UserState userState)
         {
             Email = email;

@@ -18,6 +18,10 @@ namespace dotnet_g23.Models.Domain
         {
             Organization = organization;
         }
+
+        public Participant() {
+
+        }
         #endregion
     }
 }

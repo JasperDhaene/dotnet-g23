@@ -13,15 +13,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace dotnet_g23.Controllers {
     //[Authorize(Policy = "participant")]
 	[ServiceFilter(typeof(UserFilter))]
-	public class RegisterController : Controller {
+	public class OrganizationController : Controller {
 
 		#region Fields
 		private readonly IOrganizationRepository _orgRepository;
+        private readonly IUserRepository _userRepo;
 		#endregion
 
 		#region Constructors
-		public RegisterController(IOrganizationRepository orgRepository) {
+		public OrganizationController(IOrganizationRepository orgRepository, IUserRepository userRepo) {
 			_orgRepository = orgRepository;
+            _userRepo = userRepo;
 		}
 		#endregion
 
@@ -31,10 +33,10 @@ namespace dotnet_g23.Controllers {
 			// return filtered list with name & location of organisations
 
 			IEnumerable<Organization> list = _orgRepository.GetAll().Where(o => o.Domain == MailHelper.GetMailDomain(user.Email));
-			if (query != null)
-				list = list.Where(o => (o.Name.Contains(query) || o.Location.Contains(query)));
+            if (query != null)
+                list = list.Where(o => (o.Name.Contains(query) || o.Location.Contains(query)));
 
-			ViewData["organizations"] = list;
+            ViewData["organizations"] = list;
 			return View();
 		}
 
