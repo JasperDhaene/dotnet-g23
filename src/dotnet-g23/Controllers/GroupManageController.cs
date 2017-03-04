@@ -56,6 +56,12 @@ namespace dotnet_g23.Controllers
 			return RedirectToAction("RegisterMotivation", "MotivationController");
 		}
 
+
+		[Route("Group/Create")]
+		public IActionResult Create() {
+			return View();
+		}
+
 		[HttpPost]
 		[Route("Group/Create")]
 		public IActionResult Create(Participant user, string name = null, bool closed = false)
