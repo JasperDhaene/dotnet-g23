@@ -18,7 +18,7 @@ namespace dotnet_g23.Tests.Models {
         }
 
         [Fact]
-        public void MotivationThrowsExceptionOnToShortMotivationText() {
+        public void MotivationThrowsExceptionOnTooShortMotivationText() {
             // < 99 chars
             String text = "Lorem ipsum dolor sit amet";
 
@@ -34,7 +34,7 @@ namespace dotnet_g23.Tests.Models {
         }
 
         [Fact]
-        public void MotivationThrowsExceptionOnToLongMotivationText() {
+        public void MotivationThrowsExceptionOnTooLongMotivationText() {
             // > 250 chars
             String text =
                 "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmod tempor incididunt " +
@@ -50,7 +50,7 @@ namespace dotnet_g23.Tests.Models {
             // 251 chars
             String text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmod tempor incididunt " +
                    "ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco " +
-                   "laboris nisi utaliquip ex ea commodo consequat. Duis aute irure dolo";
+                   "laboris nisi utaliquip ex ea commodo consequat. Duis aute irure dolor";
 
             Assert.Throws<ArgumentException>(() => new Motivation(text));
         }

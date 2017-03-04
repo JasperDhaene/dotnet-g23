@@ -67,6 +67,8 @@ namespace dotnet_g23 {
             });
 
             services.AddScoped<OrganizationFilter>();
+            services.AddScoped<UserFilter>();
+
             services.AddScoped<DataInitializer>();
 
             services.AddScoped<IUserRepository, UserRepository>();
