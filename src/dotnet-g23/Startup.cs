@@ -75,6 +75,7 @@ namespace dotnet_g23 {
             services.AddScoped<DataInitializer>();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IParticipantRepository, ParticipantRepository>();
