@@ -42,8 +42,7 @@ namespace dotnet_g23.Models.Domain
         }
 		#endregion
 
-		#region Constructors
-
+		#region Methods
 	    public void Register(Participant user)
 	    {
 		    user.Group = this;
