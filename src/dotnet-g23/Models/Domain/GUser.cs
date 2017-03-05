@@ -36,7 +36,6 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
-
         public GUser()
         {
         }
@@ -48,6 +47,17 @@ namespace dotnet_g23.Models.Domain
 
         public GUser(String email) : this(email, null)
         {
+        }
+        #endregion
+
+        #region Methods
+        public Boolean IsParticipant()
+        {
+            return UserState is Participant;
+        }
+        public Boolean IsLector()
+        {
+            return UserState is Lector;
         }
         #endregion
     }
