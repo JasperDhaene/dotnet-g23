@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.Repositories;
 
 namespace dotnet_g23.Data.Repositories
 {
@@ -47,14 +48,14 @@ namespace dotnet_g23.Data.Repositories
                 .SingleOrDefault(g => g.Name == groupName);
         }
 
-		public IEnumerable<Group> GetByOrganization(Organization organization) {
-			return _groups
-				.Include(g => g.Organization)
-				.Include(g => g.Motivation)
-				.Include(g => g.Lectors)
-				.Include(g => g.Participants)
-				.Where(g => g.Organization == organization)
-				.ToList();
+		public IEnumerable<Group> GetByOrganization(Organization organization)
+		{
+		    return _groups
+		        .Include(g => g.Organization)
+		        .Include(g => g.Motivation)
+		        .Include(g => g.Lectors)
+		        .Include(g => g.Participants)
+		        .Where(g => g.Organization != null && g.Organization == organization);
 		}
 
 		public void SaveChanges()

@@ -6,6 +6,7 @@ using dotnet_g23.Data.Repositories;
 using dotnet_g23.Filters;
 using dotnet_g23.Helpers;
 using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.ViewModels.OrganizationViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -30,6 +31,7 @@ namespace dotnet_g23.Controllers
 		#endregion
 
 		#region Methods
+        // GET /Organizations
 		[Route("Organizations")]
 		public IActionResult Index(GUser user, string query = null)
         {
@@ -47,6 +49,7 @@ namespace dotnet_g23.Controllers
 			return View(vm);
 		}
 
+        // POST /Organizations/Register
 		[HttpPost]
 		[Route("Organizations/Register")]
 		public IActionResult Register(GUser user, int organizationId)
@@ -57,6 +60,7 @@ namespace dotnet_g23.Controllers
 		    try
 		    {
 		        organization.Register(user);
+		        _orgRepository.SaveChanges();
 		        return RedirectToAction("Index", "Groups");
 		    }
 		    catch (ArgumentException e)

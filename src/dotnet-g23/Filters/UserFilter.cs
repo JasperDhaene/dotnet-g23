@@ -1,4 +1,5 @@
 ﻿using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace dotnet_g23.Filters {

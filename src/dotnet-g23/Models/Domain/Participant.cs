@@ -14,13 +14,12 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
+        public Participant()
+        {
+        }
         public Participant(Organization organization)
         {
             Organization = organization;
-        }
-
-        public Participant() {
-
         }
         #endregion
     }

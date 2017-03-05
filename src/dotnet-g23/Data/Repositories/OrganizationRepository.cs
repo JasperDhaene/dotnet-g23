@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.Repositories;
 
 namespace dotnet_g23.Data.Repositories
 {

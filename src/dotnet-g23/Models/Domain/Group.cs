@@ -31,6 +31,9 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
+        public Group()
+        {
+        }
         public Group(String name)
         {
             Name = name;

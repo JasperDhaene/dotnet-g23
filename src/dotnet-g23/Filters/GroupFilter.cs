@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.Repositories;
 
 namespace dotnet_g23.Filters {
     public class GroupFilter : ActionFilterAttribute {

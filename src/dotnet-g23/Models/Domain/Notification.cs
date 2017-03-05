@@ -20,6 +20,9 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
+        public Notification()
+        {
+        }
         public Notification(Group fromGroup, GUser toUser, String message)
         {
             Group = fromGroup;

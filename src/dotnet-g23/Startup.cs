@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using dotnet_g23.Services;
 using System.Security.Claims;
 using dotnet_g23.Filters;
+using dotnet_g23.Models.Domain.Repositories;
 
 namespace dotnet_g23 {
     public class Startup {
@@ -68,6 +69,7 @@ namespace dotnet_g23 {
 
             services.AddScoped<OrganizationFilter>();
             services.AddScoped<UserFilter>();
+            services.AddScoped<ParticipantFilter>();
 
             services.AddScoped<DataInitializer>();
 

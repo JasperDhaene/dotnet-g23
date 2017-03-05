@@ -6,6 +6,7 @@ using dotnet_g23.Data.Repositories;
 using dotnet_g23.Filters;
 using dotnet_g23.Helpers;
 using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace dotnet_g23.Controllers
 {
     [Authorize(Policy = "participant")]
-	[ServiceFilter(typeof(UserFilter))]
+	[ServiceFilter(typeof(ParticipantFilter))]
 	public class GroupController : Controller
 	{
 
@@ -28,28 +29,30 @@ namespace dotnet_g23.Controllers
 		#endregion
 
 		#region Methods
+        // GET /Groups
 		[Route("Groups")]
-		public IActionResult Index(Participant user)
+		public IActionResult Index(Participant participant)
 		{
 			// show list of open groups
-			IEnumerable<Group> groups = _groupRepository.GetByOrganization(user.Organization).Where(g => !g.Closed);
+			IEnumerable<Group> groups = _groupRepository.GetByOrganization(participant.Organization).Where(g => !g.Closed);
 			ViewData["groups"] = groups;
 			return View();
 		}
 
+        // POST /Groups/Register
 		[HttpPost]
-		[Route("Group/Register")]
-		public IActionResult Register(Participant user, int id) {
+		[Route("Groups/Register")]
+		public IActionResult Register(Participant participant, int id) {
 			// register user with group
 
-			if (user.Group != null)
+			if (participant.Group != null)
 			{
 				ViewData["Message"] = "Error: already registered";
 				return RedirectToAction("Index", "GroupManageController");
 			}
 
 			Group group = _groupRepository.GetBy(id);
-			group.Register(user);
+			group.Register(participant);
 
 			// redirect to group detail
 			return RedirectToAction("RegisterMotivation", "MotivationController");
