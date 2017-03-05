@@ -47,8 +47,9 @@ namespace dotnet_g23.Data
 
         private static void MapUser(EntityTypeBuilder<GUser> u)
         {
-            u.ToTable("User");
+            u.ToTable("Users");
             u.HasKey(user => user.UserId);
+
             u.Property(user => user.Email).IsRequired();
 
             // Email is unique
@@ -59,12 +60,17 @@ namespace dotnet_g23.Data
                 .HasForeignKey<UserState>(userState => userState.UserStateId);
         }
 
-        public static void MapUserState(EntityTypeBuilder<UserState> u) {
-            u.ToTable("UserState");
-            u.HasKey(userState => userState.UserStateId);
-            u.HasDiscriminator<string>("user_state_type")
+        public static void MapUserState(EntityTypeBuilder<UserState> us) {
+            us.ToTable("UserStates");
+            us.HasKey(userState => userState.UserStateId);
+
+            us.HasDiscriminator<string>("user_state_type")
                 .HasValue<Participant>("user_state_participant")
                 .HasValue<Lector>("user_state_lector");
+
+            us.HasOne(state => state.User)
+                .WithOne(u => u.UserState)
+                .IsRequired();
         }
 
         private static void MapOrganization(EntityTypeBuilder<Organization> o)
@@ -84,7 +90,6 @@ namespace dotnet_g23.Data
         {
             p.ToTable("Participants");
 
-            //p.HasKey(participant => participant.ParticipantId);
             p.HasOne(participant => participant.Organization)
                 .WithMany(org => org.Participants)
                 .IsRequired();
@@ -98,7 +103,6 @@ namespace dotnet_g23.Data
         {
             l.ToTable("Lectors");
 
-            //l.HasKey(lector => lector.LectorId);
             l.HasMany(lector => lector.Participants)
                 .WithOne(p => p.Lector);
             l.HasOne(lector => lector.Group)
@@ -108,12 +112,13 @@ namespace dotnet_g23.Data
         private static void MapNotification(EntityTypeBuilder<Notification> n)
         {
             n.ToTable("Notifications");
-
             n.HasKey(no => no.NotificationId);
+
             n.Property(no => no.Message).IsRequired();
             n.Property(no => no.DateCreated).IsRequired();
             n.Property(no => no.DateRead);
             n.Property(no => no.IsRead).IsRequired();
+
             n.HasOne(no => no.User)
                 .WithMany(u => u.Notifications)
                 .IsRequired();
@@ -126,6 +131,7 @@ namespace dotnet_g23.Data
         {
             g.ToTable("Groups");
             g.HasKey(gr => gr.GroupId);
+
             g.Property(gr => gr.Name).IsRequired();
             g.Property(gr => gr.Closed).IsRequired();
 
@@ -137,7 +143,8 @@ namespace dotnet_g23.Data
             g.HasMany(group => group.Lectors)
                 .WithOne(l => l.Group);
             g.HasOne(group => group.Organization)
-                .WithMany(org => org.Groups);
+                .WithMany(org => org.Groups)
+                .IsRequired();
             g.HasOne(group => group.Motivation)
                 .WithOne(m => m.Group);
         }
@@ -161,7 +168,8 @@ namespace dotnet_g23.Data
 
             m.HasOne(mo => mo.Group)
                 .WithOne(g => g.Motivation)
-                .HasForeignKey<Group>(g => g.GroupId);
+                .HasForeignKey<Group>(g => g.GroupId)
+                .IsRequired();
         }
     }
 }
