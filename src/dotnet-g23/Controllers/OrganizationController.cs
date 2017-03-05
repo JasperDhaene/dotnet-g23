@@ -63,7 +63,7 @@ namespace dotnet_g23.Controllers
 		        _orgRepository.SaveChanges();
 		        return RedirectToAction("Index", "Groups");
 		    }
-		    catch (ArgumentException e)
+		    catch (Exception e)
 		    {
                 TempData["Message"] = e.Message;
 		        return RedirectToAction("Index", "Organizations");

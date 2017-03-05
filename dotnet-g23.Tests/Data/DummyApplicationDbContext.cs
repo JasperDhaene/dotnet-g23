@@ -27,9 +27,15 @@ namespace dotnet_g23.Tests.Data {
             org2 = new Organization("Howest", "Kortrijk", "howest.be");
             org3 = new Organization("Organization", "Gent", "organization.be");
 
+            Organizations = new List<Organization>();
+
             Organizations.Add(org1);
             Organizations.Add(org2);
             Organizations.Add(org3);
+
+            OrgsHogent = new List<Organization>();
+            OrgsHowest = new List<Organization>();
+            OrgsOrganization = new List<Organization>();
 
             OrgsHogent.Add(org1);
             OrgsHowest.Add(org2);
@@ -39,6 +45,8 @@ namespace dotnet_g23.Tests.Data {
             Tuur = new GUser("tuur.lievens@organization.be", new Participant(org3));
             Florian = new GUser("florian.dejonckheere@hogent.be", new Lector());
             Jasper = new GUser("jasper.dhaene@organization.be", new Lector());
+
+            GUsers = new List<GUser>();
 
             GUsers.Add(Preben);
             GUsers.Add(Tuur);
