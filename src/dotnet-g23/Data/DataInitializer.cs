@@ -22,10 +22,12 @@ namespace dotnet_g23.Data {
                 Organization org1 = new Organization("HoGent", "Gent", "hogent.be");
                 Organization org2 = new Organization("Howest", "Kortrijk","howest.be");
                 Organization org3 = new Organization("Organization", "Gent","organization.be");
+                Organization org4 = new Organization("HoGent", "Aalst", "hogent.be");
 
                 _context.Organizations.Add(org1);
                 _context.Organizations.Add(org2);
                 _context.Organizations.Add(org3);
+                _context.Organizations.Add(org4);
 
                 GUser preben = new GUser("preben.leroy@hogent.be");
                 GUser tuur = new GUser("tuur.lievens@organization.be", new Participant(org3));
