@@ -31,9 +31,9 @@
         <div class="row">
             <div class="col-lg-12 m-t-3">
                 <h1>Geregistreerde organisaties</h1>
-                @if (Model.Organizations == null)
+                @if (Model.Organizations == null || !Model.Organizations.Any())
                 {
-                    <em>Geen organisatie gevonden</em>
+                    <em>Geen organisaties gevonden</em>
                 }
                 else
                 {

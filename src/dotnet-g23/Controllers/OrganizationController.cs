@@ -43,8 +43,8 @@ namespace dotnet_g23.Controllers
             if (query != null)
                 list = list.Where(o => (o.Name.Contains(query) || o.Location.Contains(query)));
 
-		    vm.Organizations = list;
             vm.SubscribedOrganization = (user.UserState as Participant)?.Organization;
+            vm.Organizations = list.Where(org => org != vm.SubscribedOrganization);
 
 			return View(vm);
 		}
