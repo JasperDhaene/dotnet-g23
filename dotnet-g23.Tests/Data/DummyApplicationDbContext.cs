@@ -25,7 +25,7 @@ namespace dotnet_g23.Tests.Data {
             Organizations.Add(org2);
             Organizations.Add(org3);
 
-            Preben = new GUser("preben.leroy@hogent.be", new Participant(org1));
+            Preben = new GUser("preben.leroy@hogent.be");
             Tuur = new GUser("tuur.lievens@organization.be", new Participant(org3));
             Florian = new GUser("florian.dejonckheere@hogent.be", new Lector());
             Jasper = new GUser("jasper.dhaene@organization.be", new Lector());
