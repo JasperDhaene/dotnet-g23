@@ -11,26 +11,28 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotnet_g23.Controllers {
+namespace dotnet_g23.Controllers
+{
+    [Authorize]
     [ServiceFilter(typeof(UserFilter))]
-    //[Authorize(Policy = "participant")]
-    public class OrganizationController : Controller {
+    public class OrganizationController : Controller
+    {
 
 		#region Fields
 		private readonly IOrganizationRepository _orgRepository;
-        private readonly IUserRepository _userRepo;
 		#endregion
 
 		#region Constructors
-		public OrganizationController(IOrganizationRepository orgRepository, IUserRepository userRepo) {
+		public OrganizationController(IOrganizationRepository orgRepository)
+        {
 			_orgRepository = orgRepository;
-            _userRepo = userRepo;
 		}
 		#endregion
 
 		#region Methods
 		[Route("Organizations")]
-		public IActionResult Index(GUser user, string query = null) {
+		public IActionResult Index(GUser user, string query = null)
+        {
 			// Return filtered list with name & location of organisations
 
             IndexViewModel vm = new IndexViewModel();
@@ -40,20 +42,22 @@ namespace dotnet_g23.Controllers {
                 list = list.Where(o => (o.Name.Contains(query) || o.Location.Contains(query)));
 
 		    vm.Organizations = list;
+            vm.SubscribedOrganization = (user.UserState as Participant)?.Organization;
 
 			return View(vm);
 		}
 
 		[HttpPost]
 		[Route("Organizations/Register")]
-		public IActionResult Register(GUser user, int organizationId) {
+		public IActionResult Register(GUser user, int organizationId)
+        {
 			// Register user with organization
 
 		    Organization organization = _orgRepository.GetBy(organizationId);
 		    try
 		    {
 		        organization.Register(user);
-		        return RedirectToAction("Index", "GroupManageController");
+		        return RedirectToAction("Index", "Groups");
 		    }
 		    catch (ArgumentException e)
 		    {

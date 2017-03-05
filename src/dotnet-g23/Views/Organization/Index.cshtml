@@ -11,9 +11,27 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
+                <h1>Mijn organisatie</h1>
+                @if (Model.SubscribedOrganization == null)
+                {
+                    <em>U bent niet in een organisatie ingeschreven</em>
+                }
+                else
+                {
+                    <div class="card">
+                        <a asp-controller="Group" asp-action="Index">
+                            <p>@Model.SubscribedOrganization.Name - @Model.SubscribedOrganization.Location</p>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 m-t-3">
+                <h1>Geregistreerde organisaties</h1>
                 @if (Model.Organizations == null)
                 {
-                    <em>Geen groepen gevonden</em>
+                    <em>Geen organisatie gevonden</em>
                 }
                 else
                 {
@@ -23,8 +41,8 @@
                             <form asp-controller="Organization" asp-action="Register" method="post" class="form-horizontal">
                                 <p>
                                     @org.Name - @org.Location
-                                    <input type="hidden" value="@org.OrganizationId" name="organizationId" />
-                                    <input type="submit" value="Registreer" class="btn btn-secondary btn-md f-right" />
+                                    <input type="hidden" value="@org.OrganizationId" name="organizationId"/>
+                                    <input type="submit" value="Registreer" class="btn btn-secondary btn-md f-right"/>
                                 </p>
                             </form>
                         </div>

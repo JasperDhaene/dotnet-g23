@@ -14,7 +14,7 @@ namespace dotnet_g23.Controllers
 {
     [Authorize(Policy = "participant")]
 	[ServiceFilter(typeof(UserFilter))]
-	public class GroupManageController : Controller
+	public class GroupController : Controller
 	{
 
 		#region Fields
@@ -22,7 +22,7 @@ namespace dotnet_g23.Controllers
 		#endregion
 
 		#region Constructors
-		public GroupManageController(IGroupRepository groupRepository) {
+		public GroupController(IGroupRepository groupRepository) {
 			_groupRepository = groupRepository;
 		}
 		#endregion

@@ -9,5 +9,6 @@ namespace dotnet_g23.Models.ViewModels.OrganizationViewModels
     public class IndexViewModel
     {
         public IEnumerable<Organization> Organizations { get; set; }
+        public Organization SubscribedOrganization { get; set; }
     }
 }
