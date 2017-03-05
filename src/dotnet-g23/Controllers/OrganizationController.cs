@@ -31,12 +31,11 @@ namespace dotnet_g23.Controllers {
 		#region Methods
 		[Route("Organizations")]
 		public IActionResult Index(GUser user, string query = null) {
-			// return filtered list with name & location of organisations
+			// Return filtered list with name & location of organisations
 
             IndexViewModel vm = new IndexViewModel();
 
 		    IEnumerable<Organization> list = _orgRepository.GetByDomain(MailHelper.GetMailDomain(user.Email));
-			//IEnumerable<Organization> list = _orgRepository.GetAll().Where(o => o.Domain == MailHelper.GetMailDomain(user.Email));
             if (query != null)
                 list = list.Where(o => (o.Name.Contains(query) || o.Location.Contains(query)));
 
@@ -46,19 +45,21 @@ namespace dotnet_g23.Controllers {
 		}
 
 		[HttpPost]
-		[Route("Organization/Register")]
-		public IActionResult Register(GUser user, int id) {
-			// register user with organization
+		[Route("Organizations/Register")]
+		public IActionResult Register(GUser user, int organizationId) {
+			// Register user with organization
 
-			Organization org = _orgRepository.GetBy(id);
-
-			if (MailHelper.GetMailDomain(user.Email) == org.Domain) {
-				org.Register(user);
-				return RedirectToAction("Index", "GroupManageController");
-			}
-
-			ViewData["Message"] = "Error: Wrong mail address";
-			return View();
+		    Organization organization = _orgRepository.GetBy(organizationId);
+		    try
+		    {
+		        organization.Register(user);
+		        return RedirectToAction("Index", "GroupManageController");
+		    }
+		    catch (ArgumentException e)
+		    {
+                ViewData["Message"] = e.Message;
+                return View();
+            }
 		}
 		#endregion
 

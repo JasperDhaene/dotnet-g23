@@ -20,10 +20,10 @@
                     foreach (var org in Model.Organizations)
                     {
                         <div class="card">
-                            <form asp-controller="Register" asp-action="Register" method="post" class="form-horizontal">
+                            <form asp-controller="Organization" asp-action="Register" method="post" class="form-horizontal">
                                 <p>
                                     @org.Name - @org.Location
-                                    <input type="hidden" value="@org.OrganizationId" name="OrganizationId" />
+                                    <input type="hidden" value="@org.OrganizationId" name="organizationId" />
                                     <input type="submit" value="Registreer" class="btn btn-secondary btn-md f-right" />
                                 </p>
                             </form>

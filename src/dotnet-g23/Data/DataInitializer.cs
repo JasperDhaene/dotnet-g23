@@ -27,7 +27,7 @@ namespace dotnet_g23.Data {
                 _context.Organizations.Add(org2);
                 _context.Organizations.Add(org3);
 
-                GUser preben = new GUser("preben.leroy@hogent.be", new Participant(org1));
+                GUser preben = new GUser("preben.leroy@hogent.be");
                 GUser tuur = new GUser("tuur.lievens@organization.be", new Participant(org3));
                 GUser florian = new GUser("florian.dejonckheere@hogent.be", new Lector());
                 GUser jasper = new GUser("jasper.dhaene@organization.be", new Lector());

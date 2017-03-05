@@ -40,11 +40,14 @@ namespace dotnet_g23.Models.Domain
         public GUser()
         {
         }
-
         public GUser(String email, UserState userState)
         {
             Email = email;
             UserState = userState;
+        }
+
+        public GUser(String email) : this(email, null)
+        {
         }
         #endregion
     }

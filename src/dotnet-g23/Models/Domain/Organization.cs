@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using dotnet_g23.Controllers;
+using dotnet_g23.Helpers;
 
 namespace dotnet_g23.Models.Domain
 {
@@ -68,8 +69,10 @@ namespace dotnet_g23.Models.Domain
 	    #region Methods
 	    public void Register(GUser user)
 	    {
-			//user.UserState = new Participant(this);
-			//Participants.Add( user );
+            if (!MailHelper.GetMailDomain(user.Email).Equals(Domain))
+                throw new ArgumentException("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
+
+            user.UserState = new Participant(this);
 	    }
 
 		public void CreateGroup(Participant user, string name) {
