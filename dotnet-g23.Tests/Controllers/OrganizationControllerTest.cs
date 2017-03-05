@@ -8,20 +8,23 @@ using Moq;
 namespace dotnet_g23.Tests.Controllers {
     public class OrganizationControllerTest
     {
-        private OrganizationController _controller;
-        private GUser _user;
-        private Mock<IOrganizationRepository> _mockOrgRepo;
-        private IndexViewModel _model;
-        private IndexViewModel _modelMetFout;
+        private readonly OrganizationController _controller;
+        private readonly GUser _user;
 
         public OrganizationControllerTest() {
             DummyApplicationDbContext context = new DummyApplicationDbContext();
-            _mockOrgRepo = new Mock<IOrganizationRepository>();
-            _user = context.Tuur;
-            _controller = new OrganizationController(_mockOrgRepo.Object);
-            _model = new IndexViewModel() {
 
-            }
+            Mock<IOrganizationRepository> repo = new Mock<IOrganizationRepository>();
+
+            repo.Setup(o => o.GetAll()).Returns(context.Organizations);
+
+            repo.Setup(o => o.GetBy(1)).Returns(context.org1);
+            repo.Setup(o => o.GetBy(2)).Returns(context.org2);
+            repo.Setup(o => o.GetBy(3)).Returns(context.org3);
+
+            repo.Setup(o => o.GetByDomain("hogent.be")).Returns(context.org1);
+            repo.Setup(o => o.GetBy(2)).Returns(context.org2);
+            repo.Setup(o => o.GetBy(3)).Returns(context.org3);
         }
     }
 }
