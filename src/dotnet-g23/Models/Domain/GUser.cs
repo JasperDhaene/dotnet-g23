@@ -32,7 +32,7 @@ namespace dotnet_g23.Models.Domain
         }
         public int UserId { get; private set; }
         public UserState UserState { get; set; }
-        public ICollection<Notification> Notifications { get; set; }
+        public ICollection<Invitation> Invitations { get; set; }
         #endregion
 
         #region Constructors

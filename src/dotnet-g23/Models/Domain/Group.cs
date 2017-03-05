@@ -27,7 +27,7 @@ namespace dotnet_g23.Models.Domain
         public ICollection<Lector> Lectors { get; set; }
         public Organization Organization { get; set; }
         public Motivation Motivation { get; set; }
-        public ICollection<Notification> Notifications { get; set; }
+        public ICollection<Invitation> Invitations { get; set; }
         #endregion
 
         #region Constructors
@@ -47,6 +47,11 @@ namespace dotnet_g23.Models.Domain
 		#endregion
 
 		#region Methods
+
+        public void Invite(Participant user)
+        {
+            Invitation invitation = new Invitation(this, user.User, $"You have been invited to the group ${Name}!");
+        }
 	    public void Register(Participant user)
 	    {
 		    user.Group = this;
