@@ -4,6 +4,7 @@ using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.ViewModels.OrganizationViewModels;
 using dotnet_g23.Tests.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,6 +39,8 @@ namespace dotnet_g23.Tests.Controllers {
                 .Returns(context.OrgsOrganization);
 
             _controller = new OrganizationController(repo.Object);
+            _controller.TempData = new Mock<ITempDataDictionary>().Object;
+
             _user1 = context.Preben;
             _user2 = context.Tuur;
             
@@ -45,6 +48,7 @@ namespace dotnet_g23.Tests.Controllers {
         #endregion
 
         #region Index
+
         [Fact]
         public void IndexGivenListOfPossibleOrganizationsWithUser1() {
             ViewResult result = _controller.Index(_user1) as ViewResult;
@@ -75,6 +79,24 @@ namespace dotnet_g23.Tests.Controllers {
             ViewResult result = _controller.Index(_user2) as ViewResult;
             IndexViewModel ind2 = (IndexViewModel)result?.Model;
             Assert.Equal(context.org3, ind2.SubscribedOrganization);
+        }
+
+        #endregion
+
+        #region Register Post
+
+        [Fact]
+        public void RegisterShouldRedirectToActionForUser1RegisterToOrganization() {
+            RedirectToActionResult result = _controller.Register(_user1, context.org1.OrganizationId) as RedirectToActionResult;
+            Assert.Equal("Index", result.ActionName);
+            Assert.Equal("Groups", result.ControllerName);
+        }
+
+        [Fact]
+        public void RegisterShouldRedirectToActionForUser2RegisterToOrganizationWhenAlreadyInOrganization() {
+            RedirectToActionResult result = _controller.Register(_user2, context.org3.OrganizationId) as RedirectToActionResult;
+            Assert.Equal("Index", result.ActionName);
+            Assert.Equal("Organizations", result.ControllerName);
         }
         #endregion
     }
