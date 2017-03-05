@@ -9,6 +9,7 @@
 
 <div class="content">
     <div class="container-fluid">
+        @Html.Partial("_Messages")
         <div class="row">
             <div class="col-lg-12">
                 <h1>Mijn organisatie</h1>
@@ -19,9 +20,10 @@
                 else
                 {
                     <div class="card">
-                        <a asp-controller="Group" asp-action="Index">
-                            <p>@Model.SubscribedOrganization.Name - @Model.SubscribedOrganization.Location</p>
-                        </a>
+                        <p>
+                            @Model.SubscribedOrganization.Name (@Model.SubscribedOrganization.Location)
+                            <a asp-controller="Group" asp-action="Index" class="btn btn-primary btn-md f-right">Beheren</a>
+                        </p>
                     </div>
                 }
             </div>
@@ -40,9 +42,9 @@
                         <div class="card">
                             <form asp-controller="Organization" asp-action="Register" method="post" class="form-horizontal">
                                 <p>
-                                    @org.Name - @org.Location
+                                    @org.Name (@org.Location)
                                     <input type="hidden" value="@org.OrganizationId" name="organizationId"/>
-                                    <input type="submit" value="Registreer" class="btn btn-secondary btn-md f-right"/>
+                                    <input type="submit" value="Registreren" class="btn btn-secondary btn-md f-right"/>
                                 </p>
                             </form>
                         </div>

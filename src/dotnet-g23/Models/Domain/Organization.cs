@@ -70,6 +70,9 @@ namespace dotnet_g23.Models.Domain
             if (!MailHelper.GetMailDomain(user.Email).Equals(Domain))
                 throw new ArgumentException("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
 
+	        if (user.UserState != null)
+	            throw new ArgumentException("Gebruiker behoort al tot een organisatie");
+
             user.UserState = new Participant(this);
 	    }
 

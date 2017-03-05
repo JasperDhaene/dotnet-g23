@@ -65,9 +65,9 @@ namespace dotnet_g23.Controllers
 		    }
 		    catch (ArgumentException e)
 		    {
-                ViewData["Message"] = e.Message;
-                return View();
-            }
+                TempData["Message"] = e.Message;
+		        return RedirectToAction("Index", "Organizations");
+		    }
 		}
 		#endregion
 
