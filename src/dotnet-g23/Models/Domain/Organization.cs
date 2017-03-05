@@ -78,8 +78,8 @@ namespace dotnet_g23.Models.Domain
 
 		public void CreateGroup(Participant user, string name) {
 			Group group = new Group(name);
-			group.Register(user);
-			Groups.Add(group);
+            Groups.Add(group);
+            group.Register(user);
 		}
 		#endregion
 	}

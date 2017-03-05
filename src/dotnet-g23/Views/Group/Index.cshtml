@@ -1,6 +1,53 @@
-﻿@{
-    ViewData["Title"] = "Manage";
+﻿@using System.Threading.Tasks
+@using dotnet_g23.Models.Domain
+
+@{
+    ViewData["Title"] = "Register";
 }
 
+@model dotnet_g23.Models.ViewModels.GroupViewModels.IndexViewModel
 
-
+<div class="content">
+    <div class="container-fluid">
+        @Html.Partial("_Messages")
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Mijn groep</h1>
+                @if (Model.SubscribedGroup == null)
+                {
+                    <em>U bent niet in een groep ingeschreven</em>
+                }
+                else
+                {
+                    <div class="card">
+                        <p>
+                            @Model.SubscribedGroup.Name (@Model.SubscribedGroup.Organization.Name)
+                            <a asp-controller="Group" asp-action="Show" asp-route-id="@Model.SubscribedGroup.GroupId" class="btn btn-primary btn-md f-right">Beheren</a>
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 m-t-3">
+                <h1>Invitaties</h1>
+                @if (Model.InvitedGroups == null || !Model.InvitedGroups.Any())
+                {
+                    <em>Geen invitaties gevonden</em>
+                }
+                else
+                {
+                    foreach (var group in Model.InvitedGroups)
+                    {
+                        <div class="card">
+                                <p>
+                                    @group.Name (@group.Organization.Name)
+                                    <a asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" class="btn btn-secondary btn-md f-right">Beheren</a>
+                                </p>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

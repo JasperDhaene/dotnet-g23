@@ -7,6 +7,7 @@ using dotnet_g23.Filters;
 using dotnet_g23.Helpers;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
+using dotnet_g23.Models.ViewModels.GroupViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -33,17 +34,24 @@ namespace dotnet_g23.Controllers
 		[Route("Groups")]
 		public IActionResult Index(Participant participant)
 		{
-			// show list of open groups
-			IEnumerable<Group> groups = _groupRepository.GetByOrganization(participant.Organization).Where(g => !g.Closed);
-			ViewData["groups"] = groups;
-			return View();
+            // Return list with invites and open organizations
+
+		    IndexViewModel vm = new IndexViewModel
+		    {
+		        SubscribedGroup = participant.Group,
+		        InvitedGroups = participant.User.Invitations?.Select(n => n.Group),
+		        OpenGroups = participant.Organization.Groups?.Where(g => !g.Closed)
+		    };
+
+		    return View(vm);
+            // show list of open groups
 		}
 
-        // POST /Groups/Register
+        // POST /Groups/Register/{id}
 		[HttpPost]
-		[Route("Groups/Register")]
+		[Route("Groups/Register/{id}")]
 		public IActionResult Register(Participant participant, int id) {
-			// register user with group
+			// Register user with group
 
 			if (participant.Group != null)
 			{
@@ -57,6 +65,15 @@ namespace dotnet_g23.Controllers
 			// redirect to group detail
 			return RedirectToAction("RegisterMotivation", "MotivationController");
 		}
+
+        // GET /Groups/:id
+	    [Route("Group/{id}")]
+	    public IActionResult Show(Participant participant, int id)
+	    {
+            // Show group dashboard
+
+	        throw new NotImplementedException();
+	    }
 
 
 		[Route("Group/Create")]
