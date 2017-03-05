@@ -6,7 +6,7 @@ using Xunit;
 
 namespace dotnet_g23.Tests.Controllers
 {
-    public class ManageControllerTest
+    public class GroupControllerTest
     {
         [Fact(Skip = "Not yet implemented")]
         public void Test1()
