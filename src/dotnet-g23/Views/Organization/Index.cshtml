@@ -5,40 +5,32 @@
     ViewData["Title"] = "Register";
 }
 
-@*@model IEnumerable<Organization>
-
-<div class="GBContainer">
-    @foreach (var org in Model)
-    {
-        <div class="GBCard">
-            <form asp-controller="Register" asp-action="Register" method="post" class="form-horizontal">
-                <span>@org.Name - @org.Location</span>
-                <input type="hidden" value="@org.OrganizationId" name="OrganizationId"/>
-                <input type="submit" value="registreer" class="GBCardSubmit"/>
-            </form>
-        </div>
-    }
-</div>*@
+@model dotnet_g23.Models.ViewModels.OrganizationViewModels.IndexViewModel
 
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <div class="card">
-                    <p>Poverello - Brugge
-                        <a class="btn btn-secondary btn-md f-right" href="#" role="button">Registreer</a>
-                    </p>
-                </div>
-                <div class="card">
-                    <p>CM Oppas Aan Huis - Antwerpen
-                        <a class="btn btn-secondary btn-md f-right" href="#" role="button">Registreer</a>
-                    </p>
-                </div>
-                <div class="card">
-                    <p>Le Crayon Taalkampen - Kuurne
-                        <a class="btn btn-secondary btn-md f-right" href="#" role="button">Registreer</a>
-                    </p>
-                </div>
+                @if (Model.Organizations == null)
+                {
+                    <em>Geen groepen gevonden</em>
+                }
+                else
+                {
+                    foreach (var org in Model.Organizations)
+                    {
+                        <div class="card">
+                            <form asp-controller="Register" asp-action="Register" method="post" class="form-horizontal">
+                                <p>
+                                    @org.Name - @org.Location
+                                    <input type="hidden" value="@org.OrganizationId" name="OrganizationId" />
+                                    <input type="submit" value="Registreer" class="btn btn-secondary btn-md f-right" />
+                                </p>
+                            </form>
+                        </div>
+                    }
+
+                }
             </div>
         </div>
     </div>

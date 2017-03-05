@@ -29,7 +29,14 @@ namespace dotnet_g23.Data.Repositories
                 .SingleOrDefault(o => o.OrganizationId == OrganizationId);
         }
 
-        public Organization GetByName(string orgName)
+        public IEnumerable<Organization> GetByDomain(String domain)
+        {
+            return _organizations
+                .Where(org => org.Domain == domain)
+                .ToList();
+        }
+
+        public Organization GetByName(String orgName)
         {
             return _organizations
                 .SingleOrDefault(o => o.Name  == orgName);
