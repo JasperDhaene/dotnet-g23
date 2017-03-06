@@ -39,6 +39,25 @@ namespace dotnet_g23.Data {
                 _context.GUsers.Add(florian);
                 _context.GUsers.Add(jasper);
 
+                Group openGroup1 = new Group("openGroup1", false);
+                Group openGroup2 = new Group("openGroup2", false);
+                Group openGroup3 = new Group("openGroup3", false);
+                Group openGroup4 = new Group("openGroup4", false);
+                Group closedGroup1 = new Group("closedGroup1");
+                Group closedGroup2 = new Group("closedGroup2");
+                Group closedGroup3 = new Group("closedGroup3");
+                Group closedGroup4 = new Group("closedGroup4");
+
+                _context.Groups.Add(openGroup1);
+                _context.Groups.Add(openGroup2);
+                _context.Groups.Add(openGroup3);
+                _context.Groups.Add(openGroup4);
+
+                _context.Groups.Add(closedGroup1);
+                _context.Groups.Add(closedGroup2);
+                _context.Groups.Add(closedGroup3);
+                _context.Groups.Add(closedGroup4);
+
                 ApplicationUser user1 = new ApplicationUser { UserName = preben.Email, Email = preben.Email };
                 await _userManager.CreateAsync(user1, "P@ssword1");
                 await _userManager.AddClaimAsync(user1, new Claim(ClaimTypes.Role, "participant"));
