@@ -18,6 +18,7 @@ namespace dotnet_g23.Data
         public DbSet<UserState> UserStates { get; set; }
         public DbSet<Participant> Participants { get; set; }
         public DbSet<Lector> Lectors { get; set; }
+        public DbSet<Motivation> Motivations { get; set; }
         public DbSet<Notification> Notifications { get; set; }
 
         public DbSet<Group> Groups { get; set; }
