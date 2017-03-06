@@ -41,7 +41,7 @@ namespace dotnet_g23.Controllers
 
 		    IEnumerable<Organization> list = _orgRepository.GetByDomain(MailHelper.GetMailDomain(user.Email));
             if (query != null) {
-                list = list.Where(o => (o.Name.Equals(query) || o.Location.Contains(query))).ToList();
+                list = _orgRepository.GetByKeyword(query, MailHelper.GetMailDomain(user.Email));
                 if (list.Count() == 0) {
                     TempData["message"] = $"De gezochte organisatie werd niet gevonden, dit zijn de enige mogelijkheden!";
                     list = _orgRepository.GetByDomain(MailHelper.GetMailDomain(user.Email));
