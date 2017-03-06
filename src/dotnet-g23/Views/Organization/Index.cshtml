@@ -39,7 +39,17 @@
                     </form>
                         <br />
                     if (Model.Organizations == null || !Model.Organizations.Any()) {
-                        <em>Geen organisaties gevonden</em>
+                        foreach (var org in Model.Organizations) {
+                            <div class="card">
+                                <form asp-controller="Organization" asp-action="Register" method="post" class="form-horizontal">
+                                    <p>
+                                        @org.Name (@org.Location)
+                                        <input type="hidden" value="@org.OrganizationId" name="organizationId" />
+                                        <input type="submit" value="Registreren" class="btn btn-secondary btn-md f-right" />
+                                    </p>
+                                </form>
+                            </div>
+                        }
                     }
                     else {
                         foreach (var org in Model.Organizations) {

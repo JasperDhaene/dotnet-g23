@@ -40,8 +40,13 @@ namespace dotnet_g23.Controllers
             IndexViewModel vm = new IndexViewModel();
 
 		    IEnumerable<Organization> list = _orgRepository.GetByDomain(MailHelper.GetMailDomain(user.Email));
-            if (query != null)
+            if (query != null) {
                 list = list.Where(o => (o.Name.Equals(query) || o.Location.Contains(query))).ToList();
+                if (list.Count() == 0) {
+                    TempData["message"] = $"De gezochte organisatie werd niet gevonden, dit zijn de enige mogelijkheden!";
+                    list = _orgRepository.GetByDomain(MailHelper.GetMailDomain(user.Email));
+                }
+            }
 
             vm.SubscribedOrganization = (user.UserState as Participant)?.Organization;
             vm.Organizations = list.Where(org => org != vm.SubscribedOrganization);
