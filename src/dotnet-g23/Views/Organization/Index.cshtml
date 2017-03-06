@@ -33,10 +33,10 @@
                     <em>Geen organisaties gevonden</em>
                 }
                 else {
-                    @*<form asp-controller="Organization" asp-action="Index" method="get" class="form-horizontal">
+                    <form asp-controller="Organization" asp-action="Index" method="get" class="form-horizontal">
                             <input type="text" placeholder="Naam of locatie" name="nameLocation" id="NameLocation" />
                             <input type="submit" value="Zoek" class="btn btn-secondary btn-md f-right" />
-                        </form>*@
+                        </form>
                     @*@{
                         ICollection<String> Location = new List<String>();
                         ICollection<String> Name = new List<String>();
@@ -45,8 +45,8 @@
                             Name.Add(org.Name);
                         }
                     }*@
-                        <form asp-controller="Organization" asp-action="Index" method="get">
-                            @*<div class="form-inline">*@
+                        @*<form asp-controller="Organization" asp-action="Index" method="get">
+                            <div class="form-inline">
                             <div class="form-group">
                                 <label for="Location"></label>
                                 <select id="Location" name="Location" asp-items="@(ViewData["Location"] as SelectList)" class="form-control">
@@ -57,8 +57,8 @@
                                     <option value="">-- Zoek op naam --</option>
                                 </select>
                             </div>
-                            @*</div>*@
-                        </form>
+                            </div>
+                        </form>*@
                         <br />
                         foreach (var org in Model.Organizations) {
                             <div class="card">
