@@ -34,32 +34,14 @@
                 }
                 else {
                     <form asp-controller="Organization" asp-action="Index" method="get" class="form-horizontal">
-                            <input type="text" placeholder="Naam of locatie" name="nameLocation" id="NameLocation" />
-                            <input type="submit" value="Zoek" class="btn btn-secondary btn-md f-right" />
-                        </form>
-                    @*@{
-                        ICollection<String> Location = new List<String>();
-                        ICollection<String> Name = new List<String>();
-                        foreach (var org in Model.Organizations) {
-                            Location.Add(org.Location);
-                            Name.Add(org.Name);
-                        }
-                    }*@
-                        @*<form asp-controller="Organization" asp-action="Index" method="get">
-                            <div class="form-inline">
-                            <div class="form-group">
-                                <label for="Location"></label>
-                                <select id="Location" name="Location" asp-items="@(ViewData["Location"] as SelectList)" class="form-control">
-                                    <option value="">-- Zoek op locatie --</option>
-                                </select>
-                                <label for="Name"></label>
-                                <select id="Name" name="Name" asp-items="@(ViewData["Name"] as SelectList)" class="form-control">
-                                    <option value="">-- Zoek op naam --</option>
-                                </select>
-                            </div>
-                            </div>
-                        </form>*@
+                        <input type="text" placeholder="Naam of locatie" name="query" id="query" />
+                        <input type="submit" value="Zoek" class="btn btn-secondary btn-md f-right" />
+                    </form>
                         <br />
+                    if (Model.Organizations == null || !Model.Organizations.Any()) {
+                        <em>Geen organisaties gevonden</em>
+                    }
+                    else {
                         foreach (var org in Model.Organizations) {
                             <div class="card">
                                 <form asp-controller="Organization" asp-action="Register" method="post" class="form-horizontal">
@@ -70,8 +52,9 @@
                                     </p>
                                 </form>
                             </div>
-                            }
                         }
+                    }
+                }
             </div>
         </div>
     </div>

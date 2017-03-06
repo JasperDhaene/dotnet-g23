@@ -41,7 +41,7 @@ namespace dotnet_g23.Controllers
 
 		    IEnumerable<Organization> list = _orgRepository.GetByDomain(MailHelper.GetMailDomain(user.Email));
             if (query != null)
-                list = list.Where(o => (o.Name.Equals(query) || o.Location.Contains(query)));
+                list = list.Where(o => (o.Name.Equals(query) || o.Location.Contains(query))).ToList();
 
             vm.SubscribedOrganization = (user.UserState as Participant)?.Organization;
             vm.Organizations = list.Where(org => org != vm.SubscribedOrganization);
