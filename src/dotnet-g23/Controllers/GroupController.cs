@@ -75,26 +75,28 @@ namespace dotnet_g23.Controllers
 	        throw new NotImplementedException();
 	    }
 
-
+        // GET /Groups/Create
 		[Route("Group/Create")]
 		public IActionResult Create() {
 			return View();
 		}
 
+        // POST /Groups/Create
 		[HttpPost]
 		[Route("Group/Create")]
-		public IActionResult Create(Participant user, string name = null, bool closed = false)
+		public IActionResult Create(Participant participant, String name, Boolean closed)
 		{
-			// create new group with organization
-
-			if (name != null)
-			{
-				user.Organization.CreateGroup(user, name);
-				// notify lector
-				return RedirectToAction("Invite", "GroupManageController");
-			}
-
-			return RedirectToAction("Index", "GroupManageController");
+			// Create new group
+		    try
+		    {
+		        participant.Organization.CreateGroup(participant, name);
+		        return RedirectToAction("Invite", "GroupController");
+		    }
+		    catch (ArgumentException e)
+		    {
+		        TempData["message"] = e.Message;
+		        return View();
+		    }
 		}
 
 		[HttpPost]

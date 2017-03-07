@@ -15,7 +15,7 @@ namespace dotnet_g23.Models.Domain
         {
             get { return _name; }
             private set {
-                if(value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
+                if(value == null || value.Trim() == String.Empty || value == String.Empty)
                 {
                     throw new ArgumentException("Name can not be empty!");
                 }
