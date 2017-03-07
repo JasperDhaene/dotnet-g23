@@ -33,8 +33,11 @@ namespace dotnet_g23.Models.Domain
         #region Constructors
         public Group()
         {
+            Participants = new List<Participant>();
+            Lectors = new List<Lector>();
+            Invitations = new List<Invitation>();
         }
-        public Group(String name)
+        public Group(String name) : this()
         {
             Name = name;
             Closed = true;

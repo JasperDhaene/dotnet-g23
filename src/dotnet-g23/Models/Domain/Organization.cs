@@ -54,9 +54,11 @@ namespace dotnet_g23.Models.Domain
 		#region Constructors
         public Organization()
         {
+            Groups = new List<Group>();
+            Participants = new List<Participant>();
         }
 
-        public Organization(String name, String location, String domain)
+        public Organization(String name, String location, String domain): this()
         {
             Name = name;
             Location = location;
@@ -76,10 +78,10 @@ namespace dotnet_g23.Models.Domain
             user.UserState = new Participant(this);
 	    }
 
-		public void CreateGroup(Participant user, string name) {
+		public void CreateGroup(Participant participant, string name) {
 			Group group = new Group(name);
             Groups.Add(group);
-            group.Register(user);
+            group.Register(participant);
 		}
 		#endregion
 	}

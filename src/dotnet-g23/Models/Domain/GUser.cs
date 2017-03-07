@@ -38,8 +38,9 @@ namespace dotnet_g23.Models.Domain
         #region Constructors
         public GUser()
         {
+            Invitations = new List<Invitation>();
         }
-        public GUser(String email, UserState userState)
+        public GUser(String email, UserState userState): this()
         {
             Email = email;
             UserState = userState;
