@@ -147,7 +147,8 @@ namespace dotnet_g23.Data
                 .WithMany(org => org.Groups)
                 .IsRequired();
             g.HasOne(group => group.Motivation)
-                .WithOne(m => m.Group);
+                .WithOne(m => m.Group)
+                .HasForeignKey<Motivation>(m => m.GroupForeignKey);
         }
 
         private static void MapMotivation(EntityTypeBuilder<Motivation> m)
@@ -168,9 +169,7 @@ namespace dotnet_g23.Data
             m.Property(mo => mo.OrganizationContactEmail);
 
             m.HasOne(mo => mo.Group)
-                .WithOne(g => g.Motivation)
-                .HasForeignKey<Group>(g => g.GroupId)
-                .IsRequired();
+                .WithOne(g => g.Motivation);
         }
     }
 }
