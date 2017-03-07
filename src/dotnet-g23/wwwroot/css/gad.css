@@ -14085,13 +14085,80 @@ as per bootstrap 4 standards
 #page-wrapper.gb {
     min-height: 95vh;
 }
-/*
+
+.mrg-sm-vert {
+    margin: 1% 0;
+}
+
+.f-xs-left {
+    float: left
+}
+.f-xs-right {
+    float: right
+}
+.f-xs-none {
+    float: none
+}
+
+.clear-xs {
+    clear: both;
+}
+.clear-xs-none {
+    clear: none;
+}
+
 @media(min-width:544px) {
-    .footer .copyright a {
-        display: block;
+    .f-sm-left {
+        float: left
+    }
+    .f-sm-right {
+        float: right
+    }
+    .f-sm-none {
+        float: none
+    }
+    .clear-sm {
+        clear: both;
+    }
+    .clear-sm-none {
+        clear: none;
     }
 }
-*/
+@media(min-width:768px) {
+    .f-md-left {
+        float: left
+    }
+    .f-md-right {
+        float: right
+    }
+    .f-md-none {
+        float: none
+    }
+    .clear-md {
+        clear: both;
+    }
+    .clear-md-none {
+        clear: none;
+    }
+}
+@media(min-width:992px) {
+    .f-lg-left {
+        float: left
+    }
+    .f-lg-right {
+        float: right
+    }
+    .f-lg-none {
+        float: none
+    }
+    .clear-lg {
+        clear: both;
+    }
+    .clear-lg-none {
+        clear: none;
+    }
+}
+
 .welcome {
     text-align: center;
 }
