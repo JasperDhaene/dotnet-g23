@@ -8,32 +8,41 @@
 @{
     ViewData["Title"] = "Log in";
 }
-<br />
-<br />
-<h2>@ViewData["Title"].</h2>
+
+<div class="content">
+    <div class="container-fluid">
+
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-lg-8 push-lg-2 col-md-8 push-md-2 col-sm-10 push-sm-1">
         <section>
+            <h2>@ViewData["Title"]</h2>
             <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
                 <h4>Gebruik een lokaal gebruikersaccount</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
+
                 <div class="form-group">
-                    <label asp-for="Email" class="col-md-2 control-label">E-mail</label>
-                    <div class="col-md-10">
-                        <input asp-for="Email" class="form-control" />
+                    <div class="input-group">
+                        <label asp-for="Email"  class="input-group-addon"> <!-- for="login_string" -->
+                            <i class="fa fa-user"></i>
+                        </label>
+                        <input asp-for="Email" type="text" class="form-control" placeholder="email" />
                         <span asp-validation-for="Email" class="text-danger"></span>
+
+                        <!--<input asp-validation-for="Email" class="text-danger form-control" type="text" name="login_string" id="login_string" autocomplete="off" maxlength="255" placeholder="email"> -->
                     </div>
                 </div>
-                <br />
-                <br />
+
                 <div class="form-group">
-                    <label asp-for="Password" class="col-md-2 control-label">Wachtwoord</label>
-                    <div class="col-md-10">
-                        <input asp-for="Password" class="form-control" />
+                    <div class="input-group">
+                        <label asp-for="Password"  class="input-group-addon control-label"> <!-- for="login_string"  also not sure what control-label does -->
+                            <i class="fa fa-key"></i>
+                        </label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="wachtwoord" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
@@ -91,6 +100,8 @@
             </section>
         </div>*@
 </div>
+    </div>
+    </div>
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
