@@ -36,9 +36,6 @@ namespace dotnet_g23.Data {
                 GUser florian = new GUser("florian.dejonckheere@hogent.be", new Lector());
                 GUser jasper = new GUser("jasper.dhaene@organization.be", new Lector());
 
-                org3.CreateGroup(tuur.UserState as Participant, "Organisatie Groep 1");
-                org1.CreateGroup(preben2.UserState as Participant, "HoGent Groep 1");
-
                 _context.GUsers.Add(preben);
                 _context.GUsers.Add(preben2);
                 _context.GUsers.Add(tuur);
