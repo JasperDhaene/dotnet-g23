@@ -60,8 +60,12 @@ namespace dotnet_g23.Tests.Data {
             _groups.Add(_closedGroup);
             _groups.Add(_openGroup);
 
-            String text1 = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed " +
-                "doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam";
+            String text1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                    + "Aliquam at quam at eros volutpat elementum. Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper. "
+                    + "Pellentesque eleifend sapien at turpis pulvinar, quis finibus mi sodales. Ut porttitor pharetra ante. Pellentesque eu arcu est. "
+                    + "Mauris finibus porta tellus et posuere. Nam feugiat vitae enim at sagittis. Duis sodales varius ipsum vitae maximus. "
+                    + "Nullam est purus, tempor in nisl aliquet, congue aliquam neque. Vestibulum sit amet neque non nunc eleifend feugiat. "
+                    + "Nullam sed eleifend libero. Aliquam vitae ornare lorem. Mauris pellentesque lacus a arcu pulvinar, quis laoreet massa maximus. Praesent vestibulum elit.";
             Motivation = new Motivation(text1);
         }
         public ICollection<Group> Groups => _groups;
