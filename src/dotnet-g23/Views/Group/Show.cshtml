@@ -1,7 +1,24 @@
 ﻿@model dotnet_g23.Models.Domain.Group
 
 @{
-    ViewData["Title"] = "Groep";
+    ViewData["Title"] = $"Groep '{ @Model.Name }'";
 }
 
-@Model.Name
+<div class="content">
+    <div class="container-fluid">
+        @Html.Partial("_Messages")
+        <div class="row">
+            <div class="col-lg-12">
+                <a asp-controller="Group" asp-action="Invite" class="btn btn-primary btn-md f-right">Vrijwilligers uitnodigen</a>
+                <h1>Groep '@Model.Name'</h1>
+                <p>
+                    De volgende cursisten behoren tot deze groep:
+                </p>
+                @foreach (var participant in Model.Participants)
+                {
+                    <div class="card">@participant.User?.Email</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

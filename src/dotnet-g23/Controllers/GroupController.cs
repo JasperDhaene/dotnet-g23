@@ -96,8 +96,7 @@ namespace dotnet_g23.Controllers
 		    {
 		        participant.Organization.CreateGroup(participant, name);
                 _groupRepository.SaveChanges();
-		        //return RedirectToAction("Invite", "Groups");
-		        return RedirectToAction("Index", "Groups");
+		        return RedirectToAction("Invite", "Groups");
 		    }
 		    catch (ArgumentException e)
 		    {
