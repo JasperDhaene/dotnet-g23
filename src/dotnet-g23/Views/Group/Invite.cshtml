@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Cursisten uitnodigen";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        @Html.Partial("_Messages")
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Cursisten uitnodigen</h1>
+                <form asp-controller="Group" asp-action="Invite" asp-route-id="@Model.GroupId" method="post">
+                    <p>
+                        U kan een of meerdere cursisten uitnodigen om tot de groep toe te treden.
+                    </p><p>
+                        <input type="email" placeholder="Emailadres" name="address" />
+                    </p>
+                    <br/>
+                    <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md">Uitnodiging verzenden</a>
+                    <a asp-controller="Group" asp-action="Show" asp-route-id="@Model.GroupId" class="btn btn-secondary btn-md">Dashboard &raquo;</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

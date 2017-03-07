@@ -15,7 +15,7 @@ namespace dotnet_g23.Models.Domain
         {
             get { return _name; }
             private set {
-                if(value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
+                if(value == null || value.Trim() == String.Empty || value == String.Empty)
                 {
                     throw new ArgumentException("Name can not be empty!");
                 }
@@ -27,17 +27,20 @@ namespace dotnet_g23.Models.Domain
         public ICollection<Lector> Lectors { get; set; }
         public Organization Organization { get; set; }
         public Motivation Motivation { get; set; }
-        public ICollection<Notification> Notifications { get; set; }
+        public ICollection<Invitation> Invitations { get; set; }
         #endregion
 
         #region Constructors
         public Group()
         {
+            Participants = new List<Participant>();
+            Lectors = new List<Lector>();
+            Invitations = new List<Invitation>();
         }
-        public Group(String name)
+        public Group(String name) : this()
         {
             Name = name;
-            Closed = true;
+            Closed = false;
         }
 
         public Group(String name, Boolean closed) : this(name)
@@ -47,6 +50,11 @@ namespace dotnet_g23.Models.Domain
 		#endregion
 
 		#region Methods
+
+        public void Invite(Participant user)
+        {
+            Invitation invitation = new Invitation(this, user.User, $"You have been invited to the group ${Name}!");
+        }
 	    public void Register(Participant user)
 	    {
 		    user.Group = this;

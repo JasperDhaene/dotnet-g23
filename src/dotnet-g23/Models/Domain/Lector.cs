@@ -11,5 +11,12 @@ namespace dotnet_g23.Models.Domain
         public ICollection<Participant> Participants { get; set; }
         public Group Group { get; set; }
         #endregion
+
+        #region Constructors
+        public Lector()
+        {
+            Participants = new List<Participant>();
+        }
+        #endregion
     }
 }

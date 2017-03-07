@@ -18,7 +18,8 @@ namespace dotnet_g23.Data
         public DbSet<UserState> UserStates { get; set; }
         public DbSet<Participant> Participants { get; set; }
         public DbSet<Lector> Lectors { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Motivation> Motivations { get; set; }
+        public DbSet<Invitation> Invitations { get; set; }
 
         public DbSet<Group> Groups { get; set; }
 
@@ -39,7 +40,7 @@ namespace dotnet_g23.Data
             builder.Entity<UserState>(MapUserState);
             builder.Entity<Participant>(MapParticipant);
             builder.Entity<Lector>(MapLector);
-            builder.Entity<Notification>(MapNotification);
+            builder.Entity<Invitation>(MapInvitation);
 
             builder.Entity<Group>(MapGroup);
             builder.Entity<Motivation>(MapMotivation);
@@ -109,10 +110,10 @@ namespace dotnet_g23.Data
                 .WithMany(g => g.Lectors);
         }
 
-        private static void MapNotification(EntityTypeBuilder<Notification> n)
+        private static void MapInvitation(EntityTypeBuilder<Invitation> n)
         {
-            n.ToTable("Notifications");
-            n.HasKey(no => no.NotificationId);
+            n.ToTable("Invitations");
+            n.HasKey(no => no.InvitationId);
 
             n.Property(no => no.Message).IsRequired();
             n.Property(no => no.DateCreated).IsRequired();
@@ -120,10 +121,10 @@ namespace dotnet_g23.Data
             n.Property(no => no.IsRead).IsRequired();
 
             n.HasOne(no => no.User)
-                .WithMany(u => u.Notifications)
+                .WithMany(u => u.Invitations)
                 .IsRequired();
             n.HasOne(no => no.Group)
-                .WithMany(g => g.Notifications)
+                .WithMany(g => g.Invitations)
                 .IsRequired();
         }
 
@@ -146,7 +147,8 @@ namespace dotnet_g23.Data
                 .WithMany(org => org.Groups)
                 .IsRequired();
             g.HasOne(group => group.Motivation)
-                .WithOne(m => m.Group);
+                .WithOne(m => m.Group)
+                .HasForeignKey<Motivation>(m => m.GroupForeignKey);
         }
 
         private static void MapMotivation(EntityTypeBuilder<Motivation> m)
@@ -167,9 +169,7 @@ namespace dotnet_g23.Data
             m.Property(mo => mo.OrganizationContactEmail);
 
             m.HasOne(mo => mo.Group)
-                .WithOne(g => g.Motivation)
-                .HasForeignKey<Group>(g => g.GroupId)
-                .IsRequired();
+                .WithOne(g => g.Motivation);
         }
     }
 }

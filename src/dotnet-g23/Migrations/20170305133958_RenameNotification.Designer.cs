@@ -8,9 +8,10 @@ using dotnet_g23.Data;
 namespace dotnet_g23.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170305133958_RenameNotification")]
+    partial class RenameNotification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
@@ -68,8 +69,7 @@ namespace dotnet_g23.Migrations
 
             modelBuilder.Entity("dotnet_g23.Models.Domain.Group", b =>
                 {
-                    b.Property<int>("GroupId")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("GroupId");
 
                     b.Property<bool>("Closed");
 
@@ -139,8 +139,6 @@ namespace dotnet_g23.Migrations
 
                     b.Property<bool>("Approved");
 
-                    b.Property<int>("GroupForeignKey");
-
                     b.Property<string>("MotivationText")
                         .IsRequired();
 
@@ -165,9 +163,6 @@ namespace dotnet_g23.Migrations
                         .IsRequired();
 
                     b.HasKey("MotivationId");
-
-                    b.HasIndex("GroupForeignKey")
-                        .IsUnique();
 
                     b.ToTable("Motivations");
                 });
@@ -348,6 +343,11 @@ namespace dotnet_g23.Migrations
 
             modelBuilder.Entity("dotnet_g23.Models.Domain.Group", b =>
                 {
+                    b.HasOne("dotnet_g23.Models.Domain.Motivation", "Motivation")
+                        .WithOne("Group")
+                        .HasForeignKey("dotnet_g23.Models.Domain.Group", "GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("dotnet_g23.Models.Domain.Organization", "Organization")
                         .WithMany("Groups")
                         .HasForeignKey("OrganizationId")
@@ -364,14 +364,6 @@ namespace dotnet_g23.Migrations
                     b.HasOne("dotnet_g23.Models.Domain.GUser", "User")
                         .WithMany("Invitations")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("dotnet_g23.Models.Domain.Motivation", b =>
-                {
-                    b.HasOne("dotnet_g23.Models.Domain.Group", "Group")
-                        .WithOne("Motivation")
-                        .HasForeignKey("dotnet_g23.Models.Domain.Motivation", "GroupForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

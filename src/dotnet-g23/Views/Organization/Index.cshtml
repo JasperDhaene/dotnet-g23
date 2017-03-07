@@ -13,16 +13,15 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1>Mijn organisatie</h1>
-                @if (Model.SubscribedOrganization == null)
-                {
-                    <em>U bent niet in een organisatie ingeschreven</em>
+                @if (Model.SubscribedOrganization == null) {
+                    <div class="alert alert-info"><i class="fa fa-info-circle"></i> U bent niet in een organisatie geregistreerd.</div>
                 }
                 else
                 {
                     <div class="card">
                         <p>
                             @Model.SubscribedOrganization.Name (@Model.SubscribedOrganization.Location)
-                            <a asp-controller="Group" asp-action="Index" class="btn btn-primary btn-md f-right">Beheren</a>
+                            <a asp-controller="Group" asp-action="Index" class="btn btn-primary btn-md f-right">Groepen</a>
                         </p>
                     </div>
                 }
@@ -31,25 +30,27 @@
         <div class="row">
             <div class="col-lg-12 m-t-3">
                 <h1>Geregistreerde organisaties</h1>
-                @if (Model.Organizations == null || !Model.Organizations.Any())
-                {
-                    <em>Geen organisaties gevonden</em>
+                @if (Model.Organizations == null || !Model.Organizations.Any()) {
+                    <span class="alert alert-info"><i class="fa fa-info-circle"></i> Geen organisaties gevonden.</span>
                 }
                 else
                 {
-                    foreach (var org in Model.Organizations)
-                    {
+                    <form asp-controller="Organization" asp-action="Index" method="get" class="form-horizontal" style="text-align: right;">
+                        <input type="text" placeholder="Naam of locatie" name="query" id="query" />
+                        <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-warning btn-md">Zoeken</a>
+                    </form>
+                    <br />
+                    foreach (var org in Model.Organizations) {
                         <div class="card">
                             <form asp-controller="Organization" asp-action="Register" method="post" class="form-horizontal">
                                 <p>
                                     @org.Name (@org.Location)
-                                    <input type="hidden" value="@org.OrganizationId" name="organizationId"/>
-                                    <input type="submit" value="Registreren" class="btn btn-secondary btn-md f-right"/>
+                                    <input type="hidden" value="@org.OrganizationId" name="organizationId" />
+                                    <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-right">Registreren</a>
                                 </p>
                             </form>
                         </div>
                     }
-
                 }
             </div>
         </div>

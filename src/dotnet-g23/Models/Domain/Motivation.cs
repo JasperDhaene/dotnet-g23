@@ -13,6 +13,7 @@ namespace dotnet_g23.Models.Domain
 
         #region Properties
         public int MotivationId { get; private set; }
+        public int GroupForeignKey { get; private set; }
 
         public String MotivationText
         {

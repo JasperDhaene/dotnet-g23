@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Server.Kestrel.Internal.Http;
 
 namespace dotnet_g23.Models.Domain
 {
-    public class Notification
+    public class Invitation
     {
         #region Properties
-        public int NotificationId { get; private set; }
+        public int InvitationId { get; private set; }
         public GUser User { get; private set; }
         public Group Group { get; private set; }
         public String Message { get; private set; }
@@ -20,10 +20,10 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
-        public Notification()
+        public Invitation()
         {
         }
-        public Notification(Group fromGroup, GUser toUser, String message)
+        public Invitation(Group fromGroup, GUser toUser, String message)
         {
             Group = fromGroup;
             User = toUser;
