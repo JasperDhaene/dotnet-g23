@@ -6,36 +6,36 @@ using dotnet_g23.Models.Domain;
 
 namespace dotnet_g23.Data.Repositories
 {
-    public class NotificationRepository : INotificationRepository
+    public class InvitationRepository : IInvitationRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly DbSet<Notification> _notifications;
+        private readonly DbSet<Invitation> _invitations;
 
-        public NotificationRepository(ApplicationDbContext context)
+        public InvitationRepository(ApplicationDbContext context)
         {
             _context = context;
-            _notifications = context.Notifications;
+            _invitations = context.Invitations;
         }
 
-        public Notification GetBy(int notificationId)
+        public Invitation GetBy(int invitationId)
         {
-            return _notifications
+            return _invitations
                 .Include(n => n.User)
                 .Include(n => n.Group)
-                .SingleOrDefault(n => n.NotificationId == notificationId);
+                .SingleOrDefault(n => n.InvitationId == invitationId);
         }
 
-        public IEnumerable<Notification> GetByUser(GUser user)
+        public IEnumerable<Invitation> GetByUser(GUser user)
         {
-            return _notifications
+            return _invitations
                 .Include(n => n.User)
                 .Include(n => n.Group)
                 .Where(n => n.User.UserId == user.UserId);
         }
 
-        public IEnumerable<Notification> GetAll()
+        public IEnumerable<Invitation> GetAll()
         {
-            return _notifications
+            return _invitations
                 .ToList();
         }
 
