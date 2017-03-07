@@ -14086,7 +14086,7 @@ as per bootstrap 4 standards
     min-height: 95vh;
 }
 
-.mrg-sm-vert {
+.mrg-sm-vert { /* TODO look into possibility for m-t-X */
     margin: 1% 0;
 }
 
