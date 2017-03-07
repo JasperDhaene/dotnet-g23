@@ -56,6 +56,7 @@ namespace dotnet_g23.Controllers {
                 if (result.Succeeded) {
                     _logger.LogInformation(1, "User logged in.");
                     return RedirectToLocal(returnUrl);
+                    //return RedirectToAction("Organizations", "Organization");
                 }
                 if (result.RequiresTwoFactor) {
                     return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, model.RememberMe });

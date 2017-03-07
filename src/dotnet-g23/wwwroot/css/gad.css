@@ -14184,6 +14184,16 @@ as per bootstrap 4 standards
     width: 300px;
 }
 
+.false-nav-link {
+    border-radius: 5px;
+    color: #fff;
+    position: relative;
+    padding: .425rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /** Labels and badges **/
 
 .label {
