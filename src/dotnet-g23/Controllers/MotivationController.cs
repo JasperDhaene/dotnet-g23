@@ -32,8 +32,15 @@ namespace dotnet_g23.Controllers {
         }
 
         [Authorize(Policy = "participant")]
-        public IActionResult RegisterMotivation() {
-            return View();
+        public IActionResult RegisterMotivation(GUser user, String motivation) {
+            RegisterViewModel vm = new RegisterViewModel();
+
+            Motivation mot = new Motivation(motivation);
+            (user.UserState as Participant).Group.Motivation = mot;
+
+            vm.GroupMotivation = mot;
+
+            return View(vm);
         }
 
         [Authorize(Policy = "lector")]
