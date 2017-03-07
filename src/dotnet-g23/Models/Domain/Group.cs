@@ -40,7 +40,7 @@ namespace dotnet_g23.Models.Domain
         public Group(String name) : this()
         {
             Name = name;
-            Closed = true;
+            Closed = false;
         }
 
         public Group(String name, Boolean closed) : this(name)

@@ -63,8 +63,8 @@
                     {
                         <div class="card">
                             <p>
-                                @group.Name <span class="badge">@group.Participants.Count()</span>
-                                <a asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" class="btn btn-secondary btn-md f-right">Beheren</a>
+                                @group.Name <span class="badge">@group.Participants.Count() @(group.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
+                                <a asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" class="btn btn-secondary btn-md f-right">Toetreden</a>
                             </p>
                         </div>
                     }

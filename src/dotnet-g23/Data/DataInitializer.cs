@@ -31,11 +31,16 @@ namespace dotnet_g23.Data {
                 _context.Organizations.Add(org4);
 
                 GUser preben = new GUser("preben.leroy@hogent.be");
+                GUser preben2 = new GUser("preben2.leroy@hogent.be", new Participant(org1));
                 GUser tuur = new GUser("tuur.lievens@organization.be", new Participant(org3));
                 GUser florian = new GUser("florian.dejonckheere@hogent.be", new Lector());
                 GUser jasper = new GUser("jasper.dhaene@organization.be", new Lector());
 
+                org3.CreateGroup(tuur.UserState as Participant, "Organisatie Groep 1");
+                org1.CreateGroup(preben2.UserState as Participant, "HoGent Groep 1");
+
                 _context.GUsers.Add(preben);
+                _context.GUsers.Add(preben2);
                 _context.GUsers.Add(tuur);
                 _context.GUsers.Add(florian);
                 _context.GUsers.Add(jasper);
@@ -43,6 +48,10 @@ namespace dotnet_g23.Data {
                 ApplicationUser user1 = new ApplicationUser { UserName = preben.Email, Email = preben.Email };
                 await _userManager.CreateAsync(user1, "P@ssword1");
                 await _userManager.AddClaimAsync(user1, new Claim(ClaimTypes.Role, "participant"));
+
+                ApplicationUser user1a = new ApplicationUser { UserName = preben2.Email, Email = preben2.Email };
+                await _userManager.CreateAsync(user1a, "P@ssword1");
+                await _userManager.AddClaimAsync(user1a, new Claim(ClaimTypes.Role, "participant"));
 
                 ApplicationUser user2 = new ApplicationUser { UserName = tuur.Email, Email = tuur.Email };
                 await _userManager.CreateAsync(user2, "P@ssword2");
