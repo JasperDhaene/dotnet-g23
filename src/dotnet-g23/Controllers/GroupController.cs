@@ -44,7 +44,6 @@ namespace dotnet_g23.Controllers
 		    };
 
 		    return View(vm);
-            // show list of open groups
 		}
 
         // POST /Groups/Register/{id}
@@ -55,15 +54,15 @@ namespace dotnet_g23.Controllers
 
 			if (participant.Group != null)
 			{
-				ViewData["Message"] = "Error: already registered";
-				return RedirectToAction("Index", "GroupManageController");
+				TempData["Message"] = "U bent reeds geregistreerd bij een groep.";
+				return RedirectToAction("Index", "GroupController");
 			}
 
 			Group group = _groupRepository.GetBy(id);
 			group.Register(participant);
+		    _groupRepository.SaveChanges();
 
-			// redirect to group detail
-			return RedirectToAction("RegisterMotivation", "MotivationController");
+			return RedirectToAction("Show", "Groups");
 		}
 
         // GET /Groups/:id
@@ -72,7 +71,9 @@ namespace dotnet_g23.Controllers
 	    {
             // Show group dashboard
 
-	        throw new NotImplementedException();
+	        Group group = _groupRepository.GetBy(id);
+
+	        return View(group);
 	    }
 
         // GET /Groups/Create
@@ -87,10 +88,16 @@ namespace dotnet_g23.Controllers
 		public IActionResult Create(Participant participant, String name, Boolean closed)
 		{
 			// Create new group
+
+            if (participant.Group != null)
+                return RedirectToAction("Index", "Groups");
+
 		    try
 		    {
 		        participant.Organization.CreateGroup(participant, name);
-		        return RedirectToAction("Invite", "GroupController");
+                _groupRepository.SaveChanges();
+		        //return RedirectToAction("Invite", "Groups");
+		        return RedirectToAction("Index", "Groups");
 		    }
 		    catch (ArgumentException e)
 		    {
@@ -99,6 +106,14 @@ namespace dotnet_g23.Controllers
 		    }
 		}
 
+        // GET /Groups/Invite
+	    [Route("Groups/Invite")]
+	    public IActionResult Invite(Participant participant)
+	    {
+	        return View();
+	    }
+
+        // POST /Groups/Invite
 		[HttpPost]
 		[Route("Group/Invite")]
 		public IActionResult Invite(Participant user, string[] addresses = null)
@@ -113,7 +128,7 @@ namespace dotnet_g23.Controllers
 					//Invite(address);
 				}
 				// notify lector
-				return RedirectToAction("RegisterMotivation", "MotivationController");
+				return RedirectToAction("RegisterMotivation", "Motivations");
 			}
 
 			//return View();

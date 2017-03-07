@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Cursisten inviteren";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        @Html.Partial("_Messages")
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Groep aanmaken</h1>
+                <form asp-controller="Group" asp-action="Invite" method="post">
+                    <p>
+                        Email addressen:<br/>
+                        <input type="text" placeholder="Email addressen" name="addresses"/>
+                    </p>
+                    <br/>
+                    <input type="submit" value="Invitaties verzenden" class="btn btn-primary btn-md"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
