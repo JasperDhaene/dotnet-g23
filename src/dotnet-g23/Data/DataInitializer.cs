@@ -49,36 +49,36 @@ namespace dotnet_g23.Data {
                 Group closedGroup3 = new Group("closedGroup3");
                 Group closedGroup4 = new Group("closedGroup4");
 
-                openGroup2.Participants.Add(tuur.UserState as Participant);
-                openGroup2.Participants.Add(new GUser("persoon1@organization.be", new Participant(org3)).UserState as Participant);
-                openGroup2.Participants.Add(new GUser("persoon2@organization.be", new Participant(org3)).UserState as Participant);
+                //openGroup2.Participants.Add(tuur.UserState as Participant);
+                //openGroup2.Participants.Add(new GUser("persoon1@organization.be", new Participant(org3)).UserState as Participant);
+                //openGroup2.Participants.Add(new GUser("persoon2@organization.be", new Participant(org3)).UserState as Participant);
 
-                Motivation mot1 = new Motivation("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                    + "Aliquam at quam at eros volutpat elementum. Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper. "
-                    + "Pellentesque eleifend sapien at turpis pulvinar, quis finibus mi sodales. Ut porttitor pharetra ante. Pellentesque eu arcu est. "
-                    + "Mauris finibus porta tellus et posuere. Nam feugiat vitae enim at sagittis. Duis sodales varius ipsum vitae maximus. "
-                    + "Nullam est purus, tempor in nisl aliquet, congue aliquam neque. Vestibulum sit amet neque non nunc eleifend feugiat. "
-                    + "Nullam sed eleifend libero. Aliquam vitae ornare lorem. Mauris pellentesque lacus a arcu pulvinar, quis laoreet massa maximus. Praesent vestibulum elit.");
+                //Motivation mot1 = new Motivation("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                //    + "Aliquam at quam at eros volutpat elementum. Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper. "
+                //    + "Pellentesque eleifend sapien at turpis pulvinar, quis finibus mi sodales. Ut porttitor pharetra ante. Pellentesque eu arcu est. "
+                //    + "Mauris finibus porta tellus et posuere. Nam feugiat vitae enim at sagittis. Duis sodales varius ipsum vitae maximus. "
+                //    + "Nullam est purus, tempor in nisl aliquet, congue aliquam neque. Vestibulum sit amet neque non nunc eleifend feugiat. "
+                //    + "Nullam sed eleifend libero. Aliquam vitae ornare lorem. Mauris pellentesque lacus a arcu pulvinar, quis laoreet massa maximus. Praesent vestibulum elit.");
 
 
-                Motivation mot2 = new Motivation("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                    + "Aliquam at quam at eros volutpat elementum. Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper. "
-                    + "Pellentesque eleifend sapien at turpis pulvinar, quis finibus mi sodales. Ut porttitor pharetra ante. Pellentesque eu arcu est. "
-                    + "Mauris finibus porta tellus et posuere. Nam feugiat vitae enim at sagittis. Duis sodales varius ipsum vitae maximus. "
-                    + "Nullam est purus, tempor in nisl aliquet, congue aliquam neque. Vestibulum sit amet neque non nunc eleifend feugiat. "
-                    + "Nullam sed eleifend libero. Aliquam vitae ornare lorem. Mauris pellentesque lacus a arcu pulvinar, quis laoreet massa maximus. Praesent vestibulum elit.");
+                //Motivation mot2 = new Motivation("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                //    + "Aliquam at quam at eros volutpat elementum. Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper. "
+                //    + "Pellentesque eleifend sapien at turpis pulvinar, quis finibus mi sodales. Ut porttitor pharetra ante. Pellentesque eu arcu est. "
+                //    + "Mauris finibus porta tellus et posuere. Nam feugiat vitae enim at sagittis. Duis sodales varius ipsum vitae maximus. "
+                //    + "Nullam est purus, tempor in nisl aliquet, congue aliquam neque. Vestibulum sit amet neque non nunc eleifend feugiat. "
+                //    + "Nullam sed eleifend libero. Aliquam vitae ornare lorem. Mauris pellentesque lacus a arcu pulvinar, quis laoreet massa maximus. Praesent vestibulum elit.");
 
-                mot1.Approved = false;
+                //mot1.Approved = false;
 
-                mot2.Approved = true;
+                //mot2.Approved = true;
 
-                openGroup1.Motivation = mot1;
-                openGroup3.Motivation = mot2;
-                openGroup4.Motivation = mot1;
+                //openGroup1.Motivation = mot1;
+                //openGroup3.Motivation = mot2;
+                //openGroup4.Motivation = mot1;
 
-                closedGroup2.Motivation = mot1;
-                closedGroup3.Motivation = mot2;
-                closedGroup4.Motivation = mot1;
+                //closedGroup2.Motivation = mot1;
+                //closedGroup3.Motivation = mot2;
+                //closedGroup4.Motivation = mot1;
 
                 _context.Groups.Add(openGroup1);
                 _context.Groups.Add(openGroup2);
@@ -90,8 +90,8 @@ namespace dotnet_g23.Data {
                 _context.Groups.Add(closedGroup3);
                 _context.Groups.Add(closedGroup4);
 
-                _context.Motivations.Add(mot1);
-                _context.Motivations.Add(mot2);
+                //_context.Motivations.Add(mot1);
+                //_context.Motivations.Add(mot2);
 
                 ApplicationUser user1 = new ApplicationUser { UserName = preben.Email, Email = preben.Email };
                 await _userManager.CreateAsync(user1, "P@ssword1");

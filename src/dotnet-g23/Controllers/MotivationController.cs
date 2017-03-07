@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using dotnet_g23.Filters;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.ViewModels.MotivationViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,10 +23,12 @@ namespace dotnet_g23.Controllers {
             _groupRepository = groupRepository;
         }
 
-        public IActionResult Index(Organization organization) {
-            IEnumerable<Group> groups = _groupRepository.GetByOrganization(organization);
-            IEnumerable<Motivation> motivationsToWrite;
-            return View();
+        [Authorize(Policy = "participant")]
+        public IActionResult Index(GUser user) {
+            IndexViewModel vm = new IndexViewModel();
+            Group group = (user.UserState as Participant)?.Group;
+            vm.SubscribedGroup = group;
+            return View(vm);
         }
 
         [Authorize(Policy = "participant")]
