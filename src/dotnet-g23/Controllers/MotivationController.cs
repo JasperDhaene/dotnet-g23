@@ -23,13 +23,13 @@ namespace dotnet_g23.Controllers {
             _groupRepository = groupRepository;
         }
 
-        [Authorize(Policy = "participant")]
-        public IActionResult Index(GUser user) {
-            IndexViewModel vm = new IndexViewModel();
-            Group group = (user.UserState as Participant)?.Group;
-            vm.SubscribedGroup = group;
-            return View(vm);
-        }
+        //[Authorize(Policy = "participant")]
+        //public IActionResult Index(GUser user) {
+        //    IndexViewModel vm = new IndexViewModel();
+        //    Group group = (user.UserState as Participant)?.Group;
+        //    vm.SubscribedGroup = group;
+        //    return View(vm);
+        //}
 
         [Authorize(Policy = "participant")]
         public IActionResult RegisterMotivation(GUser user, String motivation) {
@@ -44,8 +44,23 @@ namespace dotnet_g23.Controllers {
         }
 
         [Authorize(Policy = "lector")]
-        public IActionResult CheckMotivation(GUser user) {
-            return View();
+        public IActionResult CheckMotivation(GUser user, bool approved) {
+            CheckViewModel vm = new CheckViewModel();
+
+            Group g = _groupRepository.GetByName((user.UserState as Lector).Group.Name);
+
+            if (!g.Motivation.Approved) {
+                vm.UnnaprovedMotivation = g.Motivation;
+                if (approved) {
+                    vm.ApprovedMotivation = vm.UnnaprovedMotivation;
+                    vm.UnnaprovedMotivation = null;
+                }
+            }
+            else {
+                vm.ApprovedMotivation = g.Motivation;
+            }
+
+            return View(vm);
         }
     }
 }
