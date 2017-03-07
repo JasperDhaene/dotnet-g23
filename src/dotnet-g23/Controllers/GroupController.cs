@@ -55,18 +55,18 @@ namespace dotnet_g23.Controllers
 			if (participant.Group != null)
 			{
 				TempData["Message"] = "U bent reeds geregistreerd bij een groep.";
-				return RedirectToAction("Index", "GroupController");
+				return RedirectToAction("Index", "Groups");
 			}
 
 			Group group = _groupRepository.GetBy(id);
 			group.Register(participant);
 		    _groupRepository.SaveChanges();
 
-			return RedirectToAction("Show", "Groups");
+			return RedirectToAction("Show", "Groups", group.GroupId);
 		}
 
         // GET /Groups/:id
-	    [Route("Group/{id}")]
+	    [Route("Groups/{id}")]
 	    public IActionResult Show(Participant participant, int id)
 	    {
             // Show group dashboard
@@ -77,14 +77,14 @@ namespace dotnet_g23.Controllers
 	    }
 
         // GET /Groups/Create
-		[Route("Group/Create")]
+		[Route("Groups/Create")]
 		public IActionResult Create() {
 			return View();
 		}
 
         // POST /Groups/Create
 		[HttpPost]
-		[Route("Group/Create")]
+		[Route("Groups/Create")]
 		public IActionResult Create(Participant participant, String name, Boolean closed)
 		{
 			// Create new group
@@ -105,17 +105,20 @@ namespace dotnet_g23.Controllers
 		    }
 		}
 
-        // GET /Groups/Invite
-	    [Route("Groups/Invite")]
-	    public IActionResult Invite(Participant participant)
+        // GET /Groups/{id}/Invite
+        [HttpGet]
+	    [Route("Groups/{id}/Invite")]
+	    public IActionResult Invite(Participant participant, int id)
 	    {
-	        return View();
+            Group group = _groupRepository.GetBy(id);
+
+            return View("Invite", group);
 	    }
 
-        // POST /Groups/Invite
+        // POST /Groups/{id}/Invite
 		[HttpPost]
-		[Route("Group/Invite")]
-		public IActionResult Invite(Participant user, string[] addresses = null)
+		[Route("Groups/{id}/Invite")]
+		public IActionResult Invite(Participant user, int id, string[] addresses = null)
 		{
 
 			// invite new users to group

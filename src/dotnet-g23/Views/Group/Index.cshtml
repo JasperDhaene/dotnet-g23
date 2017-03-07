@@ -26,7 +26,7 @@
                     <div class="card">
                         <p>
                             @Model.SubscribedGroup.Name (@Model.SubscribedGroup.Organization.Name)
-                            <a asp-controller="Group" asp-action="Show" asp-route-id="@Model.SubscribedGroup.GroupId" class="btn btn-primary btn-md f-right">Beheren</a>
+                            <a asp-controller="Group" asp-action="Show" asp-route-id="@Model.SubscribedGroup.GroupId" class="btn btn-primary btn-md f-right">Dashboard</a>
                         </p>
                     </div>
                 }
@@ -62,10 +62,12 @@
                     foreach (var group in Model.OpenGroups)
                     {
                         <div class="card">
-                            <p>
-                                @group.Name <span class="badge">@group.Participants.Count() @(group.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
-                                <a asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" class="btn btn-secondary btn-md f-right">Toetreden</a>
-                            </p>
+                            <form asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" method="post">
+                                <p>
+                                    @group.Name <span class="badge">@group.Participants.Count() @(group.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
+                                    <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-right">Toetreden</a>
+                                </p>
+                            </form>
                         </div>
                     }
                 }
