@@ -14071,8 +14071,34 @@ a.fc-more:hover {
 /* START OF GOED BEZIG STYLE */
 /*****************************/
 
+/*****************************/
+/* Remember: breakpoints are at
+min-width:
+- 544px
+- 768 px
+- 992 px
+- 1200 px
+as per bootstrap 4 standards
+ */
+/*****************************/
+
 #page-wrapper.gb {
     min-height: 95vh;
+}
+/*
+@media(min-width:544px) {
+    .footer .copyright a {
+        display: block;
+    }
+}
+*/
+.welcome {
+    text-align: center;
+}
+
+.welcome h1{
+    font-size: 3.5rem;
+    margin-bottom: 3rem;
 }
 
 .card { /* css rule for a bootstrap well */
@@ -14088,95 +14114,4 @@ a.fc-more:hover {
 
 .logo {
     width: 300px;
-}
-
-.GBContainer {
-    width: 100%;
-    height: 80vh;
-    /*background-color: pink;*/
-}
-
-.GBContainer h1 {
-    text-align: center;
-    margin: 5%;
-}
-
-.GBContainer strong {
-    font-weight:bold;
-}
-
-.GBRegistrationContainer {
-    width: 50%;
-    height: 80vh;
-    margin: auto;
-}
-
-.GBRegistrationContainer input[type="text"] {
-    width: 100%;
-    border-bottom: gray 1px solid;
-    
-    
-}
-
-.GBRegistrationContainer input {
-    margin: 5% 1%;
-}
-
-.GBRegistrationContainer input:focus {
-    outline: none;
-}
-
-.GBCard {
-    background-color: white;
-    padding: 2%;
-    height: 85px;
-    margin: 4% 0;
-    border-radius: 10px;
-}
-
-.GBRegistrationCard {
-    background-color: white;
-    padding: 2%;
-    height: 70vh;
-    width: auto;
-    margin: 4% 0;
-    border-radius: 10px;
-}
-.GBCard span {
-    margin: 0 1%;
-}
-.GBCardSubmit {
-    background-color: #63B1BC;
-    width: auto;
-    display: inline-block;
-    float: right;
-    margin: 0 10px;
-    border-radius: 5px;
-    padding: 1%;
-    color: white;
-}
-
-.GBRegistrationCardSubmit {
-    background-color: #63B1BC;
-    width: 100px;
-    text-align: center;
-    display: block;
-    margin: 10% auto;
-    border-radius: 5px;
-    padding: 1%;
-    color: white;
-}
-
-.GBCardSubmit:hover {
-    background-color: #E73C3E;
-}
-
-.GBRegistrationCardSubmit:hover {
-    background-color: #E73C3E;
-}
-
-.GBFooter {
-    background-color: #63B1BC;
-    text-align: center;
-    padding: 1%;
 }
