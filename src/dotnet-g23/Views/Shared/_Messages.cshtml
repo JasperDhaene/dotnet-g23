@@ -1,8 +1,16 @@
-﻿@if (TempData["Message"] != null)
+﻿@if (TempData["error"] != null)
 {
     <div class="row m-b-1">
         <div class="col-lg-12">
-            <div class="alert alert-danger"><strong>Fout: </strong>@TempData["Message"]</div>
+            <div class="alert alert-danger"><strong>Fout: </strong>@TempData["error"]</div>
+        </div>
+    </div>
+}
+@if (TempData["info"] != null)
+{
+    <div class="row m-b-1">
+        <div class="col-lg-12">
+            <div class="alert alert-info"><i class="fa fa-info-circle"></i> @TempData["info"]</div>
         </div>
     </div>
 }

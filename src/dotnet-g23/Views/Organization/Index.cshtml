@@ -14,7 +14,7 @@
             <div class="col-lg-12">
                 <h1>Mijn organisatie</h1>
                 @if (Model.SubscribedOrganization == null) {
-                    <span class="alert alert-info"><i class="glyphicon glyphicon-info-sign"></i> U bent niet in een organisatie geregistreerd.</span>
+                    <span class="alert alert-info"><i class="fa fa-info-circle"></i> U bent niet in een organisatie geregistreerd.</span>
                 }
                 else
                 {
@@ -31,7 +31,7 @@
             <div class="col-lg-12 m-t-3">
                 <h1>Geregistreerde organisaties</h1>
                 @if (Model.Organizations == null || !Model.Organizations.Any()) {
-                    <span class="alert alert-info"><i class="glyphicon glyphicon-info-sign"></i> Geen organisaties gevonden.</span>
+                    <span class="alert alert-info"><i class="fa fa-info-circle"></i> Geen organisaties gevonden.</span>
                 }
                 else
                 {

@@ -43,7 +43,7 @@ namespace dotnet_g23.Controllers
             if (query != null) {
                 list = _orgRepository.GetByKeyword(query, MailHelper.GetMailDomain(user.Email));
                 if (!list.Any()) {
-                    TempData["message"] = $"De gezochte organisatie werd niet gevonden, dit zijn de enige mogelijkheden!";
+                    TempData["error"] = $"De gezochte organisatie werd niet gevonden, dit zijn de enige mogelijkheden!";
                     list = _orgRepository.GetByDomain(MailHelper.GetMailDomain(user.Email));
                 }
             }
@@ -70,7 +70,7 @@ namespace dotnet_g23.Controllers
 		    }
 		    catch (Exception e)
 		    {
-                TempData["Message"] = e.Message;
+                TempData["error"] = e.Message;
 		        return RedirectToAction("Index", "Organizations");
 		    }
 		}

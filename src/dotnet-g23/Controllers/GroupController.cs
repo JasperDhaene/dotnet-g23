@@ -21,11 +21,13 @@ namespace dotnet_g23.Controllers
 
 		#region Fields
 		private readonly IGroupRepository _groupRepository;
+	    private readonly IUserRepository _userRepository;
 		#endregion
 
 		#region Constructors
-		public GroupController(IGroupRepository groupRepository) {
+		public GroupController(IGroupRepository groupRepository, IUserRepository userRepository) {
 			_groupRepository = groupRepository;
+		    _userRepository = userRepository;
 		}
 		#endregion
 
@@ -54,7 +56,7 @@ namespace dotnet_g23.Controllers
 
 			if (participant.Group != null)
 			{
-				TempData["Message"] = "U bent reeds geregistreerd bij een groep.";
+				TempData["error"] = "U bent reeds geregistreerd bij een groep.";
 				return RedirectToAction("Index", "Groups");
 			}
 
@@ -100,16 +102,17 @@ namespace dotnet_g23.Controllers
 		    }
 		    catch (ArgumentException e)
 		    {
-		        TempData["message"] = e.Message;
+		        TempData["error"] = e.Message;
 		        return View();
 		    }
 		}
 
         // GET /Groups/{id}/Invite
-        [HttpGet]
 	    [Route("Groups/{id}/Invite")]
 	    public IActionResult Invite(Participant participant, int id)
 	    {
+            // Show invite form
+
             Group group = _groupRepository.GetBy(id);
 
             return View("Invite", group);
@@ -118,23 +121,32 @@ namespace dotnet_g23.Controllers
         // POST /Groups/{id}/Invite
 		[HttpPost]
 		[Route("Groups/{id}/Invite")]
-		public IActionResult Invite(Participant user, int id, string[] addresses = null)
+		public IActionResult Invite(Participant participant, int id, String address)
 		{
+			// Invite user to group
 
-			// invite new users to group
+		    Group group = _groupRepository.GetBy(id);
 
-			if (addresses != null)
-			{
-				foreach (string address in addresses)
-				{
-					//Invite(address);
-				}
-				// notify lector
-				return RedirectToAction("RegisterMotivation", "Motivations");
-			}
+		    GUser user;
+		    try
+		    {
+		        user = _userRepository.GetByEmail(address);
+		    }
+		    catch (Exception e)
+		    {
+		        user = null;
+		    }
 
-			//return View();
-			return RedirectToAction("Index", "GroupManageController");
+		    if (user == null)
+		    {
+                TempData["error"] = $"Gebruiker '{address}' niet gevonden.";
+                return View(group);
+            }
+
+            // TODO: Invite user
+            // TODO: Invite lector
+		    TempData["info"] = $"Gebruiker '{address}' werd uitgenodigd tot de groep.";
+		    return View(group);
 		}
 		#endregion
 
