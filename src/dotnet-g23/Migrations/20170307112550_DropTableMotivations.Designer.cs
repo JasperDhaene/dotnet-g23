@@ -8,9 +8,10 @@ using dotnet_g23.Data;
 namespace dotnet_g23.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170307112550_DropTableMotivations")]
+    partial class DropTableMotivations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
@@ -130,6 +131,36 @@ namespace dotnet_g23.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Invitations");
+                });
+
+            modelBuilder.Entity("dotnet_g23.Models.Domain.Motivation", b =>
+                {
+                    b.Property<int>("MotivationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Approved");
+
+                    b.Property<string>("MotivationText");
+
+                    b.Property<string>("OrganizationAddress");
+
+                    b.Property<string>("OrganizationContactEmail");
+
+                    b.Property<string>("OrganizationContactFirstName");
+
+                    b.Property<string>("OrganizationContactName");
+
+                    b.Property<string>("OrganizationContactTitle");
+
+                    b.Property<string>("OrganizationEmail");
+
+                    b.Property<string>("OrganizationName");
+
+                    b.Property<string>("OrganizationWebsite");
+
+                    b.HasKey("MotivationId");
+
+                    b.ToTable("Motivations");
                 });
 
             modelBuilder.Entity("dotnet_g23.Models.Domain.Organization", b =>
