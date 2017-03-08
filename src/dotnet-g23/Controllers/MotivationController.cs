@@ -33,8 +33,6 @@ namespace dotnet_g23.Controllers {
             vm.SubscribedGroup = group;
 
             mot = new Motivation(motivation);
-            //participant.Group.Motivation = mot;
-            //_groupRepository.SaveChanges();
 
             vm.GroupMotivation = mot;
 
@@ -44,16 +42,20 @@ namespace dotnet_g23.Controllers {
         [Authorize(Policy = "participant")]
         [HttpPost]
         [Route("Motivations/{id}/Submit")]
-        public IActionResult RegisterMotivation(Participant participant) {
+        public IActionResult RegisterMotivation(Participant participant, string submit) {
             RegisterViewModel vm = new RegisterViewModel();
 
             //vm.GroupMotivation = participant.Group.Motivation;
             vm.GroupMotivation = mot;
 
-
-            RedirectToAction("Index", "Motivation");
-
-            RedirectToAction("Show", "Group");
+            if(submit == "Submit") {
+                participant.Group.Motivation = mot;
+                _groupRepository.SaveChanges();
+                RedirectToAction("Show", "Group");
+            }
+            else {
+                RedirectToAction("Index", "Motivation");
+            }
 
             return View(vm);
         }
@@ -70,8 +72,10 @@ namespace dotnet_g23.Controllers {
             if (!g.Motivation.Approved) {
                 vm.UnnaprovedMotivation = g.Motivation;
                 if (approved) {
+                    g.Motivation.Approved = approved;
                     vm.ApprovedMotivation = vm.UnnaprovedMotivation;
                     vm.UnnaprovedMotivation = null;
+                    _groupRepository.SaveChanges();
                 }
             }
             else {
