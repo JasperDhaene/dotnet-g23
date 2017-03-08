@@ -17,6 +17,7 @@ namespace dotnet_g23.Controllers {
     public class MotivationController : Controller {
         #region Fields
         private readonly IGroupRepository _groupRepository;
+        private Motivation mot;
         #endregion
 
         public MotivationController(IGroupRepository groupRepository) {
@@ -31,9 +32,9 @@ namespace dotnet_g23.Controllers {
             Group group = participant.Group;
             vm.SubscribedGroup = group;
 
-            Motivation mot = new Motivation(motivation);
-            participant.Group.Motivation = mot;
-            _groupRepository.SaveChanges();
+            mot = new Motivation(motivation);
+            //participant.Group.Motivation = mot;
+            //_groupRepository.SaveChanges();
 
             vm.GroupMotivation = mot;
 
@@ -46,7 +47,13 @@ namespace dotnet_g23.Controllers {
         public IActionResult RegisterMotivation(Participant participant) {
             RegisterViewModel vm = new RegisterViewModel();
 
-            
+            //vm.GroupMotivation = participant.Group.Motivation;
+            vm.GroupMotivation = mot;
+
+
+            RedirectToAction("Index", "Motivation");
+
+            RedirectToAction("Show", "Group");
 
             return View(vm);
         }
