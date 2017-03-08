@@ -24,29 +24,35 @@ namespace dotnet_g23.Controllers {
         }
 
         [Authorize(Policy = "participant")]
-        [Route("Groups/{id}/Motivations/Edit")]
-        public IActionResult Index(Participant participant) {
+        [Route("Motivations/{id}")]
+        public IActionResult Index(Participant participant, String motivation) {
             IndexViewModel vm = new IndexViewModel();
+
             Group group = participant.Group;
             vm.SubscribedGroup = group;
-            return View(vm);
-        }
-
-        [Authorize(Policy = "participant")]
-        [HttpPost]
-        [Route("Groups/{id}/Motivations/Submit")]
-        public IActionResult RegisterMotivation(Participant participant, String motivation) {
-            RegisterViewModel vm = new RegisterViewModel();
 
             Motivation mot = new Motivation(motivation);
             participant.Group.Motivation = mot;
+            _groupRepository.SaveChanges();
 
             vm.GroupMotivation = mot;
 
             return View(vm);
         }
 
+        [Authorize(Policy = "participant")]
+        [HttpPost]
+        [Route("Groups/{id}/Motivations/Submit")]
+        public IActionResult RegisterMotivation(Participant participant, ) {
+            RegisterViewModel vm = new RegisterViewModel();
+
+            
+
+            return View(vm);
+        }
+
         [Authorize(Policy = "lector")]
+        [ServiceFilter(typeof(LectorFilter))]
         [HttpGet]
         [Route("Motivations/Check")]
         public IActionResult CheckMotivation(Lector lector, bool approved) {
