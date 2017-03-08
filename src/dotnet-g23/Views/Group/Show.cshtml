@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="clearfix">
-                    <h1 class="f-md-left">Groep '@Model.Name'</h1>
+                    <h1 class="f-md-left">@(@Model.Closed ? "Gesloten" : "Open") groep '@Model.Name'</h1>
                     <a asp-controller="Group" asp-action="Invite" asp-route-id="@Model.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Vrijwilligers uitnodigen</a> 
                 </div>
                 <p class="m-t-2">
