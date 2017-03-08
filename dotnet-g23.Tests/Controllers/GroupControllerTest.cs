@@ -92,5 +92,21 @@ namespace dotnet_g23.Tests.Controllers
             Assert.Equal(context.Groups.First(), _participant2.Group);
         }
         #endregion
+
+        #region HTTP POST Register
+        [Fact]
+        public void ParticipantShouldCreateGroup() {
+            RedirectToActionResult result = _controller.Create(_participant, "testGroup", true) as RedirectToActionResult;
+            Assert.Equal((context.Tuur.UserState as Participant).Group, _participant.Group);
+            Assert.Equal("Invite", result.ActionName);
+            Assert.Equal("Groups", result.ControllerName);
+        }
+
+        public void ParticipantCannotCreateGroupBecauseAlreadyInGroup() {
+            RedirectToActionResult result = _controller.Create(_participant2, "test2", false) as RedirectToActionResult;
+            Assert.Equal("Index", result.ActionName);
+            Assert.Equal("Groups", result.ControllerName);
+        }
+        #endregion
     }
 }
