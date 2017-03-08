@@ -70,6 +70,7 @@ namespace dotnet_g23 {
             services.AddScoped<OrganizationFilter>();
             services.AddScoped<UserFilter>();
             services.AddScoped<ParticipantFilter>();
+            services.AddScoped<LectorFilter>();
 
             services.AddScoped<DataInitializer>();
 
