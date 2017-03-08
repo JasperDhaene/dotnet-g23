@@ -29,7 +29,7 @@
                 {
                     <div class="card">
                         @Model.SubscribedGroup.Name (@Model.SubscribedGroup.Organization.Name)
-                        <a asp-controller="Group" asp-action="Show" asp-route-id="@Model.SubscribedGroup.GroupId" class="btn btn-primary btn-md f-right">Dashboard</a>
+                        <a asp-controller="Group" asp-action="Show" asp-route-id="@Model.SubscribedGroup.GroupId" class="btn btn-primary btn-md f-sm-right">Dashboard</a>
                     </div>
                 }
             </div>
@@ -48,7 +48,7 @@
                     {
                         <div class="card">
                             @group.Name <span class="badge">@group.Participants.Count()</span>
-                            <a asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" class="btn btn-secondary btn-md f-right">Beheren</a>
+                            <a asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" class="btn btn-secondary btn-md f-sm-right">Beheren</a>
                         </div>
                     }
                 }
@@ -64,7 +64,7 @@
                         <div class="card">
                             <form asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" method="post">
                                 @group.Name <span class="badge">@group.Participants.Count() @(group.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
-                                <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-right">Toetreden</a>
+                                <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Toetreden</a>
                             </form>
                         </div>
                     }
