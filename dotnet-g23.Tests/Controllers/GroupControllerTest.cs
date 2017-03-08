@@ -39,6 +39,7 @@ namespace dotnet_g23.Tests.Controllers
             _controller.TempData = new Mock<ITempDataDictionary>().Object;
 
             _participant = context.Tuur.UserState as Participant;
+            _participant2 = context.Preben2.UserState as Participant;
         }
         #endregion
 
@@ -71,8 +72,19 @@ namespace dotnet_g23.Tests.Controllers
         #region HTTP POST Register
         [Fact]
         public void ParticipantShouldRegisterInGroup() {
+            RedirectToActionResult result = _controller.Register(_participant, context.Groups.Skip(1).First().GroupId) as RedirectToActionResult;
+            Assert.Equal((context.Tuur.UserState as Participant).Group, _participant.Group);
+            Assert.Equal("Show", result.ActionName);
+            Assert.Equal("Groups", result.ControllerName);
+        }
 
+        public void ParticipantShouldRedirectToIndexOfGroupsBecauseAlreadyInGroup() {
+            RedirectToActionResult result = _controller.Register(_participant2, context.Groups.First().GroupId) as RedirectToActionResult;
+            Assert.Equal("Index", result.ActionName);
+            Assert.Equal("Groups", result.ControllerName);
         }
         #endregion
+
+        
     }
 }
