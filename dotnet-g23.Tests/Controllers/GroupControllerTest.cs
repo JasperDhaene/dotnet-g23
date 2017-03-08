@@ -1,7 +1,9 @@
 ﻿using dotnet_g23.Controllers;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
+using dotnet_g23.Models.ViewModels.GroupViewModels;
 using dotnet_g23.Tests.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using System;
@@ -14,10 +16,13 @@ namespace dotnet_g23.Tests.Controllers
 {
     public class GroupControllerTest
     {
+        #region Fields
         private readonly GroupController _controller;
         private readonly Participant _participant;
-        private DummyApplicationDbContext context;
+        private DummyApplicationDbContext context; 
+        #endregion
 
+        #region Constructor
         public GroupControllerTest() {
             context = new DummyApplicationDbContext();
 
@@ -34,5 +39,34 @@ namespace dotnet_g23.Tests.Controllers
 
             _participant = context.Tuur.UserState as Participant;
         }
+        #endregion
+
+        #region Index
+        [Fact]
+        public void IndexShouldReturnSubscribedGroupOfUser() {
+            ViewResult result = _controller.Index(_participant) as ViewResult;
+            IndexViewModel ind = (IndexViewModel)result?.Model;
+            Group group = ind.SubscribedGroup;
+            Assert.Equal(_participant.Group, group);
+        }
+
+        [Fact]
+        public void IndexShouldReturnOpenGroupOfUser() {
+            ViewResult result = _controller.Index(_participant) as ViewResult;
+            IndexViewModel ind = (IndexViewModel)result?.Model;
+            IEnumerable<Group> groups = ind.InvitedGroups;
+            Assert.Equal(_participant.User.Invitations?.Select(n => n.Group), groups);
+        }
+
+        [Fact]
+        public void IndexShouldReturnClosedGroupOfUser() {
+            ViewResult result = _controller.Index(_participant) as ViewResult;
+            IndexViewModel ind = (IndexViewModel)result?.Model;
+            IEnumerable<Group> groups = ind.OpenGroups;
+            Assert.Equal(_participant.Organization.Groups?.Where(g => !g.Closed), groups);
+        } 
+        #endregion
+
+
     }
 }
