@@ -13,7 +13,7 @@ using dotnet_g23.Models.ViewModels.MotivationViewModels;
 
 namespace dotnet_g23.Controllers {
     [Authorize]
-    [ServiceFilter(typeof(UserFilter))]
+    [ServiceFilter(typeof(ParticipantFilter))]
     public class MotivationController : Controller {
         #region Fields
         private readonly IGroupRepository _groupRepository;
@@ -23,20 +23,23 @@ namespace dotnet_g23.Controllers {
             _groupRepository = groupRepository;
         }
 
-        //[Authorize(Policy = "participant")]
-        //public IActionResult Index(GUser user) {
-        //    IndexViewModel vm = new IndexViewModel();
-        //    Group group = (user.UserState as Participant)?.Group;
-        //    vm.SubscribedGroup = group;
-        //    return View(vm);
-        //}
+        [Authorize(Policy = "participant")]
+        [Route("Groups/{id}/Motivations/Edit")]
+        public IActionResult Index(Participant participant) {
+            IndexViewModel vm = new IndexViewModel();
+            Group group = participant.Group;
+            vm.SubscribedGroup = group;
+            return View(vm);
+        }
 
         [Authorize(Policy = "participant")]
-        public IActionResult RegisterMotivation(GUser user, String motivation) {
+        [HttpPost]
+        [Route("Groups/{id}/Motivations/Submit")]
+        public IActionResult RegisterMotivation(Participant participant, String motivation) {
             RegisterViewModel vm = new RegisterViewModel();
 
             Motivation mot = new Motivation(motivation);
-            (user.UserState as Participant).Group.Motivation = mot;
+            participant.Group.Motivation = mot;
 
             vm.GroupMotivation = mot;
 
@@ -44,10 +47,12 @@ namespace dotnet_g23.Controllers {
         }
 
         [Authorize(Policy = "lector")]
-        public IActionResult CheckMotivation(GUser user, bool approved) {
+        [HttpGet]
+        [Route("Motivations/Check")]
+        public IActionResult CheckMotivation(Lector lector, bool approved) {
             CheckViewModel vm = new CheckViewModel();
 
-            Group g = _groupRepository.GetByName((user.UserState as Lector).Group.Name);
+            Group g = _groupRepository.GetByName(lector.Group.Name);
 
             if (!g.Motivation.Approved) {
                 vm.UnnaprovedMotivation = g.Motivation;
