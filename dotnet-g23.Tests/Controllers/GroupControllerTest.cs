@@ -78,6 +78,7 @@ namespace dotnet_g23.Tests.Controllers
             Assert.Equal("Groups", result.ControllerName);
         }
 
+        [Fact]
         public void ParticipantShouldRedirectToIndexOfGroupsBecauseAlreadyInGroup() {
             RedirectToActionResult result = _controller.Register(_participant2, context.Groups.First().GroupId) as RedirectToActionResult;
             Assert.Equal("Index", result.ActionName);
@@ -102,6 +103,7 @@ namespace dotnet_g23.Tests.Controllers
             Assert.Equal("Groups", result.ControllerName);
         }
 
+        [Fact]
         public void ParticipantCannotCreateGroupBecauseAlreadyInGroup() {
             RedirectToActionResult result = _controller.Create(_participant2, "test2", false) as RedirectToActionResult;
             Assert.Equal("Index", result.ActionName);
@@ -117,5 +119,16 @@ namespace dotnet_g23.Tests.Controllers
         }
         #endregion
 
+        //#region HTTP POST Invite
+        //[Fact(Skip = "")]
+        //public void InviteTest1() {
+            
+        //}
+
+        //[Fact(Skip = "")]
+        //public void InviteTest2() {
+            
+        //}
+        //#endregion
     }
 }
