@@ -108,5 +108,14 @@ namespace dotnet_g23.Tests.Controllers
             Assert.Equal("Groups", result.ControllerName);
         }
         #endregion
+
+        #region HTTP GET Invite
+        [Fact]
+        public void InviteParticipantToGroup() {
+            _controller.Invite(_participant2, context.Groups.First().GroupId);
+            Assert.Equal(context.Groups.Skip(1).First(), _participant2.Group);
+        }
+        #endregion
+
     }
 }
