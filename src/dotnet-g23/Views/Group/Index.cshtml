@@ -12,11 +12,15 @@
         @Html.Partial("_Messages")
         <div class="row">
             <div class="col-lg-12">
-                @if (Model.SubscribedGroup == null)
-                {
-                    <a asp-controller="Group" asp-action="Create" class="btn btn-primary btn-md f-right">Groep aanmaken</a>
-                }
-                <h1>Mijn groep</h1>
+                <div class="clearfix">
+                    <h1 class="f-md-left">Mijn groep</h1>
+
+                    @if (Model.SubscribedGroup == null)
+                    {
+                        <a asp-controller="Group" asp-action="Create" class="btn btn-primary btn-md f-sm-left f-md-right">Groep aanmaken</a>
+                    }
+                </div>
+
                 @if (Model.SubscribedGroup == null)
                 {
                     <div class="alert alert-info m-t-1">U bent niet in een groep ingeschreven. Maak een groep aan of registreer u bij een open groep van de organisatie.</div>
