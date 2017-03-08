@@ -22,5 +22,22 @@
                 }
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12">
+                @if (Model.Motivation == null)
+                {
+                    <div class="clearfix">
+                        <h1 class="f-md-left">Motivatie</h1>
+                        <a asp-controller="Motivation" asp-action="Show" asp-route-id="@Model.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Motivatie invoeren</a>
+                    </div>
+                    <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> U heeft nog geen motivatie ingevoerd.
+                    </div>
+                }
+                else
+                {
+                    <h1>Motivatie</h1>
+                }
+            </div>
+        </div>
     </div>
 </div>

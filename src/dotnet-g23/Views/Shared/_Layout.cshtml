@@ -58,7 +58,7 @@
                         }
                         @if (await AuthorizationService.AuthorizeAsync(User, "lector")) {
                             <li class="nav-item">
-                                <a asp-area="" asp-controller="Motivation" asp-action="CheckMotivation" class="nav-link">
+                                <a asp-area="" asp-controller="Motivation" asp-action="Check" class="nav-link">
                                     <span>Motivaties</span>
                                 </a>
                             </li>

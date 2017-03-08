@@ -24,47 +24,53 @@ namespace dotnet_g23.Controllers {
             _groupRepository = groupRepository;
         }
 
+        // GET /Motivations/{id}
         [Authorize(Policy = "participant")]
         [Route("Motivations/{id}")]
-        public IActionResult Index(Participant participant, String motivation) {
+        public IActionResult Show(Participant participant, int id) {
             IndexViewModel vm = new IndexViewModel();
 
-            Group group = participant.Group;
-            vm.SubscribedGroup = group;
+            Group group = _groupRepository.GetBy(id);
+            vm.Group = group;
 
-            mot = new Motivation(motivation);
-
-            vm.GroupMotivation = mot;
+            vm.Motivation = group.Motivation == null ? new Motivation() : group.Motivation;
 
             return View(vm);
         }
 
+        // POST /Motivations/{id}
         [Authorize(Policy = "participant")]
         [HttpPost]
-        [Route("Motivations/{id}/Submit")]
-        public IActionResult RegisterMotivation(Participant participant, string submit) {
-            RegisterViewModel vm = new RegisterViewModel();
+        [Route("Motivations/{id}")]
+        public IActionResult Update(Participant participant, int id, string motivationText)
+        {
+            Group group = _groupRepository.GetBy(id);
 
-            //vm.GroupMotivation = participant.Group.Motivation;
-            vm.GroupMotivation = mot;
+            if (group.Motivation == null)
+                group.Motivation = new Motivation();
 
-            if(submit == "Submit") {
-                participant.Group.Motivation = mot;
+            try
+            {
+                group.Motivation.MotivationText = motivationText;
                 _groupRepository.SaveChanges();
-                RedirectToAction("Show", "Group");
             }
-            else {
-                RedirectToAction("Index", "Motivation");
+            catch (ArgumentException e)
+            {
+                TempData["message"] = e.Message;
+                return RedirectToAction("Show", new { id = group.GroupId });
+
             }
 
-            return View(vm);
+            TempData["message"] = "Uw motivatie werd opgeslaan.";
+            return RedirectToAction("Show", "Group", new { id = group.GroupId });
         }
 
+        // GET /Motivations
         [Authorize(Policy = "lector")]
         [ServiceFilter(typeof(LectorFilter))]
         [HttpGet]
-        [Route("Motivations/Check")]
-        public IActionResult CheckMotivation(Lector lector, bool approved) {
+        [Route("Motivations")]
+        public IActionResult Check(Lector lector, bool approved) {
             CheckViewModel vm = new CheckViewModel();
 
             Group g = _groupRepository.GetByName(lector.Group.Name);

@@ -1,0 +1,25 @@
+﻿@using System.Threading.Tasks
+@using dotnet_g23.Models.Domain
+@{
+    ViewData["Title"] = "Motivatie ingeven";
+}
+
+@model dotnet_g23.Models.ViewModels.MotivationViewModels.IndexViewModel
+
+<div class="content">
+    <div class="container-fluid">
+        @Html.Partial("_Messages")
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Motivatie voor groep '@Model.Group.Name'</h1>
+                <form asp-controller="Motivation" asp-action="Update" asp-route-id="@Model.Group.GroupId" method="post" class="m-t-1">
+                    <textarea name="motivationText" cols="20" rows="4" placeholder="Voer hier uw motivatie in (tussen 100 en 250 karakters)" maxlength="250">@Model.Motivation.MotivationText</textarea>
+                    <p>
+                        <input type="submit" value="Opslaan" name="update" class="btn btn-primary btn-md" />
+                        <input type="submit" value="Verzenden &raquo;" name="submit" class="btn btn-secondary btn-md" />
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

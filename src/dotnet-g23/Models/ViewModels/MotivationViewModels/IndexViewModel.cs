@@ -8,8 +8,8 @@ namespace dotnet_g23.Models.ViewModels.MotivationViewModels
 {
     public class IndexViewModel
     {
-        public Group SubscribedGroup { get; set; }
+        public Group Group { get; set; }
 
-        public Motivation GroupMotivation { get; set; }
+        public Motivation Motivation { get; set; }
     }
 }
