@@ -23,7 +23,7 @@
 
                 @if (Model.SubscribedGroup == null)
                 {
-                    <div class="alert alert-info m-t-1">U bent niet in een groep ingeschreven. Maak een groep aan of registreer u bij een open groep van de organisatie.</div>
+                    <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> U bent niet in een groep ingeschreven. Maak een groep aan of registreer u bij een open groep van de organisatie.</div>
                 }
                 else
                 {
@@ -40,7 +40,7 @@
                 <h3>Uitnodigingen</h3>
                 @if (Model.InvitedGroups == null || !Model.InvitedGroups.Any())
                 {
-                    <div class="alert alert-info m-t-1">Geen uitnodigingen tot toetreding van een groep gevonden.</div>
+                    <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen uitnodigingen tot toetreding van een groep gevonden.</div>
                 }
                 else
                 {
@@ -55,7 +55,7 @@
                 <h3>Open groepen</h3>
                 @if (Model.OpenGroups == null || !Model.OpenGroups.Any())
                 {
-                    <div class="alert alert-info m-t-1">Geen open groepen gevonden.</div>
+                    <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen open groepen gevonden.</div>
                 }
                 else
                 {
