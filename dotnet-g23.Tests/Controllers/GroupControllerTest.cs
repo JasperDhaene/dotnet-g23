@@ -19,6 +19,7 @@ namespace dotnet_g23.Tests.Controllers
         #region Fields
         private readonly GroupController _controller;
         private readonly Participant _participant;
+        private readonly Participant _participant2;
         private DummyApplicationDbContext context; 
         #endregion
 
@@ -64,9 +65,14 @@ namespace dotnet_g23.Tests.Controllers
             IndexViewModel ind = (IndexViewModel)result?.Model;
             IEnumerable<Group> groups = ind.OpenGroups;
             Assert.Equal(_participant.Organization.Groups?.Where(g => !g.Closed), groups);
-        } 
+        }
         #endregion
 
+        #region HTTP POST Register
+        [Fact]
+        public void ParticipantShouldRegisterInGroup() {
 
+        }
+        #endregion
     }
 }

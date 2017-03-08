@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace dotnet_g23.Tests.Data {
     public class DummyApplicationDbContext {
         public GUser Preben { get; set; }
+        public GUser Preben2 { get; set; }
         public GUser Tuur { get; set; }
         public GUser Jasper { get; set; }
         public GUser Florian { get; set; }
@@ -42,6 +43,7 @@ namespace dotnet_g23.Tests.Data {
             OrgsOrganization.Add(org3);
 
             Preben = new GUser("preben.leroy@hogent.be");
+            Preben2 = new GUser("preben2.leroy@hogent.be", new Participant(org1));
             Tuur = new GUser("tuur.lievens@organization.be", new Participant(org3));
             Florian = new GUser("florian.dejonckheere@hogent.be", new Lector());
             Jasper = new GUser("jasper.dhaene@organization.be", new Lector());
@@ -49,6 +51,7 @@ namespace dotnet_g23.Tests.Data {
             GUsers = new List<GUser>();
 
             GUsers.Add(Preben);
+            GUsers.Add(Preben2);
             GUsers.Add(Tuur);
             GUsers.Add(Florian);
             GUsers.Add(Jasper);
@@ -56,6 +59,8 @@ namespace dotnet_g23.Tests.Data {
             _groups = new List<Group>();
             Group _openGroup = new Group("OpenGroup", false);
             Group _closedGroup = new Group("ClosedGroup");
+
+            _openGroup.Participants.Add(Preben2.UserState as Participant);
 
             _groups.Add(_closedGroup);
             _groups.Add(_openGroup);
