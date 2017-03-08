@@ -93,7 +93,7 @@ namespace dotnet_g23.Tests.Controllers
         }
         #endregion
 
-        #region HTTP POST Register
+        #region HTTP POST Create
         [Fact]
         public void ParticipantShouldCreateGroup() {
             RedirectToActionResult result = _controller.Create(_participant, "testGroup", true) as RedirectToActionResult;
