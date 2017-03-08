@@ -42,7 +42,7 @@ namespace dotnet_g23.Controllers {
 
         [Authorize(Policy = "participant")]
         [HttpPost]
-        [Route("Groups/{id}/Motivations/Submit")]
+        [Route("Motivations/{id}/Submit")]
         public IActionResult RegisterMotivation(Participant participant) {
             RegisterViewModel vm = new RegisterViewModel();
 
