@@ -14123,6 +14123,9 @@ as per bootstrap 4 standards
     .clear-sm-none {
         clear: none;
     }
+    .col-sm-0 {
+        width: auto;
+    }
 }
 @media(min-width:768px) {
     .f-md-left {
@@ -14140,6 +14143,9 @@ as per bootstrap 4 standards
     .clear-md-none {
         clear: none;
     }
+    .col-md-0 {
+        width: auto;
+    }
 }
 @media(min-width:992px) {
     .f-lg-left {
@@ -14156,6 +14162,9 @@ as per bootstrap 4 standards
     }
     .clear-lg-none {
         clear: none;
+    }
+    .col-lg-0 {
+        width: auto;
     }
 }
 
@@ -14184,7 +14193,7 @@ as per bootstrap 4 standards
     /*min-height: 20px;*/
     line-height: 40px;
     padding: 20px;
-    /*margin-bottom: 20px;*/
+    margin-bottom: 2rem;
     background-color: #e8e8e8;
     position: relative;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
