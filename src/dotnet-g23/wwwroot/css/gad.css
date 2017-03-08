@@ -14329,3 +14329,6 @@ a.badge:focus {
 .nav-pills > li > a > .badge {
   margin-left: 3px;
 }
+.d-block {
+    display: block;
+}

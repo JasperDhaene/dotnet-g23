@@ -13,10 +13,67 @@
             <div class="col-lg-12">
                 <h1>Motivatie voor groep '@Model.Group.Name'</h1>
                 <form asp-controller="Motivation" asp-action="Update" asp-route-id="@Model.Group.GroupId" method="post" class="m-t-1">
-                    <textarea name="motivationText" cols="20" rows="4" placeholder="Voer hier uw motivatie in (tussen 100 en 250 karakters)" maxlength="250">@Model.Motivation.MotivationText</textarea>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p>
+                                <label for="organisationName" class="d-block">
+                                    Naam organisatie*
+                                </label>
+                                <input type="text" name="organisationName" id="organisationName" required />
+                            </p>
+                            <p>
+                                <label for="organisationAddress" class="d-block">
+                                    Adres organisatie*
+                                </label>
+                                <input type="text" name="organisationAddress" id="organisationAddress" required />
+                            </p>
+                            <p>
+                                <label for="organisationWebsite" class="d-block">
+                                    Website organisatie*
+                                </label>
+                                <input type="text" name="organisationWebsite" id="organisationWebsite" required />
+                            </p>
+                            <p>
+                                <label for="organisationEmail" class="d-block">
+                                    Email organisatie*
+                                </label>
+                                <input type="text" name="organisationEmail" id="organisationEmail" required />
+                            </p>
+                        </div>
+                        <div class="col-lg-6">
+                            <p>
+                                <label for="contactTitle" class="d-block">
+                                    Aanspreektitel contactpersoon
+                                </label>
+                                <input type="text" name="contactTitle" id="contactTitle" />
+                            </p>
+                            <p>
+                                <label for="contactFirstName" class="d-block">
+                                    Voornaam contactpersoon
+                                </label>
+                                <input type="text" name="contactFirstName" id="contactFirstName"/>
+                            </p>
+                            <p>
+                                <label for="contactLastName" class="d-block">
+                                    Achternaam contactpersoon
+                                </label>
+                                <input type="text" name="contactLastName" id="contactLastName" required />
+                            </p>
+                            <p>
+                                <label for="contactEmail" class="d-block">
+                                    Email contactpersoon
+                                </label>
+                                <input type="text" name="contactEmail" id="contactEmail" required />
+                            </p>
+                        </div>
+                    </div>
+                    <label for="motivationText" class="d-block">
+                        Motivatie*
+                    </label>
+                    <textarea name="motivationText" id="motivationText" rows="4" style="width: 100%;" placeholder="Voer hier uw motivatie in (tussen 100 en 250 karakters)" maxlength="250">@Model.Motivation.MotivationText</textarea>
                     <p>
-                        <input type="submit" value="Opslaan" name="update" class="btn btn-primary btn-md" />
-                        <input type="submit" value="Verzenden &raquo;" name="submit" class="btn btn-secondary btn-md" />
+                        <input type="submit" value="Opslaan" name="update" class="btn btn-primary btn-md"/>
+                        <input type="submit" value="Verzenden &raquo;" name="submit" class="btn btn-secondary btn-md"/>
                     </p>
                 </form>
             </div>
