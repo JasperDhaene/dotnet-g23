@@ -85,6 +85,12 @@ namespace dotnet_g23.Tests.Controllers
         }
         #endregion
 
-        
+        #region HTTP GET Show
+        [Fact]
+        public void ShowShouldShowGroupOfParticipant() {
+            _controller.Show(_participant2, context.Groups.First().GroupId);
+            Assert.Equal(context.Groups.First(), _participant2.Group);
+        }
+        #endregion
     }
 }
