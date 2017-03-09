@@ -37,18 +37,11 @@ namespace dotnet_g23.Controllers
         {
 			// Return filtered list with name & location of organisations
 
-            IndexViewModel vm = new IndexViewModel();
-
-		    IEnumerable<Organization> list = _orgRepository.GetByDomain(MailHelper.GetMailDomain(user.Email));
-            if (query != null) {
-                list = _orgRepository.GetByKeyword(query, MailHelper.GetMailDomain(user.Email));
-                if (!list.Any()) {
-                    list = new List<Organization>();
-                }
-            }
-
-            vm.SubscribedOrganization = (user.UserState as Participant)?.Organization;
-            vm.Organizations = list;
+            IndexViewModel vm = new IndexViewModel()
+            {
+                SubscribedOrganization = (user.UserState as Participant)?.Organization,
+                Organizations = _orgRepository.GetAll().OrderBy(g => g.Name)
+            };
 
 			return View(vm);
 		}

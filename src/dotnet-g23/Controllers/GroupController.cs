@@ -43,7 +43,7 @@ namespace dotnet_g23.Controllers
                 Organization = participant.Organization,
 		        SubscribedGroup = participant.Group,
 		        InvitedGroups = participant.User.Invitations?.Select(n => n.Group),
-		        OpenGroups = participant.Organization.Groups?.Where(g => !g.Closed)
+		        OpenGroups = _groupRepository.GetAll().Where(g => !g.Closed)
 		    };
 
 		    return View(vm);
