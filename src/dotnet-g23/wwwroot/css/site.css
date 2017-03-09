@@ -36,10 +36,3 @@ textarea {
     display: none
   }
 }
-
-/* Show only part of long text */
-.ellipsize {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}

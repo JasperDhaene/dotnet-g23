@@ -50,20 +50,18 @@ namespace dotnet_g23.Controllers {
         {
             Group group = _groupRepository.GetBy(id);
 
+            if (!ModelState.IsValid)
+            {
+                TempData["message"] = ModelState.Values.SelectMany(v => v.Errors);
+
+                return RedirectToAction("Show", new { id = group.GroupId });
+            }
+
             if (!(group.Context.CurrentState is InitialState))
                 return RedirectToAction("Show", new { id = group.GroupId });
-
-            try
-            {
-                group.Motivation = motivation;
-                _groupRepository.SaveChanges();
-            }
-            catch (ArgumentException e)
-            {
-                TempData["message"] = e.Message;
-                return RedirectToAction("Show", new { id = group.GroupId });
-
-            }
+            
+            group.Motivation = motivation;
+            _groupRepository.SaveChanges();
 
             // Save
             if (Request.Form.ContainsKey("update"))

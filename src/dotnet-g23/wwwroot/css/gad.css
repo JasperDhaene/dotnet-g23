@@ -14332,3 +14332,8 @@ a.badge:focus {
 .d-block {
     display: block;
 }
+.ellipsize {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
