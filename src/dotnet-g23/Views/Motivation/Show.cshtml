@@ -16,28 +16,28 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <p>
-                                <label for="organisationName" class="d-block">
+                                <label for="organizationName" class="d-block">
                                     Naam organisatie*
                                 </label>
-                                <input type="text" name="organisationName" id="organisationName" required />
+                                <input type="text" name="motivation.OrganizationName" id="organizationName" value="@Model.Motivation.OrganizationName" required />
                             </p>
                             <p>
-                                <label for="organisationAddress" class="d-block">
+                                <label for="organizationAddress" class="d-block">
                                     Adres organisatie*
                                 </label>
-                                <input type="text" name="organisationAddress" id="organisationAddress" required />
+                                <input type="text" name="motivation.OrganizationAddress" id="organizationAddress" value="@Model.Motivation.OrganizationAddress" required />
                             </p>
                             <p>
-                                <label for="organisationWebsite" class="d-block">
+                                <label for="organizationWebsite" class="d-block">
                                     Website organisatie*
                                 </label>
-                                <input type="text" name="organisationWebsite" id="organisationWebsite" required />
+                                <input type="text" name="motivation.OrganizationWebsite" id="organizationWebsite" value="@Model.Motivation.OrganizationWebsite" required />
                             </p>
                             <p>
-                                <label for="organisationEmail" class="d-block">
+                                <label for="organizationEmail" class="d-block">
                                     Email organisatie*
                                 </label>
-                                <input type="text" name="organisationEmail" id="organisationEmail" required />
+                                <input type="text" name="motivation.OrganizationEmail" id="organizationEmail" value="@Model.Motivation.OrganizationEmail" required />
                             </p>
                         </div>
                         <div class="col-lg-6">
@@ -45,36 +45,42 @@
                                 <label for="contactTitle" class="d-block">
                                     Aanspreektitel contactpersoon
                                 </label>
-                                <input type="text" name="contactTitle" id="contactTitle" />
+                                <input type="text" name="motivation.OrganizationContactTitle" id="contactTitle" value="@Model.Motivation.OrganizationContactTitle" />
                             </p>
                             <p>
                                 <label for="contactFirstName" class="d-block">
                                     Voornaam contactpersoon
                                 </label>
-                                <input type="text" name="contactFirstName" id="contactFirstName"/>
+                                <input type="text" name="motivation.OrganizationContactFirstName" id="contactFirstName" value="@Model.Motivation.OrganizationContactFirstName" />
                             </p>
                             <p>
-                                <label for="contactLastName" class="d-block">
+                                <label for="contactName" class="d-block">
                                     Achternaam contactpersoon
                                 </label>
-                                <input type="text" name="contactLastName" id="contactLastName" required />
+                                <input type="text" name="motivation.OrganizationContactName" id="contactName" value="@Model.Motivation.OrganizationContactName" />
                             </p>
                             <p>
                                 <label for="contactEmail" class="d-block">
                                     Email contactpersoon
                                 </label>
-                                <input type="text" name="contactEmail" id="contactEmail" required />
+                                <input type="text" name="motivation.OrganizationContactEmail" id="contactEmail" value="@Model.Motivation.OrganizationContactEmail" />
                             </p>
                         </div>
                     </div>
-                    <label for="motivationText" class="d-block">
-                        Motivatie*
-                    </label>
-                    <textarea name="motivationText" id="motivationText" rows="4" style="width: 100%;" placeholder="Voer hier uw motivatie in (tussen 100 en 250 karakters)" maxlength="250">@Model.Motivation.MotivationText</textarea>
-                    <p>
-                        <input type="submit" value="Opslaan" name="update" class="btn btn-primary btn-md"/>
-                        <input type="submit" value="Verzenden &raquo;" name="submit" class="btn btn-secondary btn-md"/>
-                    </p>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>
+                                <label for="motivationText" class="d-block">
+                                    Motivatie*
+                                </label>
+                                <textarea name="motivation.MotivationText" id="motivationText" rows="4" style="width: 100%;" placeholder="Voer hier uw motivatie in (tussen 100 en 250 karakters)" maxlength="250">@Model.Motivation.MotivationText</textarea>
+                            </p>
+                            <p>
+                                <input type="submit" value="Opslaan" name="update" class="btn btn-primary btn-md"/>
+                                <input type="submit" value="Verzenden &raquo;" name="submit" class="btn btn-secondary btn-md"/>
+                            </p>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

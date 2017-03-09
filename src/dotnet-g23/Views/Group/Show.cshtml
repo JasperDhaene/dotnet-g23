@@ -36,6 +36,10 @@
                 else
                 {
                     <h1>Motivatie</h1>
+                    <div class="card m-t-1">
+                        <a asp-controller="Motivation" asp-action="Show" asp-route-id="@Model.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3">Motivatie bewerken</a>
+                        <div class="ellipsize">@Model.Motivation.MotivationText</div>
+                    </div>
                 }
             </div>
         </div>

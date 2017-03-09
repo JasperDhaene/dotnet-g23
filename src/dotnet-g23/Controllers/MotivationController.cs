@@ -17,7 +17,6 @@ namespace dotnet_g23.Controllers {
     public class MotivationController : Controller {
         #region Fields
         private readonly IGroupRepository _groupRepository;
-        private Motivation mot;
         #endregion
 
         public MotivationController(IGroupRepository groupRepository) {
@@ -42,16 +41,13 @@ namespace dotnet_g23.Controllers {
         [Authorize(Policy = "participant")]
         [HttpPost]
         [Route("Motivations/{id}")]
-        public IActionResult Update(Participant participant, int id, string motivationText)
+        public IActionResult Update(Participant participant, int id, Motivation motivation)
         {
             Group group = _groupRepository.GetBy(id);
 
-            if (group.Motivation == null)
-                group.Motivation = new Motivation();
-
             try
             {
-                group.Motivation.MotivationText = motivationText;
+                group.Motivation = motivation;
                 _groupRepository.SaveChanges();
             }
             catch (ArgumentException e)
