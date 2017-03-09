@@ -48,7 +48,7 @@ namespace dotnet_g23.Controllers
             }
 
             vm.SubscribedOrganization = (user.UserState as Participant)?.Organization;
-            vm.Organizations = list.Where(org => org != vm.SubscribedOrganization);
+            vm.Organizations = list;
 
 			return View(vm);
 		}
@@ -65,6 +65,7 @@ namespace dotnet_g23.Controllers
 		    {
 		        organization.Register(user);
 		        _orgRepository.SaveChanges();
+		        TempData["info"] = $"U bent geregistreerd bij organisatie '{organization.Name}'";
 		        return RedirectToAction("Index", "Groups");
 		    }
 		    catch (Exception e)

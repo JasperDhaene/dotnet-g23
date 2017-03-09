@@ -43,7 +43,10 @@
                             <form asp-controller="Organization" asp-action="Register" method="post" class="form-horizontal">
                                 @org.Name (@org.Location)
                                 <input type="hidden" value="@org.OrganizationId" name="organizationId" />
-                                <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-right">Registreren</a>
+                                @if (Model.SubscribedOrganization == null)
+                                {
+                                    <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-right">Registreren</a>
+                                }
                             </form>
                         </div>
                     }
