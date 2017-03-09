@@ -39,13 +39,12 @@
                                     <label asp-for="ConfirmPassword" class="input-group-addon">
                                     <i class="fa fa-key"></i>
                                     </label>
-                                    <input asp-validation-for="ConfirmPassword" type="password" id="password2" name="password2" placeholder="Bevestig password" class="form-control" required="required" data-fv-identical="true" data-fv-identical-field="password" data-fv-identical-message="Password mismatch" data-fv-field="password2">
+                                    <input asp-validation-for="ConfirmPassword" type="password" id="password2" name="ConfirmPassword" placeholder="Bevestig password" class="form-control" required="required" data-fv-identical="true" data-fv-identical-field="password" data-fv-identical-message="Password mismatch" data-fv-field="password2">
                                 </div><i class="form-control-feedback fv-bootstrap-icon-input-group" data-fv-icon-for="password2" style="display: none;"></i>
                             <small class="help-block" data-fv-validator="identical" data-fv-for="password2" data-fv-result="NOT_VALIDATED" style="display: none;">Password mismatch</small><small class="help-block" data-fv-validator="notEmpty" data-fv-for="password2" data-fv-result="NOT_VALIDATED" style="display: none;">Gelieve het veld in te vullen</small></div>
                             <div class="form-group m-t-2">
-                                <button type="button" class="btn btn-primary f-right" data-trigger="3">
-                                    <span>Registreren</span>
-                                    <i class="fa fa-chevron-circle-right"></i>
+                                <button type="submit" class="btn btn-primary f-right" data-trigger="3">
+                                    Registreren &raquo;
                                 </button>
                             </div>
                         </fieldset>
