@@ -78,6 +78,7 @@ namespace dotnet_g23.Data {
                 Group closedGroup4 = new Group("closedGroup4", true);
 
                 openGroup2.Participants.Add(tuur.UserState as Participant);
+                (tuur.UserState as Participant).Group = openGroup2;
                 openGroup2.Participants.Add(new GUser("persoon1@organization.be", new Participant(org3)).UserState as Participant);
                 openGroup2.Participants.Add(new GUser("persoon2@organization.be", new Participant(org3)).UserState as Participant);
 
