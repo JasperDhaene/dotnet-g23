@@ -25,7 +25,7 @@ namespace dotnet_g23.Models.Domain
         }
         public Boolean Closed { get; set; }
         public ICollection<Participant> Participants { get; set; }
-        public ICollection<Lector> Lectors { get; set; }
+        public Lector Lector { get; set; }
         public Organization Organization { get; set; }
         public Motivation Motivation { get; set; }
         public ICollection<Invitation> Invitations { get; set; }
@@ -36,7 +36,6 @@ namespace dotnet_g23.Models.Domain
         public Group()
         {
             Participants = new List<Participant>();
-            Lectors = new List<Lector>();
             Invitations = new List<Invitation>();
             Context = new Context();
         }

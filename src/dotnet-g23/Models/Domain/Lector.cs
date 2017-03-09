@@ -9,13 +9,14 @@ namespace dotnet_g23.Models.Domain
     {
         #region Properties
         public ICollection<Participant> Participants { get; set; }
-        public Group Group { get; set; }
+        public ICollection<Group> Groups { get; set; }
         #endregion
 
         #region Constructors
         public Lector()
         {
             Participants = new List<Participant>();
+            Groups = new List<Group>();
         }
         #endregion
     }

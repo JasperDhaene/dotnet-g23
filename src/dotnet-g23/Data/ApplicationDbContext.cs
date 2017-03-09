@@ -45,10 +45,6 @@ namespace dotnet_g23.Data
 
             builder.Entity<Group>(MapGroup);
             builder.Entity<Motivation>(MapMotivation);
-
-            // State Machine
-            builder.Entity<Context>(MapContext);
-            builder.Entity<State>(MapState);
         }
 
         private static void MapUser(EntityTypeBuilder<GUser> u)
@@ -64,6 +60,8 @@ namespace dotnet_g23.Data
             u.HasOne(user => user.UserState)
                 .WithOne(userState => userState.User)
                 .HasForeignKey<UserState>(userState => userState.UserStateId);
+            u.HasMany(user => user.Invitations)
+                .WithOne(i => i.User);
         }
 
         public static void MapUserState(EntityTypeBuilder<UserState> us) {
@@ -73,10 +71,6 @@ namespace dotnet_g23.Data
             us.HasDiscriminator<string>("user_state_type")
                 .HasValue<Participant>("user_state_participant")
                 .HasValue<Lector>("user_state_lector");
-
-            us.HasOne(state => state.User)
-                .WithOne(u => u.UserState)
-                .IsRequired();
         }
 
         private static void MapOrganization(EntityTypeBuilder<Organization> o)
@@ -108,11 +102,6 @@ namespace dotnet_g23.Data
         private static void MapLector(EntityTypeBuilder<Lector> l)
         {
             l.ToTable("Lectors");
-
-            l.HasMany(lector => lector.Participants)
-                .WithOne(p => p.Lector);
-            l.HasOne(lector => lector.Group)
-                .WithMany(g => g.Lectors);
         }
 
         private static void MapInvitation(EntityTypeBuilder<Invitation> n)
@@ -124,13 +113,6 @@ namespace dotnet_g23.Data
             n.Property(no => no.DateCreated).IsRequired();
             n.Property(no => no.DateRead);
             n.Property(no => no.IsRead).IsRequired();
-
-            n.HasOne(no => no.User)
-                .WithMany(u => u.Invitations)
-                .IsRequired();
-            n.HasOne(no => no.Group)
-                .WithMany(g => g.Invitations)
-                .IsRequired();
         }
 
         private static void MapGroup(EntityTypeBuilder<Group> g)
@@ -144,19 +126,13 @@ namespace dotnet_g23.Data
             // Name is unique
             g.HasAlternateKey(gr => gr.Name);
 
-            g.HasMany(group => group.Participants)
-                .WithOne(p => p.Group);
-            g.HasMany(group => group.Lectors)
-                .WithOne(l => l.Group);
-            g.HasOne(group => group.Organization)
-                .WithMany(org => org.Groups)
-                .IsRequired();
+            g.HasOne(group => group.Lector)
+                .WithMany(l => l.Groups);
             g.HasOne(group => group.Motivation)
                 .WithOne(m => m.Group)
                 .HasForeignKey<Motivation>(m => m.GroupForeignKey);
-            g.HasOne(gr => gr.Context)
-                .WithOne(ctx => ctx.Group)
-                .HasForeignKey<Context>(ctx => ctx.GroupForeignKey);
+            g.HasMany(group => group.Invitations)
+                .WithOne(i => i.Group);
         }
 
         private static void MapMotivation(EntityTypeBuilder<Motivation> m)
@@ -175,35 +151,6 @@ namespace dotnet_g23.Data
             m.Property(mo => mo.OrganizationContactFirstName);
             m.Property(mo => mo.OrganizationContactName);
             m.Property(mo => mo.OrganizationContactEmail);
-
-            m.HasOne(mo => mo.Group)
-                .WithOne(g => g.Motivation);
-        }
-
-        private static void MapContext(EntityTypeBuilder<Context> c)
-        {
-            c.ToTable("Contexts");
-            c.HasKey(ctx => ctx.ContextId);
-
-            c.HasOne(ctx => ctx.Group)
-                .WithOne(g => g.Context);
-            c.HasOne(ctx => ctx.CurrentState)
-                .WithOne(s => s.Context)
-                .HasForeignKey<State>(s => s.StateId);
-        }
-        public static void MapState(EntityTypeBuilder<State> s)
-        {
-            s.ToTable("States");
-            s.HasKey(state => state.StateId);
-
-            s.HasDiscriminator<string>("state_type")
-                .HasValue<InitialState>("state_initial")
-                .HasValue<SubmittedState>("state_submitted")
-                .HasValue<ApprovedState>("state_approved");
-
-            s.HasOne(state => state.Context)
-                .WithOne(ctx => ctx.CurrentState)
-                .IsRequired();
         }
     }
 }
