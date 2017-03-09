@@ -75,7 +75,7 @@ namespace dotnet_g23.Controllers
                 _groupRepository.SaveChanges();
                 return RedirectToAction("Invite", new { id = participant.Group.GroupId });
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
                 TempData["error"] = e.Message;
                 return View("Create");

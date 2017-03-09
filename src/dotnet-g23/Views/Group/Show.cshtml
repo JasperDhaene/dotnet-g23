@@ -1,4 +1,6 @@
-﻿@model dotnet_g23.Models.Domain.Group
+﻿@using System.Threading.Tasks
+@using dotnet_g23.Models.Domain.State
+@model dotnet_g23.Models.Domain.Group
 
 @{
     ViewData["Title"] = $"Groep '{ @Model.Name }'";
@@ -37,7 +39,18 @@
                 {
                     <h1>Motivatie</h1>
                     <div class="card m-t-1">
-                        <a asp-controller="Motivation" asp-action="Show" asp-route-id="@Model.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3">Motivatie bewerken</a>
+                        @if (Model.Context.CurrentState is InitialState)
+                        {
+                            <a asp-controller="Motivation" asp-action="Show" asp-route-id="@Model.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3">Motivatie bewerken</a>
+                        }
+                        else if (Model.Context.CurrentState is SubmittedState)
+                        {
+                            <a href="#" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3 disabled">Verzonden naar lector</a>
+                        }
+                        else
+                        {
+                            <a href="#" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3 disabled">Goedgekeurd</a>
+                        }
                         <div class="ellipsize">@Model.Motivation.MotivationText</div>
                     </div>
                 }

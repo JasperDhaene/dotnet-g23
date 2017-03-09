@@ -38,12 +38,12 @@ namespace dotnet_g23.Models.Domain
             Participants = new List<Participant>();
             Lectors = new List<Lector>();
             Invitations = new List<Invitation>();
+            Context = new Context();
         }
         public Group(String name) : this()
         {
             Name = name;
             Closed = false;
-            Context = new Context();
         }
 
         public Group(String name, Boolean closed) : this(name)

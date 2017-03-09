@@ -25,6 +25,7 @@ namespace dotnet_g23.Data.Repositories
                 .Include(g => g.Motivation)
                 .Include(g => g.Lectors)
                 .Include(g => g.Participants)
+                .Include(g => g.Context)
                 .ToList();
         }
 
@@ -35,6 +36,7 @@ namespace dotnet_g23.Data.Repositories
                 .Include(g => g.Motivation)
                 .Include(g => g.Lectors)
                 .Include(g => g.Participants)
+                .Include(g => g.Context)
                 .SingleOrDefault(g => g.GroupId == groupId);
         }
 
@@ -45,6 +47,7 @@ namespace dotnet_g23.Data.Repositories
                 .Include(g => g.Motivation)
                 .Include(g => g.Lectors)
                 .Include(g => g.Participants)
+                .Include(g => g.Context)
                 .SingleOrDefault(g => g.Name == groupName);
         }
 
@@ -55,7 +58,8 @@ namespace dotnet_g23.Data.Repositories
 		        .Include(g => g.Motivation)
 		        .Include(g => g.Lectors)
 		        .Include(g => g.Participants)
-		        .Where(g => g.Organization != null && g.Organization == organization);
+                .Include(g => g.Context)
+                .Where(g => g.Organization != null && g.Organization == organization);
 		}
 
 		public void SaveChanges()

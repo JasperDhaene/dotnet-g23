@@ -8,6 +8,9 @@ namespace dotnet_g23.Models.Domain.State
     public class Context
     {
         #region Properties
+        public int ContextId { get; set; }
+        public int GroupForeignKey { get; set; }
+        public Group Group { get; set; }
 
         public State CurrentState { get; set; }
         #endregion

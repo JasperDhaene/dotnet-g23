@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using dotnet_g23.Filters;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.State;
 using dotnet_g23.Models.ViewModels.MotivationViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -30,9 +31,13 @@ namespace dotnet_g23.Controllers {
             IndexViewModel vm = new IndexViewModel();
 
             Group group = _groupRepository.GetBy(id);
-            vm.Group = group;
 
-            vm.Motivation = group.Motivation == null ? new Motivation() : group.Motivation;
+
+            if (!(group.Context.CurrentState is InitialState))
+                return RedirectToAction("Show", new { id = group.GroupId });
+
+            vm.Group = group;
+            vm.Motivation = @group.Motivation ?? new Motivation();
 
             return View(vm);
         }
@@ -44,6 +49,9 @@ namespace dotnet_g23.Controllers {
         public IActionResult Update(Participant participant, int id, Motivation motivation)
         {
             Group group = _groupRepository.GetBy(id);
+
+            if (!(group.Context.CurrentState is InitialState))
+                return RedirectToAction("Show", new { id = group.GroupId });
 
             try
             {
@@ -57,7 +65,17 @@ namespace dotnet_g23.Controllers {
 
             }
 
-            TempData["message"] = "Uw motivatie werd opgeslaan.";
+            // Save
+            if (Request.Form.ContainsKey("update"))
+            {
+                TempData["message"] = "Uw motivatie werd opgeslaan.";
+                return RedirectToAction("Show", "Group", new { id = group.GroupId });
+            }
+
+            // Submit
+            group.Context.NextState();
+            _groupRepository.SaveChanges();
+            TempData["message"] = "Uw motivatie werd doorgestuurd naar de begeleidende lector.";
             return RedirectToAction("Show", "Group", new { id = group.GroupId });
         }
 

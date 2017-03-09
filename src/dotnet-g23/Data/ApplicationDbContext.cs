@@ -1,5 +1,6 @@
 ﻿using System;
 using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.State;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -44,6 +45,10 @@ namespace dotnet_g23.Data
 
             builder.Entity<Group>(MapGroup);
             builder.Entity<Motivation>(MapMotivation);
+
+            // State Machine
+            builder.Entity<Context>(MapContext);
+            builder.Entity<State>(MapState);
         }
 
         private static void MapUser(EntityTypeBuilder<GUser> u)
@@ -149,6 +154,9 @@ namespace dotnet_g23.Data
             g.HasOne(group => group.Motivation)
                 .WithOne(m => m.Group)
                 .HasForeignKey<Motivation>(m => m.GroupForeignKey);
+            g.HasOne(gr => gr.Context)
+                .WithOne(ctx => ctx.Group)
+                .HasForeignKey<Context>(ctx => ctx.GroupForeignKey);
         }
 
         private static void MapMotivation(EntityTypeBuilder<Motivation> m)
@@ -170,6 +178,32 @@ namespace dotnet_g23.Data
 
             m.HasOne(mo => mo.Group)
                 .WithOne(g => g.Motivation);
+        }
+
+        private static void MapContext(EntityTypeBuilder<Context> c)
+        {
+            c.ToTable("Contexts");
+            c.HasKey(ctx => ctx.ContextId);
+
+            c.HasOne(ctx => ctx.Group)
+                .WithOne(g => g.Context);
+            c.HasOne(ctx => ctx.CurrentState)
+                .WithOne(s => s.Context)
+                .HasForeignKey<State>(s => s.StateId);
+        }
+        public static void MapState(EntityTypeBuilder<State> s)
+        {
+            s.ToTable("States");
+            s.HasKey(state => state.StateId);
+
+            s.HasDiscriminator<string>("state_type")
+                .HasValue<InitialState>("state_initial")
+                .HasValue<SubmittedState>("state_submitted")
+                .HasValue<ApprovedState>("state_approved");
+
+            s.HasOne(state => state.Context)
+                .WithOne(ctx => ctx.CurrentState)
+                .IsRequired();
         }
     }
 }

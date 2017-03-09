@@ -64,7 +64,10 @@
                         <div class="card">
                             <form asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" method="post">
                                 @group.Name <span class="badge">@group.Participants.Count() @(group.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
-                                <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Toetreden</a>
+                                @if (Model.SubscribedGroup == null)
+                                {
+                                    <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Toetreden</a>
+                                }
                             </form>
                         </div>
                     }
