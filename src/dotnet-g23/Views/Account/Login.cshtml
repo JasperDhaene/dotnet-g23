@@ -63,15 +63,14 @@
                         <i class="fa fa-sign-in"></i>
                         <span>Inloggen</span>
                     </button>
-                    <button asp-action="ForgotPassword" class="btn btn-secondary f-xs-left f-md-none mrg-sm-vert clear-xs clear-sm-none">
+                    <a asp-action="ForgotPassword" class="btn btn-secondary f-xs-left f-md-none mrg-sm-vert clear-xs clear-sm-none">
                         <i class="fa fa-lock"></i>
                         <span>Wachtwoord?!?</span>
-                    </button>
-                    <button asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" class="btn btn-secondary f-xs-left f-md-none mrg-sm-vert clear-xs clear-sm-none">
+                    </a>
+                    <a asp-action="Register" class="btn btn-secondary f-xs-left f-md-none mrg-sm-vert clear-xs clear-sm-none">
                         <i class="fa fa-user-plus"></i>
                         <span>Registreren!</span>
-                    </button>
-                    
+                    </a>                    
                 </div>
             </form>
         </section>
