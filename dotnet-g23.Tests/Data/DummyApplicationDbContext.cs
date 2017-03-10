@@ -8,6 +8,7 @@ namespace dotnet_g23.Tests.Data {
     public class DummyApplicationDbContext {
         public GUser Preben { get; set; }
         public GUser Preben2 { get; set; }
+        public GUser Test { get; set; }
         public GUser Tuur { get; set; }
         public GUser Jasper { get; set; }
         public GUser Florian { get; set; }
@@ -44,6 +45,7 @@ namespace dotnet_g23.Tests.Data {
 
             Preben = new GUser("preben.leroy@hogent.be");
             Preben2 = new GUser("preben2.leroy@hogent.be", new Participant(org1));
+            Test = new GUser("test.test@hogent.be", new Participant(org1));
             Tuur = new GUser("tuur.lievens@organization.be", new Participant(org3));
             Florian = new GUser("florian.dejonckheere@hogent.be", new Lector());
             Jasper = new GUser("jasper.dhaene@organization.be", new Lector());

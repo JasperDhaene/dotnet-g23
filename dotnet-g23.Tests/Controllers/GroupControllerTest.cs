@@ -119,16 +119,12 @@ namespace dotnet_g23.Tests.Controllers
         }
         #endregion
 
-        //#region HTTP POST Invite
-        //[Fact(Skip = "")]
-        //public void InviteTest1() {
-            
-        //}
-
-        //[Fact(Skip = "")]
-        //public void InviteTest2() {
-            
-        //}
-        //#endregion
+        #region HTTP POST Invite
+        [Fact]
+        public void InviteShouldReturnGroupSearchedBijId() {
+            _controller.Invite(_participant2, context.Groups.First().GroupId, "test.test@hogent.be");
+            Assert.Equal(context.Groups.Skip(1).First(), _participant2.Group);
+        }
+        #endregion
     }
 }
