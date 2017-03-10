@@ -83,19 +83,11 @@ namespace dotnet_g23.Data {
                 openGroup2.Participants.Add(new GUser("persoon2@organization.be", new Participant(org3)).UserState as Participant);
 
                 Motivation mot1 = new Motivation("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                    + "Aliquam at quam at eros volutpat elementum. Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper. "
-                    + "Pellentesque eleifend sapien at turpis pulvinar, quis finibus mi sodales. Ut porttitor pharetra ante. Pellentesque eu arcu est. "
-                    + "Mauris finibus porta tellus et posuere. Nam feugiat vitae enim at sagittis. Duis sodales varius ipsum vitae maximus. "
-                    + "Nullam est purus, tempor in nisl aliquet, congue aliquam neque. Vestibulum sit amet neque non nunc eleifend feugiat. "
-                    + "Nullam sed eleifend libero. Aliquam vitae ornare lorem. Mauris pellentesque lacus a arcu pulvinar, quis laoreet massa maximus. Praesent vestibulum elit.");
+                    +"Aliquam at quam at eros volutpat elementum.Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper.");
 
 
                 Motivation mot2 = new Motivation("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                    + "Aliquam at quam at eros volutpat elementum. Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper. "
-                    + "Pellentesque eleifend sapien at turpis pulvinar, quis finibus mi sodales. Ut porttitor pharetra ante. Pellentesque eu arcu est. "
-                    + "Mauris finibus porta tellus et posuere. Nam feugiat vitae enim at sagittis. Duis sodales varius ipsum vitae maximus. "
-                    + "Nullam est purus, tempor in nisl aliquet, congue aliquam neque. Vestibulum sit amet neque non nunc eleifend feugiat. "
-                    + "Nullam sed eleifend libero. Aliquam vitae ornare lorem. Mauris pellentesque lacus a arcu pulvinar, quis laoreet massa maximus. Praesent vestibulum elit.");
+                    + "Aliquam at quam at eros volutpat elementum. Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper. ");
 
                 openGroup1.Motivation = mot1;
                 openGroup3.Motivation = mot2;
