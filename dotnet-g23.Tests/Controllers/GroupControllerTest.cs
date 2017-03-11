@@ -104,16 +104,16 @@ namespace dotnet_g23.Tests.Controllers
         #region HTTP GET Invite
         [Fact]
         public void InviteParticipantToGroup() {
-            _controller.Invite(_participant2, context.Groups.First().GroupId);
-            Assert.Equal(context.Groups.First(), _participant2.Group);
+            ViewResult result = _controller.Invite(_participant2, context.Groups.First().GroupId) as ViewResult;
+            Assert.Equal("Invite", result?.ViewName);
         }
         #endregion
 
         #region HTTP POST Invite
         [Fact]
         public void InviteShouldReturnGroupSearchedById() {
-            _controller.Invite(_participant2, context.Groups.First().GroupId, "test.test@hogent.be");
-            Assert.Equal(context.Groups.First(), _participant2.Group);
+            ViewResult result = _controller.Invite(_participant2, context.Groups.First().GroupId, "test.test@hogent.be") as ViewResult;
+            Assert.Equal("Invite", result?.ViewName);
         }
         #endregion
     }
