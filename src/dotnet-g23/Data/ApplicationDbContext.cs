@@ -91,11 +91,11 @@ namespace dotnet_g23.Data
                 .WithMany(o => o.Participants)
                 .IsRequired();
 
-            // Participant => Group (required but omitted due to cyclical dependency)
+            // Participant => Group
             p.HasOne(pa => pa.Group)
                 .WithMany(g => g.Participants);
 
-            // Participant => Lector (required but omitted due to cyclical dependency)
+            // Participant => Lector
             p.HasOne(participant => participant.Lector)
                 .WithMany(l => l.Participants);
         }
@@ -117,13 +117,11 @@ namespace dotnet_g23.Data
 
             // Invitation => GUser
             i.HasOne(inv => inv.Participant)
-                .WithMany(u => u.Invitations)
-                .IsRequired();
+                .WithMany(u => u.Invitations);
 
             // Invitation => Group
             i.HasOne(inv => inv.Group)
-                .WithMany(g => g.Invitations)
-                .IsRequired();
+                .WithMany(g => g.Invitations);
         }
 
         private static void MapGroup(EntityTypeBuilder<Group> g)
@@ -141,7 +139,7 @@ namespace dotnet_g23.Data
                 .WithMany(o => o.Groups)
                 .IsRequired();
 
-            // Group => Lector (required but omitted due to cyclical dependency)
+            // Group => Lector
             g.HasOne(gr => gr.Lector)
                 .WithMany(l => l.Groups);
 
