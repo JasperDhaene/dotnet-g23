@@ -22,7 +22,7 @@ namespace dotnet_g23.Models.Domain
             set
             {
                 if (value.Length < 100 || value.Length > 250)
-                    throw new ArgumentException("Motivation must be between 100 and 250 characters");
+                    throw new ArgumentException("Motivatie moet tussen 100 en 250 karakters lang zijn");
 
                 _motivation = value;
             }

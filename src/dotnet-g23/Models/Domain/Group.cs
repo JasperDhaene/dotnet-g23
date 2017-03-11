@@ -34,7 +34,7 @@ namespace dotnet_g23.Models.Domain
             private set {
                 if(value == null || value.Trim() == String.Empty || value == String.Empty)
                 {
-                    throw new ArgumentException("Naam kan niet leeg zijn.");
+                    throw new ArgumentException("Naam kan niet leeg zijn");
                 }
                 _name = value;
             }
@@ -66,7 +66,7 @@ namespace dotnet_g23.Models.Domain
 
         public void Invite(Participant participant)
         {
-            Invitation invitation = new Invitation(this, participant, $"You have been invited to the group ${Name}!");
+            Invitation invitation = new Invitation(this, participant, $"U bent uitgenodigd om toe te treden tot de groep '${Name}'");
         }
 	    public void Register(Participant participant)
 	    {

@@ -31,7 +31,7 @@ namespace dotnet_g23.Models.Domain
                 }
                 else
                 {
-                    throw new ArgumentException("Incorrect emailadres, gelieve opnieuw te proberen.");
+                    throw new ArgumentException("Incorrect emailadres, gelieve opnieuw te proberen");
                 }
             }
         }

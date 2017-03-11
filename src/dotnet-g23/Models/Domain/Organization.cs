@@ -23,7 +23,7 @@ namespace dotnet_g23.Models.Domain
             {
                 if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
                 {
-                    throw new ArgumentException("Name can not be empty!");
+                    throw new ArgumentException("Naam kan niet leeg zijn");
                 }
                 _name = value;
             }
@@ -34,7 +34,7 @@ namespace dotnet_g23.Models.Domain
             {
                 if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
                 {
-                    throw new ArgumentException("Location can not be empty!");
+                    throw new ArgumentException("Locatie kan niet leeg zijn");
                 }
                 _location = value;
             }
@@ -43,7 +43,7 @@ namespace dotnet_g23.Models.Domain
 			get { return _domain; }
 			private set {
 				if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty) {
-					throw new ArgumentException("Domain can not be empty!");
+					throw new ArgumentException("Domein kan niet leeg zijn");
 				}
 				_domain = value;
 			}
