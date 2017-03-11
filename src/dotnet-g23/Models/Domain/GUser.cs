@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace dotnet_g23.Models.Domain
@@ -30,10 +32,14 @@ namespace dotnet_g23.Models.Domain
                 }
                 else
                 {
-                    throw new ArgumentException("Email address is incorrect, please try again.");
+                    throw new ArgumentException("Incorrect emailadres, gelieve opnieuw te proberen.");
                 }
             }
         }
+
+        [NotMapped]
+        public String Domain => Email?.Split('@').Last();
+
         #endregion
 
         #region Constructors

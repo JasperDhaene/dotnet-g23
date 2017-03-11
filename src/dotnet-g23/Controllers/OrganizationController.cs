@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using dotnet_g23.Data.Repositories;
 using dotnet_g23.Filters;
-using dotnet_g23.Helpers;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.ViewModels.OrganizationViewModels;
@@ -34,17 +33,16 @@ namespace dotnet_g23.Controllers
         // GET /Organizations
 		[Route("Organizations")]
         [ServiceFilter(typeof(ParticipantFilter))]
-        public IActionResult Index(GUser user, Participant participant)
+        public IActionResult Index(GUser user, Participant participant, String query = null)
         {
 			// Return filtered list with name & location of organisations
 
             IndexViewModel vm = new IndexViewModel()
             {
-                SubscribedOrganization = participant.Organization,
-                Organizations = _orgRepository.GetAll()
+                SubscribedOrganization = participant?.Organization,
+                Organizations = query == null ? _orgRepository.GetAll() : _orgRepository.GetByKeyword(query)
             };
-
-			return View(vm);
+            return View(vm);
 		}
 
         // POST /Organizations/Register

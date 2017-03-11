@@ -34,7 +34,7 @@ namespace dotnet_g23.Models.Domain
             private set {
                 if(value == null || value.Trim() == String.Empty || value == String.Empty)
                 {
-                    throw new ArgumentException("Name can not be empty!");
+                    throw new ArgumentException("Naam kan niet leeg zijn.");
                 }
                 _name = value;
             }

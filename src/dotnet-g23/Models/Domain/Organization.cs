@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using dotnet_g23.Controllers;
-using dotnet_g23.Helpers;
 
 namespace dotnet_g23.Models.Domain
 {
@@ -69,7 +68,7 @@ namespace dotnet_g23.Models.Domain
 	    #region Methods
 	    public void Register(GUser user)
 	    {
-            if (!MailHelper.GetMailDomain(user.Email).Equals(Domain))
+            if (user.Domain != Domain)
                 throw new ArgumentException("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
 
 	        if (user.UserState != null)
