@@ -116,7 +116,7 @@ namespace dotnet_g23.Data
             i.Property(no => no.IsRead).IsRequired();
 
             // Invitation => GUser
-            i.HasOne(inv => inv.User)
+            i.HasOne(inv => inv.Participant)
                 .WithMany(u => u.Invitations)
                 .IsRequired();
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using dotnet_g23.Data.Repositories;
 using dotnet_g23.Filters;
-using dotnet_g23.Helpers;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.ViewModels.GroupViewModels;
@@ -40,9 +39,9 @@ namespace dotnet_g23.Controllers
 
 		    IndexViewModel vm = new IndexViewModel
 		    {
-                Organization = participant.Organization,
-		        SubscribedGroup = participant.Group,
-		        InvitedGroups = participant.User.Invitations?.Select(n => n.Group),
+                Organization = participant?.Organization,
+		        SubscribedGroup = participant?.Group,
+		        InvitedGroups = participant?.Invitations.Select(n => n.Group),
 		        OpenGroups = participant.Organization.Groups?.Where(g => !g.Closed)
             };
 

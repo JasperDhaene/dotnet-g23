@@ -8,7 +8,7 @@ namespace dotnet_g23.Models.Domain
     public interface IInvitationRepository
     {
         Invitation GetBy(int invitationId);
-        IEnumerable<Invitation> GetByUser(GUser user);
+        IEnumerable<Invitation> GetByParticipant(Participant participant);
 		IEnumerable<Invitation> GetAll();
         void SaveChanges();
     }

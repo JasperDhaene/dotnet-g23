@@ -25,6 +25,7 @@ namespace dotnet_g23.Data.Repositories
                 .Include(p => p.Lector)
                 .Include(p => p.Organization)
                 .Include(p => p.User)
+                .Include(p => p.Invitations)
                 .ToList();
         }
 
@@ -37,6 +38,7 @@ namespace dotnet_g23.Data.Repositories
                 .Include(p => p.Lector)
                 .Include(p => p.Organization)
                 .Include(p => p.User)
+                .Include(p => p.Invitations)
                 .SingleOrDefault(p => p.UserStateId == userStateId);
         }
 
@@ -47,6 +49,7 @@ namespace dotnet_g23.Data.Repositories
                 .Include(p => p.Lector)
                 .Include(p => p.Organization)
                 .Include(p => p.User)
+                .Include(p => p.Invitations)
                 .SingleOrDefault(p => p.User.Email == email);
         }
 

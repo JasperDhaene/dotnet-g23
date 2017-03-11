@@ -64,14 +64,14 @@ namespace dotnet_g23.Models.Domain
 
 		#region Methods
 
-        public void Invite(Participant user)
+        public void Invite(Participant participant)
         {
-            Invitation invitation = new Invitation(this, user.User, $"You have been invited to the group ${Name}!");
+            Invitation invitation = new Invitation(this, participant, $"You have been invited to the group ${Name}!");
         }
-	    public void Register(Participant user)
+	    public void Register(Participant participant)
 	    {
-		    user.Group = this;
-			Participants.Add(user);
+		    participant.Group = this;
+			Participants.Add(participant);
 	    }
 		#endregion
 	}

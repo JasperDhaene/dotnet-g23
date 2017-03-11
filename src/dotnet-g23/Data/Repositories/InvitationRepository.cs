@@ -20,22 +20,24 @@ namespace dotnet_g23.Data.Repositories
         public Invitation GetBy(int invitationId)
         {
             return _invitations
-                .Include(n => n.User)
+                .Include(n => n.Participant)
                 .Include(n => n.Group)
                 .SingleOrDefault(n => n.InvitationId == invitationId);
         }
 
-        public IEnumerable<Invitation> GetByUser(GUser user)
+        public IEnumerable<Invitation> GetByParticipant(Participant participant)
         {
             return _invitations
-                .Include(n => n.User)
+                .Include(n => n.Participant)
                 .Include(n => n.Group)
-                .Where(n => n.User.UserId == user.UserId);
+                .Where(n => n.Participant == participant);
         }
 
         public IEnumerable<Invitation> GetAll()
         {
             return _invitations
+                .Include(n => n.Participant)
+                .Include(n => n.Group)
                 .ToList();
         }
 

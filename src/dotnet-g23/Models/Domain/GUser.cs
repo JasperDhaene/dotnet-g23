@@ -15,7 +15,6 @@ namespace dotnet_g23.Models.Domain
         #region Properties
         public int UserId { get; private set; }
         public UserState UserState { get; set; }
-        public ICollection<Invitation> Invitations { get; }
 
         public String Email
         {
@@ -45,7 +44,6 @@ namespace dotnet_g23.Models.Domain
         #region Constructors
         public GUser()
         {
-            Invitations = new List<Invitation>();
         }
         public GUser(String email, UserState userState): this()
         {

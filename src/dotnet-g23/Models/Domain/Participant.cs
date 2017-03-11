@@ -11,11 +11,13 @@ namespace dotnet_g23.Models.Domain
         public Organization Organization { get; set; }
         public Group Group { get; set; }
         public Lector Lector { get; private set; }
+        public ICollection<Invitation> Invitations { get; }
         #endregion
 
         #region Constructors
         public Participant()
         {
+            Invitations = new List<Invitation>();
             // TODO: assign lector
         }
         public Participant(Organization organization)
