@@ -73,8 +73,8 @@ namespace dotnet_g23.Tests.Controllers
         #region HTTP POST Register
         [Fact]
         public void ParticipantShouldRegisterInGroup() {
-            RedirectToActionResult result = _controller.Register(_participant, context.Groups.Skip(1).First().GroupId) as RedirectToActionResult;
-            Assert.Equal((context.Tuur.UserState as Participant).Group, _participant.Group);
+            RedirectToActionResult result = _controller.Register(_participant2, context.Groups.First().GroupId) as RedirectToActionResult;
+            Assert.Equal((context.Preben2.UserState as Participant).Group, _participant.Group);
             Assert.Equal("Show", result.ActionName);
             Assert.Equal("Groups", result.ControllerName);
         }
