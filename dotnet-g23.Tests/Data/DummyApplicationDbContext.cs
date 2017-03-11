@@ -62,7 +62,10 @@ namespace dotnet_g23.Tests.Data {
             Group _openGroup = new Group("OpenGroup", false);
             Group _closedGroup = new Group("ClosedGroup");
 
-            _openGroup.Participants.Add(Preben2.UserState as Participant);
+            //_openGroup.Participants.Add(Preben2.UserState as Participant);
+
+            _openGroup.Register(Preben2.UserState as Participant);
+            org1.CreateGroup(Preben2.UserState as Participant, "_openGroup");
 
             _groups.Add(_closedGroup);
             _groups.Add(_openGroup);

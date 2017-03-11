@@ -38,18 +38,19 @@ namespace dotnet_g23.Tests.Controllers
             _controller = new GroupController(Grouprepo.Object, Userrepo.Object);
             _controller.TempData = new Mock<ITempDataDictionary>().Object;
 
-            _participant = context.Tuur.UserState as Participant;
-            _participant2 = context.Preben2.UserState as Participant;
+            _participant2 = context.Tuur.UserState as Participant;
+            _participant = context.Preben2.UserState as Participant;
         }
         #endregion
 
         #region Index
         [Fact]
         public void IndexShouldReturnSubscribedGroupOfUser() {
-            ViewResult result = _controller.Index(_participant) as ViewResult;
+            ViewResult result = _controller.Index(_participant2) as ViewResult;
             IndexViewModel ind = (IndexViewModel)result?.Model;
+            //Assert.Equal(_participant2.Organization, ind.Organization);
             Group group = ind.SubscribedGroup;
-            Assert.Equal(_participant.Group, group);
+            Assert.Equal(_participant2.Group, group);
         }
 
         [Fact]
@@ -86,28 +87,17 @@ namespace dotnet_g23.Tests.Controllers
         }
         #endregion
 
-        #region HTTP GET Show
-        [Fact]
-        public void ShowShouldShowGroupOfParticipant() {
-            _controller.Show(_participant2, context.Groups.First().GroupId);
-            Assert.Equal(context.Groups.First(), _participant2.Group);
-        }
-        #endregion
-
         #region HTTP POST Create
         [Fact]
         public void ParticipantShouldCreateGroup() {
             RedirectToActionResult result = _controller.Create(_participant, "testGroup", true) as RedirectToActionResult;
-            Assert.Equal((context.Tuur.UserState as Participant).Group, _participant.Group);
-            Assert.Equal("Invite", result.ActionName);
-            Assert.Equal("Groups", result.ControllerName);
+            Assert.Equal("Index", result.ActionName);
         }
 
         [Fact]
         public void ParticipantCannotCreateGroupBecauseAlreadyInGroup() {
             RedirectToActionResult result = _controller.Create(_participant2, "test2", false) as RedirectToActionResult;
-            Assert.Equal("Index", result.ActionName);
-            Assert.Equal("Groups", result.ControllerName);
+            Assert.Equal("Invite", result.ActionName);
         }
         #endregion
 
@@ -115,15 +105,15 @@ namespace dotnet_g23.Tests.Controllers
         [Fact]
         public void InviteParticipantToGroup() {
             _controller.Invite(_participant2, context.Groups.First().GroupId);
-            Assert.Equal(context.Groups.Skip(1).First(), _participant2.Group);
+            Assert.Equal(context.Groups.First(), _participant2.Group);
         }
         #endregion
 
         #region HTTP POST Invite
         [Fact]
-        public void InviteShouldReturnGroupSearchedBijId() {
+        public void InviteShouldReturnGroupSearchedById() {
             _controller.Invite(_participant2, context.Groups.First().GroupId, "test.test@hogent.be");
-            Assert.Equal(context.Groups.Skip(1).First(), _participant2.Group);
+            Assert.Equal(context.Groups.First(), _participant2.Group);
         }
         #endregion
     }
