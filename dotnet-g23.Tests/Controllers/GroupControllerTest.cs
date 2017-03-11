@@ -12,15 +12,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace dotnet_g23.Tests.Controllers
-{
-    public class GroupControllerTest
-    {
+namespace dotnet_g23.Tests.Controllers {
+    public class GroupControllerTest {
         #region Fields
         private readonly GroupController _controller;
         private readonly Participant _participant;
         private readonly Participant _participant2;
-        private DummyApplicationDbContext context; 
+        private DummyApplicationDbContext context;
         #endregion
 
         #region Constructor
@@ -58,7 +56,7 @@ namespace dotnet_g23.Tests.Controllers
             ViewResult result = _controller.Index(_participant) as ViewResult;
             IndexViewModel ind = (IndexViewModel)result?.Model;
             IEnumerable<Group> groups = ind.InvitedGroups;
-            Assert.Equal(_participant.User.Invitations?.Select(n => n.Group), groups);
+            Assert.Equal(_participant.User?.Invitations?.Select(n => n.Group), groups);
         }
 
         [Fact]
@@ -72,18 +70,20 @@ namespace dotnet_g23.Tests.Controllers
 
         #region HTTP POST Register
         [Fact]
-        public void ParticipantShouldRegisterInGroup() {
-            RedirectToActionResult result = _controller.Register(_participant2, context.Groups.First().GroupId) as RedirectToActionResult;
-            Assert.Equal((context.Preben2.UserState as Participant).Group, _participant.Group);
-            Assert.Equal("Show", result.ActionName);
-            Assert.Equal("Groups", result.ControllerName);
+
+        public void ParticipantShouldRedirectToIndexOfGroupsBecauseAlreadyInGroup() {
+            RedirectToActionResult result = _controller
+                .Register(_participant, context.Groups.First().GroupId) 
+                as RedirectToActionResult;
+            Assert.Equal("Index", result.ActionName);
         }
 
         [Fact]
-        public void ParticipantShouldRedirectToIndexOfGroupsBecauseAlreadyInGroup() {
-            RedirectToActionResult result = _controller.Register(_participant2, context.Groups.First().GroupId) as RedirectToActionResult;
-            Assert.Equal("Index", result.ActionName);
-            Assert.Equal("Groups", result.ControllerName);
+        public void ParticipantShouldRegisterInGroup() {
+            RedirectToActionResult result = _controller
+                .Register(_participant2, context.Groups.First().GroupId)
+                as RedirectToActionResult;
+            Assert.Equal("Show", result.ActionName);
         }
         #endregion
 

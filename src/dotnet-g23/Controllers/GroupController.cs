@@ -35,12 +35,11 @@ namespace dotnet_g23.Controllers {
         public IActionResult Index(Participant participant) {
             // Return list with invites and open organizations
 
-            IndexViewModel vm = new IndexViewModel {
-                Organization = participant.Organization,
-                SubscribedGroup = participant.Group,
-                InvitedGroups = participant.User.Invitations?.Select(n => n.Group),
-                OpenGroups = participant.Organization.Groups?.Where(g => !g.Closed)
-            };
+            IndexViewModel vm = new IndexViewModel();
+            vm.Organization = participant.Organization;
+            vm.SubscribedGroup = participant.Group;
+            vm.InvitedGroups = participant.User?.Invitations?.Select(n => n.Group);
+            vm.OpenGroups = participant.Organization?.Groups?.Where(g => !g.Closed);
 
             return View(vm);
         }
@@ -94,11 +93,11 @@ namespace dotnet_g23.Controllers {
                 return RedirectToAction("Index");
             }
 
-            Group group = _groupRepository.GetBy(id);
-            group.Register(participant);
-            _groupRepository.SaveChanges();
+                Group group = _groupRepository.GetBy(id);
+                group?.Register(participant);
+                _groupRepository.SaveChanges();
 
-            return RedirectToAction("Show", new { id = group.GroupId });
+            return RedirectToAction("Show", new { id = group?.GroupId });
         }
 
         // GET /Groups/{id}/Invite
