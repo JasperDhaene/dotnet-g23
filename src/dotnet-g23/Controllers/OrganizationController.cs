@@ -33,14 +33,15 @@ namespace dotnet_g23.Controllers
 		#region Methods
         // GET /Organizations
 		[Route("Organizations")]
-		public IActionResult Index(GUser user, string query = null)
+        [ServiceFilter(typeof(ParticipantFilter))]
+        public IActionResult Index(GUser user, Participant participant)
         {
 			// Return filtered list with name & location of organisations
 
             IndexViewModel vm = new IndexViewModel()
             {
-                SubscribedOrganization = (user.UserState as Participant)?.Organization,
-                Organizations = _orgRepository.GetAll().OrderBy(g => g.Name)
+                SubscribedOrganization = participant.Organization,
+                Organizations = _orgRepository.GetAll()
             };
 
 			return View(vm);

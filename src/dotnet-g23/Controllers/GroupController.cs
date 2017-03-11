@@ -137,7 +137,7 @@ namespace dotnet_g23.Controllers
 		    {
 		        user = _userRepository.GetByEmail(address);
 		    }
-		    catch (Exception e)
+		    catch (Exception)
 		    {
 		        user = null;
 		    }

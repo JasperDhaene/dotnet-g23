@@ -85,7 +85,7 @@ namespace dotnet_g23.Controllers {
         public IActionResult Check(Lector lector, bool approved) {
             CheckViewModel vm = new CheckViewModel();
 
-            Group g = _groupRepository.GetByName(lector.Group.Name);
+            Group g = _groupRepository.GetByName(null /* TODO */);
 
             if (!g.Motivation.Approved) {
                 vm.UnnaprovedMotivation = g.Motivation;
