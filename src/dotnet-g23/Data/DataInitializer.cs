@@ -77,24 +77,18 @@ namespace dotnet_g23.Data {
                 Group closedGroup3 = new Group("closedGroup3", true);
                 Group closedGroup4 = new Group("closedGroup4", true);
 
-                openGroup2.Participants.Add(tuur.UserState as Participant);
-                openGroup2.Participants.Add(new GUser("persoon1@organization.be", new Participant(org3)).UserState as Participant);
-                openGroup2.Participants.Add(new GUser("persoon2@organization.be", new Participant(org3)).UserState as Participant);
+                //openGroup2.Participants.Add(tuur.UserState as Participant);
+                //(tuur.UserState as Participant).Group = openGroup2;
+                //openGroup2.Participants.Add(new GUser("persoon1@organization.be", new Participant(org3)).UserState as Participant);
+                //openGroup2.Participants.Add(new GUser("persoon2@organization.be", new Participant(org3)).UserState as Participant);
 
-                Motivation mot1 = new Motivation("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                    + "Aliquam at quam at eros volutpat elementum. Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper. "
-                    + "Pellentesque eleifend sapien at turpis pulvinar, quis finibus mi sodales. Ut porttitor pharetra ante. Pellentesque eu arcu est. "
-                    + "Mauris finibus porta tellus et posuere. Nam feugiat vitae enim at sagittis. Duis sodales varius ipsum vitae maximus. "
-                    + "Nullam est purus, tempor in nisl aliquet, congue aliquam neque. Vestibulum sit amet neque non nunc eleifend feugiat. "
-                    + "Nullam sed eleifend libero. Aliquam vitae ornare lorem. Mauris pellentesque lacus a arcu pulvinar, quis laoreet massa maximus. Praesent vestibulum elit.");
+                org3.CreateGroup((tuur.UserState as Participant), "openGroup2");
+                openGroup2.Register(tuur.UserState as Participant);
+
+                Motivation mot1 = new Motivation("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu");
 
 
-                Motivation mot2 = new Motivation("Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                    + "Aliquam at quam at eros volutpat elementum. Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper. "
-                    + "Pellentesque eleifend sapien at turpis pulvinar, quis finibus mi sodales. Ut porttitor pharetra ante. Pellentesque eu arcu est. "
-                    + "Mauris finibus porta tellus et posuere. Nam feugiat vitae enim at sagittis. Duis sodales varius ipsum vitae maximus. "
-                    + "Nullam est purus, tempor in nisl aliquet, congue aliquam neque. Vestibulum sit amet neque non nunc eleifend feugiat. "
-                    + "Nullam sed eleifend libero. Aliquam vitae ornare lorem. Mauris pellentesque lacus a arcu pulvinar, quis laoreet massa maximus. Praesent vestibulum elit.");
+                Motivation mot2 = new Motivation("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu");
 
                 openGroup1.Motivation = mot1;
                 openGroup3.Motivation = mot2;
@@ -104,22 +98,8 @@ namespace dotnet_g23.Data {
                 closedGroup3.Motivation = mot2;
                 closedGroup4.Motivation = mot1;
 
-                _context.Groups.Add(openGroup1);
-                _context.Groups.Add(openGroup2);
-                _context.Groups.Add(openGroup3);
-                _context.Groups.Add(openGroup4);
-
-                _context.Groups.Add(closedGroup1);
-                _context.Groups.Add(closedGroup2);
-                _context.Groups.Add(closedGroup3);
-                _context.Groups.Add(closedGroup4);
-
-                _context.Motivations.Add(mot1);
-                _context.Motivations.Add(mot2);
-
                 _context.SaveChanges();
             }
         }
     }
 }
-
