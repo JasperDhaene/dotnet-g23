@@ -13,6 +13,7 @@ namespace dotnet_g23.Models.Domain
         public int InvitationId { get; private set; }
         public GUser User { get; private set; }
         public Group Group { get; private set; }
+
         public String Message { get; private set; }
         public DateTime DateCreated { get; private set; }
         public DateTime DateRead { get; private set; }

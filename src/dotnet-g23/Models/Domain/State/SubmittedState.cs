@@ -7,14 +7,18 @@ namespace dotnet_g23.Models.Domain.State
 {
     public class SubmittedState : State
     {
-        public override void HandleNext(Context context)
+        public SubmittedState() : base(1)
         {
-            context.CurrentState = new ApprovedState();
         }
 
-        public override void HandlePrevious(Context context)
+        public override void HandleNext()
         {
-            context.CurrentState = new InitialState();
+            Context.CurrentState = new ApprovedState();
+        }
+
+        public override void HandlePrevious()
+        {
+            Context.CurrentState = new InitialState();
         }
     }
 }

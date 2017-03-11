@@ -8,11 +8,10 @@ namespace dotnet_g23.Models.Domain.State
     public class Context
     {
         #region Properties
-        public int ContextId { get; set; }
-        public int GroupForeignKey { get; set; }
-        public Group Group { get; set; }
-
+        public int ContextId { get; private set; }
+        public Group Group { get; }
         public State CurrentState { get; set; }
+
         #endregion
 
         #region Constructors
@@ -25,12 +24,12 @@ namespace dotnet_g23.Models.Domain.State
         #region Methods
         public void NextState()
         {
-            CurrentState.HandleNext(this);
+            CurrentState.HandleNext();
         }
 
         public void PreviousState()
         {
-            CurrentState.HandlePrevious(this);
+            CurrentState.HandlePrevious();
         }
         #endregion
     }

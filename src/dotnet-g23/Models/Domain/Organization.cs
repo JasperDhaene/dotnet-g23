@@ -15,8 +15,8 @@ namespace dotnet_g23.Models.Domain
 
 		#region Properties
 		public int OrganizationId { get; private set; }
-        public ICollection<Group> Groups { get; set; }
-        public ICollection<Participant> Participants { get; set; }
+        public ICollection<Participant> Participants { get; }
+        public ICollection<Group> Groups { get; }
 
         public String Name {
             get { return _name; }
@@ -54,8 +54,8 @@ namespace dotnet_g23.Models.Domain
 		#region Constructors
         public Organization()
         {
-            Groups = new List<Group>();
             Participants = new List<Participant>();
+            Groups = new List<Group>();
         }
 
         public Organization(String name, String location, String domain): this()

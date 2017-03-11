@@ -7,17 +7,29 @@ namespace dotnet_g23.Models.Domain.State
 {
     public abstract class State
     {
+        #region Properties
         public int StateId { get; set; }
         public Context Context { get; set; }
+        public int Order { get; }
+        #endregion
 
-        public virtual void HandleNext(Context context)
+        #region Constructors
+        protected State(int order)
+        {
+            Order = order;
+        }
+        #endregion
+
+        #region Methods
+        public virtual void HandleNext()
         {
             throw new StateException();
         }
 
-        public virtual void HandlePrevious(Context context)
+        public virtual void HandlePrevious()
         {
             throw new StateException();
         }
+        #endregion
     }
 }

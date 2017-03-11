@@ -11,6 +11,10 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Properties
+        public int UserId { get; private set; }
+        public UserState UserState { get; set; }
+        public ICollection<Invitation> Invitations { get; }
+
         public String Email
         {
             get { return _email; }
@@ -30,9 +34,6 @@ namespace dotnet_g23.Models.Domain
                 }
             }
         }
-        public int UserId { get; private set; }
-        public UserState UserState { get; set; }
-        public ICollection<Invitation> Invitations { get; set; }
         #endregion
 
         #region Constructors
@@ -48,17 +49,6 @@ namespace dotnet_g23.Models.Domain
 
         public GUser(String email) : this(email, null)
         {
-        }
-        #endregion
-
-        #region Methods
-        public Boolean IsParticipant()
-        {
-            return UserState is Participant;
-        }
-        public Boolean IsLector()
-        {
-            return UserState is Lector;
         }
         #endregion
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using dotnet_g23.Models.Domain.State;
 
 namespace dotnet_g23.Models.Domain
@@ -12,6 +13,21 @@ namespace dotnet_g23.Models.Domain
 
         #region Properties
         public int GroupId { get; private set; }
+        public Organization Organization { get; private set; }
+        public ICollection<Participant> Participants { get; }
+        public Lector Lector { get; private set; }
+        public ICollection<Invitation> Invitations { get; set; }
+        public Motivation Motivation { get; set; }
+
+        // Memory-only property
+        [NotMapped]
+        public Context Context { get; set; }
+
+        // Database serialisation
+        /*public int StateContext;
+
+        public int ContextForeignKey { get; private set; }*/
+
         public String Name
         {
             get { return _name; }
@@ -24,12 +40,6 @@ namespace dotnet_g23.Models.Domain
             }
         }
         public Boolean Closed { get; set; }
-        public ICollection<Participant> Participants { get; set; }
-        public Lector Lector { get; set; }
-        public Organization Organization { get; set; }
-        public Motivation Motivation { get; set; }
-        public ICollection<Invitation> Invitations { get; set; }
-        public Context Context { get; private set; }
         #endregion
 
         #region Constructors
@@ -37,12 +47,13 @@ namespace dotnet_g23.Models.Domain
         {
             Participants = new List<Participant>();
             Invitations = new List<Invitation>();
-            Context = new Context();
+            // TODO: assign Lector
         }
         public Group(String name) : this()
         {
             Name = name;
             Closed = false;
+            Context = new Context();
         }
 
         public Group(String name, Boolean closed) : this(name)
