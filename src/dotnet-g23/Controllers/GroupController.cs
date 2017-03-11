@@ -20,13 +20,13 @@ namespace dotnet_g23.Controllers
 
 		#region Fields
 		private readonly IGroupRepository _groupRepository;
-	    private readonly IUserRepository _userRepository;
+		private readonly IParticipantRepository _participantRepository;
 		#endregion
 
 		#region Constructors
-		public GroupController(IGroupRepository groupRepository, IUserRepository userRepository) {
+		public GroupController(IGroupRepository groupRepository, IParticipantRepository participantRepository) {
 			_groupRepository = groupRepository;
-		    _userRepository = userRepository;
+		    _participantRepository = participantRepository;
 		}
 		#endregion
 
@@ -42,7 +42,7 @@ namespace dotnet_g23.Controllers
                 Organization = participant.Organization,
 		        SubscribedGroup = participant.Group,
 		        InvitedGroups = participant.Invitations.Select(n => n.Group),
-                OpenGroups = _groupRepository.GetByOrganization(participant?.Organization).Where(g => !g.Closed)
+                OpenGroups = _groupRepository.GetByOrganization(participant.Organization).Where(g => !g.Closed)
             };
 
 		    return View(vm);
@@ -70,9 +70,9 @@ namespace dotnet_g23.Controllers
 
             try
             {
-                participant.Organization.CreateGroup(participant, name);
+                Group group = participant.Organization.CreateGroup(participant, name);
                 _groupRepository.SaveChanges();
-                return RedirectToAction("Invite", new { id = participant.Group.GroupId });
+                return RedirectToAction("Invite", new { id = group.GroupId });
             }
             catch (Exception e)
             {
@@ -87,9 +87,11 @@ namespace dotnet_g23.Controllers
         {
             // Show group dashboard
 
-            Group group = _groupRepository.GetBy(id);
+            ShowViewModel vm = new ShowViewModel();
+            vm.Group = _groupRepository.GetBy(id);
+            vm.Participants = _participantRepository.GetByGroup(vm.Group);
 
-            return View(group);
+            return View(vm);
         }
 
         // POST /Groups/{id}/Register
@@ -131,17 +133,9 @@ namespace dotnet_g23.Controllers
 
 		    Group group = _groupRepository.GetBy(id);
 
-		    GUser user;
-		    try
-		    {
-		        user = _userRepository.GetByEmail(address);
-		    }
-		    catch (Exception)
-		    {
-		        user = null;
-		    }
+		    Participant invitee = _participantRepository.GetByEmail(address);
 
-		    if (user == null)
+		    if (invitee == null)
 		    {
                 TempData["error"] = $"Gebruiker '{address}' niet gevonden.";
                 return View("Invite", group);

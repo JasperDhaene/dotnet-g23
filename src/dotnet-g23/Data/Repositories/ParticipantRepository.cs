@@ -53,6 +53,17 @@ namespace dotnet_g23.Data.Repositories
                 .SingleOrDefault(p => p.User.Email == email);
         }
 
+        public IEnumerable<Participant> GetByGroup(Group group)
+        {
+            return _participants
+                .Include(p => p.Group)
+                .Include(p => p.Lector)
+                .Include(p => p.Organization)
+                .Include(p => p.User)
+                .Include(p => p.Invitations)
+                .Where(p => p.Group != null && p.Group == group)
+                .ToList();
+        }
         public void SaveChanges()
         {
             _context.SaveChanges();

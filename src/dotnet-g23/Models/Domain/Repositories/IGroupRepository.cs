@@ -8,7 +8,7 @@ namespace dotnet_g23.Models.Domain.Repositories
         Group GetBy(int groupId);
         Group GetByName(String groupName);
 		IEnumerable<Group> GetByOrganization(Organization organization);
-		IEnumerable<Group> GetAll();
+        IEnumerable<Group> GetAll();
         void SaveChanges();
     }
 }
