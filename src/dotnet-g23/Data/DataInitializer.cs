@@ -68,17 +68,25 @@ namespace dotnet_g23.Data {
             _context.GUsers.Add(lectorHowest);
             _context.GUsers.Add(lectorUgent);
 
-            //_context.SaveChanges();
-
             hogentGent.Register(participantHogent);
             howestBrugge.Register(participantHowest);
             ugent.Register(participantUgent);
+
+            GUser ownerHogent1 = new GUser("owner1@hogent.be"); await CreateAppUser(ownerHogent1);
+            GUser ownerHogent2 = new GUser("owner2@hogent.be"); await CreateAppUser(ownerHogent2);
+
+            _context.GUsers.Add(ownerHogent1);
+            _context.GUsers.Add(ownerHogent2);
+
+            hogentGent.Register(ownerHogent1);
+            hogentGent.Register(ownerHogent2);
 
             /**
              * Groups
              * 
              * */
-            
+            Group hogentGroup1 = hogentGent.CreateGroup(ownerHogent1.UserState as Participant, "HoGent Groep 1");
+            Group hogentGroup2 = hogentGent.CreateGroup(ownerHogent2.UserState as Participant, "HoGent Groep 2");
 
 
 

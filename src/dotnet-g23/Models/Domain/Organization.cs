@@ -77,10 +77,11 @@ namespace dotnet_g23.Models.Domain
             user.UserState = new Participant(this);
 	    }
 
-		public void CreateGroup(Participant participant, string name) {
+		public Group CreateGroup(Participant participant, string name) {
 			Group group = new Group(name);
             Groups.Add(group);
             group.Register(participant);
+		    return group;
 		}
 		#endregion
 	}

@@ -39,10 +39,10 @@ namespace dotnet_g23.Controllers
 
 		    IndexViewModel vm = new IndexViewModel
 		    {
-                Organization = participant?.Organization,
-		        SubscribedGroup = participant?.Group,
-		        InvitedGroups = participant?.Invitations.Select(n => n.Group),
-		        OpenGroups = participant.Organization.Groups?.Where(g => !g.Closed)
+                Organization = participant.Organization,
+		        SubscribedGroup = participant.Group,
+		        InvitedGroups = participant.Invitations.Select(n => n.Group),
+                OpenGroups = _groupRepository.GetByOrganization(participant?.Organization).Where(g => !g.Closed)
             };
 
 		    return View(vm);
