@@ -91,15 +91,13 @@ namespace dotnet_g23.Data
                 .WithMany(o => o.Participants)
                 .IsRequired();
 
-            // Participant => Group
+            // Participant => Group (required but omitted due to cyclical dependency)
             p.HasOne(pa => pa.Group)
-                .WithMany(g => g.Participants)
-                .IsRequired();
+                .WithMany(g => g.Participants);
 
-            // Participant => Lector
+            // Participant => Lector (required but omitted due to cyclical dependency)
             p.HasOne(participant => participant.Lector)
-                .WithMany(l => l.Participants)
-                .IsRequired();
+                .WithMany(l => l.Participants);
         }
 
         private static void MapLector(EntityTypeBuilder<Lector> l)
@@ -143,10 +141,15 @@ namespace dotnet_g23.Data
                 .WithMany(o => o.Groups)
                 .IsRequired();
 
-            // Group => Lector
+            // Group => Lector (required but omitted due to cyclical dependency)
             g.HasOne(gr => gr.Lector)
-                .WithMany(l => l.Groups)
-                .IsRequired();
+                .WithMany(l => l.Groups);
+
+            // Group => Context
+            /*g.HasOne(gr => gr.Context)
+                .WithOne(c => c.Group)
+                .HasForeignKey<Group>(gr => gr.ContextForeignKey)
+                .IsRequired();*/
         }
 
         private static void MapMotivation(EntityTypeBuilder<Motivation> m)

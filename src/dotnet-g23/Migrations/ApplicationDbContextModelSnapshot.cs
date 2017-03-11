@@ -73,6 +73,8 @@ namespace dotnet_g23.Migrations
 
                     b.Property<bool>("Closed");
 
+                    b.Property<int?>("LectorUserStateId");
+
                     b.Property<string>("Name")
                         .IsRequired();
 
@@ -82,6 +84,8 @@ namespace dotnet_g23.Migrations
                     b.HasKey("GroupId");
 
                     b.HasAlternateKey("Name");
+
+                    b.HasIndex("LectorUserStateId");
 
                     b.HasIndex("OrganizationId");
 
@@ -191,43 +195,20 @@ namespace dotnet_g23.Migrations
                     b.ToTable("Organizations");
                 });
 
-            modelBuilder.Entity("dotnet_g23.Models.Domain.State.Context", b =>
-                {
-                    b.Property<int>("ContextId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("GroupForeignKey");
-
-                    b.HasKey("ContextId");
-
-                    b.HasIndex("GroupForeignKey")
-                        .IsUnique();
-
-                    b.ToTable("Contexts");
-                });
-
-            modelBuilder.Entity("dotnet_g23.Models.Domain.State.State", b =>
-                {
-                    b.Property<int>("StateId");
-
-                    b.Property<string>("state_type")
-                        .IsRequired();
-
-                    b.HasKey("StateId");
-
-                    b.ToTable("States");
-
-                    b.HasDiscriminator<string>("state_type").HasValue("State");
-                });
-
             modelBuilder.Entity("dotnet_g23.Models.Domain.UserState", b =>
                 {
-                    b.Property<int>("UserStateId");
+                    b.Property<int>("UserStateId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("UserForeignKey");
 
                     b.Property<string>("user_state_type")
                         .IsRequired();
 
                     b.HasKey("UserStateId");
+
+                    b.HasIndex("UserForeignKey")
+                        .IsUnique();
 
                     b.ToTable("UserStates");
 
@@ -340,43 +321,10 @@ namespace dotnet_g23.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("dotnet_g23.Models.Domain.State.ApprovedState", b =>
-                {
-                    b.HasBaseType("dotnet_g23.Models.Domain.State.State");
-
-
-                    b.ToTable("ApprovedState");
-
-                    b.HasDiscriminator().HasValue("state_approved");
-                });
-
-            modelBuilder.Entity("dotnet_g23.Models.Domain.State.InitialState", b =>
-                {
-                    b.HasBaseType("dotnet_g23.Models.Domain.State.State");
-
-
-                    b.ToTable("InitialState");
-
-                    b.HasDiscriminator().HasValue("state_initial");
-                });
-
-            modelBuilder.Entity("dotnet_g23.Models.Domain.State.SubmittedState", b =>
-                {
-                    b.HasBaseType("dotnet_g23.Models.Domain.State.State");
-
-
-                    b.ToTable("SubmittedState");
-
-                    b.HasDiscriminator().HasValue("state_submitted");
-                });
-
             modelBuilder.Entity("dotnet_g23.Models.Domain.Lector", b =>
                 {
                     b.HasBaseType("dotnet_g23.Models.Domain.UserState");
 
-                    b.Property<int?>("GroupId");
-
-                    b.HasIndex("GroupId");
 
                     b.ToTable("Lectors");
 
@@ -407,6 +355,10 @@ namespace dotnet_g23.Migrations
 
             modelBuilder.Entity("dotnet_g23.Models.Domain.Group", b =>
                 {
+                    b.HasOne("dotnet_g23.Models.Domain.Lector", "Lector")
+                        .WithMany("Groups")
+                        .HasForeignKey("LectorUserStateId");
+
                     b.HasOne("dotnet_g23.Models.Domain.Organization", "Organization")
                         .WithMany("Groups")
                         .HasForeignKey("OrganizationId")
@@ -434,27 +386,11 @@ namespace dotnet_g23.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("dotnet_g23.Models.Domain.State.Context", b =>
-                {
-                    b.HasOne("dotnet_g23.Models.Domain.Group", "Group")
-                        .WithOne("Context")
-                        .HasForeignKey("dotnet_g23.Models.Domain.State.Context", "GroupForeignKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("dotnet_g23.Models.Domain.State.State", b =>
-                {
-                    b.HasOne("dotnet_g23.Models.Domain.State.Context", "Context")
-                        .WithOne("CurrentState")
-                        .HasForeignKey("dotnet_g23.Models.Domain.State.State", "StateId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("dotnet_g23.Models.Domain.UserState", b =>
                 {
                     b.HasOne("dotnet_g23.Models.Domain.GUser", "User")
                         .WithOne("UserState")
-                        .HasForeignKey("dotnet_g23.Models.Domain.UserState", "UserStateId")
+                        .HasForeignKey("dotnet_g23.Models.Domain.UserState", "UserForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -493,13 +429,6 @@ namespace dotnet_g23.Migrations
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("dotnet_g23.Models.Domain.Lector", b =>
-                {
-                    b.HasOne("dotnet_g23.Models.Domain.Group", "Group")
-                        .WithMany("Lectors")
-                        .HasForeignKey("GroupId");
                 });
 
             modelBuilder.Entity("dotnet_g23.Models.Domain.Participant", b =>
