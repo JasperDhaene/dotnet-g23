@@ -10,6 +10,7 @@ namespace dotnet_g23.Models.Domain
         Invitation GetBy(int invitationId);
         IEnumerable<Invitation> GetByParticipant(Participant participant);
 		IEnumerable<Invitation> GetAll();
+        void Destroy(Participant participant, Group group);
         void SaveChanges();
     }
 }

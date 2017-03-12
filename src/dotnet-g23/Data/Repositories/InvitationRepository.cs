@@ -41,6 +41,16 @@ namespace dotnet_g23.Data.Repositories
                 .ToList();
         }
 
+        public void Destroy(Participant participant, Group group)
+        {
+            _invitations.RemoveRange(
+                _invitations
+                    .Include(n => n.Participant)
+                    .Include(n => n.Group)
+                    .Where(n => n.Participant == participant && n.Group == group)
+                );
+        }
+
         public void SaveChanges()
         {
             _context.SaveChanges();

@@ -106,6 +106,9 @@ namespace dotnet_g23.Controllers
             {
                 Group group = _groupRepository.GetBy(id);
                 group.Register(participant);
+
+                _invitationRepository.Destroy(participant, group);
+
                 _groupRepository.SaveChanges();
                 TempData["info"] = $"U bent geregistreerd bij groep '{group.Name}'";
                 return RedirectToAction("Show", new { id = group.GroupId });
