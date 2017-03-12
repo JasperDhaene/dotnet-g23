@@ -52,19 +52,11 @@ namespace dotnet_g23.Tests.Controllers {
         }
 
         [Fact]
-        public void IndexShouldReturnOpenGroupOfUser() {
+        public void IndexShouldReturnInvitedGroupOfUser() {
             ViewResult result = _controller.Index(_participant) as ViewResult;
             IndexViewModel ind = (IndexViewModel)result?.Model;
             IEnumerable<Group> groups = ind.InvitedGroups;
-            Assert.Equal(_participant.Invitations?.Select(n => n.Group), groups);
-        }
-
-        [Fact]
-        public void IndexShouldReturnClosedGroupOfUser() {
-            ViewResult result = _controller.Index(_participant) as ViewResult;
-            IndexViewModel ind = (IndexViewModel)result?.Model;
-            IEnumerable<Group> groups = ind.OpenGroups;
-            Assert.Equal(_participant.Organization.Groups?.Where(g => !g.Closed), groups);
+            Assert.Equal(_participant.Invitations.Select(n => n.Group), groups);
         }
         #endregion
 
