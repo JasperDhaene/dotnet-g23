@@ -65,7 +65,7 @@ namespace dotnet_g23.Controllers {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded) {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToAction("Index", "Organization");  
+                    return RedirectToAction("Index", "Organization");
                 }
                 if (result.RequiresTwoFactor) {
                     return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, model.RememberMe });

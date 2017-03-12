@@ -46,12 +46,10 @@ namespace dotnet_g23.Controllers {
         [Authorize(Policy = "participant")]
         [HttpPost]
         [Route("Motivations/{id}")]
-        public IActionResult Update(Participant participant, int id, Motivation motivation)
-        {
+        public IActionResult Update(Participant participant, int id, Motivation motivation) {
             Group group = _groupRepository.GetBy(id);
 
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid) {
                 TempData["message"] = ModelState.Values.SelectMany(v => v.Errors);
 
                 return RedirectToAction("Show", new { id = group.GroupId });
@@ -59,13 +57,12 @@ namespace dotnet_g23.Controllers {
 
             if (!(group.Context.CurrentState is InitialState))
                 return RedirectToAction("Show", new { id = group.GroupId });
-            
+
             group.Motivation = motivation;
             _groupRepository.SaveChanges();
 
             // Save
-            if (Request.Form.ContainsKey("update"))
-            {
+            if (Request.Form.ContainsKey("update")) {
                 TempData["message"] = "Uw motivatie werd opgeslaan.";
                 return RedirectToAction("Show", "Group", new { id = group.GroupId });
             }
