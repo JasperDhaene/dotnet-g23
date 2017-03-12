@@ -12,8 +12,7 @@ using System.Linq;
 using Xunit;
 
 namespace dotnet_g23.Tests.Controllers {
-    public class OrganizationControllerTest
-    {
+    public class OrganizationControllerTest {
         #region Attributes
         private readonly OrganizationController _controller;
         private readonly GUser _user1;
@@ -43,7 +42,7 @@ namespace dotnet_g23.Tests.Controllers {
 
             _user1 = context.Preben;
             _user2 = context.Tuur;
-            
+
         }
         #endregion
 
@@ -54,17 +53,15 @@ namespace dotnet_g23.Tests.Controllers {
             ViewResult result = _controller.Index(_user1, _user1.UserState as Participant, null) as ViewResult;
             IndexViewModel ind1 = (IndexViewModel)result?.Model;
             IEnumerable<Organization> orgResult = ind1.Organizations;
-            Assert.Equal(1, orgResult?.Count());
             Assert.False(orgResult?.Count() == 0);
         }
 
         [Fact]
-        public void IndexGivenEmptyListOfPossibleOrganizationsWithUser2() {
+        public void IndexGivenListOfPossibleOrganizationsWithUser2() {
             ViewResult result = _controller.Index(_user2, _user2.UserState as Participant, null) as ViewResult;
             IndexViewModel ind2 = (IndexViewModel)result?.Model;
             IEnumerable<Organization> orgResult = ind2.Organizations;
-            Assert.Equal(0, orgResult?.Count());
-            Assert.Empty(orgResult);
+            Assert.False(orgResult?.Count() == 0);
         }
 
         [Fact]
