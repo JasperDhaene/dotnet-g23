@@ -78,6 +78,7 @@ namespace dotnet_g23 {
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IParticipantRepository, ParticipantRepository>();
+            services.AddScoped<IInvitationRepository, InvitationRepository>();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

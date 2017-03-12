@@ -28,7 +28,7 @@
                 else
                 {
                     <div class="card">
-                        @Model.SubscribedGroup.Name <span class="badge">@Model.SubscribedGroup.Participants.Count() @(Model.SubscribedGroup.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
+                        @Model.SubscribedGroup.Name <span class="badge">@Model.SubscribedGroup.Participants.Count @(Model.SubscribedGroup.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
                         <a asp-controller="Group" asp-action="Show" asp-route-id="@Model.SubscribedGroup.GroupId" class="btn btn-primary btn-md f-sm-right">Dashboard</a>
                     </div>
                 }
@@ -47,8 +47,13 @@
                     foreach (var group in Model.InvitedGroups)
                     {
                         <div class="card">
-                            @group.Name <span class="badge">@group.Participants.Count()</span>
-                            <a asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" class="btn btn-secondary btn-md f-sm-right">Beheren</a>
+                            <form asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" method="post">
+                                @group.Name <span class="badge">@group.Participants.Count @(group.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
+                                @if (Model.SubscribedGroup == null)
+                                {
+                                    <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Toetreden</a>
+                                }
+                            </form>
                         </div>
                     }
                 }
@@ -63,7 +68,7 @@
                     {
                         <div class="card">
                             <form asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" method="post">
-                                @group.Name <span class="badge">@group.Participants.Count() @(group.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
+                                @group.Name <span class="badge">@group.Participants.Count @(group.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
                                 @if (Model.SubscribedGroup == null)
                                 {
                                     <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Toetreden</a>

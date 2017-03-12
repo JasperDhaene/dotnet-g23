@@ -21,12 +21,14 @@ namespace dotnet_g23.Controllers
 		#region Fields
 		private readonly IGroupRepository _groupRepository;
 		private readonly IParticipantRepository _participantRepository;
+	    private readonly IInvitationRepository _invitationRepository;
 		#endregion
 
 		#region Constructors
-		public GroupController(IGroupRepository groupRepository, IParticipantRepository participantRepository) {
+		public GroupController(IGroupRepository groupRepository, IParticipantRepository participantRepository, IInvitationRepository invitationRepository) {
 			_groupRepository = groupRepository;
 		    _participantRepository = participantRepository;
+		    _invitationRepository = invitationRepository;
 		}
 		#endregion
 
@@ -41,7 +43,7 @@ namespace dotnet_g23.Controllers
 		    {
                 Organization = participant.Organization,
 		        SubscribedGroup = participant.Group,
-		        InvitedGroups = participant.Invitations.Select(n => n.Group),
+		        InvitedGroups = _invitationRepository.GetByParticipant(participant).Select(i => i.Group),
                 OpenGroups = _groupRepository.GetByOrganization(participant.Organization).Where(g => !g.Closed)
             };
 
@@ -100,17 +102,19 @@ namespace dotnet_g23.Controllers
 		public IActionResult Register(Participant participant, int id) {
 			// Register user with group
 
-			if (participant.Group != null)
-			{
-				TempData["error"] = "U bent reeds geregistreerd bij een groep.";
-				return RedirectToAction("Index");
-			}
-
-			Group group = _groupRepository.GetBy(id);
-			group.Register(participant);
-		    _groupRepository.SaveChanges();
-
-			return RedirectToAction("Show", new { id = group.GroupId });
+            try
+            {
+                Group group = _groupRepository.GetBy(id);
+                group.Register(participant);
+                _groupRepository.SaveChanges();
+                TempData["info"] = $"U bent geregistreerd bij groep '{group.Name}'";
+                return RedirectToAction("Show", new { id = group.GroupId });
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+                return RedirectToAction("Index");
+            }
 		}
 
         // GET /Groups/{id}/Invite
@@ -129,22 +133,29 @@ namespace dotnet_g23.Controllers
 		[Route("Groups/{id}/Invite")]
 		public IActionResult Invite(Participant participant, int id, String address)
 		{
-			// Invite user to group
+            // Invite user to group
 
-		    Group group = _groupRepository.GetBy(id);
-
-		    Participant invitee = _participantRepository.GetByEmail(address);
-
-		    if (invitee == null)
+            Group group = _groupRepository.GetBy(id);
+            try
 		    {
-                TempData["error"] = $"Gebruiker '{address}' niet gevonden.";
+		        Participant invitee = _participantRepository.GetByEmail(address);
+
+		        if (invitee == null)
+		        {
+		            TempData["error"] = $"Gebruiker '{address}' niet gevonden.";
+		            return View("Invite", group);
+		        }
+		        group.Invite(invitee);
+		        // TODO: Invite lector
+		        _groupRepository.SaveChanges();
+		        TempData["info"] = $"Gebruiker '{address}' werd uitgenodigd tot de groep.";
+		        return View("Invite", group);
+		    }
+		    catch (Exception e)
+            {
+                TempData["info"] = e.Message;
                 return View("Invite", group);
             }
-
-            // TODO: Invite user
-            // TODO: Invite lector
-		    TempData["info"] = $"Gebruiker '{address}' werd uitgenodigd tot de groep.";
-		    return View("Invite", group);
 		}
 		#endregion
 

@@ -110,11 +110,6 @@ namespace dotnet_g23.Data
             i.ToTable("Invitations");
             i.HasKey(no => no.InvitationId);
 
-            i.Property(no => no.Message).IsRequired();
-            i.Property(no => no.DateCreated).IsRequired();
-            i.Property(no => no.DateRead);
-            i.Property(no => no.IsRead).IsRequired();
-
             // Invitation => GUser
             i.HasOne(inv => inv.Participant)
                 .WithMany(u => u.Invitations);

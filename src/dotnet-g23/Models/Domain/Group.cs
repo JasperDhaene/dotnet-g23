@@ -68,12 +68,22 @@ namespace dotnet_g23.Models.Domain
 
         public void Invite(Participant participant)
         {
-            Invitation invitation = new Invitation(this, participant, $"U bent uitgenodigd om toe te treden tot de groep '${Name}'");
+            if (participant.User.Domain != Organization.Domain)
+                throw new ArgumentException("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
+
+            if (participant.Group != null)
+                throw new ArgumentException("Gebruiker behoort al tot een groep");
+
+            Invitation invitation = new Invitation(this, participant);
+            participant.Invitations.Add(invitation);
         }
 	    public void Register(Participant participant)
 	    {
-		    participant.Group = this;
-			Participants.Add(participant);
+            if (participant.Group != null)
+                throw new ArgumentException("Gebruiker behoort al tot een groep");
+
+            participant.Group = this;
+            Participants.Add(participant);
 	    }
 		#endregion
 	}
