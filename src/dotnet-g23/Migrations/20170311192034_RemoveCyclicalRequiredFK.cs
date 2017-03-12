@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace dotnet_g23.Migrations
-{
-    public partial class RemoveCyclicalRequiredFK : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
+namespace dotnet_g23.Migrations {
+    public partial class RemoveCyclicalRequiredFK : Migration {
+        protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.DropForeignKey(
                 name: "FK_Invitations_Groups_GroupId",
                 table: "Invitations");
@@ -45,8 +42,7 @@ namespace dotnet_g23.Migrations
                 onDelete: ReferentialAction.Restrict);
         }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
+        protected override void Down(MigrationBuilder migrationBuilder) {
             migrationBuilder.DropForeignKey(
                 name: "FK_Invitations_Groups_GroupId",
                 table: "Invitations");

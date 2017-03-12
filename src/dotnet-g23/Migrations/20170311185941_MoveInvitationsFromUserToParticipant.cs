@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace dotnet_g23.Migrations
-{
-    public partial class MoveInvitationsFromUserToParticipant : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
+namespace dotnet_g23.Migrations {
+    public partial class MoveInvitationsFromUserToParticipant : Migration {
+        protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.DropForeignKey(
                 name: "FK_Invitations_Users_UserId",
                 table: "Invitations");
@@ -31,8 +28,7 @@ namespace dotnet_g23.Migrations
                 onDelete: ReferentialAction.Cascade);
         }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
+        protected override void Down(MigrationBuilder migrationBuilder) {
             migrationBuilder.DropForeignKey(
                 name: "FK_Invitations_UserStates_ParticipantUserStateId",
                 table: "Invitations");
