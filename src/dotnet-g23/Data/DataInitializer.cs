@@ -16,8 +16,7 @@ namespace dotnet_g23.Data {
             _userManager = userManager;
         }
 
-        public async Task InitializeData()
-        {
+        public async Task InitializeData() {
             // Drop it like it's hot
             _context.Database.EnsureDeleted();
 
@@ -39,7 +38,7 @@ namespace dotnet_g23.Data {
             _context.Organizations.Add(howestKortrijk);
             _context.Organizations.Add(howestBrugge);
             _context.Organizations.Add(ugent);
-            
+
             /**
              * Users
              * 
@@ -94,12 +93,10 @@ namespace dotnet_g23.Data {
             _context.SaveChanges();
         }
 
-        private async Task CreateAppUser(GUser user)
-        {
+        private async Task CreateAppUser(GUser user) {
             ApplicationUser appUser = new ApplicationUser { UserName = user.Email, Email = user.Email };
             await _userManager.CreateAsync(appUser, "P@ssword1");
             await _userManager.AddClaimAsync(appUser, new Claim(ClaimTypes.Role, user.UserState is Lector ? "lector" : "participant"));
         }
     }
 }
-

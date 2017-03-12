@@ -5,21 +5,17 @@ using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace dotnet_g23.Data.Repositories
-{
-    public class ParticipantRepository : IParticipantRepository
-    {
+namespace dotnet_g23.Data.Repositories {
+    public class ParticipantRepository : IParticipantRepository {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<Participant> _participants;
 
-        public ParticipantRepository(ApplicationDbContext context)
-        {
+        public ParticipantRepository(ApplicationDbContext context) {
             _context = context;
             _participants = context.Participants;
         }
 
-        public IEnumerable<Participant> GetAll()
-        {
+        public IEnumerable<Participant> GetAll() {
             return _participants
                 .Include(p => p.Group)
                 .Include(p => p.Lector)
@@ -31,8 +27,7 @@ namespace dotnet_g23.Data.Repositories
 
 
 
-        public Participant GetBy(int userStateId)
-        {
+        public Participant GetBy(int userStateId) {
             return _participants
                 .Include(p => p.Group)
                 .Include(p => p.Lector)
@@ -42,8 +37,7 @@ namespace dotnet_g23.Data.Repositories
                 .SingleOrDefault(p => p.UserStateId == userStateId);
         }
 
-        public Participant GetByEmail(String email)
-        {
+        public Participant GetByEmail(String email) {
             return _participants
                 .Include(p => p.Group)
                 .Include(p => p.Lector)
@@ -53,8 +47,7 @@ namespace dotnet_g23.Data.Repositories
                 .SingleOrDefault(p => p.User.Email == email);
         }
 
-        public IEnumerable<Participant> GetByGroup(Group group)
-        {
+        public IEnumerable<Participant> GetByGroup(Group group) {
             return _participants
                 .Include(p => p.Group)
                 .Include(p => p.Lector)
@@ -64,8 +57,7 @@ namespace dotnet_g23.Data.Repositories
                 .Where(p => p.Group != null && p.Group == group)
                 .ToList();
         }
-        public void SaveChanges()
-        {
+        public void SaveChanges() {
             _context.SaveChanges();
         }
     }

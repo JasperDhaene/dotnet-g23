@@ -7,10 +7,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ApplicationUser = dotnet_g23.Models.Domain.ApplicationUser;
 
-namespace dotnet_g23.Data
-{
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
+namespace dotnet_g23.Data {
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
         // GiveADay database entities
         public DbSet<GUser> GUsers { get; private set; }
         public DbSet<Organization> Organizations { get; private set; }
@@ -25,12 +23,10 @@ namespace dotnet_g23.Data
         public DbSet<Group> Groups { get; private set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
+            : base(options) {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
+        protected override void OnModelCreating(ModelBuilder builder) {
             base.OnModelCreating(builder);
 
             // GiveADay database entities
@@ -47,8 +43,7 @@ namespace dotnet_g23.Data
             builder.Entity<Motivation>(MapMotivation);
         }
 
-        private static void MapGUser(EntityTypeBuilder<GUser> u)
-        {
+        private static void MapGUser(EntityTypeBuilder<GUser> u) {
             u.ToTable("Users");
             u.HasKey(user => user.UserId);
 
@@ -72,8 +67,7 @@ namespace dotnet_g23.Data
                 .IsRequired();
         }
 
-        private static void MapOrganization(EntityTypeBuilder<Organization> o)
-        {
+        private static void MapOrganization(EntityTypeBuilder<Organization> o) {
             o.ToTable("Organizations");
             o.HasKey(org => org.OrganizationId);
 
@@ -82,8 +76,7 @@ namespace dotnet_g23.Data
             o.Property(org => org.Domain).IsRequired();
         }
 
-        private static void MapParticipant(EntityTypeBuilder<Participant> p)
-        {
+        private static void MapParticipant(EntityTypeBuilder<Participant> p) {
             p.ToTable("Participants");
 
             // Participant => Organization
@@ -100,13 +93,11 @@ namespace dotnet_g23.Data
                 .WithMany(l => l.Participants);
         }
 
-        private static void MapLector(EntityTypeBuilder<Lector> l)
-        {
+        private static void MapLector(EntityTypeBuilder<Lector> l) {
             l.ToTable("Lectors");
         }
 
-        private static void MapInvitation(EntityTypeBuilder<Invitation> i)
-        {
+        private static void MapInvitation(EntityTypeBuilder<Invitation> i) {
             i.ToTable("Invitations");
             i.HasKey(no => no.InvitationId);
 
@@ -124,8 +115,7 @@ namespace dotnet_g23.Data
                 .WithMany(g => g.Invitations);
         }
 
-        private static void MapGroup(EntityTypeBuilder<Group> g)
-        {
+        private static void MapGroup(EntityTypeBuilder<Group> g) {
             g.ToTable("Groups");
             g.HasKey(gr => gr.GroupId);
 
@@ -150,8 +140,7 @@ namespace dotnet_g23.Data
                 .IsRequired();*/
         }
 
-        private static void MapMotivation(EntityTypeBuilder<Motivation> m)
-        {
+        private static void MapMotivation(EntityTypeBuilder<Motivation> m) {
             m.ToTable("Motivations");
             m.HasKey(mo => mo.MotivationId);
 

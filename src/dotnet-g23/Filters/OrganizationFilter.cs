@@ -8,8 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using dotnet_g23.Models.Domain.Repositories;
 
-namespace dotnet_g23.Filters
-{
+namespace dotnet_g23.Filters {
     public class OrganizationFilter : ActionFilterAttribute {
         private readonly IOrganizationRepository _organizationRepository;
         private Organization _organization;
@@ -36,7 +35,7 @@ namespace dotnet_g23.Filters
         private Organization ReadOrganizationFromSession(HttpContext context) {
             Organization organization = context.Session.GetString("organization") == null ?
                 new Organization(null, null, null) : JsonConvert.DeserializeObject<Organization>(context.Session.GetString("organization"));
-            foreach(var l in organization.Groups) {
+            foreach (var l in organization.Groups) {
                 // TODO: l.Organization = _organizationRepository.GetBy(l.Organization.OrganizationId);
             }
             return organization;

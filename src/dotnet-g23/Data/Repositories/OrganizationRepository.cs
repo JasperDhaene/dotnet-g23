@@ -5,33 +5,27 @@ using Microsoft.EntityFrameworkCore;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
 
-namespace dotnet_g23.Data.Repositories
-{
-    public class OrganizationRepository : IOrganizationRepository
-    {
+namespace dotnet_g23.Data.Repositories {
+    public class OrganizationRepository : IOrganizationRepository {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<Organization> _organizations;
 
-        public OrganizationRepository(ApplicationDbContext context)
-        {
+        public OrganizationRepository(ApplicationDbContext context) {
             _context = context;
             _organizations = context.Organizations;
         }
 
-        public IEnumerable<Organization> GetAll()
-        {
+        public IEnumerable<Organization> GetAll() {
             return _organizations
                 .ToList();
         }
 
-        public Organization GetBy(int OrganizationId)
-        {
+        public Organization GetBy(int OrganizationId) {
             return _organizations
                 .SingleOrDefault(o => o.OrganizationId == OrganizationId);
         }
 
-        public IEnumerable<Organization> GetByDomain(String domain)
-        {
+        public IEnumerable<Organization> GetByDomain(String domain) {
             return _organizations
                 .Where(org => org.Domain == domain)
                 .ToList();
@@ -43,14 +37,12 @@ namespace dotnet_g23.Data.Repositories
                 .ToList();
         }
 
-        public Organization GetByName(String orgName)
-        {
+        public Organization GetByName(String orgName) {
             return _organizations
-                .SingleOrDefault(o => o.Name  == orgName);
+                .SingleOrDefault(o => o.Name == orgName);
         }
 
-        public void SaveChanges()
-        {
+        public void SaveChanges() {
             _context.SaveChanges();
         }
     }
