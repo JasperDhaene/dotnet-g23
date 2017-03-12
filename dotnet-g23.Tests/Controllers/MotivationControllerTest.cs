@@ -1,7 +1,7 @@
 ﻿using dotnet_g23.Controllers;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
-using dotnet_g23.Models.ViewModels.OrganizationViewModels;
+using dotnet_g23.Models.ViewModels.MotivationViewModels;
 using dotnet_g23.Tests.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -34,14 +34,19 @@ namespace dotnet_g23.Tests.Controllers {
             _controller = new MotivationController(GroupRepo.Object);
             _controller.TempData = new Mock<ITempDataDictionary>().Object;
 
-            _user1 = context.Preben.UserState as Participant;
+            _user1 = context.Preben2.UserState as Participant;
             _user2 = context.Tuur.UserState as Participant;
         }
         #endregion
 
         #region Show
 
-        
+        [Fact]
+        public void ShowShouldShowGroupOfParticipant() {
+            ViewResult result = _controller.Show(_user2, 1) as ViewResult;
+            IndexViewModel vm = (IndexViewModel)result?.Model;
+            Assert.NotNull(vm?.Group);
+        }
 
         #endregion
 
