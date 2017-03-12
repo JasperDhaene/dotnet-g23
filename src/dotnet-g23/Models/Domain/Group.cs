@@ -21,10 +21,11 @@ namespace dotnet_g23.Models.Domain {
         [NotMapped]
         public Context Context { get; set; }
 
-        // Database serialisation
-        /*public int StateContext;
-
-        public int ContextForeignKey { get; private set; }*/
+        // Database serialisation property
+        public String StateContext {
+            get { return Context.SerializableState; }
+            set { Context.SerializableState = value; }
+        }
 
         public String Name {
             get { return _name; }
@@ -42,12 +43,12 @@ namespace dotnet_g23.Models.Domain {
         public Group() {
             Participants = new List<Participant>();
             Invitations = new List<Invitation>();
+            Context = new Context();
             // TODO: assign Lector
         }
         public Group(String name) : this() {
             Name = name;
             Closed = false;
-            Context = new Context();
         }
 
         public Group(String name, Boolean closed) : this(name) {

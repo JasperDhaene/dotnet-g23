@@ -25,7 +25,7 @@ namespace dotnet_g23.Tests.Controllers {
         public GroupControllerTest() {
             context = new DummyApplicationDbContext();
 
-            Mock<IUserRepository> Userrepo = new Mock<IUserRepository>();
+            Mock<IParticipantRepository> ParticipantRepo = new Mock<IParticipantRepository>();
             Mock<IGroupRepository> Grouprepo = new Mock<IGroupRepository>();
 
             Grouprepo.Setup(o => o.GetAll()).Returns(context.Groups);
@@ -33,7 +33,7 @@ namespace dotnet_g23.Tests.Controllers {
             Grouprepo.Setup(o => o.GetBy(1)).Returns(context.Groups.First());
             Grouprepo.Setup(o => o.GetBy(1)).Returns(context.Groups.Skip(1).First());
 
-            _controller = new GroupController(Grouprepo.Object, Userrepo.Object);
+            _controller = new GroupController(Grouprepo.Object, ParticipantRepo.Object);
             _controller.TempData = new Mock<ITempDataDictionary>().Object;
 
             _participant2 = context.Tuur.UserState as Participant;
@@ -56,7 +56,7 @@ namespace dotnet_g23.Tests.Controllers {
             ViewResult result = _controller.Index(_participant) as ViewResult;
             IndexViewModel ind = (IndexViewModel)result?.Model;
             IEnumerable<Group> groups = ind.InvitedGroups;
-            Assert.Equal(_participant.User?.Invitations?.Select(n => n.Group), groups);
+            Assert.Equal(_participant.Invitations?.Select(n => n.Group), groups);
         }
 
         [Fact]
