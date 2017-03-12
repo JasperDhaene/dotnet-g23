@@ -7,13 +7,9 @@ namespace dotnet_g23.Models.Domain.State
 {
     public class InitialState : State
     {
-        public InitialState() : base(0)
+        public override void HandleNext(Context context)
         {
-        }
-
-        public override void HandleNext()
-        {
-            Context.CurrentState = new SubmittedState();
+            context.CurrentState = new SubmittedState();
         }
     }
 }

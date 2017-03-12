@@ -8,10 +8,7 @@ namespace dotnet_g23.Models.Domain.State
     public class Context
     {
         #region Properties
-        public int ContextId { get; private set; }
-        public Group Group { get; }
         public State CurrentState { get; set; }
-
         #endregion
 
         #region Constructors
@@ -24,13 +21,18 @@ namespace dotnet_g23.Models.Domain.State
         #region Methods
         public void NextState()
         {
-            CurrentState.HandleNext();
+            CurrentState.HandleNext(this);
         }
 
         public void PreviousState()
         {
-            CurrentState.HandlePrevious();
+            CurrentState.HandlePrevious(this);
         }
         #endregion
+
+        public void SetState(String assemblyQualifiedName)
+        {
+            CurrentState = Activator.CreateInstance(Type.GetType(assemblyQualifiedName)) as State;
+        }
     }
 }
