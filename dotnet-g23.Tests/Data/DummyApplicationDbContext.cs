@@ -62,17 +62,18 @@ namespace dotnet_g23.Tests.Data {
             Group _openGroup = new Group("OpenGroup", false);
             Group _closedGroup = new Group("ClosedGroup");
 
-            //_openGroup.Participants.Add(Preben2.UserState as Participant);
-
             _openGroup.Register(Preben2.UserState as Participant);
             org1.CreateGroup(Preben2.UserState as Participant, "_openGroup");
-
-            _groups.Add(_closedGroup);
-            _groups.Add(_openGroup);
 
             String text1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
                     + "Aliquam at quam at eros volutpat elementum. Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper. ";
             Motivation = new Motivation(text1);
+
+            _openGroup.Motivation = Motivation;
+
+            _groups.Add(_closedGroup);
+            _groups.Add(_openGroup);
+
         }
         public ICollection<Group> Groups => _groups;
     }
