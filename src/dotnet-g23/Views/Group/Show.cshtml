@@ -1,7 +1,9 @@
-﻿@model dotnet_g23.Models.Domain.Group
+﻿@using System.Threading.Tasks
+@using dotnet_g23.Models.Domain.State
+@model dotnet_g23.Models.ViewModels.GroupViewModels.ShowViewModel
 
 @{
-    ViewData["Title"] = $"Groep '{ @Model.Name }'";
+    ViewData["Title"] = $"Groep '{ @Model.Group.Name }'";
 }
 
 <div class="content">
@@ -9,14 +11,48 @@
         @Html.Partial("_Messages")
         <div class="row">
             <div class="col-lg-12">
-                <a asp-controller="Group" asp-action="Invite" asp-route-id="@Model.GroupId" class="btn btn-primary btn-md f-right">Vrijwilligers uitnodigen</a>
-                <h1>Groep '@Model.Name'</h1>
-                <p>
+                <div class="clearfix">
+                    <h1 class="f-md-left">@(Model.Group.Closed ? "Gesloten" : "Open") groep '@Model.Group.Name'</h1>
+                    <a asp-controller="Group" asp-action="Invite" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Vrijwilligers uitnodigen</a> 
+                </div>
+                <p class="m-t-2">
                     De volgende cursisten behoren tot deze groep:
                 </p>
                 @foreach (var participant in Model.Participants)
                 {
-                    <div class="card">@participant.User?.Email</div>
+                    <div class="card">@participant.User.Email</div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                @if (Model.Group.Motivation == null)
+                {
+                    <div class="clearfix">
+                        <h1 class="f-md-left">Motivatie</h1>
+                        <a asp-controller="Motivation" asp-action="Show" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Motivatie invoeren</a>
+                    </div>
+                    <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> U heeft nog geen motivatie ingevoerd.
+                    </div>
+                }
+                else
+                {
+                    <h1>Motivatie</h1>
+                    <div class="card m-t-1">
+                        @if (Model.Group.Context.CurrentState is InitialState)
+                        {
+                            <a asp-controller="Motivation" asp-action="Show" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3">Motivatie bewerken</a>
+                        }
+                        else if (Model.Group.Context.CurrentState is SubmittedState)
+                        {
+                            <a href="#" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3 disabled">Verzonden naar lector</a>
+                        }
+                        else
+                        {
+                            <a href="#" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3 disabled">Goedgekeurd</a>
+                        }
+                        <div class="ellipsize">@Model.Group.Motivation.MotivationText</div>
+                    </div>
                 }
             </div>
         </div>

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using dotnet_g23.Data.Repositories;
 using dotnet_g23.Filters;
-using dotnet_g23.Helpers;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.ViewModels.OrganizationViewModels;
@@ -33,25 +32,17 @@ namespace dotnet_g23.Controllers
 		#region Methods
         // GET /Organizations
 		[Route("Organizations")]
-		public IActionResult Index(GUser user, string query = null)
+        [ServiceFilter(typeof(ParticipantFilter))]
+        public IActionResult Index(GUser user, Participant participant, String query = null)
         {
 			// Return filtered list with name & location of organisations
 
-            IndexViewModel vm = new IndexViewModel();
-
-		    IEnumerable<Organization> list = _orgRepository.GetByDomain(MailHelper.GetMailDomain(user.Email));
-            if (query != null) {
-                list = _orgRepository.GetByKeyword(query, MailHelper.GetMailDomain(user.Email));
-                if (!list.Any()) {
-                    TempData["error"] = $"De gezochte organisatie werd niet gevonden, dit zijn de enige mogelijkheden!";
-                    list = _orgRepository.GetByDomain(MailHelper.GetMailDomain(user.Email));
-                }
-            }
-
-            vm.SubscribedOrganization = (user.UserState as Participant)?.Organization;
-            vm.Organizations = list.Where(org => org != vm.SubscribedOrganization);
-
-			return View(vm);
+            IndexViewModel vm = new IndexViewModel()
+            {
+                SubscribedOrganization = participant?.Organization,
+                Organizations = query == null ? _orgRepository.GetAll() : _orgRepository.GetByKeyword(query)
+            };
+            return View(vm);
 		}
 
         // POST /Organizations/Register
@@ -66,6 +57,7 @@ namespace dotnet_g23.Controllers
 		    {
 		        organization.Register(user);
 		        _orgRepository.SaveChanges();
+		        TempData["info"] = $"U bent geregistreerd bij organisatie '{organization.Name}'";
 		        return RedirectToAction("Index", "Groups");
 		    }
 		    catch (Exception e)

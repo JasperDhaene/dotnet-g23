@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using dotnet_g23.Controllers;
-using dotnet_g23.Helpers;
 
 namespace dotnet_g23.Models.Domain
 {
@@ -15,8 +14,8 @@ namespace dotnet_g23.Models.Domain
 
 		#region Properties
 		public int OrganizationId { get; private set; }
-        public ICollection<Group> Groups { get; set; }
-        public ICollection<Participant> Participants { get; set; }
+        public ICollection<Participant> Participants { get; }
+        public ICollection<Group> Groups { get; }
 
         public String Name {
             get { return _name; }
@@ -24,7 +23,7 @@ namespace dotnet_g23.Models.Domain
             {
                 if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
                 {
-                    throw new ArgumentException("Name can not be empty!");
+                    throw new ArgumentException("Naam kan niet leeg zijn");
                 }
                 _name = value;
             }
@@ -35,7 +34,7 @@ namespace dotnet_g23.Models.Domain
             {
                 if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
                 {
-                    throw new ArgumentException("Location can not be empty!");
+                    throw new ArgumentException("Locatie kan niet leeg zijn");
                 }
                 _location = value;
             }
@@ -44,7 +43,7 @@ namespace dotnet_g23.Models.Domain
 			get { return _domain; }
 			private set {
 				if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty) {
-					throw new ArgumentException("Domain can not be empty!");
+					throw new ArgumentException("Domein kan niet leeg zijn");
 				}
 				_domain = value;
 			}
@@ -54,8 +53,8 @@ namespace dotnet_g23.Models.Domain
 		#region Constructors
         public Organization()
         {
-            Groups = new List<Group>();
             Participants = new List<Participant>();
+            Groups = new List<Group>();
         }
 
         public Organization(String name, String location, String domain): this()
@@ -69,7 +68,7 @@ namespace dotnet_g23.Models.Domain
 	    #region Methods
 	    public void Register(GUser user)
 	    {
-            if (!MailHelper.GetMailDomain(user.Email).Equals(Domain))
+            if (user.Domain != Domain)
                 throw new ArgumentException("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
 
 	        if (user.UserState != null)
@@ -78,10 +77,11 @@ namespace dotnet_g23.Models.Domain
             user.UserState = new Participant(this);
 	    }
 
-		public void CreateGroup(Participant participant, string name) {
+		public Group CreateGroup(Participant participant, string name) {
 			Group group = new Group(name);
             Groups.Add(group);
             group.Register(participant);
+		    return group;
 		}
 		#endregion
 	}

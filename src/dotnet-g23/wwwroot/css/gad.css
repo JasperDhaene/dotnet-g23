@@ -14086,7 +14086,7 @@ as per bootstrap 4 standards
     min-height: 95vh;
 }
 
-.mrg-sm-vert {
+.mrg-sm-vert { /* TODO look into possibility for m-t-X */
     margin: 1% 0;
 }
 
@@ -14123,6 +14123,9 @@ as per bootstrap 4 standards
     .clear-sm-none {
         clear: none;
     }
+    .col-sm-0 {
+        width: auto;
+    }
 }
 @media(min-width:768px) {
     .f-md-left {
@@ -14139,6 +14142,9 @@ as per bootstrap 4 standards
     }
     .clear-md-none {
         clear: none;
+    }
+    .col-md-0 {
+        width: auto;
     }
 }
 @media(min-width:992px) {
@@ -14157,6 +14163,9 @@ as per bootstrap 4 standards
     .clear-lg-none {
         clear: none;
     }
+    .col-lg-0 {
+        width: auto;
+    }
 }
 
 .welcome {
@@ -14168,7 +14177,7 @@ as per bootstrap 4 standards
     margin-bottom: 3rem;
 }
 
-.card { /* css rule for a bootstrap well */
+/*.card { 
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
@@ -14178,10 +14187,30 @@ as per bootstrap 4 standards
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
+*/
 
+.card { /* material design card */
+    /*min-height: 20px;*/
+    line-height: 40px;
+    padding: 20px;
+    margin: 2rem 0;
+    background-color: #e8e8e8;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
 
 .logo {
     width: 300px;
+}
+
+.false-nav-link {
+    border-radius: 5px;
+    color: #fff;
+    position: relative;
+    padding: .425rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /** Labels and badges **/
@@ -14299,4 +14328,12 @@ a.badge:focus {
 }
 .nav-pills > li > a > .badge {
   margin-left: 3px;
+}
+.d-block {
+    display: block;
+}
+.ellipsize {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
@@ -24,6 +25,7 @@ namespace dotnet_g23.Data.Repositories
                 .Include(p => p.Lector)
                 .Include(p => p.Organization)
                 .Include(p => p.User)
+                .Include(p => p.Invitations)
                 .ToList();
         }
 
@@ -36,19 +38,32 @@ namespace dotnet_g23.Data.Repositories
                 .Include(p => p.Lector)
                 .Include(p => p.Organization)
                 .Include(p => p.User)
+                .Include(p => p.Invitations)
                 .SingleOrDefault(p => p.UserStateId == userStateId);
         }
 
-        public Participant GetByUser(int userId)
+        public Participant GetByEmail(String email)
         {
             return _participants
                 .Include(p => p.Group)
                 .Include(p => p.Lector)
                 .Include(p => p.Organization)
                 .Include(p => p.User)
-                .SingleOrDefault(p => p.User.UserId == userId);
+                .Include(p => p.Invitations)
+                .SingleOrDefault(p => p.User.Email == email);
         }
 
+        public IEnumerable<Participant> GetByGroup(Group group)
+        {
+            return _participants
+                .Include(p => p.Group)
+                .Include(p => p.Lector)
+                .Include(p => p.Organization)
+                .Include(p => p.User)
+                .Include(p => p.Invitations)
+                .Where(p => p.Group != null && p.Group == group)
+                .ToList();
+        }
         public void SaveChanges()
         {
             _context.SaveChanges();

@@ -6,10 +6,9 @@ using dotnet_g23.Models.Domain;
 
 namespace dotnet_g23.Models.ViewModels.GroupViewModels
 {
-    public class IndexViewModel
+    public class ShowViewModel
     {
-        public IEnumerable<Group> InvitedGroups { get; set; }
-        public IEnumerable<Group> OpenGroups { get; set; }
-        public Group SubscribedGroup { get; set; }
+        public Group Group { get; set; }
+        public IEnumerable<Participant> Participants;
     }
 }

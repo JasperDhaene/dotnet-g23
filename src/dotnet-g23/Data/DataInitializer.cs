@@ -16,90 +16,90 @@ namespace dotnet_g23.Data {
             _userManager = userManager;
         }
 
-        public async Task InitializeData() {
+        public async Task InitializeData()
+        {
+            // Drop it like it's hot
             _context.Database.EnsureDeleted();
-            if (_context.Database.EnsureCreated()) {
 
-                Organization org1 = new Organization("HoGent", "Gent", "hogent.be");
-                Organization org2 = new Organization("Howest", "Kortrijk", "howest.be");
-                Organization org3 = new Organization("Organization", "Gent", "organization.be");
-                Organization org4 = new Organization("HoGent", "Aalst", "hogent.be");
+            // Build it like you're on the North Pole
+            _context.Database.EnsureCreated();
 
-                _context.Organizations.Add(org1);
-                _context.Organizations.Add(org2);
-                _context.Organizations.Add(org3);
-                _context.Organizations.Add(org4);
+            /**
+             * Organizations
+             * 
+             * */
+            Organization hogentGent = new Organization("HoGent", "Gent", "hogent.be");
+            Organization hogentAalst = new Organization("HoGent", "Aalst", "hogent.be");
+            Organization howestKortrijk = new Organization("HoWest", "Kortrijk", "howest.be");
+            Organization howestBrugge = new Organization("HoWest", "Brugge", "howest.be");
+            Organization ugent = new Organization("UGent", "Gent", "ugent.be");
 
-                GUser preben = new GUser("preben.leroy@hogent.be");
-                GUser preben2 = new GUser("preben2.leroy@hogent.be", new Participant(org1));
-                GUser tuur = new GUser("tuur.lievens@organization.be", new Participant(org3));
-                GUser florian = new GUser("florian.dejonckheere@hogent.be", new Lector());
-                GUser jasper = new GUser("jasper.dhaene@organization.be", new Lector());
+            _context.Organizations.Add(hogentGent);
+            _context.Organizations.Add(hogentAalst);
+            _context.Organizations.Add(howestKortrijk);
+            _context.Organizations.Add(howestBrugge);
+            _context.Organizations.Add(ugent);
+            
+            /**
+             * Users
+             * 
+             * */
+            GUser volunteerHogent = new GUser("volunteer@hogent.be"); await CreateAppUser(volunteerHogent);
+            GUser volunteerHowest = new GUser("volunteer@howest.be"); await CreateAppUser(volunteerHowest);
+            GUser volunteerUgent = new GUser("volunteer@ugent.be"); await CreateAppUser(volunteerUgent);
 
-                _context.GUsers.Add(preben);
-                _context.GUsers.Add(preben2);
-                _context.GUsers.Add(tuur);
-                _context.GUsers.Add(florian);
-                _context.GUsers.Add(jasper);
+            _context.GUsers.Add(volunteerHogent);
+            _context.GUsers.Add(volunteerHowest);
+            _context.GUsers.Add(volunteerUgent);
 
-                ApplicationUser user1 = new ApplicationUser { UserName = preben.Email, Email = preben.Email };
-                await _userManager.CreateAsync(user1, "P@ssword1");
-                await _userManager.AddClaimAsync(user1, new Claim(ClaimTypes.Role, "participant"));
+            GUser participantHogent = new GUser("participant@hogent.be"); await CreateAppUser(participantHogent);
+            GUser participantHowest = new GUser("participant@howest.be"); await CreateAppUser(participantHowest);
+            GUser participantUgent = new GUser("participant@ugent.be"); await CreateAppUser(participantUgent);
 
-                ApplicationUser user1a = new ApplicationUser { UserName = preben2.Email, Email = preben2.Email };
-                await _userManager.CreateAsync(user1a, "P@ssword1");
-                await _userManager.AddClaimAsync(user1a, new Claim(ClaimTypes.Role, "participant"));
+            _context.GUsers.Add(participantHogent);
+            _context.GUsers.Add(participantHowest);
+            _context.GUsers.Add(participantUgent);
 
-                ApplicationUser user2 = new ApplicationUser { UserName = tuur.Email, Email = tuur.Email };
-                await _userManager.CreateAsync(user2, "P@ssword2");
-                await _userManager.AddClaimAsync(user2, new Claim(ClaimTypes.Role, "participant"));
+            GUser lectorHogent = new GUser("lector@hogent.be", new Lector()); await CreateAppUser(lectorHogent);
+            GUser lectorHowest = new GUser("lector@howest.be", new Lector()); await CreateAppUser(lectorHowest);
+            GUser lectorUgent = new GUser("lector@ugent.be", new Lector()); await CreateAppUser(lectorUgent);
 
-                ApplicationUser user3 = new ApplicationUser { UserName = florian.Email, Email = florian.Email };
-                await _userManager.CreateAsync(user3, "P@ssword3");
-                await _userManager.AddClaimAsync(user3, new Claim(ClaimTypes.Role, "lector"));
+            _context.GUsers.Add(lectorHogent);
+            _context.GUsers.Add(lectorHowest);
+            _context.GUsers.Add(lectorUgent);
 
-                ApplicationUser user4 = new ApplicationUser { UserName = jasper.Email, Email = jasper.Email };
-                await _userManager.CreateAsync(user4, "P@ssword4");
-                await _userManager.AddClaimAsync(user4, new Claim(ClaimTypes.Role, "lector"));
+            hogentGent.Register(participantHogent);
+            howestBrugge.Register(participantHowest);
+            ugent.Register(participantUgent);
 
-                string eMailAddress = "admin@giveaday.be";
-                ApplicationUser user = new ApplicationUser { UserName = eMailAddress, Email = eMailAddress };
-                await _userManager.CreateAsync(user, "P@ssword5");
-                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "admin"));
+            GUser ownerHogent1 = new GUser("owner1@hogent.be"); await CreateAppUser(ownerHogent1);
+            GUser ownerHogent2 = new GUser("owner2@hogent.be"); await CreateAppUser(ownerHogent2);
 
-                Group openGroup1 = new Group("openGroup1", false);
-                Group openGroup2 = new Group("openGroup2", false);
-                Group openGroup3 = new Group("openGroup3", false);
-                Group openGroup4 = new Group("openGroup4", false);
+            _context.GUsers.Add(ownerHogent1);
+            _context.GUsers.Add(ownerHogent2);
 
-                Group closedGroup1 = new Group("closedGroup1", true);
-                Group closedGroup2 = new Group("closedGroup2", true);
-                Group closedGroup3 = new Group("closedGroup3", true);
-                Group closedGroup4 = new Group("closedGroup4", true);
+            hogentGent.Register(ownerHogent1);
+            hogentGent.Register(ownerHogent2);
 
-                //openGroup2.Participants.Add(tuur.UserState as Participant);
-                //(tuur.UserState as Participant).Group = openGroup2;
-                //openGroup2.Participants.Add(new GUser("persoon1@organization.be", new Participant(org3)).UserState as Participant);
-                //openGroup2.Participants.Add(new GUser("persoon2@organization.be", new Participant(org3)).UserState as Participant);
-
-                org3.CreateGroup((tuur.UserState as Participant), "openGroup2");
-                openGroup2.Register(tuur.UserState as Participant);
-
-                Motivation mot1 = new Motivation("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu");
+            /**
+             * Groups
+             * 
+             * */
+            Group hogentGroup1 = hogentGent.CreateGroup(ownerHogent1.UserState as Participant, "HoGent Groep 1");
+            Group hogentGroup2 = hogentGent.CreateGroup(ownerHogent2.UserState as Participant, "HoGent Groep 2");
 
 
-                Motivation mot2 = new Motivation("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu");
 
-                openGroup1.Motivation = mot1;
-                openGroup3.Motivation = mot2;
-                openGroup4.Motivation = mot1;
 
-                closedGroup2.Motivation = mot1;
-                closedGroup3.Motivation = mot2;
-                closedGroup4.Motivation = mot1;
+            _context.SaveChanges();
+        }
 
-                _context.SaveChanges();
-            }
+        private async Task CreateAppUser(GUser user)
+        {
+            ApplicationUser appUser = new ApplicationUser { UserName = user.Email, Email = user.Email };
+            await _userManager.CreateAsync(appUser, "P@ssword1");
+            await _userManager.AddClaimAsync(appUser, new Claim(ClaimTypes.Role, user.UserState is Lector ? "lector" : "participant"));
         }
     }
 }
+

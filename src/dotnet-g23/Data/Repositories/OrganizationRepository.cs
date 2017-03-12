@@ -37,8 +37,10 @@ namespace dotnet_g23.Data.Repositories
                 .ToList();
         }
 
-        public IEnumerable<Organization> GetByKeyword(String query, String domain) {
-            return _organizations.Where(org => org.Domain == domain && ((org.Name.Contains(query)) || (org.Location.Contains(query)))).ToList();
+        public IEnumerable<Organization> GetByKeyword(String query) {
+            return _organizations
+                .Where(org => org.Name.Contains(query) || org.Location.Contains(query))
+                .ToList();
         }
 
         public Organization GetByName(String orgName)

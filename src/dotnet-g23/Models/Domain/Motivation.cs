@@ -13,6 +13,7 @@ namespace dotnet_g23.Models.Domain
 
         #region Properties
         public int MotivationId { get; private set; }
+        public Group Group { get; private set; }
         public int GroupForeignKey { get; private set; }
 
         public String MotivationText
@@ -21,12 +22,11 @@ namespace dotnet_g23.Models.Domain
             set
             {
                 if (value.Length < 100 || value.Length > 250)
-                    throw new ArgumentException("Motivation must be between 100 and 250 characters");
+                    throw new ArgumentException("Motivatie moet tussen 100 en 250 karakters lang zijn");
 
                 _motivation = value;
             }
         }
-
         public Boolean Approved { get; set; }
         public String OrganizationName { get; set; }
         public String OrganizationAddress { get; set; }
@@ -36,14 +36,13 @@ namespace dotnet_g23.Models.Domain
         public String OrganizationContactFirstName { get; set; }
         public String OrganizationContactName { get; set; }
         public String OrganizationContactEmail { get; set; }
-
-        public Group Group { get; set; }
         #endregion
 
         #region Constructors
         public Motivation()
         {
         }
+
         public Motivation(String motivationText)
         {
             MotivationText = motivationText;

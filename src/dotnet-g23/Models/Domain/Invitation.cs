@@ -11,8 +11,9 @@ namespace dotnet_g23.Models.Domain
     {
         #region Properties
         public int InvitationId { get; private set; }
-        public GUser User { get; private set; }
+        public Participant Participant { get; private set; }
         public Group Group { get; private set; }
+
         public String Message { get; private set; }
         public DateTime DateCreated { get; private set; }
         public DateTime DateRead { get; private set; }
@@ -23,10 +24,10 @@ namespace dotnet_g23.Models.Domain
         public Invitation()
         {
         }
-        public Invitation(Group fromGroup, GUser toUser, String message)
+        public Invitation(Group fromGroup, Participant toParticipant, String message)
         {
             Group = fromGroup;
-            User = toUser;
+            Participant = toParticipant;
             Message = message;
             DateCreated = DateTime.Now;
             IsRead = false;

@@ -31,7 +31,7 @@ namespace dotnet_g23.Tests.Models
         }
 
         [Fact]
-        public void UserThrowsExceptionOnMissingServiceProvider() {
+        public void UserThrowsExceptionOnMissingDomain() {
             string email = "foobar@";
 
             Assert.Throws<ArgumentException>(() => new GUser(email, null));

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.ViewModels.MotivationViewModels
 {
-    public class IndexViewModel
+    public class RegisterViewModel
     {
-        public Group Group { get; set; }
-
-        public Motivation Motivation { get; set; }
+        public Motivation GroupMotivation { get; set; }
     }
 }

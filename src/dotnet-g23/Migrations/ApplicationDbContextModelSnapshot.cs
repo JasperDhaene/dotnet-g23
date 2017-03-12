@@ -73,6 +73,8 @@ namespace dotnet_g23.Migrations
 
                     b.Property<bool>("Closed");
 
+                    b.Property<int?>("LectorUserStateId");
+
                     b.Property<string>("Name")
                         .IsRequired();
 
@@ -82,6 +84,8 @@ namespace dotnet_g23.Migrations
                     b.HasKey("GroupId");
 
                     b.HasAlternateKey("Name");
+
+                    b.HasIndex("LectorUserStateId");
 
                     b.HasIndex("OrganizationId");
 
@@ -112,22 +116,20 @@ namespace dotnet_g23.Migrations
 
                     b.Property<DateTime>("DateRead");
 
-                    b.Property<int?>("GroupId")
-                        .IsRequired();
+                    b.Property<int?>("GroupId");
 
                     b.Property<bool>("IsRead");
 
                     b.Property<string>("Message")
                         .IsRequired();
 
-                    b.Property<int?>("UserId")
-                        .IsRequired();
+                    b.Property<int?>("ParticipantUserStateId");
 
                     b.HasKey("InvitationId");
 
                     b.HasIndex("GroupId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ParticipantUserStateId");
 
                     b.ToTable("Invitations");
                 });
@@ -193,12 +195,18 @@ namespace dotnet_g23.Migrations
 
             modelBuilder.Entity("dotnet_g23.Models.Domain.UserState", b =>
                 {
-                    b.Property<int>("UserStateId");
+                    b.Property<int>("UserStateId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("UserForeignKey");
 
                     b.Property<string>("user_state_type")
                         .IsRequired();
 
                     b.HasKey("UserStateId");
+
+                    b.HasIndex("UserForeignKey")
+                        .IsUnique();
 
                     b.ToTable("UserStates");
 
@@ -315,9 +323,6 @@ namespace dotnet_g23.Migrations
                 {
                     b.HasBaseType("dotnet_g23.Models.Domain.UserState");
 
-                    b.Property<int?>("GroupId");
-
-                    b.HasIndex("GroupId");
 
                     b.ToTable("Lectors");
 
@@ -348,6 +353,10 @@ namespace dotnet_g23.Migrations
 
             modelBuilder.Entity("dotnet_g23.Models.Domain.Group", b =>
                 {
+                    b.HasOne("dotnet_g23.Models.Domain.Lector", "Lector")
+                        .WithMany("Groups")
+                        .HasForeignKey("LectorUserStateId");
+
                     b.HasOne("dotnet_g23.Models.Domain.Organization", "Organization")
                         .WithMany("Groups")
                         .HasForeignKey("OrganizationId")
@@ -358,13 +367,11 @@ namespace dotnet_g23.Migrations
                 {
                     b.HasOne("dotnet_g23.Models.Domain.Group", "Group")
                         .WithMany("Invitations")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("GroupId");
 
-                    b.HasOne("dotnet_g23.Models.Domain.GUser", "User")
+                    b.HasOne("dotnet_g23.Models.Domain.Participant", "Participant")
                         .WithMany("Invitations")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ParticipantUserStateId");
                 });
 
             modelBuilder.Entity("dotnet_g23.Models.Domain.Motivation", b =>
@@ -379,7 +386,7 @@ namespace dotnet_g23.Migrations
                 {
                     b.HasOne("dotnet_g23.Models.Domain.GUser", "User")
                         .WithOne("UserState")
-                        .HasForeignKey("dotnet_g23.Models.Domain.UserState", "UserStateId")
+                        .HasForeignKey("dotnet_g23.Models.Domain.UserState", "UserForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -418,13 +425,6 @@ namespace dotnet_g23.Migrations
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("dotnet_g23.Models.Domain.Lector", b =>
-                {
-                    b.HasOne("dotnet_g23.Models.Domain.Group", "Group")
-                        .WithMany("Lectors")
-                        .HasForeignKey("GroupId");
                 });
 
             modelBuilder.Entity("dotnet_g23.Models.Domain.Participant", b =>

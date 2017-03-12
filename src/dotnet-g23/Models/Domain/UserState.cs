@@ -9,7 +9,8 @@ namespace dotnet_g23.Models.Domain
     {
         #region Properties
         public int UserStateId { get; private set; }
-        public GUser User { get; set; }
+        public GUser User { get; private set; }
+        public int UserForeignKey { get; private set; }
         #endregion
     }
 }

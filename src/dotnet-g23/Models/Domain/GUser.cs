@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace dotnet_g23.Models.Domain
@@ -11,6 +13,9 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Properties
+        public int UserId { get; private set; }
+        public UserState UserState { get; set; }
+
         public String Email
         {
             get { return _email; }
@@ -26,19 +31,19 @@ namespace dotnet_g23.Models.Domain
                 }
                 else
                 {
-                    throw new ArgumentException("Email address is incorrect, please try again.");
+                    throw new ArgumentException("Incorrect emailadres, gelieve opnieuw te proberen");
                 }
             }
         }
-        public int UserId { get; private set; }
-        public UserState UserState { get; set; }
-        public ICollection<Invitation> Invitations { get; set; }
+
+        [NotMapped]
+        public String Domain => Email?.Split('@').Last();
+
         #endregion
 
         #region Constructors
         public GUser()
         {
-            Invitations = new List<Invitation>();
         }
         public GUser(String email, UserState userState): this()
         {
@@ -48,17 +53,6 @@ namespace dotnet_g23.Models.Domain
 
         public GUser(String email) : this(email, null)
         {
-        }
-        #endregion
-
-        #region Methods
-        public Boolean IsParticipant()
-        {
-            return UserState is Participant;
-        }
-        public Boolean IsLector()
-        {
-            return UserState is Lector;
         }
         #endregion
     }

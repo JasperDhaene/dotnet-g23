@@ -51,7 +51,7 @@ namespace dotnet_g23.Tests.Controllers {
 
         [Fact]
         public void IndexGivenListOfPossibleOrganizationsWithUser1() {
-            ViewResult result = _controller.Index(_user1) as ViewResult;
+            ViewResult result = _controller.Index(_user1, _user1.UserState as Participant, null) as ViewResult;
             IndexViewModel ind1 = (IndexViewModel)result?.Model;
             IEnumerable<Organization> orgResult = ind1.Organizations;
             Assert.Equal(1, orgResult?.Count());
@@ -60,7 +60,7 @@ namespace dotnet_g23.Tests.Controllers {
 
         [Fact]
         public void IndexGivenEmptyListOfPossibleOrganizationsWithUser2() {
-            ViewResult result = _controller.Index(_user2) as ViewResult;
+            ViewResult result = _controller.Index(_user2, _user2.UserState as Participant, null) as ViewResult;
             IndexViewModel ind2 = (IndexViewModel)result?.Model;
             IEnumerable<Organization> orgResult = ind2.Organizations;
             Assert.Equal(0, orgResult?.Count());
@@ -69,14 +69,14 @@ namespace dotnet_g23.Tests.Controllers {
 
         [Fact]
         public void IndexShouldGiveEmptySubscribedOrganizationForUser1() {
-            ViewResult result = _controller.Index(_user1) as ViewResult;
+            ViewResult result = _controller.Index(_user1, _user1.UserState as Participant, null) as ViewResult;
             IndexViewModel ind1 = (IndexViewModel)result?.Model;
             Assert.Equal(null, ind1.SubscribedOrganization);
         }
 
         [Fact]
         public void IndexShouldGiveSubscribedOrganizationForUser2() {
-            ViewResult result = _controller.Index(_user2) as ViewResult;
+            ViewResult result = _controller.Index(_user2, _user2.UserState as Participant, null) as ViewResult;
             IndexViewModel ind2 = (IndexViewModel)result?.Model;
             Assert.Equal(context.org3, ind2.SubscribedOrganization);
         }

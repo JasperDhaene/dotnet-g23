@@ -1,12 +1,16 @@
 ﻿using System.Linq;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using dotnet_g23.Data;
+using dotnet_g23.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.ViewModels.AccountViewModels;
 using dotnet_g23.Services;
 
@@ -19,18 +23,24 @@ namespace dotnet_g23.Controllers {
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly IUserRepository _userRepository;
+        private readonly ApplicationDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory) {
+            ILoggerFactory loggerFactory,
+            IUserRepository userRepository,
+            ApplicationDbContext context) {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _userRepository = userRepository;
+            _context = context;
         }
 
         //
@@ -55,7 +65,7 @@ namespace dotnet_g23.Controllers {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded) {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Organization");  
                 }
                 if (result.RequiresTwoFactor) {
                     return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, model.RememberMe });
@@ -93,6 +103,12 @@ namespace dotnet_g23.Controllers {
             if (ModelState.IsValid) {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "participant"));
+
+                GUser _user = new GUser(model.Email);
+                _context.GUsers.Add(_user);
+                _context.SaveChanges();
+
                 if (result.Succeeded) {
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
@@ -118,7 +134,7 @@ namespace dotnet_g23.Controllers {
         public async Task<IActionResult> LogOff() {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(AccountController.Login), "Account");
         }
 
         //

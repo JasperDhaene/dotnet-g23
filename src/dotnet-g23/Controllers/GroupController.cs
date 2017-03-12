@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using dotnet_g23.Data.Repositories;
 using dotnet_g23.Filters;
-using dotnet_g23.Helpers;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.ViewModels.GroupViewModels;
@@ -17,17 +16,17 @@ namespace dotnet_g23.Controllers {
     [ServiceFilter(typeof(ParticipantFilter))]
     public class GroupController : Controller {
 
-        #region Fields
-        private readonly IGroupRepository _groupRepository;
-        private readonly IUserRepository _userRepository;
-        #endregion
+		#region Fields
+		private readonly IGroupRepository _groupRepository;
+	    private readonly IUserRepository _userRepository;
+		#endregion
 
-        #region Constructors
-        public GroupController(IGroupRepository groupRepository, IUserRepository userRepository) {
-            _groupRepository = groupRepository;
-            _userRepository = userRepository;
-        }
-        #endregion
+		#region Constructors
+		public GroupController(IGroupRepository groupRepository, IUserRepository userRepository) {
+			_groupRepository = groupRepository;
+		    _userRepository = userRepository;
+		}
+		#endregion
 
         #region Methods
         // GET /Groups
@@ -35,70 +34,74 @@ namespace dotnet_g23.Controllers {
         public IActionResult Index(Participant participant) {
             // Return list with invites and open organizations
 
-            IndexViewModel vm = new IndexViewModel();
-            vm.Organization = participant.Organization;
-            vm.SubscribedGroup = participant.Group;
-            vm.InvitedGroups = participant.User?.Invitations?.Select(n => n.Group);
-            vm.OpenGroups = participant.Organization?.Groups?.Where(g => !g.Closed);
+		    IndexViewModel vm = new IndexViewModel
+		    {
+		        SubscribedGroup = participant.Group,
+		        InvitedGroups = participant.User.Invitations?.Select(n => n.Group),
+		        OpenGroups = participant.Organization.Groups?.Where(g => !g.Closed)
+		    };
 
             return View(vm);
         }
 
-        // GET /Groups/Create
-        [Route("Groups/Create")]
-        public IActionResult Create() {
-            return View();
-        }
+        // POST /Groups/Register/{id}
+		[HttpPost]
+		[Route("Groups/Register/{id}")]
+		public IActionResult Register(Participant participant, int id) {
+			// Register user with group
 
-        // POST /Groups/Create
-        [HttpPost]
-        [Route("Groups/Create")]
-        public IActionResult Create(Participant participant, String name, Boolean closed) {
-            // Create new group
+			if (participant.Group != null)
+			{
+				TempData["error"] = "U bent reeds geregistreerd bij een groep.";
+				return RedirectToAction("Index", "Groups");
+			}
 
-            if (participant.Group != null) {
-                TempData["error"] = "U bent reeds ingeschreven in een groep.";
-                return RedirectToAction("Index");
-            }
+			Group group = _groupRepository.GetBy(id);
+			group.Register(participant);
+		    _groupRepository.SaveChanges();
 
-            try {
-                participant.Organization.CreateGroup(participant, name);
-                _groupRepository.SaveChanges();
-                return RedirectToAction("Invite", new { id = participant.Group.GroupId });
-            }
-            catch (Exception e) {
-                TempData["error"] = e.Message;
-                return View("Create");
-            }
-        }
+			return RedirectToAction("Show", "Groups", group.GroupId);
+		}
 
         // GET /Groups/:id
-        [Route("Groups/{id}")]
-        public IActionResult Show(Participant participant, int id) {
+	    [Route("Groups/{id}")]
+	    public IActionResult Show(Participant participant, int id)
+	    {
             // Show group dashboard
 
-            Group group = _groupRepository.GetBy(id);
+	        Group group = _groupRepository.GetBy(id);
 
-            return View(group);
-        }
+	        return View(group);
+	    }
 
-        // POST /Groups/{id}/Register
-        [HttpPost]
-        [Route("Groups/{id}/Register")]
-        public IActionResult Register(Participant participant, int id) {
-            // Register user with group
+        // GET /Groups/Create
+		[Route("Groups/Create")]
+		public IActionResult Create() {
+			return View();
+		}
 
-            if (participant.Group != null) {
-                TempData["error"] = "U bent reeds geregistreerd bij een groep.";
-                return RedirectToAction("Index");
-            }
+        // POST /Groups/Create
+		[HttpPost]
+		[Route("Groups/Create")]
+		public IActionResult Create(Participant participant, String name, Boolean closed)
+		{
+			// Create new group
 
-                Group group = _groupRepository.GetBy(id);
-                group?.Register(participant);
+            if (participant.Group != null)
+                return RedirectToAction("Index", "Groups");
+
+		    try
+		    {
+		        participant.Organization.CreateGroup(participant, name);
                 _groupRepository.SaveChanges();
-
-            return RedirectToAction("Show", new { id = group?.GroupId });
-        }
+		        return RedirectToAction("Invite", "Groups");
+		    }
+		    catch (ArgumentException e)
+		    {
+		        TempData["error"] = e.Message;
+		        return View();
+		    }
+		}
 
         // GET /Groups/{id}/Invite
         [Route("Groups/{id}/Invite")]
@@ -118,25 +121,28 @@ namespace dotnet_g23.Controllers {
 
             Group group = _groupRepository.GetBy(id);
 
-            GUser user;
-            try {
-                user = _userRepository.GetByEmail(address);
-            }
-            catch (Exception e) {
-                user = null;
-            }
+		    GUser user;
+		    try
+		    {
+		        user = _userRepository.GetByEmail(address);
+		    }
+		    catch (Exception e)
+		    {
+		        user = null;
+		    }
 
-            if (user == null) {
+		    if (user == null)
+		    {
                 TempData["error"] = $"Gebruiker '{address}' niet gevonden.";
                 return View("Invite", group);
             }
 
             // TODO: Invite user
             // TODO: Invite lector
-            TempData["info"] = $"Gebruiker '{address}' werd uitgenodigd tot de groep.";
-            return View("Invite", group);
-        }
-        #endregion
+		    TempData["info"] = $"Gebruiker '{address}' werd uitgenodigd tot de groep.";
+		    return View(group);
+		}
+		#endregion
 
     }
 }

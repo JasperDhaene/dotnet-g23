@@ -1,5 +1,6 @@
 ﻿using System;
 using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.State;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -11,17 +12,17 @@ namespace dotnet_g23.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         // GiveADay database entities
-        public DbSet<GUser> GUsers { get; set; }
-        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<GUser> GUsers { get; private set; }
+        public DbSet<Organization> Organizations { get; private set; }
 
         // User hierarchy
-        public DbSet<UserState> UserStates { get; set; }
-        public DbSet<Participant> Participants { get; set; }
-        public DbSet<Lector> Lectors { get; set; }
-        public DbSet<Motivation> Motivations { get; set; }
-        public DbSet<Invitation> Invitations { get; set; }
+        public DbSet<UserState> UserStates { get; private set; }
+        public DbSet<Participant> Participants { get; private set; }
+        public DbSet<Lector> Lectors { get; private set; }
+        public DbSet<Motivation> Motivations { get; private set; }
+        public DbSet<Invitation> Invitations { get; private set; }
 
-        public DbSet<Group> Groups { get; set; }
+        public DbSet<Group> Groups { get; private set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -33,7 +34,7 @@ namespace dotnet_g23.Data
             base.OnModelCreating(builder);
 
             // GiveADay database entities
-            builder.Entity<GUser>(MapUser);
+            builder.Entity<GUser>(MapGUser);
             builder.Entity<Organization>(MapOrganization);
 
             // User hierarchy
@@ -46,19 +47,14 @@ namespace dotnet_g23.Data
             builder.Entity<Motivation>(MapMotivation);
         }
 
-        private static void MapUser(EntityTypeBuilder<GUser> u)
+        private static void MapGUser(EntityTypeBuilder<GUser> u)
         {
             u.ToTable("Users");
             u.HasKey(user => user.UserId);
 
             u.Property(user => user.Email).IsRequired();
 
-            // Email is unique
             u.HasAlternateKey(user => user.Email);
-
-            u.HasOne(user => user.UserState)
-                .WithOne(userState => userState.User)
-                .HasForeignKey<UserState>(userState => userState.UserStateId);
         }
 
         public static void MapUserState(EntityTypeBuilder<UserState> us) {
@@ -69,8 +65,10 @@ namespace dotnet_g23.Data
                 .HasValue<Participant>("user_state_participant")
                 .HasValue<Lector>("user_state_lector");
 
-            us.HasOne(state => state.User)
+            // GUser => UserState
+            us.HasOne(userState => userState.User)
                 .WithOne(u => u.UserState)
+                .HasForeignKey<UserState>(userState => userState.UserForeignKey)
                 .IsRequired();
         }
 
@@ -82,20 +80,22 @@ namespace dotnet_g23.Data
             o.Property(org => org.Name).IsRequired();
             o.Property(org => org.Location).IsRequired();
             o.Property(org => org.Domain).IsRequired();
-
-            o.HasMany(org => org.Groups)
-                .WithOne(g => g.Organization);
         }
 
         private static void MapParticipant(EntityTypeBuilder<Participant> p)
         {
             p.ToTable("Participants");
 
-            p.HasOne(participant => participant.Organization)
-                .WithMany(org => org.Participants)
+            // Participant => Organization
+            p.HasOne(pa => pa.Organization)
+                .WithMany(o => o.Participants)
                 .IsRequired();
-            p.HasOne(participant => participant.Group)
+
+            // Participant => Group
+            p.HasOne(pa => pa.Group)
                 .WithMany(g => g.Participants);
+
+            // Participant => Lector
             p.HasOne(participant => participant.Lector)
                 .WithMany(l => l.Participants);
         }
@@ -103,29 +103,25 @@ namespace dotnet_g23.Data
         private static void MapLector(EntityTypeBuilder<Lector> l)
         {
             l.ToTable("Lectors");
-
-            l.HasMany(lector => lector.Participants)
-                .WithOne(p => p.Lector);
-            l.HasOne(lector => lector.Group)
-                .WithMany(g => g.Lectors);
         }
 
-        private static void MapInvitation(EntityTypeBuilder<Invitation> n)
+        private static void MapInvitation(EntityTypeBuilder<Invitation> i)
         {
-            n.ToTable("Invitations");
-            n.HasKey(no => no.InvitationId);
+            i.ToTable("Invitations");
+            i.HasKey(no => no.InvitationId);
 
-            n.Property(no => no.Message).IsRequired();
-            n.Property(no => no.DateCreated).IsRequired();
-            n.Property(no => no.DateRead);
-            n.Property(no => no.IsRead).IsRequired();
+            i.Property(no => no.Message).IsRequired();
+            i.Property(no => no.DateCreated).IsRequired();
+            i.Property(no => no.DateRead);
+            i.Property(no => no.IsRead).IsRequired();
 
-            n.HasOne(no => no.User)
-                .WithMany(u => u.Invitations)
-                .IsRequired();
-            n.HasOne(no => no.Group)
-                .WithMany(g => g.Invitations)
-                .IsRequired();
+            // Invitation => GUser
+            i.HasOne(inv => inv.Participant)
+                .WithMany(u => u.Invitations);
+
+            // Invitation => Group
+            i.HasOne(inv => inv.Group)
+                .WithMany(g => g.Invitations);
         }
 
         private static void MapGroup(EntityTypeBuilder<Group> g)
@@ -136,19 +132,22 @@ namespace dotnet_g23.Data
             g.Property(gr => gr.Name).IsRequired();
             g.Property(gr => gr.Closed).IsRequired();
 
-            // Name is unique
             g.HasAlternateKey(gr => gr.Name);
 
-            g.HasMany(group => group.Participants)
-                .WithOne(p => p.Group);
-            g.HasMany(group => group.Lectors)
-                .WithOne(l => l.Group);
-            g.HasOne(group => group.Organization)
-                .WithMany(org => org.Groups)
+            // Group => Organization
+            g.HasOne(gr => gr.Organization)
+                .WithMany(o => o.Groups)
                 .IsRequired();
-            g.HasOne(group => group.Motivation)
-                .WithOne(m => m.Group)
-                .HasForeignKey<Motivation>(m => m.GroupForeignKey);
+
+            // Group => Lector
+            g.HasOne(gr => gr.Lector)
+                .WithMany(l => l.Groups);
+
+            // Group => Context
+            /*g.HasOne(gr => gr.Context)
+                .WithOne(c => c.Group)
+                .HasForeignKey<Group>(gr => gr.ContextForeignKey)
+                .IsRequired();*/
         }
 
         private static void MapMotivation(EntityTypeBuilder<Motivation> m)
@@ -168,8 +167,11 @@ namespace dotnet_g23.Data
             m.Property(mo => mo.OrganizationContactName);
             m.Property(mo => mo.OrganizationContactEmail);
 
+            // Motivation => Group
             m.HasOne(mo => mo.Group)
-                .WithOne(g => g.Motivation);
+                .WithOne(g => g.Motivation)
+                .HasForeignKey<Motivation>(mo => mo.GroupForeignKey)
+                .IsRequired();
         }
     }
 }

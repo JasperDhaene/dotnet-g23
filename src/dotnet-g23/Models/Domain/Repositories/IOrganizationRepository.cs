@@ -10,6 +10,6 @@ namespace dotnet_g23.Models.Domain.Repositories
         IEnumerable<Organization> GetByDomain(String domain);
         IEnumerable<Organization> GetAll();
         void SaveChanges();
-        IEnumerable<Organization> GetByKeyword(String query, String domain);
+        IEnumerable<Organization> GetByKeyword(String query);
     }
 }
