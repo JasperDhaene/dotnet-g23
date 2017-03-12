@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace dotnet_g23.Models.Domain
-{
-    public class Motivation
-    {
+namespace dotnet_g23.Models.Domain {
+    public class Motivation {
         #region Fields
         private String _motivation;
         #endregion
@@ -16,11 +14,9 @@ namespace dotnet_g23.Models.Domain
         public Group Group { get; private set; }
         public int GroupForeignKey { get; private set; }
 
-        public String MotivationText
-        {
-            get { return _motivation;  }
-            set
-            {
+        public String MotivationText {
+            get { return _motivation; }
+            set {
                 if (value.Length < 100 || value.Length > 250)
                     throw new ArgumentException("Motivatie moet tussen 100 en 250 karakters lang zijn");
 
@@ -39,12 +35,10 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
-        public Motivation()
-        {
+        public Motivation() {
         }
 
-        public Motivation(String motivationText)
-        {
+        public Motivation(String motivationText) {
             MotivationText = motivationText;
             Approved = false;
         }

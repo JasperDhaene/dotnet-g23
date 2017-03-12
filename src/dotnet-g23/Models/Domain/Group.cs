@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using dotnet_g23.Models.Domain.State;
 
-namespace dotnet_g23.Models.Domain
-{
-    public class Group
-    {
+namespace dotnet_g23.Models.Domain {
+    public class Group {
         #region Fields
         private String _name;
         #endregion
@@ -28,12 +26,10 @@ namespace dotnet_g23.Models.Domain
 
         public int ContextForeignKey { get; private set; }*/
 
-        public String Name
-        {
+        public String Name {
             get { return _name; }
             private set {
-                if(value == null || value.Trim() == String.Empty || value == String.Empty)
-                {
+                if (value == null || value.Trim() == String.Empty || value == String.Empty) {
                     throw new ArgumentException("Naam kan niet leeg zijn");
                 }
                 _name = value;
@@ -43,36 +39,31 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
-        public Group()
-        {
+        public Group() {
             Participants = new List<Participant>();
             Invitations = new List<Invitation>();
             // TODO: assign Lector
         }
-        public Group(String name) : this()
-        {
+        public Group(String name) : this() {
             Name = name;
             Closed = false;
             Context = new Context();
         }
 
-        public Group(String name, Boolean closed) : this(name)
-        {
+        public Group(String name, Boolean closed) : this(name) {
             Closed = closed;
         }
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-        public void Invite(Participant participant)
-        {
+        public void Invite(Participant participant) {
             Invitation invitation = new Invitation(this, participant, $"U bent uitgenodigd om toe te treden tot de groep '${Name}'");
         }
-	    public void Register(Participant participant)
-	    {
-		    participant.Group = this;
-			Participants.Add(participant);
-	    }
-		#endregion
-	}
+        public void Register(Participant participant) {
+            participant.Group = this;
+            Participants.Add(participant);
+        }
+        #endregion
+    }
 }

@@ -5,10 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Server.Kestrel.Internal.Http;
 
-namespace dotnet_g23.Models.Domain
-{
-    public class Invitation
-    {
+namespace dotnet_g23.Models.Domain {
+    public class Invitation {
         #region Properties
         public int InvitationId { get; private set; }
         public Participant Participant { get; private set; }
@@ -21,11 +19,9 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
-        public Invitation()
-        {
+        public Invitation() {
         }
-        public Invitation(Group fromGroup, Participant toParticipant, String message)
-        {
+        public Invitation(Group fromGroup, Participant toParticipant, String message) {
             Group = fromGroup;
             Participant = toParticipant;
             Message = message;
@@ -36,8 +32,7 @@ namespace dotnet_g23.Models.Domain
 
         #region Methods
 
-        public void Read()
-        {
+        public void Read() {
             DateRead = DateTime.Now;
             IsRead = true;
         }
