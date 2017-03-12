@@ -73,11 +73,11 @@
                                 <label for="motivationText" class="d-block">
                                     Motivatie*
                                 </label>
-                                <textarea name="motivation.MotivationText" id="motivationText" rows="4" style="width: 100%;" placeholder="Voer hier uw motivatie in (tussen 100 en 250 karakters)" maxlength="250">@Model.Motivation.MotivationText</textarea>
+                                <textarea name="motivation.MotivationText" id="motivationText" rows="4" style="width: 100%;" placeholder="Voer hier uw motivatie in (tussen 100 en 250 karakters)" minlength="100" maxlength="250">@Model.Motivation.MotivationText</textarea>
                             </p>
                             <p>
-                                <input type="submit" value="Opslaan" name="update" class="btn btn-primary btn-md"/>
-                                <input type="submit" value="Verzenden &raquo;" name="submit" class="btn btn-secondary btn-md"/>
+                                <input type="submit" value="Opslaan" name="update" class="btn btn-primary btn-md" />
+                                <input type="submit" value="Verzenden &raquo;" name="submit" class="btn btn-secondary btn-md" />
                             </p>
                         </div>
                     </div>

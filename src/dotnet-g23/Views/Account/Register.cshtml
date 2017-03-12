@@ -12,44 +12,47 @@
                 <section>
                     <h2>@ViewData["Title"]</h2>
                     <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-                    <h4>Maak een nieuw account aan</h4>
-                    <hr />
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <div class="form-horizontal text-lg-left text-xs-center" role="form">
-                        <fieldset>
-                            <div class="form-group m-t-2 has-feedback">
-                                <div class="input-group">
-                                    <label asp-for="Email" class="input-group-addon">
-                                        <i class="fa fa-at"></i>
-                                    </label>
-                                    <input asp-validation-for="Email" id="email" name="email" placeholder="Email" class="form-control" required="required" data-fv-field="email">
-                                </div><i class="form-control-feedback fv-bootstrap-icon-input-group" data-fv-icon-for="email" style="display: none;"></i>
-                            <small class="help-block" data-fv-validator="emailAddress" data-fv-for="email" data-fv-result="NOT_VALIDATED" style="display: none;">Gelieve een geldig emailadres in te vullen</small><small class="help-block" data-fv-validator="notEmpty" data-fv-for="email" data-fv-result="NOT_VALIDATED" style="display: none;">Gelieve het veld in te vullen</small></div>
-                            <div class="form-group m-t-2 has-feedback">
-                                <div class="input-group">
-                                    <label asp-for="Password" class="input-group-addon">
-                                        <i class="fa fa-key"></i>
-                                    </label>
-                                    <input asp-validation-for="Password" type="password" id="password" name="password" placeholder="Password (min 8 tekens)" class="form-control" required="required" data-fv-notempty="true" data-fv-notempty-message="The password is required" data-fv-stringlength="true" data-fv-stringlength-min="8" data-fv-stringlength-message="Minimum 8 characters required" data-fv-field="password">
-                                </div><i class="form-control-feedback fv-bootstrap-icon-input-group" data-fv-icon-for="password" style="display: none;"></i>
-                                <progress class="progress progress-animated" value="0" max="4" aria-describedby="password"></progress>
-                            <small class="help-block" data-fv-validator="callback" data-fv-for="password" data-fv-result="NOT_VALIDATED" style="display: none;">Please enter a valid value</small><small class="help-block" data-fv-validator="notEmpty" data-fv-for="password" data-fv-result="NOT_VALIDATED" style="display: none;">The password is required</small><small class="help-block" data-fv-validator="stringLength" data-fv-for="password" data-fv-result="NOT_VALIDATED" style="display: none;">Minimum 8 characters required</small></div>
-                            <div class="form-group m-t-2 has-feedback">
-                                <div class="input-group">
-                                    <label asp-for="ConfirmPassword" class="input-group-addon">
-                                    <i class="fa fa-key"></i>
-                                    </label>
-                                    <input asp-validation-for="ConfirmPassword" type="password" id="password2" name="ConfirmPassword" placeholder="Bevestig password" class="form-control" required="required" data-fv-identical="true" data-fv-identical-field="password" data-fv-identical-message="Password mismatch" data-fv-field="password2">
-                                </div><i class="form-control-feedback fv-bootstrap-icon-input-group" data-fv-icon-for="password2" style="display: none;"></i>
-                            <small class="help-block" data-fv-validator="identical" data-fv-for="password2" data-fv-result="NOT_VALIDATED" style="display: none;">Password mismatch</small><small class="help-block" data-fv-validator="notEmpty" data-fv-for="password2" data-fv-result="NOT_VALIDATED" style="display: none;">Gelieve het veld in te vullen</small></div>
-                            <div class="form-group m-t-2">
-                                <button type="submit" class="btn btn-primary f-right" data-trigger="3">
-                                    Registreren &raquo;
-                                </button>
-                            </div>
-                        </fieldset>
-                    </div>
-                </form>
+                        <h4>Maak een nieuw account aan</h4>
+                        <hr />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-horizontal text-lg-left text-xs-center" role="form">
+                            <fieldset>
+                                <div class="form-group m-t-2 has-feedback">
+                                    <div class="input-group">
+                                        <label asp-for="Email" class="input-group-addon">
+                                            <i class="fa fa-at"></i>
+                                        </label>
+                                        <input asp-validation-for="Email" id="email" name="email" placeholder="Email" class="form-control" required="required" data-fv-field="email">
+                                    </div><i class="form-control-feedback fv-bootstrap-icon-input-group" data-fv-icon-for="email" style="display: none;"></i>
+                                    <small class="help-block" data-fv-validator="emailAddress" data-fv-for="email" data-fv-result="NOT_VALIDATED" style="display: none;">Gelieve een geldig emailadres in te vullen</small><small class="help-block" data-fv-validator="notEmpty" data-fv-for="email" data-fv-result="NOT_VALIDATED" style="display: none;">Gelieve het veld in te vullen</small>
+                                </div>
+                                <div class="form-group m-t-2 has-feedback">
+                                    <div class="input-group">
+                                        <label asp-for="Password" class="input-group-addon">
+                                            <i class="fa fa-key"></i>
+                                        </label>
+                                        <input asp-validation-for="Password" type="password" id="password" name="password" placeholder="Password (min 8 tekens)" class="form-control" required="required" data-fv-notempty="true" data-fv-notempty-message="The password is required" data-fv-stringlength="true" data-fv-stringlength-min="8" data-fv-stringlength-message="Minimum 8 characters required" data-fv-field="password">
+                                    </div><i class="form-control-feedback fv-bootstrap-icon-input-group" data-fv-icon-for="password" style="display: none;"></i>
+                                    <progress class="progress progress-animated" value="0" max="4" aria-describedby="password"></progress>
+                                    <small class="help-block" data-fv-validator="callback" data-fv-for="password" data-fv-result="NOT_VALIDATED" style="display: none;">Please enter a valid value</small><small class="help-block" data-fv-validator="notEmpty" data-fv-for="password" data-fv-result="NOT_VALIDATED" style="display: none;">The password is required</small><small class="help-block" data-fv-validator="stringLength" data-fv-for="password" data-fv-result="NOT_VALIDATED" style="display: none;">Minimum 8 characters required</small>
+                                </div>
+                                <div class="form-group m-t-2 has-feedback">
+                                    <div class="input-group">
+                                        <label asp-for="ConfirmPassword" class="input-group-addon">
+                                            <i class="fa fa-key"></i>
+                                        </label>
+                                        <input asp-validation-for="ConfirmPassword" type="password" id="password2" name="ConfirmPassword" placeholder="Bevestig password" class="form-control" required="required" data-fv-identical="true" data-fv-identical-field="password" data-fv-identical-message="Password mismatch" data-fv-field="password2">
+                                    </div><i class="form-control-feedback fv-bootstrap-icon-input-group" data-fv-icon-for="password2" style="display: none;"></i>
+                                    <small class="help-block" data-fv-validator="identical" data-fv-for="password2" data-fv-result="NOT_VALIDATED" style="display: none;">Password mismatch</small><small class="help-block" data-fv-validator="notEmpty" data-fv-for="password2" data-fv-result="NOT_VALIDATED" style="display: none;">Gelieve het veld in te vullen</small>
+                                </div>
+                                <div class="form-group m-t-2">
+                                    <button type="submit" class="btn btn-primary f-right" data-trigger="3">
+                                        Registreren &raquo;
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </form>
                 </section>
             </div>
         </div>

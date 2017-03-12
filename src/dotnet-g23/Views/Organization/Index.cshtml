@@ -16,8 +16,7 @@
                 @if (Model.SubscribedOrganization == null) {
                     <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> U bent niet in een organisatie geregistreerd.</div>
                 }
-                else
-                {
+                else {
                     <div class="card">
                         @Model.SubscribedOrganization.Name (@Model.SubscribedOrganization.Location)
                         <a asp-controller="Group" asp-action="Index" class="btn btn-primary btn-md f-right">Groepen</a>
@@ -32,19 +31,17 @@
                     <input type="text" placeholder="Naam of locatie" name="query" id="query" class="col-xs-7 col-md-4 push-md-6 col-lg-0 push-lg-0 f-lg-none" value="@ViewContext.HttpContext.Request.Query["query"]" />
                     <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md">Zoeken</a>
                 </form>
-                <br/>
+                <br />
                 @if (Model.Organizations == null || !Model.Organizations.Any()) {
                     <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen organisaties gevonden.</div>
                 }
-                else
-                {
+                else {
                     foreach (var org in Model.Organizations) {
                         <div class="card">
                             <form asp-controller="Organization" asp-action="Register" method="post" class="form-horizontal">
                                 @org.Name (@org.Location)
                                 <input type="hidden" value="@org.OrganizationId" name="organizationId" />
-                                @if (Model.SubscribedOrganization == null)
-                                {
+                                @if (Model.SubscribedOrganization == null) {
                                     <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-right">Registreren</a>
                                 }
                             </form>

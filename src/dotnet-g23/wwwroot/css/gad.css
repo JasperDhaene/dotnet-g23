@@ -3445,7 +3445,7 @@ mark,
 }
 
 .blockquote-footer::before {
-    content: "— "
+    content: "— "
 }
 
 .blockquote-reverse {
@@ -3461,7 +3461,7 @@ mark,
 }
 
 .blockquote-reverse .blockquote-footer::after {
-    content: " —"
+    content: " —"
 }
 
 dl.row>dd+dt {
@@ -7148,7 +7148,7 @@ input[type="button"].skill {
 }
 
 .navbar-divider::before {
-    content: " "
+    content: " "
 }
 
 .navbar-toggler {
@@ -13892,7 +13892,7 @@ a.fc-more:hover {
 }
 
 .fc-time-grid-event.fc-short .fc-time:after {
-    content: " - "
+    content: " - "
 }
 
 .fc-time-grid-event.fc-short .fc-title {
