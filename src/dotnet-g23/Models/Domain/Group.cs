@@ -26,8 +26,8 @@ namespace dotnet_g23.Models.Domain
         // Database serialisation property
         public String StateContext
         {
-            get { return Context.CurrentState.GetType().AssemblyQualifiedName; }
-            set { Context.SetState(value); }
+            get { return Context.SerializableState; }
+            set { Context.SerializableState = value; }
         }
 
         public String Name
