@@ -92,6 +92,7 @@ namespace dotnet_g23.Controllers
             ShowViewModel vm = new ShowViewModel();
             vm.Group = _groupRepository.GetBy(id);
             vm.Participants = _participantRepository.GetByGroup(vm.Group);
+            vm.Invitations = _invitationRepository.GetByGroup(vm.Group);
 
             return View(vm);
         }

@@ -22,10 +22,23 @@
                 {
                     <div class="card">@participant.User.Email</div>
                 }
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
+                
+                <h1>Uitnodigingen</h1>
+                @if (Model.Invitations == null || !Model.Invitations.Any())
+                {
+                    <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen uitnodigingen tot toetreden van deze groep gevonden.</div>
+                }
+                else
+                {
+                    foreach (var invitation in Model.Invitations)
+                    {
+                        <div class="card">
+                            @invitation.Participant.User.Email
+                            <span class="label label-default f-right">verstuurd</span>
+                        </div>
+                    }
+                }
+
                 @if (Model.Group.Motivation == null)
                 {
                     <div class="clearfix">

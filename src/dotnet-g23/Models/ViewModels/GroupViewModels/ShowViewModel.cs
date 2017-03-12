@@ -10,5 +10,6 @@ namespace dotnet_g23.Models.ViewModels.GroupViewModels
     {
         public Group Group { get; set; }
         public IEnumerable<Participant> Participants;
+        public IEnumerable<Invitation> Invitations;
     }
 }

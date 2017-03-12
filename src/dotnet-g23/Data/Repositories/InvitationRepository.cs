@@ -32,6 +32,14 @@ namespace dotnet_g23.Data.Repositories
                 .Include(n => n.Group)
                 .Where(n => n.Participant == participant);
         }
+        public IEnumerable<Invitation> GetByGroup(Group group)
+        {
+            return _invitations
+                .Include(n => n.Participant)
+                .ThenInclude(p => p.User)
+                .Include(n => n.Group)
+                .Where(n => n.Group == group);
+        }
 
         public IEnumerable<Invitation> GetAll()
         {
@@ -48,7 +56,7 @@ namespace dotnet_g23.Data.Repositories
                     .Include(n => n.Participant)
                     .Include(n => n.Group)
                     .Where(n => n.Participant == participant && n.Group == group)
-                );
+            );
         }
 
         public void SaveChanges()
