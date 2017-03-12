@@ -52,7 +52,13 @@ namespace dotnet_g23.Tests.Controllers {
 
         #region Update
 
-        
+        [Fact]
+        public void UpdateShouldShowDetailsOfGroupWithUpdatedMotivation() {
+            RedirectToActionResult result = _controller
+                .Update(_user1, 1, context.Motivation) as RedirectToActionResult;
+            Assert.Equal("Show", result?.ActionName);
+            Assert.Equal("Group", result?.ControllerName);
+        }
 
         #endregion
     }
