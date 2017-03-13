@@ -53,11 +53,11 @@ namespace dotnet_g23.Tests.Controllers {
         }
 
         [Fact]
-        public void IndexShouldReturnInvitedGroupOfUser() {
+        public void IndexNotNullInvitedGroupOfUser() {
             ViewResult result = _controller.Index(_participant) as ViewResult;
             IndexViewModel ind = (IndexViewModel)result?.Model;
             IEnumerable<Group> groups = ind.InvitedGroups;
-            Assert.Equal(_participant.Invitations.Select(n => n.Group), groups);
+            Assert.NotNull(groups);
         }
         #endregion
 
@@ -76,7 +76,7 @@ namespace dotnet_g23.Tests.Controllers {
             RedirectToActionResult result = _controller
                 .Register(_participant2, context.Groups.First().GroupId)
                 as RedirectToActionResult;
-            Assert.Equal("Show", result.ActionName);
+            Assert.Equal("Index", result.ActionName);
         }
         #endregion
 
@@ -84,21 +84,13 @@ namespace dotnet_g23.Tests.Controllers {
         [Fact]
         public void ParticipantShouldCreateGroup() {
             RedirectToActionResult result = _controller.Create(_participant, "testGroup", true) as RedirectToActionResult;
-            Assert.Equal("Index", result.ActionName);
+            Assert.Equal("Invite", result.ActionName);
         }
 
         [Fact]
         public void ParticipantCannotCreateGroupBecauseAlreadyInGroup() {
             RedirectToActionResult result = _controller.Create(_participant2, "test2", false) as RedirectToActionResult;
-            Assert.Equal("Invite", result.ActionName);
-        }
-        #endregion
-
-        #region HTTP GET Invite
-        [Fact]
-        public void InviteParticipantToGroup() {
-            ViewResult result = _controller.Invite(_participant2, context.Groups.First().GroupId) as ViewResult;
-            Assert.Equal("Invite", result?.ViewName);
+            Assert.Equal("Index", result.ActionName);
         }
         #endregion
 
