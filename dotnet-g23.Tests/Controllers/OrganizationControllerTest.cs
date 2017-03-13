@@ -82,12 +82,12 @@ namespace dotnet_g23.Tests.Controllers {
 
         #region Register Post
 
-        //[Fact]
-        //public void RegisterShouldRedirectToActionForUser1RegisterToOrganization() {
-        //    RedirectToActionResult result = _controller.Register(_user1, context.org1.OrganizationId) as RedirectToActionResult;
-        //    Assert.Equal("Index", result?.ActionName);
-        //    Assert.Equal("Groups", result?.ControllerName);
-        //}
+        [Fact]
+        public void RegisterShouldRedirectToActionForUser1RegisterToOrganization() {
+            RedirectToActionResult result = _controller.Register(_user1, context.org1.OrganizationId) as RedirectToActionResult;
+            Assert.Equal("Index", result?.ActionName);
+            Assert.Equal("Organizations", result?.ControllerName);
+        }
 
         [Fact]
         public void RegisterShouldRedirectToActionForUser2RegisterToOrganizationWhenAlreadyInOrganization() {

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using dotnet_g23.Models.Domain.State;
 
-namespace dotnet_g23.Models.Domain
-{
-    public class Group
-    {
+namespace dotnet_g23.Models.Domain {
+    public class Group {
         #region Fields
         private String _name;
         #endregion
@@ -24,18 +22,15 @@ namespace dotnet_g23.Models.Domain
         public Context Context { get; set; }
 
         // Database serialisation property
-        public String StateContext
-        {
+        public String StateContext {
             get { return Context.SerializableState; }
             set { Context.SerializableState = value; }
         }
 
-        public String Name
-        {
+        public String Name {
             get { return _name; }
             private set {
-                if(value == null || value.Trim() == String.Empty || value == String.Empty)
-                {
+                if (value == null || value.Trim() == String.Empty || value == String.Empty) {
                     throw new ArgumentException("Naam kan niet leeg zijn");
                 }
                 _name = value;
@@ -45,29 +40,25 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
-        public Group()
-        {
+        public Group() {
             Participants = new List<Participant>();
             Invitations = new List<Invitation>();
             Context = new Context();
             // TODO: assign Lector
         }
-        public Group(String name) : this()
-        {
+        public Group(String name) : this() {
             Name = name;
             Closed = false;
         }
 
-        public Group(String name, Boolean closed) : this(name)
-        {
+        public Group(String name, Boolean closed) : this(name) {
             Closed = closed;
         }
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-        public void Invite(Participant participant)
-        {
+        public void Invite(Participant participant) {
             if (participant.User.Domain != Organization.Domain)
                 throw new ArgumentException("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
 
@@ -77,14 +68,13 @@ namespace dotnet_g23.Models.Domain
             Invitation invitation = new Invitation(this, participant);
             participant.Invitations.Add(invitation);
         }
-	    public void Register(Participant participant)
-	    {
+        public void Register(Participant participant) {
             if (participant.Group != null)
                 throw new ArgumentException("Gebruiker behoort al tot een groep");
 
             participant.Group = this;
             Participants.Add(participant);
-	    }
-		#endregion
-	}
+        }
+        #endregion
+    }
 }
