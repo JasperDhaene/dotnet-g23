@@ -101,11 +101,6 @@ namespace dotnet_g23.Data {
             i.ToTable("Invitations");
             i.HasKey(no => no.InvitationId);
 
-            i.Property(no => no.Message).IsRequired();
-            i.Property(no => no.DateCreated).IsRequired();
-            i.Property(no => no.DateRead);
-            i.Property(no => no.IsRead).IsRequired();
-
             // Invitation => GUser
             i.HasOne(inv => inv.Participant)
                 .WithMany(u => u.Invitations);
@@ -121,6 +116,7 @@ namespace dotnet_g23.Data {
 
             g.Property(gr => gr.Name).IsRequired();
             g.Property(gr => gr.Closed).IsRequired();
+            g.Property(gr => gr.StateContext).IsRequired();
 
             g.HasAlternateKey(gr => gr.Name);
 
@@ -132,12 +128,6 @@ namespace dotnet_g23.Data {
             // Group => Lector
             g.HasOne(gr => gr.Lector)
                 .WithMany(l => l.Groups);
-
-            // Group => Context
-            /*g.HasOne(gr => gr.Context)
-                .WithOne(c => c.Group)
-                .HasForeignKey<Group>(gr => gr.ContextForeignKey)
-                .IsRequired();*/
         }
 
         private static void MapMotivation(EntityTypeBuilder<Motivation> m) {

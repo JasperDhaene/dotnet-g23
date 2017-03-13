@@ -18,7 +18,6 @@ namespace dotnet_g23.Models.Domain
         public Participant()
         {
             Invitations = new List<Invitation>();
-            // TODO: assign lector
         }
         public Participant(Organization organization)
         {

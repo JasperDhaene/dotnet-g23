@@ -59,41 +59,5 @@ namespace dotnet_g23.Tests.Models.State {
             context.NextState();
             Assert.Throws<StateException>(() => context.PreviousState());
         }
-
-        [Fact]
-        public void GroupInitialStateSerializes() {
-            Group group = new Group("groupname");
-            group.Context.CurrentState = new InitialState();
-            Assert.IsType<InitialState>(group.Context.CurrentState);
-            String serializedState = group.StateContext;
-
-            Group deserialized = new Group("groupname2");
-            deserialized.StateContext = serializedState;
-            Assert.IsType<InitialState>(group.Context.CurrentState);
-        }
-
-        [Fact]
-        public void GroupSubmittedStateSerializes() {
-            Group group = new Group("groupname");
-            group.Context.CurrentState = new SubmittedState();
-            Assert.IsType<SubmittedState>(group.Context.CurrentState);
-            String serializedState = group.StateContext;
-
-            Group deserialized = new Group("groupname2");
-            deserialized.StateContext = serializedState;
-            Assert.IsType<SubmittedState>(group.Context.CurrentState);
-        }
-
-        [Fact]
-        public void GroupApprovedStateSerializes() {
-            Group group = new Group("groupname");
-            group.Context.CurrentState = new ApprovedState();
-            Assert.IsType<ApprovedState>(group.Context.CurrentState);
-            String serializedState = group.StateContext;
-
-            Group deserialized = new Group("groupname2");
-            deserialized.StateContext = serializedState;
-            Assert.IsType<ApprovedState>(group.Context.CurrentState);
-        }
     }
 }

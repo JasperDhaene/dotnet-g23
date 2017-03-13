@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace dotnet_g23.Models.Domain.State {
-    public class Context {
+namespace dotnet_g23.Models.Domain.State
+{
+    public class Context
+    {
         #region Properties
         public State CurrentState { get; set; }
-        public string SerializableState {
+        public string SerializableState
+        {
             // Serialize State to string
             get { return CurrentState.GetType().AssemblyQualifiedName; }
 
@@ -19,17 +22,20 @@ namespace dotnet_g23.Models.Domain.State {
         #endregion
 
         #region Constructors
-        public Context() {
+        public Context()
+        {
             this.CurrentState = new InitialState();
         }
         #endregion
 
         #region Methods
-        public void NextState() {
+        public void NextState()
+        {
             CurrentState.HandleNext(this);
         }
 
-        public void PreviousState() {
+        public void PreviousState()
+        {
             CurrentState.HandlePrevious(this);
         }
         #endregion
