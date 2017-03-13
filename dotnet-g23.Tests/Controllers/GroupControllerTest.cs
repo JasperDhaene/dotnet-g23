@@ -27,13 +27,14 @@ namespace dotnet_g23.Tests.Controllers {
 
             Mock<IParticipantRepository> ParticipantRepo = new Mock<IParticipantRepository>();
             Mock<IGroupRepository> Grouprepo = new Mock<IGroupRepository>();
+            Mock<IInvitationRepository> InvRepo = new Mock<IInvitationRepository>();
 
             Grouprepo.Setup(o => o.GetAll()).Returns(context.Groups);
 
             Grouprepo.Setup(o => o.GetBy(1)).Returns(context.Groups.First());
             Grouprepo.Setup(o => o.GetBy(1)).Returns(context.Groups.Skip(1).First());
 
-            _controller = new GroupController(Grouprepo.Object, ParticipantRepo.Object);
+            _controller = new GroupController(Grouprepo.Object, ParticipantRepo.Object, InvRepo.Object);
             _controller.TempData = new Mock<ITempDataDictionary>().Object;
 
             _participant2 = context.Tuur.UserState as Participant;

@@ -63,7 +63,7 @@ namespace dotnet_g23.Tests.Data {
             Group _closedGroup = new Group("ClosedGroup");
 
             _openGroup.Register(Preben2.UserState as Participant);
-            org1.CreateGroup(Preben2.UserState as Participant, "_openGroup");
+            org1.CreateGroup(Preben2.UserState as Participant, "_openGroup", false);
 
             String text1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
                     + "Aliquam at quam at eros volutpat elementum. Fusce suscipit mi sed sapien malesuada, quis consectetur arcu ullamcorper. ";
