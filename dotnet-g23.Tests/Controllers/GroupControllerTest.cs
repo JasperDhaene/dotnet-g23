@@ -78,6 +78,7 @@ namespace dotnet_g23.Tests.Controllers {
                 as RedirectToActionResult;
             Assert.Equal("Index", result.ActionName);
         }
+
         #endregion
 
         #region HTTP POST Create
@@ -88,7 +89,7 @@ namespace dotnet_g23.Tests.Controllers {
         }
 
         [Fact]
-        public void ParticipantCannotCreateGroupBecauseAlreadyInGroup() {
+        public void ParticipantCannotCreateGroupBecauseAlreadyInGroupAndRedirectToIndex() {
             RedirectToActionResult result = _controller.Create(_participant2, "test2", false) as RedirectToActionResult;
             Assert.Equal("Index", result.ActionName);
         }
