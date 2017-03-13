@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using dotnet_g23.Models.Domain.State;
 
 namespace dotnet_g23.Data {
     public class DataInitializer {
@@ -74,12 +75,15 @@ namespace dotnet_g23.Data {
 
             GUser ownerHogent1 = new GUser("owner1@hogent.be"); await CreateAppUser(ownerHogent1);
             GUser ownerHogent2 = new GUser("owner2@hogent.be"); await CreateAppUser(ownerHogent2);
+            GUser ownerHogent3 = new GUser("owner3@hogent.be"); await CreateAppUser(ownerHogent3);
 
             _context.GUsers.Add(ownerHogent1);
             _context.GUsers.Add(ownerHogent2);
+            _context.GUsers.Add(ownerHogent3);
 
             hogentGent.Register(ownerHogent1);
             hogentGent.Register(ownerHogent2);
+            hogentGent.Register(ownerHogent3);
 
             /**
              * Groups
@@ -87,6 +91,12 @@ namespace dotnet_g23.Data {
              * */
             Group hogentGroup1 = hogentGent.CreateGroup(ownerHogent1.UserState as Participant, "HoGent Groep 1", false);
             Group hogentGroup2 = hogentGent.CreateGroup(ownerHogent2.UserState as Participant, "HoGent Groep 2", false);
+            Group hogentGroup3 = hogentGent.CreateGroup(ownerHogent3.UserState as Participant, "HoGent Groep 3", false);
+
+            Motivation m = CreateMotivation(hogentGroup3, true);
+
+            _context.Motivations.Add(m);
+            
 
 
 
@@ -99,6 +109,22 @@ namespace dotnet_g23.Data {
             ApplicationUser appUser = new ApplicationUser { UserName = user.Email, Email = user.Email };
             await _userManager.CreateAsync(appUser, "P@ssword1");
             await _userManager.AddClaimAsync(appUser, new Claim(ClaimTypes.Role, user.UserState is Lector ? "lector" : "participant"));
+        }
+
+        private Motivation CreateMotivation(Group group, Boolean approved = false)
+        {
+            Motivation m = new Motivation("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, qu");
+            group.Motivation = m;
+            m.Approved = approved;
+            if (approved)
+                group.Context.CurrentState = new ApprovedState();
+
+            m.OrganizationName = "Organization Name";
+            m.OrganizationAddress = "Organization Address";
+            m.OrganizationWebsite = "http://www.myorganization.com";
+            m.OrganizationEmail = "about@myorganization.com";
+
+            return m;
         }
     }
 }

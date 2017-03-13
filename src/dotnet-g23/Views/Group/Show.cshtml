@@ -13,7 +13,10 @@
             <div class="col-lg-12">
                 <div class="clearfix">
                     <h1 class="f-md-left">@(Model.Group.Closed ? "Gesloten" : "Open") groep '@Model.Group.Name'</h1>
-                    <a asp-controller="Group" asp-action="Invite" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Vrijwilligers uitnodigen</a> 
+                    @if (Model.Group.Context.CurrentState is InitialState || Model.Group.Context.CurrentState is SubmittedState)
+                    {
+                        <a asp-controller="Group" asp-action="Invite" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Vrijwilligers uitnodigen</a>
+                    }
                 </div>
                 <p class="m-t-2">
                     De volgende cursisten behoren tot deze groep:

@@ -6,6 +6,7 @@ using dotnet_g23.Data.Repositories;
 using dotnet_g23.Filters;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
+using dotnet_g23.Models.Domain.State;
 using dotnet_g23.Models.ViewModels.GroupViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -110,6 +111,10 @@ namespace dotnet_g23.Controllers
             try
             {
                 Group group = _groupRepository.GetBy(id);
+
+                if (!(group.Context.CurrentState is InitialState) && !(group.Context.CurrentState is SubmittedState))
+                    throw new Exception($"Motivatie van groep '{ group.Name }' is al goedgekeurd");
+
                 group.Register(participant);
 
                 _invitationRepository.Destroy(participant, group);
@@ -133,7 +138,10 @@ namespace dotnet_g23.Controllers
 
             Group group = _groupRepository.GetBy(id);
 
-            return View("Invite", group);
+	        if (group.Context.CurrentState is InitialState || group.Context.CurrentState is SubmittedState)
+	            return View("Invite", group);
+
+	        return RedirectToAction("Show", new { id });
 	    }
 
         // POST /Groups/{id}/Invite
@@ -146,7 +154,10 @@ namespace dotnet_g23.Controllers
             Group group = _groupRepository.GetBy(id);
             try
 		    {
-		        Participant invitee = _participantRepository.GetByEmail(address);
+                if (!(group.Context.CurrentState is InitialState) && !(group.Context.CurrentState is SubmittedState))
+                    throw new Exception($"Motivatie van groep '{ group.Name }' is al goedgekeurd");
+
+                Participant invitee = _participantRepository.GetByEmail(address);
 
 		        if (invitee == null)
 		        {
@@ -154,7 +165,6 @@ namespace dotnet_g23.Controllers
 		            return View("Invite", group);
 		        }
 		        group.Invite(invitee);
-		        // TODO: Invite lector
 		        _groupRepository.SaveChanges();
 		        TempData["info"] = $"Gebruiker '{address}' werd uitgenodigd tot de groep.";
 		        return View("Invite", group);
