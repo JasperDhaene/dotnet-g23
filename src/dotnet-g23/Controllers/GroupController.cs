@@ -57,33 +57,37 @@ namespace dotnet_g23.Controllers
             return View();
         }
 
-        // POST /Groups/Create
-        [HttpPost]
-        [Route("Groups/Create")]
-        public IActionResult Create(Participant participant, String name, Boolean closed)
-        {
-            // Create new group
+	    [HttpPost]
+	    [Route("Groups/Create")]
+	    public IActionResult Create(Participant participant, String name, Boolean closed = false)
+	    {
+	        // Create new group
 
-            if (participant.Group != null)
-            {
-                TempData["error"] = "U bent reeds ingeschreven in een groep.";
-                return RedirectToAction("Index");
-            }
+	        if (participant.Group != null)
+	        {
+	            TempData["error"] = "U bent reeds ingeschreven in een groep.";
+	            return RedirectToAction("Index");
+	        }
 
-            try
-            {
-                Group group = participant.Organization.CreateGroup(participant, name);
-                _groupRepository.SaveChanges();
-                return RedirectToAction("Invite", new { id = group.GroupId });
-            }
-            catch (Exception e)
-            {
-                TempData["error"] = e.Message;
-                return View("Create");
-            }
-        }
+	        try
+	        {
+                if (_groupRepository.GetByName(name) != null)
+                    throw new Exception($"De naam '{name}' is al ingenomen.");
 
-        // GET /Groups/:id
+	            Group group = participant.Organization.CreateGroup(participant, name, closed);
+	            _groupRepository.SaveChanges();
+	            return RedirectToAction("Invite", new { id = @group.GroupId });
+	        }
+	        catch (Exception e)
+	        {
+	            TempData["error"] = e.Message;
+	            return View("Create");
+	        }
+	    }
+
+	    // POST /Groups/Create
+
+	    // GET /Groups/:id
         [Route("Groups/{id}")]
         public IActionResult Show(Participant participant, int id)
         {

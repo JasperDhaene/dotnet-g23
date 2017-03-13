@@ -77,8 +77,8 @@ namespace dotnet_g23.Models.Domain
             user.UserState = new Participant(this);
 	    }
 
-		public Group CreateGroup(Participant participant, string name) {
-			Group group = new Group(name);
+		public Group CreateGroup(Participant participant, String name, Boolean closed) {
+			Group group = new Group(name, closed);
             Groups.Add(group);
             group.Register(participant);
 		    return group;
