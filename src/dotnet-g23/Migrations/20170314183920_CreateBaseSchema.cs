@@ -161,21 +161,11 @@ namespace dotnet_g23.Migrations {
                 columns: table => new {
                     InvitationId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateRead = table.Column<DateTime>(nullable: false),
-                    GroupId = table.Column<int>(nullable: false),
-                    IsRead = table.Column<bool>(nullable: false),
-                    Message = table.Column<string>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    GroupId = table.Column<int>(nullable: true),
+                    ParticipantUserStateId = table.Column<int>(nullable: true)
                 },
                 constraints: table => {
                     table.PrimaryKey("PK_Invitations", x => x.InvitationId);
-                    table.ForeignKey(
-                        name: "FK_Invitations_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -240,7 +230,8 @@ namespace dotnet_g23.Migrations {
                     Closed = table.Column<bool>(nullable: false),
                     LectorUserStateId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: false),
-                    OrganizationId = table.Column<int>(nullable: false)
+                    OrganizationId = table.Column<int>(nullable: false),
+                    StateContext = table.Column<string>(nullable: false)
                 },
                 constraints: table => {
                     table.PrimaryKey("PK_Groups", x => x.GroupId);
@@ -286,9 +277,9 @@ namespace dotnet_g23.Migrations {
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invitations_UserId",
+                name: "IX_Invitations_ParticipantUserStateId",
                 table: "Invitations",
-                column: "UserId");
+                column: "ParticipantUserStateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Motivations_GroupForeignKey",
@@ -343,12 +334,20 @@ namespace dotnet_g23.Migrations {
                 column: "RoleId");
 
             migrationBuilder.AddForeignKey(
+                name: "FK_Invitations_UserStates_ParticipantUserStateId",
+                table: "Invitations",
+                column: "ParticipantUserStateId",
+                principalTable: "UserStates",
+                principalColumn: "UserStateId",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
                 name: "FK_Invitations_Groups_GroupId",
                 table: "Invitations",
                 column: "GroupId",
                 principalTable: "Groups",
                 principalColumn: "GroupId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Motivations_Groups_GroupForeignKey",

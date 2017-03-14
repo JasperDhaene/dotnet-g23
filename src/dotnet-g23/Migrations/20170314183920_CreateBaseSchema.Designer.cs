@@ -8,8 +8,8 @@ using dotnet_g23.Data;
 namespace dotnet_g23.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170311192034_RemoveCyclicalRequiredFK")]
-    partial class RemoveCyclicalRequiredFK
+    [Migration("20170314183920_CreateBaseSchema")]
+    partial class CreateBaseSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -82,6 +82,9 @@ namespace dotnet_g23.Migrations
                     b.Property<int?>("OrganizationId")
                         .IsRequired();
 
+                    b.Property<string>("StateContext")
+                        .IsRequired();
+
                     b.HasKey("GroupId");
 
                     b.HasAlternateKey("Name");
@@ -113,16 +116,7 @@ namespace dotnet_g23.Migrations
                     b.Property<int>("InvitationId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateRead");
-
                     b.Property<int?>("GroupId");
-
-                    b.Property<bool>("IsRead");
-
-                    b.Property<string>("Message")
-                        .IsRequired();
 
                     b.Property<int?>("ParticipantUserStateId");
 

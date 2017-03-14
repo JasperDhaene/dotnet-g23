@@ -91,6 +91,10 @@ namespace dotnet_g23.Data {
             // Participant => Lector
             p.HasOne(participant => participant.Lector)
                 .WithMany(l => l.Participants);
+
+            // Participant => Invitation
+            p.HasMany(pa => pa.Invitations)
+                .WithOne(inv => inv.Participant);
         }
 
         private static void MapLector(EntityTypeBuilder<Lector> l) {
@@ -100,10 +104,6 @@ namespace dotnet_g23.Data {
         private static void MapInvitation(EntityTypeBuilder<Invitation> i) {
             i.ToTable("Invitations");
             i.HasKey(no => no.InvitationId);
-
-            // Invitation => GUser
-            i.HasOne(inv => inv.Participant)
-                .WithMany(u => u.Invitations);
 
             // Invitation => Group
             i.HasOne(inv => inv.Group)
