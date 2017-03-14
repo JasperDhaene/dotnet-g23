@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.ViewModels.LabelViewModels;
+using dotnet_g23.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -55,6 +56,15 @@ namespace dotnet_g23.Controllers
             vm.Contacts = _contactRepository.GetByCompany(vm.Company);
 
             return View(vm);
+        }
+
+        public IActionResult Send(Participant participant, int contactId) {
+            Contact contact = _contactRepository.GetBy(contactId);
+
+            AuthMessageSender sender = new AuthMessageSender();
+            sender.SendEmailAsync(contact.Firstname + " " + contact.Lastname, contact.Email, contact.Company.Name, contact.Company.Description);
+
+            return RedirectToAction("Index", "Labels");
         }
 
     }
