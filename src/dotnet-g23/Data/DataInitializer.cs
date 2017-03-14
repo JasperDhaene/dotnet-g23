@@ -92,6 +92,15 @@ namespace dotnet_g23.Data {
             Group hogentGroup2 = hogentGent.CreateGroup(ownerHogent2.UserState as Participant, "HoGent Groep 2", false);
             Group hogentGroup3 = hogentGent.CreateGroup(ownerHogent3.UserState as Participant, "HoGent Groep 3", false);
 
+            _context.Groups.Add(hogentGroup1);
+            _context.Groups.Add(hogentGroup2);
+            _context.Groups.Add(hogentGroup3);
+
+            /**
+             * Motivations
+             * 
+             * */
+
             Motivation m = CreateMotivation(hogentGroup3, true);
 
             _context.Motivations.Add(m);
