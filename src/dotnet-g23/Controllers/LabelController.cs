@@ -7,6 +7,7 @@ using dotnet_g23.Filters;
 using Microsoft.AspNetCore.Authorization;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.ViewModels.LabelViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -36,6 +37,23 @@ namespace dotnet_g23.Controllers
             return View(vm);
         }
 
+        [Route("Organizations/Register")]
+        public IActionResult Register(GUser user, Group group, int companyId) 
+        {
+            Company company = _companyRepository.GetBy(companyId);
+
+            return View();
+        }
+
+        public IActionResult ShowDashBoard(Participant participant, int id) {
+            // Show Company dashboard
+
+            ShowViewModel vm = new ShowViewModel();
+            vm.Company = _companyRepository.GetBy(id);
+            vm.Contacts = _companyRepository.GetByGroup(vm.Company);
+
+            return View(vm);
+        }
 
     }
 }
