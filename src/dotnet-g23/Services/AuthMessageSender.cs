@@ -8,12 +8,12 @@ namespace dotnet_g23.Services {
     // when you turn on two-factor authentication in ASP.NET Identity.
     // For more details see this link http://go.microsoft.com/fwlink/?LinkID=532713
     public class AuthMessageSender {
-        public void SendEmailAsync(string organizationName, string receiver, string beschrijving, string email, string subject, string message) {
+        public void SendEmailAsync(string receiver, string email, string organizationName, string beschrijving) {
             // Plug in your email service here to send an email.
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("Goed Bezig!", "goedbezig@dejonckhee.re"));
             emailMessage.To.Add(new MailboxAddress(receiver, email));
-            emailMessage.Subject = subject;
+            emailMessage.Subject = "Uitreiking Goed Bezig!-label voor " + receiver + ".";
 
             emailMessage.Body = new TextPart(TextFormat.Text) {
                 Text = "Geachte \n" +
