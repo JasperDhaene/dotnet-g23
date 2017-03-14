@@ -72,38 +72,47 @@ namespace dotnet_g23.Data {
             howestBrugge.Register(participantHowest);
             ugent.Register(participantUgent);
 
-            GUser ownerHogent1 = new GUser("owner1@hogent.be"); await CreateAppUser(ownerHogent1);
-            GUser ownerHogent2 = new GUser("owner2@hogent.be"); await CreateAppUser(ownerHogent2);
-            GUser ownerHogent3 = new GUser("owner3@hogent.be"); await CreateAppUser(ownerHogent3);
+            GUser ownerHogent = new GUser("owner@hogent.be"); await CreateAppUser(ownerHogent);
+            GUser ownerHogentSubmitted = new GUser("owner_submitted@hogent.be"); await CreateAppUser(ownerHogentSubmitted);
+            GUser ownerHogentApproved = new GUser("owner_approved@hogent.be"); await CreateAppUser(ownerHogentApproved);
+            GUser ownerHogentGranted = new GUser("owner_granted@hogent.be"); await CreateAppUser(ownerHogentGranted);
 
-            _context.GUsers.Add(ownerHogent1);
-            _context.GUsers.Add(ownerHogent2);
-            _context.GUsers.Add(ownerHogent3);
+            _context.GUsers.Add(ownerHogent);
+            _context.GUsers.Add(ownerHogentSubmitted);
+            _context.GUsers.Add(ownerHogentApproved);
+            _context.GUsers.Add(ownerHogentGranted);
 
-            hogentGent.Register(ownerHogent1);
-            hogentGent.Register(ownerHogent2);
-            hogentGent.Register(ownerHogent3);
+            hogentGent.Register(ownerHogent);
+            hogentGent.Register(ownerHogentSubmitted);
+            hogentGent.Register(ownerHogentApproved);
+            hogentGent.Register(ownerHogentGranted);
 
             /**
              * Groups
              * 
              * */
-            Group hogentGroup1 = hogentGent.CreateGroup(ownerHogent1.UserState as Participant, "HoGent Groep 1", false);
-            Group hogentGroup2 = hogentGent.CreateGroup(ownerHogent2.UserState as Participant, "HoGent Groep 2", false);
-            Group hogentGroup3 = hogentGent.CreateGroup(ownerHogent3.UserState as Participant, "HoGent Groep 3", false);
+            Group hogentGroup = hogentGent.CreateGroup(ownerHogent.UserState as Participant, "HoGent Groep 1", false);
+            Group hogentGroupSubmitted = hogentGent.CreateGroup(ownerHogentSubmitted.UserState as Participant, "HoGent Groep 2", false);
+            Group hogentGroupApproved = hogentGent.CreateGroup(ownerHogentApproved.UserState as Participant, "HoGent Groep 3", false);
+            Group hogentGroupGranted = hogentGent.CreateGroup(ownerHogentGranted.UserState as Participant, "HoGent Groep 4", false);
 
-            _context.Groups.Add(hogentGroup1);
-            _context.Groups.Add(hogentGroup2);
-            _context.Groups.Add(hogentGroup3);
+            _context.Groups.Add(hogentGroup);
+            _context.Groups.Add(hogentGroupSubmitted);
+            _context.Groups.Add(hogentGroupApproved);
+            _context.Groups.Add(hogentGroupGranted);
 
             /**
              * Motivations
              * 
              * */
 
-            Motivation m = CreateMotivation(hogentGroup3, true);
+            Motivation motivationSubmitted = CreateMotivation(hogentGroupSubmitted, false);
+            Motivation motivationApproved = CreateMotivation(hogentGroupApproved, true);
+            Motivation motivationGranted = CreateMotivation(hogentGroupGranted, true);
 
-            _context.Motivations.Add(m);
+            _context.Motivations.Add(motivationSubmitted);
+            _context.Motivations.Add(motivationApproved);
+            _context.Motivations.Add(motivationGranted);
             
 
 
@@ -125,6 +134,8 @@ namespace dotnet_g23.Data {
             m.Approved = approved;
             if (approved)
                 group.Context.CurrentState = new ApprovedState();
+            else
+                group.Context.CurrentState = new SubmittedState();
 
             m.OrganizationName = "Organization Name";
             m.OrganizationAddress = "Organization Address";
