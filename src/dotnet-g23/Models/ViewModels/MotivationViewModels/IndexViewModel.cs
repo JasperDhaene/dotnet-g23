@@ -16,11 +16,11 @@ namespace dotnet_g23.Models.ViewModels.MotivationViewModels
         public SelectList PossibleCompaniesList { get; set; }
 
         public IndexViewModel() {
-            int[] maanden = new int[] { 1, 2, 3, 6, 12, 18, 24 };
-            List<SelectListItem> items = new List<SelectListItem>();
-            foreach (int maand in maanden)
-                items.Add(new SelectListItem() { Text = maand + " " + ((maand == 1) ? "maand" : "maanden"), Value = maand.ToString() });
-            PossibleCompaniesList = new SelectList(items, "Value", "Text");
+            //int[] maanden = new int[] { 1, 2, 3, 6, 12, 18, 24 };
+            //List<SelectListItem> items = new List<SelectListItem>();
+            //foreach (int maand in maanden)
+            //    items.Add(new SelectListItem() { Text = maand + " " + ((maand == 1) ? "maand" : "maanden"), Value = maand.ToString() });
+            //PossibleCompaniesList = new SelectList(items, "Value", "Text");
         }
 
     }
