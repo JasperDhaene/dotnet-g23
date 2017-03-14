@@ -40,18 +40,30 @@ namespace dotnet_g23.Controllers
             return View(vm);
         }
 
-        [Route("Organizations/Register")]
+        [HttpPost]
+        [Route("Companies/Register")]
         public IActionResult Register(GUser user, Group group, int companyId) 
         {
             Company company = _companyRepository.GetBy(companyId);
 
-            return View();
+            try {
+                company.Register(group);
+                _companyRepository.SaveChanges();
+                TempData["info"] = $"U bent als groep geregistreerd bij '{group.Name}'";
+                return RedirectToAction("ShowDashBoard", new { id = @company.companyId });
+            }
+            catch (Exception e) {
+                TempData["error"] = e.Message;
+                return RedirectToAction("Index", "LabelController");
+            }
         }
 
+        [Route("Companies/{id}")]
         public IActionResult ShowDashBoard(Participant participant, int id) {
             // Show Company dashboard
 
             ShowViewModel vm = new ShowViewModel();
+
             vm.Company = _companyRepository.GetBy(id);
             vm.Contacts = _contactRepository.GetByCompany(vm.Company);
 
