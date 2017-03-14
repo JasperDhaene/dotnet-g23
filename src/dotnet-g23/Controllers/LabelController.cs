@@ -19,11 +19,13 @@ namespace dotnet_g23.Controllers
     {
         #region fields
         private readonly ICompanyRepository _companyRepository;
+        private readonly IContactRepository _contactRepository;
         #endregion
 
         #region Constructor
-        public LabelController(ICompanyRepository compRepo) {
+        public LabelController(ICompanyRepository compRepo, IContactRepository contactRepo) {
             _companyRepository = compRepo;
+            _contactRepository = contactRepo;
         }
         #endregion
 
@@ -50,7 +52,7 @@ namespace dotnet_g23.Controllers
 
             ShowViewModel vm = new ShowViewModel();
             vm.Company = _companyRepository.GetBy(id);
-            vm.Contacts = _companyRepository.GetByGroup(vm.Company);
+            vm.Contacts = _contactRepository.GetByCompany(vm.Company);
 
             return View(vm);
         }
