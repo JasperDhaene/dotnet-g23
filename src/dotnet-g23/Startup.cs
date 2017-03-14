@@ -80,10 +80,6 @@ namespace dotnet_g23 {
             services.AddScoped<IParticipantRepository, ParticipantRepository>();
             services.AddScoped<IInvitationRepository, InvitationRepository>();
 
-            // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
-
             services.AddAuthorization(options => {
                 options.AddPolicy("admin", policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
                 options.AddPolicy("participant", policy => policy.RequireClaim(ClaimTypes.Role, "participant"));
