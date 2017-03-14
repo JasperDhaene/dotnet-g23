@@ -8,6 +8,9 @@ namespace dotnet_g23.Services {
     // when you turn on two-factor authentication in ASP.NET Identity.
     // For more details see this link http://go.microsoft.com/fwlink/?LinkID=532713
     public class AuthMessageSender {
+        public AuthMessageSender() {
+
+        }
         public void SendEmailAsync(string receiver, string email, string organizationName, string beschrijving) {
             // Plug in your email service here to send an email.
             var emailMessage = new MimeMessage();
@@ -16,7 +19,7 @@ namespace dotnet_g23.Services {
             emailMessage.Subject = "Uitreiking Goed Bezig!-label voor " + receiver + ".";
 
             emailMessage.Body = new TextPart(TextFormat.Text) {
-                Text = "Geachte \n" +
+                Text = "Geachte \n\n" +
                 "Omdat het deugd doet om een compliment te krijgen en omdat iedereen een extra hart onder de riem best kan gebruiken, " +
                 "nemen wij, cursisten van " + organizationName + ", deel aan het initiatief ‘Goed bezig!’.\n\n" +
                 "Via het initiatief ‘Goed bezig!’ geven we een label als erkenning aan een organisatie waarvan wij vinden dat deze goed bezig is.\n\n" +
@@ -33,7 +36,7 @@ namespace dotnet_g23.Services {
 
                 // Note: since we don't have an OAuth2 token, disable
                 // the XOAUTH2 authentication mechanism.
-                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                //client.AuthenticationMechanisms.Remove("XOAUTH2");
 
                 // Note: only needed if the SMTP server requires authentication
                 client.Authenticate("goedbezig@dejonckhee.re", "z5sG3kEVioUhhqhosXgT4xWSsGzG8biMKYz1BmQPmYRUFzAD1G8nBozfdcvUnuU9UbojEU");

@@ -9,6 +9,7 @@ using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.State;
 using dotnet_g23.Models.ViewModels.MotivationViewModels;
+using dotnet_g23.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
