@@ -22,6 +22,9 @@ namespace dotnet_g23.Data {
 
         public DbSet<Group> Groups { get; private set; }
 
+        public DbSet<Company> Companies { get; private set; }
+        public DbSet<Contact> Contacts { get; private set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {
         }
@@ -41,6 +44,9 @@ namespace dotnet_g23.Data {
 
             builder.Entity<Group>(MapGroup);
             builder.Entity<Motivation>(MapMotivation);
+
+            builder.Entity<Company>(MapCompany);
+            builder.Entity<Contact>(MapContact);
         }
 
         private static void MapGUser(EntityTypeBuilder<GUser> u) {
@@ -150,6 +156,33 @@ namespace dotnet_g23.Data {
             m.HasOne(mo => mo.Group)
                 .WithOne(g => g.Motivation)
                 .HasForeignKey<Motivation>(mo => mo.GroupForeignKey)
+                .IsRequired();
+        }
+
+        private static void MapCompany(EntityTypeBuilder<Company> c)
+        {
+            c.ToTable("Companies");
+            c.HasKey(co => co.CompanyId);
+
+            c.Property(co => co.Name).IsRequired();
+            c.Property(co => co.Address).IsRequired();
+            c.Property(co => co.Email).IsRequired();
+            c.Property(co => co.Website).IsRequired();
+        }
+
+        private static void MapContact(EntityTypeBuilder<Contact> c)
+        {
+            c.ToTable("Contacts");
+            c.HasKey(co => co.ContactId);
+
+            c.Property(co => co.Title).IsRequired();
+            c.Property(co => co.FirstName).IsRequired();
+            c.Property(co => co.LastName).IsRequired();
+            c.Property(co => co.Email).IsRequired();
+
+            // Contact => Company
+            c.HasOne(contact => contact.Company)
+                .WithMany(company => company.Contacts)
                 .IsRequired();
         }
     }
