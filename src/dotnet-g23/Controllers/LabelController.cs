@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using dotnet_g23.Filters;
 using Microsoft.AspNetCore.Authorization;
+using dotnet_g23.Models.Domain.Repositories;
+using dotnet_g23.Models.Domain;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,16 +26,16 @@ namespace dotnet_g23.Controllers
         }
         #endregion
 
-
-
-        // GET: /<controller>/
-        public IActionResult Index(GUser user, Participant participant, String query = null)
+        [Route("Companies")]
+        public IActionResult Index(GUser user, Group group, String query = null)
         {
             IndexViewModel vm = new IndexViewModel() {
-                ChosenCompany = participant?.Organization,
+                ChosenCompany = group?.Company,
                 Companies = query == null ? _companyRepository.GetAll() : _companyRepository.GetByKeyword(query)
             };
             return View(vm);
         }
+
+
     }
 }
