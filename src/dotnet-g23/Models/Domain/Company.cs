@@ -14,6 +14,7 @@ namespace dotnet_g23.Models.Domain
         public String Website { get; set; }
         public String Email { get; set; }
         public ICollection<Contact> Contacts { get; private set; }
+        public String Description { get; set; }
         #endregion
 
         #region Constructors
