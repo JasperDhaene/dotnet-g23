@@ -20,22 +20,30 @@ namespace dotnet_g23.Data.Repositories
 
         public IEnumerable<Company> GetAll() {
             return _companies
+                .Include(c => c.Contacts)
+                .Include(c => c.Label)
                 .ToList();
         }
 
         public Company GetBy(int companyId) {
             return _companies
+                .Include(c => c.Contacts)
+                .Include(c => c.Label)
                 .SingleOrDefault(c => c.CompanyId == companyId);
         }
 
         public IEnumerable<Company> GetByKeyword(String query) {
             return _companies
+                .Include(c => c.Contacts)
+                .Include(c => c.Label)
                 .Where(org => org.Name.Contains(query) || org.Address.Contains(query))
                 .ToList();
         }
 
         public Company GetByName(String orgName) {
             return _companies
+                .Include(c => c.Contacts)
+                .Include(c => c.Label)
                 .SingleOrDefault(o => o.Name == orgName);
         }
 
