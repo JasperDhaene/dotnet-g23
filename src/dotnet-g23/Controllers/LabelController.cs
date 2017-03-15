@@ -29,31 +29,12 @@ namespace dotnet_g23.Controllers
         #endregion
 
         [Route("Companies")]
-        public IActionResult Index(GUser user, Group group, String query = null)
+        public IActionResult Index(GUser user, String query = null)
         {
             IndexViewModel vm = new IndexViewModel() {
-                ChosenCompany = group?.Company,
                 Companies = query == null ? _companyRepository.GetAll() : _companyRepository.GetByKeyword(query)
             };
             return View(vm);
-        }
-
-        [HttpPost]
-        [Route("Companies/Register")]
-        public IActionResult Register(GUser user, Group group, int companyId) 
-        {
-            Company company = _companyRepository.GetBy(companyId);
-
-            try {
-                company.Register(group);
-                _companyRepository.SaveChanges();
-                TempData["info"] = $"U bent als groep geregistreerd bij '{group.Name}'";
-                return RedirectToAction("ShowDashBoard", new { id = @company.companyId });
-            }
-            catch (Exception e) {
-                TempData["error"] = e.Message;
-                return RedirectToAction("Index", "LabelController");
-            }
         }
 
         [Route("Companies/{id}")]

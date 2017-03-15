@@ -37,8 +37,6 @@ namespace dotnet_g23.Models.Domain {
             }
         }
         public Boolean Closed { get; set; }
-
-        public Company Company { get; set; }
         #endregion
 
         #region Constructors
