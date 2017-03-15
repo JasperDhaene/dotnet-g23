@@ -1,4 +1,6 @@
-﻿using dotnet_g23.Models.Domain.Repositories;
+﻿using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +30,7 @@ namespace dotnet_g23.Data.Repositories
 
         public IEnumerable<Company> GetByKeyword(String query) {
             return _companies
-                .Where(org => org.Name.Contains(query) || org.Location.Contains(query))
+                .Where(org => org.Name.Contains(query) || org.Address.Contains(query))
                 .ToList();
         }
 

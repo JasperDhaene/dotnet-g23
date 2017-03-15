@@ -1,4 +1,6 @@
-﻿using dotnet_g23.Models.Domain.Repositories;
+﻿using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +22,34 @@ namespace dotnet_g23.Data.Repositories
         }
 
         public Contact GetBy(int contactId) {
-            return _contacts.SingleOrDefault(c => c.ContactId == contactId);
+            return _contacts
+                .Include(c => c.Title)
+                .Include(c => c.FirstName)
+                .Include(c => c.LastName)
+                .Include(c => c.Company)
+                .Include(c => c.Email)
+                .SingleOrDefault(c => c.ContactId == contactId);
         }
 
         public IEnumerable<Contact> GetByCompany(Company company) {
-            return _contacts.SingleOrDefault(c => c.Company == company);
+            return _contacts
+                .Include(c => c.Title)
+                .Include(c => c.FirstName)
+                .Include(c => c.LastName)
+                .Include(c => c.Company)
+                .Include(c => c.Email)
+                .Where(p => p.Company != null && p.Company == company)
+                .ToList();
         }
 
         public Contact GetByEmail(string email) {
-            return _contacts.SingleOrDefault(c => c.Email == email);
+            return _contacts
+                .Include(c => c.Title)
+                .Include(c => c.FirstName)
+                .Include(c => c.LastName)
+                .Include(c => c.Company)
+                .Include(c => c.Email)
+                .SingleOrDefault(c => c.Email == email);
         }
 
         public void SaveChanges() {
