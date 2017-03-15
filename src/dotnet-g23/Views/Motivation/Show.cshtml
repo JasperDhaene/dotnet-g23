@@ -70,8 +70,8 @@
                             <label for="companyId" class="d-block">
                                 Het label is voor*
                             </label>
-                            <select id="companyId" name="companyId" asp-items="@Model.PossibleCompaniesList" class="form-control" required>
-                                <option value="">-- selecteer een bedrijf --</option>
+                            <select id="companyId" name="companyId" asp-items="@(ViewData["Companies"] as SelectList)" class="form-control" required>
+                                <option value="">-- Selecteer een bedrijf --</option>
                             </select>
                         </p>
                     </div>

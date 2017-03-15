@@ -10,6 +10,8 @@ using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.State;
 using dotnet_g23.Models.ViewModels.MotivationViewModels;
 using dotnet_g23.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using dotnet_g23.Data.Repositories;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,10 +21,12 @@ namespace dotnet_g23.Controllers {
     public class MotivationController : Controller {
         #region Fields
         private readonly IGroupRepository _groupRepository;
+        private readonly ICompanyRepository _companyRepository;
         #endregion
 
-        public MotivationController(IGroupRepository groupRepository) {
+        public MotivationController(IGroupRepository groupRepository, ICompanyRepository companyRepository) {
             _groupRepository = groupRepository;
+            _companyRepository = companyRepository;
         }
 
         // GET /Motivations/{id}
@@ -40,7 +44,13 @@ namespace dotnet_g23.Controllers {
             vm.Group = group;
             vm.Motivation = @group.Motivation ?? new Motivation();
 
+            ViewData["Companies"] = GetCompaniesAsSelectedList();
+
             return View(vm);
+        }
+
+        private SelectList GetCompaniesAsSelectedList() {
+            return new SelectList(_companyRepository.GetAll().OrderBy(c => c.CompanyId), nameof(Company.CompanyId),  nameof(Company.Name));
         }
 
         // POST /Motivations/{id}
