@@ -12,9 +12,26 @@ namespace dotnet_g23.Models.Domain
         public String Title { get; set; }
         public String FirstName { get; set; }
         public String LastName { get; set; }
+        public String Function { get; set; }
         public String Email { get; set; }
         public Company Company { get; private set; }
-        public String Function { get; set; }
+        #endregion
+
+        #region Constructors
+        public Contact()
+        {
+        }
+
+        public Contact(string title, string firstName, string lastName, string function, string email, Company company)
+        {
+            Title = title;
+            FirstName = firstName;
+            LastName = lastName;
+            Function = function;
+            Email = email;
+            Company = company;
+        }
+
         #endregion
     }
 }

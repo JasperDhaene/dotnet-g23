@@ -130,6 +130,22 @@ namespace dotnet_g23.Data {
             _context.Companies.Add(c4);
             _context.Companies.Add(c5);
 
+            /**
+             * Contacts
+             * 
+             * */
+            Contact c1Ceo = new Contact("Mr.", "John", "Doe", "CEO","john.doe@company1.com", c1);
+            Contact c1Cfo = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company1.com", c1);
+            Contact c1Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company1.com", c1);
+
+            c1.Contacts.Add(c1Ceo);
+            c1.Contacts.Add(c1Cfo);
+            c1.Contacts.Add(c1Cto);
+
+            _context.Contacts.Add(c1Ceo);
+            _context.Contacts.Add(c1Cfo);
+            _context.Contacts.Add(c1Cto);
+
 
 
             _context.SaveChanges();

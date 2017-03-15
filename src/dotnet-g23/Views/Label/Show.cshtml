@@ -23,8 +23,9 @@
                 @foreach (var contact in Model.Contacts)
                 {
                     <div class="card">
-                        <form asp-controller="Label" asp-action="Send" asp-route-id="@contact.ContactId" method="post">
+                        <form asp-controller="Label" asp-action="Send" asp-route-companyId="@Model.Company.CompanyId" asp-route-contactId="@contact.ContactId" method="post">
                             @contact.Title @contact.FirstName @contact.LastName (@contact.Function)
+                            <br/>
                             <small>@contact.Email</small>
                             <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Verzenden</a>
                         </form>
