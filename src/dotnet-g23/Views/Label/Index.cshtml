@@ -3,7 +3,7 @@
 @using dotnet_g23.Models.Domain.State
 
 @{
-    ViewData["Title"] = "Bedrijven";
+    ViewData["Title"] = "Label toekennen";
 }
 
 @model dotnet_g23.Models.ViewModels.LabelViewModels.IndexViewModel
@@ -31,10 +31,10 @@
                 @foreach (var company in Model.Companies)
                 {
                     <div class="card">
-                        <form asp-controller="Label" asp-action="Show" asp-route-id="@company.CompanyId" method="post">
+                        <form asp-controller="Label" asp-action="Show" asp-route-id="@company.CompanyId" method="get">
                             @company.Name<br/>
                             <small>@company.Description</small>
-                            <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Label toekennen</a>
+                            <a asp-controller="Label" asp-action="Show" asp-route-id="@company.CompanyId" class="btn btn-secondary btn-md f-sm-right">Label toekennen</a>
                         </form>
                     </div>
                 }
