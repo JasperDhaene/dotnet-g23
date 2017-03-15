@@ -16,6 +16,7 @@ namespace dotnet_g23.Models.Domain {
         public Lector Lector { get; private set; }
         public ICollection<Invitation> Invitations { get; set; }
         public Motivation Motivation { get; set; }
+        public Label Label { get; private set; }
 
         // Memory-only property
         [NotMapped]

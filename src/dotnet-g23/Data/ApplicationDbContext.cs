@@ -1,4 +1,5 @@
 ﻿using System;
+using dotnet_g23.Models;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.State;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace dotnet_g23.Data {
 
         public DbSet<Company> Companies { get; private set; }
         public DbSet<Contact> Contacts { get; private set; }
+        public DbSet<Label> Labels { get; private set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {
@@ -47,6 +49,8 @@ namespace dotnet_g23.Data {
 
             builder.Entity<Company>(MapCompany);
             builder.Entity<Contact>(MapContact);
+
+            builder.Entity<Label>(MapLabel);
         }
 
         private static void MapGUser(EntityTypeBuilder<GUser> u) {
@@ -134,6 +138,11 @@ namespace dotnet_g23.Data {
             // Group => Lector
             g.HasOne(gr => gr.Lector)
                 .WithMany(l => l.Groups);
+
+            // Group => Label
+            g.HasOne(gr => gr.Label)
+                .WithOne(l => l.Group)
+                .HasForeignKey<Label>(la => la.GroupForeignKey);
         }
 
         private static void MapMotivation(EntityTypeBuilder<Motivation> m) {
@@ -169,6 +178,11 @@ namespace dotnet_g23.Data {
             c.Property(co => co.Address).IsRequired();
             c.Property(co => co.Email).IsRequired();
             c.Property(co => co.Website).IsRequired();
+
+            // Company => Label
+            c.HasOne(co => co.Label)
+                .WithOne(l => l.Company)
+                .HasForeignKey<Label>(la => la.CompanyForeignKey);
         }
 
         private static void MapContact(EntityTypeBuilder<Contact> c)
@@ -186,6 +200,12 @@ namespace dotnet_g23.Data {
             c.HasOne(contact => contact.Company)
                 .WithMany(company => company.Contacts)
                 .IsRequired();
+        }
+
+        private static void MapLabel(EntityTypeBuilder<Label> l)
+        {
+            l.ToTable("Labels");
+            l.HasKey(la => la.LabelId);
         }
     }
 }
