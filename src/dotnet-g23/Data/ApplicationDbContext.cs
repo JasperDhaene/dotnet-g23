@@ -165,6 +165,7 @@ namespace dotnet_g23.Data {
             c.HasKey(co => co.CompanyId);
 
             c.Property(co => co.Name).IsRequired();
+            c.Property(co => co.Description).IsRequired();
             c.Property(co => co.Address).IsRequired();
             c.Property(co => co.Email).IsRequired();
             c.Property(co => co.Website).IsRequired();
