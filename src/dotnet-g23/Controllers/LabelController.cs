@@ -74,7 +74,7 @@ namespace dotnet_g23.Controllers
             Contact contact = _contactRepository.GetBy(contactId);
 
             AuthMessageSender sender = new AuthMessageSender();
-            sender.SendEmailAsync(contact.Firstname + " " + contact.Lastname, contact.Email, contact.Company.Name, contact.Company.Description);
+            sender.SendEmailAsync(contact.FirstName + " " + contact.LastName, contact.Email, contact.Company.Name, contact.Company.Description);
 
             return RedirectToAction("Index", "Labels");
         }
