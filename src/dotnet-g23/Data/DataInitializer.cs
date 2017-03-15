@@ -114,7 +114,21 @@ namespace dotnet_g23.Data {
             _context.Motivations.Add(motivationApproved);
             _context.Motivations.Add(motivationGranted);
             
+            /**
+             * Companies
+             * 
+             * */
+            Company c1 = new Company("Company 1", "This is company 1", "Address of company 1", "http://www.company1.com", "hello@company1.com");
+            Company c2 = new Company("Company 2", "This is company 2", "Address of company 2", "http://www.company2.com", "hello@company2.com");
+            Company c3 = new Company("Company 3", "This is company 3", "Address of company 3", "http://www.company3.com", "hello@company3.com");
+            Company c4 = new Company("Company 4", "This is company 4", "Address of company 4", "http://www.company4.com", "hello@company4.com");
+            Company c5 = new Company("Company 5", "This is company 5", "Address of company 5", "http://www.company5.com", "hello@company5.com");
 
+            _context.Companies.Add(c1);
+            _context.Companies.Add(c2);
+            _context.Companies.Add(c3);
+            _context.Companies.Add(c4);
+            _context.Companies.Add(c5);
 
 
 
