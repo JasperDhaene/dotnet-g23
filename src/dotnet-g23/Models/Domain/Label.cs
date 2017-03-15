@@ -17,6 +17,10 @@ namespace dotnet_g23.Models
         #endregion
 
         #region Constructors
+
+        public Label()
+        {
+        }
         public Label(Group group, Company company)
         {
             Group = group;
