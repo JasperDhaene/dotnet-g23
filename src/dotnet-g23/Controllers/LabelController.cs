@@ -20,13 +20,11 @@ namespace dotnet_g23.Controllers
     {
         #region fields
         private readonly ICompanyRepository _companyRepository;
-        private readonly IContactRepository _contactRepository;
         #endregion
 
         #region Constructor
-        public LabelController(ICompanyRepository compRepo, IContactRepository contactRepo) {
+        public LabelController(ICompanyRepository compRepo) {
             _companyRepository = compRepo;
-            _contactRepository = contactRepo;
         }
         #endregion
 
@@ -65,13 +63,13 @@ namespace dotnet_g23.Controllers
             ShowViewModel vm = new ShowViewModel();
 
             vm.Company = _companyRepository.GetBy(id);
-            vm.Contacts = _contactRepository.GetByCompany(vm.Company);
+            vm.Contacts = vm.Company.Contacts;
 
             return View(vm);
         }
 
-        public IActionResult Send(Participant participant, int contactId) {
-            Contact contact = _contactRepository.GetBy(contactId);
+        public IActionResult Send(Participant participant, Company company, int contactId) {
+            Contact contact = company.Contacts.First(co => co.ContactId == contactId);
 
             AuthMessageSender sender = new AuthMessageSender();
             sender.SendEmailAsync(contact.FirstName + " " + contact.LastName, contact.Email, contact.Company.Name, contact.Company.Description);
