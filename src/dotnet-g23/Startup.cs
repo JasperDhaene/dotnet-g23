@@ -79,6 +79,7 @@ namespace dotnet_g23 {
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IParticipantRepository, ParticipantRepository>();
             services.AddScoped<IInvitationRepository, InvitationRepository>();
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
 
             services.AddAuthorization(options => {
                 options.AddPolicy("admin", policy => policy.RequireClaim(ClaimTypes.Role, "admin"));

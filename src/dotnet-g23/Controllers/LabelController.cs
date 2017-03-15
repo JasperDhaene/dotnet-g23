@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using dotnet_g23.Filters;
+using dotnet_g23.Models;
 using Microsoft.AspNetCore.Authorization;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.Domain;
@@ -18,7 +19,7 @@ namespace dotnet_g23.Controllers
     [ServiceFilter(typeof(ParticipantFilter))]
     public class LabelController : Controller
     {
-        #region fields
+        #region Fields
         private readonly ICompanyRepository _companyRepository;
         #endregion
 
@@ -31,6 +32,7 @@ namespace dotnet_g23.Controllers
         [Route("Companies")]
         public IActionResult Index(GUser user, String query = null)
         {
+            // Show companies
             IndexViewModel vm = new IndexViewModel() {
                 Companies = query == null ? _companyRepository.GetAll() : _companyRepository.GetByKeyword(query)
             };
@@ -38,8 +40,9 @@ namespace dotnet_g23.Controllers
         }
 
         [Route("Companies/{id}")]
-        public IActionResult ShowDashBoard(Participant participant, int id) {
-            // Show Company dashboard
+        public IActionResult Show(Participant participant, int id)
+        {
+            // Show company contacts
 
             ShowViewModel vm = new ShowViewModel();
 
@@ -49,8 +52,17 @@ namespace dotnet_g23.Controllers
             return View(vm);
         }
 
-        public IActionResult Send(Participant participant, Company company, int contactId) {
+        [HttpPost]
+        [Route("Companies/{companyId}/Contacts/{contactId}")]
+        public IActionResult Send(Participant participant, int companyId, int contactId)
+        {
+            // Grant label to company
+
+            Company company = _companyRepository.GetBy(companyId);
             Contact contact = company.Contacts.First(co => co.ContactId == contactId);
+
+            company.Label = new Label(participant.Group, company);
+            _companyRepository.SaveChanges();
 
             AuthMessageSender sender = new AuthMessageSender();
             sender.SendEmailAsync(contact.FirstName + " " + contact.LastName, contact.Email, contact.Company.Name, contact.Company.Description);
