@@ -179,6 +179,7 @@ namespace dotnet_g23.Data {
             c.Property(co => co.FirstName).IsRequired();
             c.Property(co => co.LastName).IsRequired();
             c.Property(co => co.Email).IsRequired();
+            c.Property(co => co.Function).IsRequired();
 
             // Contact => Company
             c.HasOne(contact => contact.Company)

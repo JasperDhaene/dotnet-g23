@@ -14,6 +14,7 @@ namespace dotnet_g23.Models.Domain
         public String LastName { get; set; }
         public String Email { get; set; }
         public Company Company { get; private set; }
+        public String Function { get; set; }
         #endregion
     }
 }
