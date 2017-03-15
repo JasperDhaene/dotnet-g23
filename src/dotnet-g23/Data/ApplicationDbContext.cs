@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Action = dotnet_g23.Models.Domain.Action;
 using ApplicationUser = dotnet_g23.Models.Domain.ApplicationUser;
 
 namespace dotnet_g23.Data {
@@ -26,6 +27,9 @@ namespace dotnet_g23.Data {
         public DbSet<Company> Companies { get; private set; }
         public DbSet<Contact> Contacts { get; private set; }
         public DbSet<Label> Labels { get; private set; }
+
+        public DbSet<Models.Domain.Action> Actions { get; private set; }
+        public DbSet<Event> Events { get; private set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {
@@ -51,6 +55,9 @@ namespace dotnet_g23.Data {
             builder.Entity<Contact>(MapContact);
 
             builder.Entity<Label>(MapLabel);
+
+            builder.Entity<Models.Domain.Action>(MapAction);
+            builder.Entity<Event>(MapEvent);
         }
 
         private static void MapGUser(EntityTypeBuilder<GUser> u) {
@@ -87,8 +94,6 @@ namespace dotnet_g23.Data {
         }
 
         private static void MapParticipant(EntityTypeBuilder<Participant> p) {
-            p.ToTable("Participants");
-
             // Participant => Organization
             p.HasOne(pa => pa.Organization)
                 .WithMany(o => o.Participants)
@@ -206,6 +211,24 @@ namespace dotnet_g23.Data {
         {
             l.ToTable("Labels");
             l.HasKey(la => la.LabelId);
+        }
+
+        private static void MapAction(EntityTypeBuilder<Models.Domain.Action> a)
+        {
+            a.ToTable("Actions");
+            a.HasKey(ac => ac.ActionId);
+
+            a.Property(ac => ac.Title).IsRequired();
+            a.Property(ac => ac.Description).IsRequired();
+
+            a.HasDiscriminator<string>("action_type")
+                .HasValue<Models.Domain.Action>("action")
+                .HasValue<Event>("event");
+        }
+
+        private static void MapEvent(EntityTypeBuilder<Event> e)
+        {
+            e.Property(ev => ev.Date).IsRequired();
         }
     }
 }

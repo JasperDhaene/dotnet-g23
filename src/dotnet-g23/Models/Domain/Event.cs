@@ -12,7 +12,7 @@ namespace dotnet_g23.Models.Domain
         #region Constructor
         public Event() : base() { }
 
-        public Event(string titel, string description, DateTime date) : base(titel, description) {
+        public Event(string title, string description, DateTime date) : base(title, description) {
             Date = date;
         } 
         #endregion

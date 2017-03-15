@@ -12,7 +12,8 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Properties
-        public String Titel { get; set; }
+        public int ActionId { get; private set; }
+        public String Title { get; set; }
         public String Description {
             get {
                 return _description;
@@ -27,11 +28,10 @@ namespace dotnet_g23.Models.Domain
 
         #region Constructors
         public Action() {
-
         }
 
-        public Action(string titel, string description) {
-            Titel = titel;
+        public Action(string title, string description) {
+            Title = title;
             Description = description;
         } 
         #endregion
