@@ -61,11 +61,18 @@
                         }
                         else if (Model.Group.Context.CurrentState is SubmittedState)
                         {
-                            <a href="#" class="btn btn-link btn-md f-sm-left f-md-right m-l-3 disabled">Verzonden naar lector</a>
+                            <span class="label label-info f-sm-left f-md-right">Verzonden naar lector</span>
+                        }
+                        else if (Model.Group.Context.CurrentState is ApprovedState)
+                        {
+                            <div class="f-sm-left f-md-right m-l-3">
+                                <span class="label label-success m-r-1">Goedgekeurd</span>
+                                <a asp-controller="Label" asp-action="Index" class="btn btn-primary btn-md">Label toekennen</a>
+                            </div>
                         }
                         else
                         {
-                            <a href="#" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3 disabled">Goedgekeurd</a>
+
                         }
                         <div class="ellipsize">@Model.Group.Motivation.MotivationText</div>
                     </div>
