@@ -62,7 +62,7 @@ namespace dotnet_g23.Controllers
             company.Label = new Label(participant.Group, company);
             _companyRepository.SaveChanges();
 
-            foreach (var id in contactIds) {
+            foreach (var cid in contactIds) {//TODO: loop var was 'var id'. Not sure if id below was parameter or loop var
                 Contact contact = company.Contacts.First(co => co.ContactId == id);
 
                 AuthMessageSender sender = new AuthMessageSender();
