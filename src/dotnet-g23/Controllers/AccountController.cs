@@ -15,7 +15,6 @@ using dotnet_g23.Models.ViewModels.AccountViewModels;
 using dotnet_g23.Services;
 
 namespace dotnet_g23.Controllers {
-    //test123
     [Authorize]
     public class AccountController : Controller {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -64,6 +63,8 @@ namespace dotnet_g23.Controllers {
                 if (result.Succeeded) {
                     _logger.LogInformation(1, "User logged in.");
                     if (user.UserState is Participant) {
+                        if(_groupRepository.GetByUser(user) != null)
+                            return RedirectToAction("Show", "Groups", new { id = _groupRepository.GetByUser(user).GroupId } );
                         return RedirectToAction("Index", "Groups");
                     }
                     return RedirectToAction("Index", "Organization");

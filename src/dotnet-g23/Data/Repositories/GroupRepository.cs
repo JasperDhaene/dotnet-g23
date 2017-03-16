@@ -58,6 +58,16 @@ namespace dotnet_g23.Data.Repositories {
                 .Where(g => g.Organization != null && g.Organization == organization);
         }
 
+        public Group GetByUser(GUser user) {
+            return _groups
+                .Include(g => g.Organization)
+                .Include(g => g.Motivation)
+                .Include(g => g.Lector)
+                .Include(g => g.Participants)
+                .Include(g => g.Label)
+                .SingleOrDefault(g => g.Participants.Contains(user.UserState as Participant));
+        }
+
         public void SaveChanges() {
             _context.SaveChanges();
         }
