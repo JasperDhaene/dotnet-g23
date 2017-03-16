@@ -53,20 +53,22 @@ namespace dotnet_g23.Controllers
         }
 
         [HttpPost]
-        [Route("Companies/{companyId}/Contacts/{contactId}")]
-        public IActionResult Send(Participant participant, int companyId, int contactId)
+        [Route("Companies/{id}")]
+        public IActionResult Send(Participant participant, int id, int[] contactIds)
         {
             // Grant label to company
 
-            Company company = _companyRepository.GetBy(companyId);
-            Contact contact = company.Contacts.First(co => co.ContactId == contactId);
-
+            Company company = _companyRepository.GetBy(id);
             company.Label = new Label(participant.Group, company);
             _companyRepository.SaveChanges();
 
-            AuthMessageSender sender = new AuthMessageSender();
-            sender.SendEmailAsync(contact.FirstName + " " + contact.LastName, contact.Email, contact.Company.Name, contact.Company.Description);
+            foreach (var id in contactIds) {
+                Contact contact = company.Contacts.First(co => co.ContactId == id);
 
+                AuthMessageSender sender = new AuthMessageSender();
+                sender.SendEmailAsync(contact.FirstName + " " + contact.LastName, contact.Email, contact.Company.Name, contact.Company.Description);
+
+            }
             return RedirectToAction("Index", "Labels");
         }
 
