@@ -60,7 +60,7 @@ namespace dotnet_g23.Controllers
 
             Company company = _companyRepository.GetBy(id);
             Group group = participant.Group;
-
+            
             try
             {
                 group.Grant(company);
