@@ -21,12 +21,10 @@ namespace dotnet_g23.Controllers {
     public class MotivationController : Controller {
         #region Fields
         private readonly IGroupRepository _groupRepository;
-        private readonly ICompanyRepository _companyRepository;
         #endregion
 
-        public MotivationController(IGroupRepository groupRepository, ICompanyRepository companyRepository) {
+        public MotivationController(IGroupRepository groupRepository) {
             _groupRepository = groupRepository;
-            _companyRepository = companyRepository;
         }
 
         // GET /Motivations/{id}
@@ -44,13 +42,7 @@ namespace dotnet_g23.Controllers {
             vm.Group = group;
             vm.Motivation = @group.Motivation ?? new Motivation();
 
-            ViewData["Companies"] = GetCompaniesAsSelectedList();
-
             return View(vm);
-        }
-
-        private SelectList GetCompaniesAsSelectedList() {
-            return new SelectList(_companyRepository.GetAll().OrderBy(c => c.CompanyId), nameof(Company.CompanyId),  nameof(Company.Name));
         }
 
         // POST /Motivations/{id}

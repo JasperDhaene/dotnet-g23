@@ -66,14 +66,6 @@
                                 <input type="email" name="motivation.OrganizationContactEmail" id="contactEmail" value="@Model.Motivation.OrganizationContactEmail" />
                             </p>
                         </div>
-                        <p class="col-lg-12">
-                            <label for="companyId" class="d-block">
-                                Het label is voor*
-                            </label>
-                            <select id="companyId" name="companyId" asp-items="@(ViewData["Companies"] as SelectList)" class="form-control" required>
-                                <option value="">-- Selecteer een bedrijf --</option>
-                            </select>
-                        </p>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
