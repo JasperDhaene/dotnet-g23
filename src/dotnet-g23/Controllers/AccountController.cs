@@ -22,6 +22,7 @@ namespace dotnet_g23.Controllers {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger _logger;
         private readonly IUserRepository _userRepository;
+        private readonly IGroupRepository _groupRepository;
         private readonly ApplicationDbContext _context;
 
         public AccountController(
@@ -29,11 +30,13 @@ namespace dotnet_g23.Controllers {
             SignInManager<ApplicationUser> signInManager,
             ILoggerFactory loggerFactory,
             IUserRepository userRepository,
+            IGroupRepository groupRepository,
             ApplicationDbContext context) {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = loggerFactory.CreateLogger<AccountController>();
             _userRepository = userRepository;
+            _groupRepository = groupRepository;
             _context = context;
         }
 
@@ -57,8 +60,12 @@ namespace dotnet_g23.Controllers {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var user = _userRepository.GetByEmail(model.Email);
                 if (result.Succeeded) {
                     _logger.LogInformation(1, "User logged in.");
+                    if (user.UserState is Participant) {
+                        return RedirectToAction("Index", "Groups");
+                    }
                     return RedirectToAction("Index", "Organization");
                 }
                 if (result.RequiresTwoFactor) {
