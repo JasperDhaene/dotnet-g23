@@ -60,6 +60,16 @@ namespace dotnet_g23.Controllers {
             TempData["success"] = $"U bent geregistreerd bij organisatie '{organization.Name}'";
             return RedirectToAction("Index", "Groups");
         }
+
+        [Route("Organizations/{id}/Groups")]
+        public IActionResult ShowGroups() {
+            return View();
+        }
+
+        [Route("Organizations/Posts/{id}")]
+        public IActionResult ShowPosts() {
+            return View();
+        }
         #endregion
 
     }
