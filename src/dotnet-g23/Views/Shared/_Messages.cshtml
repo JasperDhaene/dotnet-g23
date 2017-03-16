@@ -14,3 +14,11 @@
         </div>
     </div>
 }
+@if (TempData["success"] != null)
+{
+    <div class="row m-b-1">
+        <div class="col-lg-12">
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> @TempData["success"]</div>
+        </div>
+    </div>
+}

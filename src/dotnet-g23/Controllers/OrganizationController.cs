@@ -50,7 +50,7 @@ namespace dotnet_g23.Controllers {
             try {
                 organization.Register(user);
                 _orgRepository.SaveChanges();
-                TempData["info"] = $"U bent geregistreerd bij organisatie '{organization.Name}'";
+                TempData["success"] = $"U bent geregistreerd bij organisatie '{organization.Name}'";
                 return RedirectToAction("Index", "Groups");
             }
             catch (Exception e) {

@@ -120,7 +120,7 @@ namespace dotnet_g23.Controllers
                 _invitationRepository.Destroy(participant, group);
 
                 _groupRepository.SaveChanges();
-                TempData["info"] = $"U bent geregistreerd bij groep '{group.Name}'";
+                TempData["success"] = $"U bent geregistreerd bij groep '{group.Name}'";
                 return RedirectToAction("Show", new { id = group.GroupId });
             }
             catch (Exception e)
@@ -128,6 +128,7 @@ namespace dotnet_g23.Controllers
                 TempData["error"] = e.Message;
                 return RedirectToAction("Index");
             }
+			
 		}
 
         // GET /Groups/{id}/Invite
@@ -166,9 +167,14 @@ namespace dotnet_g23.Controllers
 		        }
 		        group.Invite(invitee);
 		        _groupRepository.SaveChanges();
-		        TempData["info"] = $"Gebruiker '{address}' werd uitgenodigd tot de groep.";
+		        TempData["success"] = $"Gebruiker '{address}' werd uitgenodigd tot de groep.";
 		        return View("Invite", group);
 		    }
+			catch (ArgumentException e) 
+            {// gebruiker hoort niet tot hetzelfde domein
+                TempData["error"] = e.Message;
+                return View("Invite", group);
+            }
 		    catch (Exception e)
             {
                 TempData["info"] = e.Message;
