@@ -59,13 +59,12 @@ namespace dotnet_g23.Data.Repositories {
         }
 
         public Group GetByUser(GUser user) {
-            return _groups
-                .Include(g => g.Organization)
-                .Include(g => g.Motivation)
-                .Include(g => g.Lector)
-                .Include(g => g.Participants)
-                .Include(g => g.Label)
-                .SingleOrDefault(g => g.Participants.Contains(user.UserState as Participant));
+            Group group = null;
+            foreach(Group gr in _groups) {
+                if (gr.Participants.Contains(user.UserState as Participant))
+                    group = gr;
+            }
+            return group;
         }
 
         public void SaveChanges() {

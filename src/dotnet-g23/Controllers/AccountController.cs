@@ -64,8 +64,9 @@ namespace dotnet_g23.Controllers {
                     _logger.LogInformation(1, "User logged in.");
                     if (user.UserState is Participant) {
                         if(_groupRepository.GetByUser(user) != null)
-                            return RedirectToAction("Show", "Groups", new { id = _groupRepository.GetByUser(user).GroupId } );
-                        return RedirectToAction("Index", "Groups");
+                            return RedirectToAction("Show",new { controller = "Groups", id = (user.UserState as Participant).Group.GroupId } );
+                        else
+                            return RedirectToAction("Index", "Groups");
                     }
                     return RedirectToAction("Index", "Organization");
                 }
