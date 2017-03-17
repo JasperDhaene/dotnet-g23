@@ -12,8 +12,8 @@
         @Html.Partial("_Messages")
         <div class="row">
             <div class="col-lg-12 m-t-3">
-                <h1>@Model.Company.Name</h1>
-                <p>@Model.Company.Description</p>
+                <h1>@Model.Company.Name <i class="fa fa-certificate" aria-hidden="true"></i></h1>
+                <p class="description">@Model.Company.Description</p>
                 <p>
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                     @Model.Company.Address
@@ -24,11 +24,14 @@
                 </p>
                 <p>
                     <i class="fa fa-globe" aria-hidden="true"></i>
-                    @Model.Company.Website
+                    <a href="@Model.Company.Website">Website</a>
                 </p>
+
+                <p class="heading">Goed Bezig Label</p>
+                <p>Hey son, you are good bezig!</p>
                 
                 
-                <h2>Contact</h2>
+                <p class="heading">Contact</p>
                 <p>U kunt de bevestinging van het Goed Bezig label doorsturen naar de volgende contactpersonen.</p>
                 @if (Model.Contacts == null || !Model.Contacts.Any())
                 {
@@ -44,7 +47,13 @@
                             <i class="fa fa-briefcase" aria-hidden="true"></i> @contact.Function
                             <br/>
                             <small>@contact.Email</small>
-                            <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-sm-right">Verzenden</a>
+                            @if(Model.Company.Label != null)
+                            {
+                                <a href="#" class="btn btn-primary btn-md f-sm-right">Contact</a>
+                            }else{
+                                <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-sm-right">Verzenden</a>
+                            }
+                            
                         </form>
                     </div>
                 }

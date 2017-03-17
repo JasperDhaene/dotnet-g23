@@ -14201,14 +14201,23 @@ as per bootstrap 4 standards
     white-space: nowrap;
 }
 
-.gb .company i {
+.company i {
     margin-right: 15px;
+    width: 40px;
     color: #e34248;
     font-size: 28px;
 }
 
-.gb .company .contact i {
+.company .contact i {
     font-size: 20px;
+}
+
+.company .contact i {
+    width: 20px;
+}
+
+.company .description {
+    color: #818a91;
 }
 
 /** Labels and badges **/
