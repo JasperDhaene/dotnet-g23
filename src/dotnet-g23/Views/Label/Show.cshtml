@@ -7,60 +7,76 @@
 }
 @model dotnet_g23.Models.ViewModels.LabelViewModels.ShowViewModel
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="content company">
-                <div class="container-fluid">
-                    @Html.Partial("_Messages")
-        
-                    <div class="row">
-                        <div class="col-lg-12 m-t-3">
-                            <h1>@Model.Company.Name <i class="fa fa-certificate" aria-hidden="true"></i></h1>
-                            <p class="description">@Model.Company.Description</p>
-                            <p>
-                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                @Model.Company.Address
-                            </p>
-                            <p>
-                                <i class="fa fa-envelope" aria-hidden="true"></i>
-                                @Model.Company.Email
-                            </p>
-                            <p>
-                                <i class="fa fa-globe" aria-hidden="true"></i>
-                                <a href="@Model.Company.Website">Website</a>
-                            </p>
-
-                            <p class="heading">Goed Bezig Label</p>
-                            <p>Hey son, you are good bezig!</p>
-                            
-                            
-                            <p class="heading">Contact</p>
-                            <p>U kunt de bevestinging van het Goed Bezig label doorsturen naar de volgende contactpersonen.</p>
-                            @if (Model.Contacts == null || !Model.Contacts.Any())
-                            {
-                                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen contacten gevonden.</div>
-                            }
-                            @foreach (var contact in Model.Contacts)
-                            {
-                                <div class="card contact">
-                                    <form asp-controller="Label" asp-action="Send" asp-route-companyId="@Model.Company.CompanyId" asp-route-contactId="@contact.ContactId" method="post">
-                                        <i class="fa fa-user" aria-hidden="true"></i> 
-                                        @contact.Title @contact.FirstName @contact.LastName
-                                        <br/>
-                                        <i class="fa fa-briefcase" aria-hidden="true"></i> @contact.Function
-                                        <br/>
-                                        <small>@contact.Email</small>
-                                        @if(Model.Company.Label != null)
-                                        {
-                                            <a href="#" class="btn btn-primary btn-md f-sm-right">Contact</a>
-                                        }else{
-                                            <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-sm-right">Verzenden</a>
-                                        }
-                                        
-                                    </form>
+<div class="company">
+    <div class="companyheader p-y-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content">
+                    <h1>@Model.Company.Name <i class="fa fa-certificate" aria-hidden="true"></i></h1>
+                                <p class="description">@Model.Company.Description</p>
+                                <p>
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    @Model.Company.Address
+                                </p>
+                                <p>
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    @Model.Company.Email
+                                </p>
+                                <div class="socialmedia">
+                                    <a href="@Model.Company.Website" target="_blank">
+                                        <i class="fa fa-globe" aria-hidden="true"></i>
+                                    </a>
                                 </div>
-                            }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="companybody">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content">
+                        <div class="container-fluid">
+                            @Html.Partial("_Messages")
+                
+                            <div class="row">
+                                <div class="col-lg-12 m-t-3">
+                                    
+
+                                    <p class="heading">Goed Bezig Label</p>
+                                    <p>Hey son, you are good bezig!</p>
+                                    
+                                    
+                                    <p class="heading">Contact</p>
+                                    <p>U kunt de bevestinging van het Goed Bezig label doorsturen naar de volgende contactpersonen.</p>
+                                    @if (Model.Contacts == null || !Model.Contacts.Any())
+                                    {
+                                        <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen contacten gevonden.</div>
+                                    }
+                                    @foreach (var contact in Model.Contacts)
+                                    {
+                                        <div class="card contact">
+                                            <form asp-controller="Label" asp-action="Send" asp-route-companyId="@Model.Company.CompanyId" asp-route-contactId="@contact.ContactId" method="post">
+                                                <i class="fa fa-user" aria-hidden="true"></i> 
+                                                @contact.Title @contact.FirstName @contact.LastName
+                                                <br/>
+                                                <i class="fa fa-briefcase" aria-hidden="true"></i> @contact.Function
+                                                <br/>
+                                                <small>@contact.Email</small>
+                                                @if(Model.Company.Label != null)
+                                                {
+                                                    <a href="#" class="btn btn-primary btn-md f-sm-right">Contact</a>
+                                                }else{
+                                                    <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-sm-right">Verzenden</a>
+                                                }
+                                                
+                                            </form>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

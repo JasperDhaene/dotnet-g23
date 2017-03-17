@@ -14201,6 +14201,10 @@ as per bootstrap 4 standards
     white-space: nowrap;
 }
 
+.companybody {
+    background-color: #FFF;
+}
+
 .company i {
     margin-right: 15px;
     width: 40px;
@@ -14208,16 +14212,26 @@ as per bootstrap 4 standards
     font-size: 28px;
 }
 
-.company .contact i {
+.companyheader .socialmedia {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.companybody .contact i {
     font-size: 20px;
 }
 
-.company .contact i {
+.companybody .contact i {
     width: 20px;
 }
 
-.company .description {
+.companyheader .description {
     color: #818a91;
+}
+
+.companybody .content {
+    background-color: #fff;
 }
 
 /** Labels and badges **/
