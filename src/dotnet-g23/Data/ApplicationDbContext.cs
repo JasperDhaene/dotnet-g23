@@ -169,8 +169,8 @@ namespace dotnet_g23.Data {
             // Motivation => Group
             m.HasOne(mo => mo.Group)
                 .WithOne(g => g.Motivation)
-                .HasForeignKey<Motivation>(mo => mo.GroupForeignKey)
-                .IsRequired();
+                .HasForeignKey<Motivation>(mo => mo.GroupForeignKey);
+                
         }
 
         private static void MapCompany(EntityTypeBuilder<Company> c)
