@@ -102,13 +102,13 @@ namespace dotnet_g23 {
                 app.UseBrowserLink();
             }
             else {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("Error");
             }
 
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
-            app.UseStatusCodePages();
+            app.UseStatusCodePagesWithRedirects("/error");
             app.UseIdentity();
 
             app.UseSession();
