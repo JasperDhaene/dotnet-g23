@@ -59,12 +59,11 @@ namespace dotnet_g23.Data.Repositories {
         }
 
         public Group GetByUser(GUser user) {
-            Group group = null;
-            foreach(Group gr in _groups) {
-                if (gr.Participants.Contains(user.UserState as Participant))
-                    group = gr;
-            }
-            return group;
+            return _groups
+                .ToList()
+                .Where(g => g.Participants
+                .Contains(user.UserState as Participant))
+                .FirstOrDefault();
         }
 
         public void SaveChanges() {
