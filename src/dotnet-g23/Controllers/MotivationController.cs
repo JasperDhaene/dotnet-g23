@@ -57,14 +57,14 @@ namespace dotnet_g23.Controllers {
                 {
                     group.Submit();
 
-                    TempData["info"] = "Uw motivatie werd verzonden naar de begeleidende lector";
+                    TempData["success"] = "Uw motivatie werd verzonden naar de begeleidende lector";
                 }
                 else
                 {
-                    TempData["info"] = "Uw motivatie werd opgeslaan";
+                    TempData["success"] = "Uw motivatie werd opgeslaan";
                 }
                 _groupRepository.SaveChanges();
-
+                
                 return RedirectToAction("Show", "Group", new { id = group.GroupId });
             }
             catch (GoedBezigException e)
