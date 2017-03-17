@@ -4,12 +4,17 @@
 @if (await AuthorizationService.AuthorizeAsync(User, "participant")) {
     <li class="nav-item">
         <a asp-area="" asp-controller="Organization" asp-action="Index" class="nav-link">
-            <span>Organisaties</span>
+            <span>GB Organisaties</span>
         </a>
     </li>
     <li class="nav-item">
         <a asp-area="" asp-controller="Group" asp-action="Index" class="nav-link">
             <span>Groepen</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-area="" asp-controller="Label" asp-action="Index" class="nav-link">
+            <span>Organisaties</span>
         </a>
     </li>
 }
