@@ -103,25 +103,19 @@ namespace dotnet_g23.Controllers
             Group group = _groupRepository.GetBy(id);
             try
             {
-
-                if (!(group.Context.CurrentState is InitialState) && !(group.Context.CurrentState is SubmittedState))
-                    throw new Exception($"Motivatie van groep '{ group.Name }' is al goedgekeurd");
-
                 group.Register(participant);
-
                 _invitationRepository.Destroy(participant, group);
 
                 _groupRepository.SaveChanges();
-                TempData["success"] = $"U bent geregistreerd bij groep '{group.Name}'";
-                return RedirectToAction("Show", new { id = group.GroupId });
             }
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
                 return RedirectToAction("Index");
             }
-			
-		}
+            TempData["success"] = $"U bent geregistreerd bij groep '{ group.Name }'";
+            return RedirectToAction("Show", new { id = group.GroupId });
+        }
 
         // GET /Groups/{id}/Invite
 	    [Route("Groups/{id}/Invite")]

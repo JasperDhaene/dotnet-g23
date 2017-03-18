@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using dotnet_g23.Models.Domain.State;
 
 namespace dotnet_g23.Models.Domain {
@@ -64,17 +65,24 @@ namespace dotnet_g23.Models.Domain {
 
         public void Invite(Participant participant) {
             if (participant.User.Domain != Organization.Domain)
-                throw new ArgumentException("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
+                throw new Exception("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
 
             if (participant.Group != null)
-                throw new ArgumentException("Gebruiker behoort al tot een groep");
+                throw new Exception("Gebruiker behoort al tot een groep");
 
             Invitation invitation = new Invitation(this, participant);
             participant.Invitations.Add(invitation);
         }
+
         public void Register(Participant participant) {
             if (participant.Group != null)
-                throw new ArgumentException("Gebruiker behoort al tot een groep");
+                throw new Exception("U behoort al tot een groep");
+
+            if (Closed && participant.Invitations.All(i => i.Group != this))
+                throw new Exception($"U bent niet uitgenodigd tot de groep '{ Name }'");
+
+            if (!(Context.CurrentState is InitialState) && !(Context.CurrentState is SubmittedState))
+                throw new Exception($"Motivatie van groep '{ Name }' is al goedgekeurd");
 
             participant.Group = this;
             Participants.Add(participant);
