@@ -6,7 +6,7 @@
 @model dotnet_g23.Models.ViewModels.AccountViewModels.LoginViewModel
 @inject SignInManager<ApplicationUser> SignInManager
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Inloggen";
 }
 <div class="container">
     <div class="row">
@@ -18,7 +18,7 @@
                             <section>
                                 <h2>@ViewData["Title"]</h2>
                                 <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-                                    <h4>Gebruik uw Give A Day account</h4>
+                                    Log in bij Goed Bezig met uw Give A Day-account.
                                     <hr />
                                     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -66,13 +66,9 @@
                                             <i class="fa fa-sign-in"></i>
                                             <span>Inloggen</span>
                                         </button>
-                                        <a asp-action="ForgotPassword" class="btn btn-secondary f-xs-left f-md-none mrg-sm-vert clear-xs clear-sm-none">
-                                            <i class="fa fa-lock"></i>
-                                            <span>Wachtwoord?!?</span>
-                                        </a>
                                         <a asp-action="Register" class="btn btn-secondary f-xs-left f-md-none mrg-sm-vert clear-xs clear-sm-none">
                                             <i class="fa fa-user-plus"></i>
-                                            <span>Registreren!</span>
+                                            <span>Registreren</span>
                                         </a>
                                     </div>
                                 </form>
