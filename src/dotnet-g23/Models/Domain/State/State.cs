@@ -8,12 +8,7 @@ namespace dotnet_g23.Models.Domain.State
     public abstract class State
     {
         #region Methods
-        public virtual void HandleNext(Context context)
-        {
-            throw new StateException();
-        }
-
-        public virtual void HandlePrevious(Context context)
+        public virtual void Invite(Context context, Group group, Participant participant)
         {
             throw new StateException();
         }

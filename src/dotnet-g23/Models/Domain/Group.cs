@@ -61,23 +61,9 @@ namespace dotnet_g23.Models.Domain {
         #endregion
 
         #region Methods
-
         public void Invite(Participant participant)
         {
-            if (participant == null)
-                throw new GoedBezigException($"Gebruiker niet gevonden in het systeem");
-
-            if (participant.User.Domain != Organization.Domain)
-                throw new GoedBezigException("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
-
-            if (participant.Group != null)
-                throw new GoedBezigException("Gebruiker behoort al tot een groep");
-
-            if (!(Context.CurrentState is InitialState) && !(Context.CurrentState is SubmittedState))
-                throw new GoedBezigException($"Motivatie van groep '{ Name }' is al goedgekeurd");
-
-            Invitation invitation = new Invitation(this, participant);
-            participant.Invitations.Add(invitation);
+            Context.Invite(this, participant);
         }
 
         public void Register(Participant participant) {
@@ -98,7 +84,7 @@ namespace dotnet_g23.Models.Domain {
             if (Motivation.MotivationText.Length < 100 || Motivation.MotivationText.Length > 250)
                 throw new GoedBezigException("Motivatie moet tussen 100 en 250 tekens lang zijn");
 
-            Context.NextState();
+            // TODO: Context.Submit();
         }
 
         public void Grant(Company company)
