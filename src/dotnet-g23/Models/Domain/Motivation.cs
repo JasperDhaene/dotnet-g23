@@ -5,10 +5,6 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain {
     public class Motivation {
-        #region Fields
-        private String _motivation;
-        #endregion
-
         #region Properties
         public int MotivationId { get; private set; }
         public Group Group { get; private set; }

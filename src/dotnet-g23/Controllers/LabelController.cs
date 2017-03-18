@@ -63,7 +63,7 @@ namespace dotnet_g23.Controllers
 
             try
             {
-                group.GrantLabel(company);
+                group.Grant(company);
                 _companyRepository.SaveChanges();
 
                 AuthMessageSender sender = new AuthMessageSender();

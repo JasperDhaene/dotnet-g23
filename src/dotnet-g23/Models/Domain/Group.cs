@@ -90,7 +90,7 @@ namespace dotnet_g23.Models.Domain {
             participant.Group = this;
             Participants.Add(participant);
         }
-        public void SubmitMotivation()
+        public void Submit()
         {
             if (Motivation.MotivationText.Length < 100 || Motivation.MotivationText.Length > 250)
                 throw new Exception("Motivatie moet tussen 100 en 250 tekens lang zijn");
@@ -98,9 +98,13 @@ namespace dotnet_g23.Models.Domain {
             Context.NextState();
         }
 
-        public void GrantLabel(Company company)
+        public void Grant(Company company)
         {
-            company.Label = new Label(this, company);
+            if (company.Label != null)
+                throw new Exception($"Bedrijf '{ company.Name }' beschikt al over een Goed Bezig-label");
+
+            Label = new Label(this, company);
+            company.Label = Label;
         }
         #endregion
     }

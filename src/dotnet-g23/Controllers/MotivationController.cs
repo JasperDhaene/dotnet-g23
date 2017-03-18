@@ -46,23 +46,16 @@ namespace dotnet_g23.Controllers {
         [HttpPost]
         [Route("Motivations/{id}")]
         public IActionResult Update(Participant participant, int id, Motivation motivation) {
+            // Save or submit motivation
+
             Group group = _groupRepository.GetBy(id);
-
-            if (!ModelState.IsValid) {
-                TempData["message"] = ModelState.Values.SelectMany(v => v.Errors);
-
-                return RedirectToAction("Show", new { id = group.GroupId });
-            }
-
-            if (!(group.Context.CurrentState is InitialState))
-                return RedirectToAction("Show", new { id = group.GroupId });
 
             try
             {
                 group.Motivation = motivation;
                 if (Request.Form.ContainsKey("submit"))
                 {
-                    group.SubmitMotivation();
+                    group.Submit();
 
                     TempData["info"] = "Uw motivatie werd verzonden naar de begeleidende lector";
                 }
