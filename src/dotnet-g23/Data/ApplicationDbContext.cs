@@ -154,12 +154,12 @@ namespace dotnet_g23.Data {
             m.ToTable("Motivations");
             m.HasKey(mo => mo.MotivationId);
 
-            m.Property(mo => mo.Approved).IsRequired();
-            m.Property(mo => mo.MotivationText).IsRequired();
-            m.Property(mo => mo.OrganizationName).IsRequired();
-            m.Property(mo => mo.OrganizationAddress).IsRequired();
-            m.Property(mo => mo.OrganizationWebsite).IsRequired();
-            m.Property(mo => mo.OrganizationEmail).IsRequired();
+            m.Property(mo => mo.Approved);
+            m.Property(mo => mo.MotivationText);
+            m.Property(mo => mo.OrganizationName);
+            m.Property(mo => mo.OrganizationAddress);
+            m.Property(mo => mo.OrganizationWebsite);
+            m.Property(mo => mo.OrganizationEmail);
 
             m.Property(mo => mo.OrganizationContactTitle);
             m.Property(mo => mo.OrganizationContactFirstName);

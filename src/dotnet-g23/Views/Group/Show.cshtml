@@ -72,7 +72,14 @@
                     {
 
                     }
-                    <div class="ellipsize">@Model.Group.Motivation.MotivationText</div>
+                    @if (Model.Group.Motivation?.MotivationText == null)
+                    {
+                        <em>(leeg)</em>
+                    }
+                    else
+                    {
+                        <div class="ellipsize">@Model.Group.Motivation.MotivationText</div>
+                    }
                 </div>
             }
         </div>
