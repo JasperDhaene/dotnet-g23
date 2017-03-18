@@ -143,7 +143,7 @@ namespace dotnet_g23.Controllers
 		    }
 		    catch (GoedBezigException e)
             {
-                TempData["info"] = e.Message;
+                TempData["error"] = e.Message;
                 return View("Invite", group);
             }
 

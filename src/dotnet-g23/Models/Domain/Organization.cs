@@ -91,6 +91,12 @@ namespace dotnet_g23.Models.Domain
             Groups.Add(group);
 		    group.Organization = this;
 
+            // Registering with a closed group requires an invitation
+            if (closed)
+                group.Invite(participant);
+
+            // TODO: invitation doesn't get destroyed (because that usually happens in the controller)
+
             group.Register(participant);
 		    return group;
 		}
