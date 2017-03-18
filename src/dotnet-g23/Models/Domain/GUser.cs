@@ -17,16 +17,9 @@ namespace dotnet_g23.Models.Domain {
         public String Email {
             get { return _email; }
             set {
-                Regex regex = new Regex(@"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|"
-    + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)"
-    + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$");
-                Match match = regex.Match(value);
-                if (match.Success) {
-                    _email = value;
-                }
-                else {
-                    throw new ArgumentException("Incorrect emailadres, gelieve opnieuw te proberen");
-                }
+                if (!value.Contains('@'))
+                    throw new ArgumentException("Ongeldig emailadres");
+                _email = value;
             }
         }
 
