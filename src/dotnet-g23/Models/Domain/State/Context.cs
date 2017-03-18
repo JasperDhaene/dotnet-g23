@@ -36,6 +36,11 @@ namespace dotnet_g23.Models.Domain.State
         {
             CurrentState.Register(this, group, participant);
         }
+
+        public void Submit(Group group)
+        {
+            CurrentState.Submit(this, group);
+        }
         #endregion
     }
 }

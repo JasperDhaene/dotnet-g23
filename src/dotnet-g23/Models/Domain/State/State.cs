@@ -10,10 +10,15 @@ namespace dotnet_g23.Models.Domain.State
         #region Methods
         public virtual void Invite(Context context, Group group, Participant participant)
         {
-            throw new StateException();
+            throw new StateException($"Operation not supported in { GetType() }");
         }
 
         public virtual void Register(Context context, Group group, Participant participant)
+        {
+            throw new StateException($"Operation not supported in { GetType() }");
+        }
+
+        public virtual void Submit(Context context, Group group)
         {
             throw new StateException($"Operation not supported in { GetType() }");
         }

@@ -72,10 +72,7 @@ namespace dotnet_g23.Models.Domain {
         }
         public void Submit()
         {
-            if (Motivation.MotivationText.Length < 100 || Motivation.MotivationText.Length > 250)
-                throw new GoedBezigException("Motivatie moet tussen 100 en 250 tekens lang zijn");
-
-            // TODO: Context.Submit();
+            Context.Submit(this);
         }
 
         public void Grant(Company company)
