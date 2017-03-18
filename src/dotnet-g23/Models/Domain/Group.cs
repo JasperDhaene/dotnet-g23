@@ -90,8 +90,6 @@ namespace dotnet_g23.Models.Domain {
             participant.Group = this;
             Participants.Add(participant);
         }
-        #endregion
-
         public void SubmitMotivation()
         {
             if (Motivation.MotivationText.Length < 100 || Motivation.MotivationText.Length > 250)
@@ -99,5 +97,11 @@ namespace dotnet_g23.Models.Domain {
 
             Context.NextState();
         }
+
+        public void GrantLabel(Company company)
+        {
+            company.Label = new Label(this, company);
+        }
+        #endregion
     }
 }

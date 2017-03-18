@@ -59,17 +59,30 @@ namespace dotnet_g23.Controllers
             // Grant label to company
 
             Company company = _companyRepository.GetBy(id);
-            company.Label = new Label(participant.Group, company);
-            _companyRepository.SaveChanges();
+            Group group = participant.Group;
 
-            foreach (var cid in contactIds) {//TODO: loop var was 'var id'. Not sure if id below was parameter or loop var
-                Contact contact = company.Contacts.First(co => co.ContactId == id);
+            try
+            {
+                group.GrantLabel(company);
+                _companyRepository.SaveChanges();
 
                 AuthMessageSender sender = new AuthMessageSender();
-                sender.SendEmailAsync(contact.FirstName + " " + contact.LastName, contact.Email, contact.Company.Name, contact.Company.Description);
 
+                foreach (var cId in contactIds)
+                {
+                    Contact contact = company.Contacts.First(co => co.ContactId == cId);
+
+                    sender.SendEmailAsync(contact.FirstName + " " + contact.LastName, contact.Email,
+                        contact.Company.Name, contact.Company.Description);
+                }
             }
-            return RedirectToAction("Index", "Labels");
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+                return RedirectToAction("Show", new { id = id });
+            }
+            TempData["success"] = $"Het label werd verstuurd naar de aangewezen contactpersonen";
+            return RedirectToAction("Index", "Groups", new { id = group.GroupId });
         }
 
     }
