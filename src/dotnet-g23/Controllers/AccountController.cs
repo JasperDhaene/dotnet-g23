@@ -20,22 +20,19 @@ namespace dotnet_g23.Controllers {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger _logger;
-        private readonly IUserRepository _userRepository;
-        private readonly IGroupRepository _groupRepository;
+        private readonly IParticipantRepository _participantRepository;
         private readonly ApplicationDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILoggerFactory loggerFactory,
-            IUserRepository userRepository,
-            IGroupRepository groupRepository,
+            IParticipantRepository participantRepository,
             ApplicationDbContext context) {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = loggerFactory.CreateLogger<AccountController>();
-            _userRepository = userRepository;
-            _groupRepository = groupRepository;
+            _participantRepository = participantRepository;
             _context = context;
         }
 
@@ -59,16 +56,17 @@ namespace dotnet_g23.Controllers {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                var user = _userRepository.GetByEmail(model.Email);
                 if (result.Succeeded) {
                     _logger.LogInformation(1, "User logged in.");
-                    if (user.UserState is Participant) {
-                        if(_groupRepository.GetByUser(user) != null)
-                            return RedirectToAction("Show", "Group", new { id = (user.UserState as Participant).Group.GroupId });
-                        else
-                            return RedirectToAction("Index", "Group");
-                    }
-                    return RedirectToAction("Index", "Organization");
+
+                    // Redirect to appropriate page
+                    Participant participant = _participantRepository.GetByEmail(model.Email);
+                    if (participant == null)
+                        return RedirectToAction("Index", "Organization");
+
+                    if (participant.Group == null)
+                        return RedirectToAction("Index", "Group");
+                    return RedirectToAction("Show", "Group", new { id = participant.Group.GroupId });
                 }
                 if (result.RequiresTwoFactor) {
                     return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, model.RememberMe });

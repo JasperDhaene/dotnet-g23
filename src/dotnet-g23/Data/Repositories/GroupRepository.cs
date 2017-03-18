@@ -57,15 +57,7 @@ namespace dotnet_g23.Data.Repositories {
                 .OrderBy(g => g.Name)
                 .Where(g => g.Organization != null && g.Organization == organization);
         }
-
-        public Group GetByUser(GUser user) {
-            return _groups
-                .ToList()
-                .Where(g => g.Participants
-                .Contains(user.UserState as Participant))
-                .FirstOrDefault();
-        }
-
+        
         public void SaveChanges() {
             _context.SaveChanges();
         }
