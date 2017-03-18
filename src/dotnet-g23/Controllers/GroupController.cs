@@ -124,11 +124,7 @@ namespace dotnet_g23.Controllers
             // Show invite form
 
             Group group = _groupRepository.GetBy(id);
-
-	        if (group.Context.CurrentState is InitialState || group.Context.CurrentState is SubmittedState)
-	            return View("Invite", group);
-
-	        return RedirectToAction("Show", new { id });
+	        return View("Invite", group);
 	    }
 
         // POST /Groups/{id}/Invite
@@ -139,34 +135,24 @@ namespace dotnet_g23.Controllers
             // Invite user to group
 
             Group group = _groupRepository.GetBy(id);
+            Participant invitee = _participantRepository.GetByEmail(address);
             try
 		    {
-                if (!(group.Context.CurrentState is InitialState) && !(group.Context.CurrentState is SubmittedState))
-                    throw new Exception($"Motivatie van groep '{ group.Name }' is al goedgekeurd");
-
-                Participant invitee = _participantRepository.GetByEmail(address);
-
 		        if (invitee == null)
-		        {
-		            TempData["error"] = $"Gebruiker '{address}' niet gevonden.";
-		            return View("Invite", group);
-		        }
+                    throw new Exception($"Gebruiker '{ address }' niet gevonden in het systeem");
+
 		        group.Invite(invitee);
 		        _groupRepository.SaveChanges();
-		        TempData["success"] = $"Gebruiker '{address}' werd uitgenodigd tot de groep.";
-		        return View("Invite", group);
 		    }
-			catch (ArgumentException e) 
-            {// gebruiker hoort niet tot hetzelfde domein
-                TempData["error"] = e.Message;
-                return View("Invite", group);
-            }
 		    catch (Exception e)
             {
                 TempData["info"] = e.Message;
                 return View("Invite", group);
             }
-		}
+
+            TempData["success"] = $"Gebruiker '{address}' werd uitgenodigd tot de groep.";
+            return View("Invite", group);
+        }
 		#endregion
 
 	}

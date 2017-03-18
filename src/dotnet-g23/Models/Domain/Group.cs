@@ -70,6 +70,9 @@ namespace dotnet_g23.Models.Domain {
             if (participant.Group != null)
                 throw new Exception("Gebruiker behoort al tot een groep");
 
+            if (!(Context.CurrentState is InitialState) && !(Context.CurrentState is SubmittedState))
+                throw new Exception($"Motivatie van groep '{ Name }' is al goedgekeurd");
+
             Invitation invitation = new Invitation(this, participant);
             participant.Invitations.Add(invitation);
         }
