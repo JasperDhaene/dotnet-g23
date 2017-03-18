@@ -10,7 +10,9 @@ namespace dotnet_g23.Models.Domain
         public DateTime Date { get;  set; }
 
         #region Constructor
-        public Event() : base() { }
+        public Event() : base()
+        {
+        }
 
         public Event(string title, string description, DateTime date) : base(title, description) {
             Date = date;

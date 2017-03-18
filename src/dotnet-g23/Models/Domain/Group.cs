@@ -41,18 +41,21 @@ namespace dotnet_g23.Models.Domain {
         #endregion
 
         #region Constructors
-        public Group() {
+        public Group()
+        {
             Participants = new List<Participant>();
             Invitations = new List<Invitation>();
             Context = new Context();
             // TODO: assign Lector
         }
-        public Group(String name) : this() {
+        public Group(String name) : this()
+        {
             Name = name;
             Closed = false;
         }
 
-        public Group(String name, Boolean closed) : this(name) {
+        public Group(String name, Boolean closed) : this(name)
+        {
             Closed = closed;
         }
         #endregion

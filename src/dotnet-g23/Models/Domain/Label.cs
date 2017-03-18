@@ -21,7 +21,7 @@ namespace dotnet_g23.Models
         public Label()
         {
         }
-        public Label(Group group, Company company)
+        public Label(Group group, Company company) : this()
         {
             Group = group;
             Company = company;

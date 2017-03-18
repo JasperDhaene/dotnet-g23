@@ -78,7 +78,7 @@ namespace dotnet_g23.Models.Domain
 	    }
 
 		public Group CreateGroup(Participant participant, String name, Boolean closed) {
-			Group group = new Group(name, closed);
+            Group group = new Group(name, closed);
             Groups.Add(group);
             group.Register(participant);
 		    return group;

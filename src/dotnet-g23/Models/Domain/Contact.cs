@@ -22,7 +22,7 @@ namespace dotnet_g23.Models.Domain
         {
         }
 
-        public Contact(string title, string firstName, string lastName, string function, string email, Company company)
+        public Contact(string title, string firstName, string lastName, string function, string email, Company company) : this()
         {
             Title = title;
             FirstName = firstName;
@@ -31,7 +31,6 @@ namespace dotnet_g23.Models.Domain
             Email = email;
             Company = company;
         }
-
         #endregion
     }
 }

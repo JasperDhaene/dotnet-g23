@@ -11,7 +11,8 @@ namespace dotnet_g23.Models.Domain {
         #endregion
 
         #region Constructors
-        public Lector() {
+        public Lector()
+        {
             Participants = new List<Participant>();
             Groups = new List<Group>();
         }

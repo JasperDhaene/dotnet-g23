@@ -19,7 +19,7 @@ namespace dotnet_g23.Models.Domain
         {
             Invitations = new List<Invitation>();
         }
-        public Participant(Organization organization)
+        public Participant(Organization organization) : this()
         {
             Organization = organization;
         }

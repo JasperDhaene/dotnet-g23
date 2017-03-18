@@ -35,10 +35,12 @@ namespace dotnet_g23.Models.Domain {
         #endregion
 
         #region Constructors
-        public Motivation() {
+        public Motivation()
+        {
         }
 
-        public Motivation(String motivationText) {
+        public Motivation(String motivationText) : this()
+        {
             MotivationText = motivationText;
             Approved = false;
         }

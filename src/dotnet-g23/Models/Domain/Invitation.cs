@@ -19,7 +19,7 @@ namespace dotnet_g23.Models.Domain
         public Invitation()
         {
         }
-        public Invitation(Group fromGroup, Participant toParticipant)
+        public Invitation(Group fromGroup, Participant toParticipant) : this()
         {
             Group = fromGroup;
             Participant = toParticipant;

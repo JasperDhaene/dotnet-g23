@@ -27,10 +27,12 @@ namespace dotnet_g23.Models.Domain
         #endregion
 
         #region Constructors
-        public Action() {
+        public Action()
+        {
         }
 
-        public Action(string title, string description) {
+        public Action(string title, string description) : this()
+        {
             Title = title;
             Description = description;
         } 
