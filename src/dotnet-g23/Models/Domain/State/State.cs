@@ -22,6 +22,11 @@ namespace dotnet_g23.Models.Domain.State
         {
             throw new StateException($"Operation not supported in { GetType() }");
         }
+
+        public virtual void Grant(Context context, Group group, Company company)
+        {
+            throw new StateException($"Operation not supported in { GetType() }");
+        }
         #endregion
     }
 }

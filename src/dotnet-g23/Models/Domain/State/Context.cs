@@ -41,6 +41,11 @@ namespace dotnet_g23.Models.Domain.State
         {
             CurrentState.Submit(this, group);
         }
+
+        public void Grant(Group group, Company company)
+        {
+            CurrentState.Grant(this, group, company);
+        }
         #endregion
     }
 }

@@ -17,7 +17,7 @@ namespace dotnet_g23.Models.Domain {
         public Lector Lector { get; private set; }
         public ICollection<Invitation> Invitations { get; set; }
         public Motivation Motivation { get; set; }
-        public Label Label { get; private set; }
+        public Label Label { get; set; }
 
         // Memory-only property
         [NotMapped]
@@ -77,11 +77,7 @@ namespace dotnet_g23.Models.Domain {
 
         public void Grant(Company company)
         {
-            if (company.Label != null)
-                throw new GoedBezigException($"Bedrijf '{ company.Name }' beschikt al over een Goed Bezig-label");
-
-            Label = new Label(this, company);
-            company.Label = Label;
+            Context.Grant(this, company);
         }
         #endregion
     }
