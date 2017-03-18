@@ -67,7 +67,7 @@ namespace dotnet_g23.Controllers {
 
                 return RedirectToAction("Show", "Group", new { id = group.GroupId });
             }
-            catch (Exception e)
+            catch (GoedBezigException e)
             {
                 TempData["error"] = e.Message;
                 return RedirectToAction("Show", new { id = group.GroupId });

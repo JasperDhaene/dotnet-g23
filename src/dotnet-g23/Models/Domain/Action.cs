@@ -20,10 +20,10 @@ namespace dotnet_g23.Models.Domain
             }
             set {
                 if (value.Equals(null) || value.Equals("") || value.Trim(' ').Equals(""))
-                    throw new ArgumentException("Omschrijving mag niet leeg zijn!");
+                    throw new GoedBezigException("Omschrijving mag niet leeg zijn!");
                 _description = value;
             }
-        } 
+        }
         #endregion
 
         #region Constructors

@@ -25,7 +25,7 @@ namespace dotnet_g23.Models.Domain
             {
                 if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
                 {
-                    throw new ArgumentException("Naam kan niet leeg zijn");
+                    throw new GoedBezigException("Naam mag niet leeg zijn");
                 }
                 _name = value;
             }
@@ -36,7 +36,7 @@ namespace dotnet_g23.Models.Domain
             {
                 if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
                 {
-                    throw new ArgumentException("Locatie kan niet leeg zijn");
+                    throw new GoedBezigException("Locatie mag niet leeg zijn");
                 }
                 _location = value;
             }
@@ -45,7 +45,7 @@ namespace dotnet_g23.Models.Domain
 			get { return _domain; }
 			private set {
 				if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty) {
-					throw new ArgumentException("Domein kan niet leeg zijn");
+					throw new GoedBezigException("Domein mag niet leeg zijn");
 				}
 				_domain = value;
 			}
@@ -71,20 +71,20 @@ namespace dotnet_g23.Models.Domain
 	    public void Register(GUser user)
 	    {
             if (user.Domain != Domain)
-                throw new ArgumentException("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
+                throw new GoedBezigException("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
 
 	        if (user.UserState != null)
-	            throw new ArgumentException("Gebruiker behoort al tot een organisatie");
+	            throw new GoedBezigException("Gebruiker behoort al tot een organisatie");
 
             user.UserState = new Participant(this);
 	    }
 
 		public Group CreateGroup(Participant participant, String name, Boolean closed) {
 		    if (participant.Group != null)
-		        throw new ArgumentException("U bent reeds ingeschreven in een groep");
+		        throw new GoedBezigException("U bent reeds ingeschreven in een groep");
 
             if (Groups.Any(g => g.Name == name))
-                throw new Exception($"De naam '{name}' is al in gebruik binnen deze organisatie");
+                throw new GoedBezigException($"De naam '{name}' is al in gebruik binnen deze organisatie");
 
             Group group = new Group(name, closed);
 

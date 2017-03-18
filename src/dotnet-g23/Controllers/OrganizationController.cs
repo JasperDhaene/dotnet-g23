@@ -52,7 +52,7 @@ namespace dotnet_g23.Controllers {
                 organization.Register(user);
                 _orgRepository.SaveChanges();
             }
-            catch (Exception e)
+            catch (GoedBezigException e)
             {
                 TempData["error"] = e.Message;
                 return RedirectToAction("Index", "Organizations");

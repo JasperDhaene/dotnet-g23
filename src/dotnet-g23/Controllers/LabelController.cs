@@ -76,7 +76,7 @@ namespace dotnet_g23.Controllers
                         contact.Company.Name, contact.Company.Description);
                 }
             }
-            catch (Exception e)
+            catch (GoedBezigException e)
             {
                 TempData["error"] = e.Message;
                 return RedirectToAction("Show", new { id = id });

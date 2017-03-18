@@ -18,7 +18,7 @@ namespace dotnet_g23.Models.Domain {
             get { return _email; }
             set {
                 if (!value.Contains('@'))
-                    throw new ArgumentException("Ongeldig emailadres");
+                    throw new GoedBezigException("Ongeldig emailadres");
                 _email = value;
             }
         }

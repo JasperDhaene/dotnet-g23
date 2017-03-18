@@ -73,7 +73,7 @@ namespace dotnet_g23.Controllers
 	            TempData["success"] = $"De groep '{name}' is aangemaakt";
                 return RedirectToAction("Invite", new { id = group.GroupId });
             }
-	        catch (Exception e)
+	        catch (GoedBezigException e)
 	        {
 	            TempData["error"] = e.Message;
 	            return View("Create");
@@ -108,7 +108,7 @@ namespace dotnet_g23.Controllers
 
                 _groupRepository.SaveChanges();
             }
-            catch (Exception e)
+            catch (GoedBezigException e)
             {
                 TempData["error"] = e.Message;
                 return RedirectToAction("Index");
@@ -138,19 +138,16 @@ namespace dotnet_g23.Controllers
             Participant invitee = _participantRepository.GetByEmail(address);
             try
 		    {
-		        if (invitee == null)
-                    throw new Exception($"Gebruiker '{ address }' niet gevonden in het systeem");
-
 		        group.Invite(invitee);
 		        _groupRepository.SaveChanges();
 		    }
-		    catch (Exception e)
+		    catch (GoedBezigException e)
             {
                 TempData["info"] = e.Message;
                 return View("Invite", group);
             }
 
-            TempData["success"] = $"Gebruiker '{address}' werd uitgenodigd tot de groep.";
+            TempData["success"] = $"Gebruiker '{ address }' werd uitgenodigd tot de groep.";
             return View("Invite", group);
         }
 		#endregion

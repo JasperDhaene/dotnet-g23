@@ -33,7 +33,7 @@ namespace dotnet_g23.Models.Domain {
             get { return _name; }
             private set {
                 if (value == null || value.Trim() == String.Empty || value == String.Empty) {
-                    throw new ArgumentException("Naam kan niet leeg zijn");
+                    throw new GoedBezigException("Naam mag niet leeg zijn");
                 }
                 _name = value;
             }
@@ -47,7 +47,6 @@ namespace dotnet_g23.Models.Domain {
             Participants = new List<Participant>();
             Invitations = new List<Invitation>();
             Context = new Context();
-            // TODO: assign Lector
         }
         public Group(String name) : this()
         {
@@ -63,15 +62,19 @@ namespace dotnet_g23.Models.Domain {
 
         #region Methods
 
-        public void Invite(Participant participant) {
+        public void Invite(Participant participant)
+        {
+            if (participant == null)
+                throw new GoedBezigException($"Gebruiker niet gevonden in het systeem");
+
             if (participant.User.Domain != Organization.Domain)
-                throw new Exception("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
+                throw new GoedBezigException("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
 
             if (participant.Group != null)
-                throw new Exception("Gebruiker behoort al tot een groep");
+                throw new GoedBezigException("Gebruiker behoort al tot een groep");
 
             if (!(Context.CurrentState is InitialState) && !(Context.CurrentState is SubmittedState))
-                throw new Exception($"Motivatie van groep '{ Name }' is al goedgekeurd");
+                throw new GoedBezigException($"Motivatie van groep '{ Name }' is al goedgekeurd");
 
             Invitation invitation = new Invitation(this, participant);
             participant.Invitations.Add(invitation);
@@ -79,13 +82,13 @@ namespace dotnet_g23.Models.Domain {
 
         public void Register(Participant participant) {
             if (participant.Group != null)
-                throw new Exception("U behoort al tot een groep");
+                throw new GoedBezigException("U behoort al tot een groep");
 
             if (Closed && participant.Invitations.All(i => i.Group != this))
-                throw new Exception($"U bent niet uitgenodigd tot de groep '{ Name }'");
+                throw new GoedBezigException($"U bent niet uitgenodigd tot de groep '{ Name }'");
 
             if (!(Context.CurrentState is InitialState) && !(Context.CurrentState is SubmittedState))
-                throw new Exception($"Motivatie van groep '{ Name }' is al goedgekeurd");
+                throw new GoedBezigException($"Motivatie van groep '{ Name }' is al goedgekeurd");
 
             participant.Group = this;
             Participants.Add(participant);
@@ -93,7 +96,7 @@ namespace dotnet_g23.Models.Domain {
         public void Submit()
         {
             if (Motivation.MotivationText.Length < 100 || Motivation.MotivationText.Length > 250)
-                throw new Exception("Motivatie moet tussen 100 en 250 tekens lang zijn");
+                throw new GoedBezigException("Motivatie moet tussen 100 en 250 tekens lang zijn");
 
             Context.NextState();
         }
@@ -101,7 +104,7 @@ namespace dotnet_g23.Models.Domain {
         public void Grant(Company company)
         {
             if (company.Label != null)
-                throw new Exception($"Bedrijf '{ company.Name }' beschikt al over een Goed Bezig-label");
+                throw new GoedBezigException($"Bedrijf '{ company.Name }' beschikt al over een Goed Bezig-label");
 
             Label = new Label(this, company);
             company.Label = Label;
