@@ -42,16 +42,20 @@ namespace dotnet_g23 {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            // Add framework services.
+            // Add framework services
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddSession();
             services.AddMvc();
 
+            // Database setup
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
+            
+            services.AddScoped<DataInitializer>();
 
+            // Identity framework
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -67,13 +71,19 @@ namespace dotnet_g23 {
                 options.Cookies.ApplicationCookie.LogoutPath = "/Account/LogOff";
             });
 
+            /**
+             * Filters
+             * 
+             * */
             services.AddScoped<OrganizationFilter>();
             services.AddScoped<UserFilter>();
             services.AddScoped<ParticipantFilter>();
             services.AddScoped<LectorFilter>();
 
-            services.AddScoped<DataInitializer>();
-
+            /**
+             * Repositories
+             * 
+             * */
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
@@ -81,6 +91,10 @@ namespace dotnet_g23 {
             services.AddScoped<IInvitationRepository, InvitationRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
 
+            /**
+             * Authorization
+             * 
+             * */
             services.AddAuthorization(options => {
                 options.AddPolicy("admin", policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
                 options.AddPolicy("participant", policy => policy.RequireClaim(ClaimTypes.Role, "participant"));
