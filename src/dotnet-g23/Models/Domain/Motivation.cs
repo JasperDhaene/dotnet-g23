@@ -14,15 +14,7 @@ namespace dotnet_g23.Models.Domain {
         public Group Group { get; private set; }
         public int GroupForeignKey { get; private set; }
 
-        public String MotivationText {
-            get { return _motivation; }
-            set {
-                if (value.Length < 100 || value.Length > 250)
-                    throw new ArgumentException("Motivatie moet tussen 100 en 250 karakters lang zijn");
-
-                _motivation = value;
-            }
-        }
+        public String MotivationText { get; set; }
         public Boolean Approved { get; set; }
         public String OrganizationName { get; set; }
         public String OrganizationAddress { get; set; }

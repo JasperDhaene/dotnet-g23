@@ -91,5 +91,13 @@ namespace dotnet_g23.Models.Domain {
             Participants.Add(participant);
         }
         #endregion
+
+        public void SubmitMotivation()
+        {
+            if (Motivation.MotivationText.Length < 100 || Motivation.MotivationText.Length > 250)
+                throw new Exception("Motivatie moet tussen 100 en 250 tekens lang zijn");
+
+            Context.NextState();
+        }
     }
 }

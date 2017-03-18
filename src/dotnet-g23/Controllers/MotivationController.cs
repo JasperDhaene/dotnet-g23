@@ -35,12 +35,8 @@ namespace dotnet_g23.Controllers {
 
             Group group = _groupRepository.GetBy(id);
 
-
-            if (!(group.Context.CurrentState is InitialState))
-                return RedirectToAction("Show", new { id = group.GroupId });
-
             vm.Group = group;
-            vm.Motivation = @group.Motivation ?? new Motivation();
+            vm.Motivation = group.Motivation ?? new Motivation();
 
             return View(vm);
         }
@@ -61,46 +57,28 @@ namespace dotnet_g23.Controllers {
             if (!(group.Context.CurrentState is InitialState))
                 return RedirectToAction("Show", new { id = group.GroupId });
 
-            group.Motivation = motivation;
-            _groupRepository.SaveChanges();
+            try
+            {
+                group.Motivation = motivation;
+                if (Request.Form.ContainsKey("submit"))
+                {
+                    group.SubmitMotivation();
 
-            // Save
-            if (Request.Form.ContainsKey("update")) {
-                TempData["message"] = "Uw motivatie werd opgeslaan.";
+                    TempData["info"] = "Uw motivatie werd verzonden naar de begeleidende lector";
+                }
+                else
+                {
+                    TempData["info"] = "Uw motivatie werd opgeslaan";
+                }
+                _groupRepository.SaveChanges();
+
                 return RedirectToAction("Show", "Group", new { id = group.GroupId });
             }
-
-            // Submit
-            group.Context.NextState();
-            _groupRepository.SaveChanges();
-            TempData["message"] = "Uw motivatie werd doorgestuurd naar de begeleidende lector.";
-            return RedirectToAction("Show", "Group", new { id = group.GroupId });
-        }
-
-        // GET /Motivations
-        [Authorize(Policy = "lector")]
-        [ServiceFilter(typeof(LectorFilter))]
-        [HttpGet]
-        [Route("Motivations")]
-        public IActionResult Check(Lector lector, bool approved) {
-            CheckViewModel vm = new CheckViewModel();
-
-            Group g = _groupRepository.GetByName(null /* TODO */);
-
-            if (!g.Motivation.Approved) {
-                vm.UnnaprovedMotivation = g.Motivation;
-                if (approved) {
-                    g.Motivation.Approved = approved;
-                    vm.ApprovedMotivation = vm.UnnaprovedMotivation;
-                    vm.UnnaprovedMotivation = null;
-                    _groupRepository.SaveChanges();
-                }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+                return RedirectToAction("Show", new { id = group.GroupId });
             }
-            else {
-                vm.ApprovedMotivation = g.Motivation;
-            }
-
-            return View(vm);
         }
     }
 }
