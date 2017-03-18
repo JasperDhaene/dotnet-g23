@@ -11,7 +11,7 @@ namespace dotnet_g23.Models.Domain {
 
         #region Properties
         public int GroupId { get; private set; }
-        public Organization Organization { get; private set; }
+        public Organization Organization { get; set; }
         public ICollection<Participant> Participants { get; }
         public Lector Lector { get; private set; }
         public ICollection<Invitation> Invitations { get; set; }

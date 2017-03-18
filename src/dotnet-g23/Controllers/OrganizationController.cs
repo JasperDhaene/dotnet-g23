@@ -47,16 +47,18 @@ namespace dotnet_g23.Controllers {
             // Register user with organization
 
             Organization organization = _orgRepository.GetBy(organizationId);
-            try {
+            try
+            {
                 organization.Register(user);
                 _orgRepository.SaveChanges();
-                TempData["success"] = $"U bent geregistreerd bij organisatie '{organization.Name}'";
-                return RedirectToAction("Index", "Groups");
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 TempData["error"] = e.Message;
                 return RedirectToAction("Index", "Organizations");
             }
+            TempData["success"] = $"U bent geregistreerd bij organisatie '{organization.Name}'";
+            return RedirectToAction("Index", "Groups");
         }
         #endregion
 

@@ -58,35 +58,27 @@ namespace dotnet_g23.Controllers
             return View();
         }
 
-	    [HttpPost]
+        // POST /Groups/Create
+        [HttpPost]
 	    [Route("Groups/Create")]
 	    public IActionResult Create(Participant participant, String name, Boolean closed = false)
 	    {
 	        // Create new group
-
-	        if (participant.Group != null)
-	        {
-	            TempData["error"] = "U bent reeds ingeschreven in een groep.";
-	            return RedirectToAction("Index");
-	        }
-
+	        Organization organization = participant.Organization;
 	        try
 	        {
-                if (_groupRepository.GetByName(name) != null)
-                    throw new Exception($"De naam '{name}' is al ingenomen.");
+	            Group group = organization.CreateGroup(participant, name, closed);
+                _groupRepository.SaveChanges();
 
-	            Group group = participant.Organization.CreateGroup(participant, name, closed);
-	            _groupRepository.SaveChanges();
-	            return RedirectToAction("Invite", new { id = @group.GroupId });
-	        }
+	            TempData["success"] = $"De groep '{name}' is aangemaakt";
+                return RedirectToAction("Invite", new { id = group.GroupId });
+            }
 	        catch (Exception e)
 	        {
 	            TempData["error"] = e.Message;
 	            return View("Create");
 	        }
-	    }
-
-	    // POST /Groups/Create
+        }
 
 	    // GET /Groups/:id
         [Route("Groups/{id}")]
@@ -106,11 +98,11 @@ namespace dotnet_g23.Controllers
         [HttpPost]
 		[Route("Groups/{id}/Register")]
 		public IActionResult Register(Participant participant, int id) {
-			// Register user with group
+            // Register user with group
 
+            Group group = _groupRepository.GetBy(id);
             try
             {
-                Group group = _groupRepository.GetBy(id);
 
                 if (!(group.Context.CurrentState is InitialState) && !(group.Context.CurrentState is SubmittedState))
                     throw new Exception($"Motivatie van groep '{ group.Name }' is al goedgekeurd");

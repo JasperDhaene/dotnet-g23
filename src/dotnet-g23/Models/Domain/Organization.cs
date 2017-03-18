@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using dotnet_g23.Controllers;
+using dotnet_g23.Models.Domain.Repositories;
+using System.Linq;
 
 namespace dotnet_g23.Models.Domain
 {
@@ -10,10 +12,10 @@ namespace dotnet_g23.Models.Domain
         private String _name;
         private String _location;
 		private String _domain;
-		#endregion
+        #endregion
 
-		#region Properties
-		public int OrganizationId { get; private set; }
+        #region Properties
+        public int OrganizationId { get; private set; }
         public ICollection<Participant> Participants { get; }
         public ICollection<Group> Groups { get; }
 
@@ -56,7 +58,7 @@ namespace dotnet_g23.Models.Domain
             Participants = new List<Participant>();
             Groups = new List<Group>();
         }
-
+        
         public Organization(String name, String location, String domain): this()
         {
             Name = name;
@@ -78,8 +80,17 @@ namespace dotnet_g23.Models.Domain
 	    }
 
 		public Group CreateGroup(Participant participant, String name, Boolean closed) {
+		    if (participant.Group != null)
+		        throw new ArgumentException("U bent reeds ingeschreven in een groep");
+
+            if (Groups.Any(g => g.Name == name))
+                throw new Exception($"De naam '{name}' is al in gebruik binnen deze organisatie");
+
             Group group = new Group(name, closed);
+
             Groups.Add(group);
+		    group.Organization = this;
+
             group.Register(participant);
 		    return group;
 		}
