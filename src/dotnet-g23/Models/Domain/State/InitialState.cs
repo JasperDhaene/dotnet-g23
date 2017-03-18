@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace dotnet_g23.Models.Domain.State
 {
@@ -20,6 +17,18 @@ namespace dotnet_g23.Models.Domain.State
 
             Invitation invitation = new Invitation(group, participant);
             participant.Invitations.Add(invitation);
+        }
+
+        public override void Register(Context context, Group group, Participant participant)
+        {
+            if (participant.Group != null)
+                throw new GoedBezigException("U behoort al tot een groep");
+
+            if (group.Closed && participant.Invitations.All(i => i.Group != group))
+                throw new GoedBezigException($"U bent niet uitgenodigd tot de groep '{ group.Name }'");
+            
+            participant.Group = group;
+            group.Participants.Add(participant);
         }
     }
 }

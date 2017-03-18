@@ -12,6 +12,11 @@ namespace dotnet_g23.Models.Domain.State
         {
             throw new StateException();
         }
+
+        public virtual void Register(Context context, Group group, Participant participant)
+        {
+            throw new StateException($"Operation not supported in { GetType() }");
+        }
         #endregion
     }
 }

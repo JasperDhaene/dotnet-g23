@@ -163,9 +163,9 @@ namespace dotnet_g23.Data {
             group.Motivation = m;
             m.Approved = approved;
             if (approved)
-                group.Context.CurrentState = new ApprovedState(group.Context);
+                group.Context.CurrentState = new ApprovedState();
             else
-                group.Context.CurrentState = new SubmittedState(group.Context);
+                group.Context.CurrentState = new SubmittedState();
 
             m.OrganizationName = "Organization Name";
             m.OrganizationAddress = "Organization Address";

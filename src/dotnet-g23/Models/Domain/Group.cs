@@ -66,18 +66,9 @@ namespace dotnet_g23.Models.Domain {
             Context.Invite(this, participant);
         }
 
-        public void Register(Participant participant) {
-            if (participant.Group != null)
-                throw new GoedBezigException("U behoort al tot een groep");
-
-            if (Closed && participant.Invitations.All(i => i.Group != this))
-                throw new GoedBezigException($"U bent niet uitgenodigd tot de groep '{ Name }'");
-
-            if (!(Context.CurrentState is InitialState) && !(Context.CurrentState is SubmittedState))
-                throw new GoedBezigException($"Motivatie van groep '{ Name }' is al goedgekeurd");
-
-            participant.Group = this;
-            Participants.Add(participant);
+        public void Register(Participant participant)
+        {
+            Context.Register(this, participant);
         }
         public void Submit()
         {

@@ -8,7 +8,7 @@ namespace dotnet_g23.Models.Domain.State
     public class Context
     {
         #region Properties
-        protected State CurrentState { get; private set; }
+        public State CurrentState { get; set; }
         public string SerializableState
         {
             // Serialize State to string
@@ -30,6 +30,11 @@ namespace dotnet_g23.Models.Domain.State
         public void Invite(Group group, Participant participant)
         {
             CurrentState.Invite(this, group, participant);
+        }
+
+        public void Register(Group group, Participant participant)
+        {
+            CurrentState.Register(this, group, participant);
         }
         #endregion
     }
