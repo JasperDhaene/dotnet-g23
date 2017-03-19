@@ -28,7 +28,9 @@ namespace dotnet_g23.Data {
         public DbSet<Contact> Contacts { get; private set; }
         public DbSet<Label> Labels { get; private set; }
 
-        public DbSet<Models.Domain.Action> Actions { get; private set; }
+        public DbSet<Post> Posts { get; private set; }
+
+        public DbSet<Action> Actions { get; private set; }
         public DbSet<Event> Events { get; private set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -55,6 +57,8 @@ namespace dotnet_g23.Data {
             builder.Entity<Contact>(MapContact);
 
             builder.Entity<Label>(MapLabel);
+
+            builder.Entity<Post>(MapPost);
 
             builder.Entity<Models.Domain.Action>(MapAction);
             builder.Entity<Event>(MapEvent);
@@ -148,6 +152,11 @@ namespace dotnet_g23.Data {
             g.HasOne(gr => gr.Label)
                 .WithOne(l => l.Group)
                 .HasForeignKey<Label>(la => la.GroupForeignKey);
+
+            //Group => Post
+            g.HasOne(gr => gr.Post)
+                .WithOne(p => p.Group)
+                .HasForeignKey<Post>(po => po.GroupForeignKey);
         }
 
         private static void MapMotivation(EntityTypeBuilder<Motivation> m) {
@@ -211,6 +220,21 @@ namespace dotnet_g23.Data {
         {
             l.ToTable("Labels");
             l.HasKey(la => la.LabelId);
+        }
+
+        private void MapPost(EntityTypeBuilder<Post> p) {
+            p.ToTable("Posts");
+            p.HasKey(po => po.PostId);
+
+            p.Property(po => po.Label).IsRequired();
+            p.Property(po => po.Announcement).IsRequired();
+            p.Property(po => po.Logo).IsRequired();
+            p.Property(po => po.Motivation).IsRequired();
+
+            // Post => Organization
+            p.HasOne(po => po.Organization)
+                .WithMany(o => o.Posts)
+                .IsRequired();
         }
 
         private static void MapAction(EntityTypeBuilder<Models.Domain.Action> a)

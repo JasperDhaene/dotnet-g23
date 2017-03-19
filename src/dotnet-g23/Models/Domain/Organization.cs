@@ -18,6 +18,7 @@ namespace dotnet_g23.Models.Domain
         public int OrganizationId { get; private set; }
         public ICollection<Participant> Participants { get; }
         public ICollection<Group> Groups { get; }
+        public ICollection<Post> Posts { get; }
 
         public String Name {
             get { return _name; }

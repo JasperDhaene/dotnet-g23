@@ -15,7 +15,7 @@ namespace dotnet_g23.Data.Repositories
 
         public PostRepository(ApplicationDbContext context) {
             _context = context;
-            _posts = _context.Posts();
+            _posts = _context.Posts;
         }
 
         public IEnumerable<Post> GetAll() {
