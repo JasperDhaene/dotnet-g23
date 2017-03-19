@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using dotnet_g23.Data.Repositories;
 using dotnet_g23.Filters;
+using dotnet_g23.Models;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.Domain.State;
@@ -23,13 +24,18 @@ namespace dotnet_g23.Controllers
 		private readonly IGroupRepository _groupRepository;
 		private readonly IParticipantRepository _participantRepository;
 	    private readonly IInvitationRepository _invitationRepository;
+	    private readonly ILabelRepository _labelRepository;
 		#endregion
 
 		#region Constructors
-		public GroupController(IGroupRepository groupRepository, IParticipantRepository participantRepository, IInvitationRepository invitationRepository) {
+		public GroupController(IGroupRepository groupRepository, 
+            IParticipantRepository participantRepository, 
+            IInvitationRepository invitationRepository,
+            ILabelRepository labelRepository) {
 			_groupRepository = groupRepository;
 		    _participantRepository = participantRepository;
 		    _invitationRepository = invitationRepository;
+		    _labelRepository = labelRepository;
 		}
 		#endregion
 
@@ -124,7 +130,7 @@ namespace dotnet_g23.Controllers
             // Show invite form
 
             Group group = _groupRepository.GetBy(id);
-	        return View("Invite", group);
+	        return View(group);
 	    }
 
         // POST /Groups/{id}/Invite
@@ -146,11 +152,49 @@ namespace dotnet_g23.Controllers
                 TempData["error"] = e.Message;
                 return View("Invite", group);
             }
-
-            TempData["success"] = $"Gebruiker '{ address }' werd uitgenodigd tot de groep.";
+            TempData["success"] = $"Gebruiker '{ address }' werd uitgenodigd tot de groep";
             return View("Invite", group);
         }
-		#endregion
 
+        // GET /Groups/{id}/Announce
+	    [Route("Groups/{id}/Announce")]
+	    public IActionResult Announce(Participant participant, int id)
+        {
+            // Show announce form
+
+            Label label = _labelRepository.GetByGroup(id);
+
+            AnnounceViewModel vm = new AnnounceViewModel
+            {
+                Label = label,
+                Message = "Mijn aankondiging" // TODO
+            };
+
+            return View(vm);
+        }
+
+        // POST /Groups/{id}/Announce
+	    [HttpPost]
+	    [Route("Groups/{id}/Announce")]
+	    public IActionResult Announce(Participant participant, int id, String message)
+	    {
+            // Announce label on social media
+
+            Group group = _groupRepository.GetBy(id);
+            try
+            {
+                group.Announce(message);
+                _groupRepository.SaveChanges();
+            }
+            catch (GoedBezigException e)
+            {
+                TempData["error"] = e.Message;
+                return RedirectToAction("Announce", new { id = group.GroupId });
+            }
+            TempData["success"] = "Bericht werd gepubliceerd";
+            return RedirectToAction("Show", new { id = group.GroupId });
+        }
+		#endregion
 	}
 }
+

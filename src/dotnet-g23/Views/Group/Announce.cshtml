@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Label bekendmaken";
+}
+@model dotnet_g23.Models.ViewModels.GroupViewModels.AnnounceViewModel
+
+@Html.Partial("_ContainerStart")
+<div class="row">
+    <div class="col-lg-12">
+        <h1>Label bekendmaken</h1>
+        @if (Model.Label == null)
+        {
+            <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen label gevonden.
+            </div>
+        }
+        else
+        {
+            <form asp-controller="Group" asp-action="Announce" asp-route-id="@Model.Label.Group.GroupId" method="post">
+                <p>
+                    U kan een bericht over het Goed Bezig-label plaatsen op sociale media.
+                </p>
+                <p>
+                    <textarea name="message" id="message" rows="4" style="width: 100%;" placeholder="Voer hier uw aankondiging in">@Model.Message</textarea>
+                </p>
+                <!-- TODO: preview of message -->
+                <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md">Bericht plaatsen</a>
+            </form>
+        }
+    </div>
+</div>
+@Html.Partial("_ContainerEnd")
