@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using dotnet_g23.Models;
 using dotnet_g23.Models.Domain.State;
 
 namespace dotnet_g23.Data {
@@ -134,7 +135,7 @@ namespace dotnet_g23.Data {
              * Contacts
              * 
              * */
-            Contact c1Ceo = new Contact("Mr.", "John", "Doe", "CEO","john.doe@company1.com", c1);
+            Contact c1Ceo = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company1.com", c1);
             Contact c1Cfo = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company1.com", c1);
             Contact c1Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company1.com", c1);
 
@@ -145,6 +146,23 @@ namespace dotnet_g23.Data {
             _context.Contacts.Add(c1Ceo);
             _context.Contacts.Add(c1Cfo);
             _context.Contacts.Add(c1Cto);
+
+            Contact c2Ceo = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company2.com", c1);
+            Contact c2Cfo = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company2.com", c1);
+            Contact c2Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company2.com", c1);
+
+            c2.Contacts.Add(c2Ceo);
+            c2.Contacts.Add(c2Cfo);
+            c2.Contacts.Add(c2Cto);
+
+            _context.Contacts.Add(c2Ceo);
+            _context.Contacts.Add(c2Cfo);
+            _context.Contacts.Add(c2Cto);
+
+            Label l2 = new Label(hogentGroupGranted, c2);
+            hogentGroupGranted.Context.CurrentState = new GrantedState();
+
+            _context.Labels.Add(l2);
 
 
 
