@@ -27,6 +27,11 @@ namespace dotnet_g23.Models.Domain.State
         {
             throw new StateException($"Operation not supported in { GetType() }");
         }
+
+        public virtual void Announce(Context context, Group group, String message)
+        {
+            throw new StateException($"Operation not supported in { GetType() }");
+        }
         #endregion
     }
 }

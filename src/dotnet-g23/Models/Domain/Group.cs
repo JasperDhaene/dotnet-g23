@@ -79,6 +79,11 @@ namespace dotnet_g23.Models.Domain {
         {
             Context.Grant(this, company);
         }
+
+        public void Announce(String message)
+        {
+            Context.Announce(this, message);
+        }
         #endregion
     }
 }
