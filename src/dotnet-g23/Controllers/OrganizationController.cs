@@ -19,12 +19,14 @@ namespace dotnet_g23.Controllers {
         #region Fields
         private readonly IOrganizationRepository _orgRepository;
         private readonly IGroupRepository _groupRepositroy;
+        private readonly IPostRepository _postRepository;
         #endregion
 
         #region Constructors
-        public OrganizationController(IOrganizationRepository orgRepository, IGroupRepository groupRepository) {
+        public OrganizationController(IOrganizationRepository orgRepository, IGroupRepository groupRepository, IPostRepository postRepository) {
             _orgRepository = orgRepository;
             _groupRepositroy = groupRepository;
+            _postRepository = postRepository;
         }
         #endregion
 
@@ -72,7 +74,7 @@ namespace dotnet_g23.Controllers {
             ShowViewModel vm = new ShowViewModel();
             //Show all Groups, linked with organization
             vm.Groups = _groupRepositroy.GetByOrganization(org);
-            //vm.Posts = _postRepository.GetByOrganization(org);
+            vm.Posts = _postRepository.GetByOrganization(org);
 
             return View(vm);
         }
