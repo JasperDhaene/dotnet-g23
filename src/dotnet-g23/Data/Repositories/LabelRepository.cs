@@ -24,6 +24,7 @@ namespace dotnet_g23.Data.Repositories
             return _labels
                 .Include(l => l.Group)
                 .Include(l => l.Company)
+                .Include(l => l.Post)
                 .SingleOrDefault(l => l.Group.GroupId == id);
         }
     }

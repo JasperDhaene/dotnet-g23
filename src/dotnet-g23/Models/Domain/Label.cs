@@ -14,6 +14,8 @@ namespace dotnet_g23.Models
         public int GroupForeignKey { get; private set; }
         public Company Company { get; private set; }
         public int CompanyForeignKey { get; private set; }
+        public Post Post { get; private set; }
+        public int PostForeignKey { get; private set; }
         #endregion
 
         #region Constructors

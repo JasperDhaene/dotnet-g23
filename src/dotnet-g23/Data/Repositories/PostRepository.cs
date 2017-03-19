@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using dotnet_g23.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace dotnet_g23.Data.Repositories
-{
+namespace dotnet_g23.Data.Repositories {
     public class PostRepository : IPostRepository {
 
         private readonly ApplicationDbContext _context;
@@ -19,23 +18,42 @@ namespace dotnet_g23.Data.Repositories
         }
 
         public IEnumerable<Post> GetAll() {
-            throw new NotImplementedException();
+            return _posts
+                .Include(po => po.Group)
+                .Include(po => po.Label)
+                .Include(po => po.Motivation)
+                .Include(po => po.Organization);
         }
 
         public Post GetBy(int postId) {
-            throw new NotImplementedException();
+            return _posts
+                .Include(po => po.Group)
+                .Include(po => po.Label)
+                .Include(po => po.Motivation)
+                .Include(po => po.Organization)
+                .SingleOrDefault(po => po.PostId == postId);
         }
 
         public Post GetByGroup(Group group) {
-            throw new NotImplementedException();
+            return _posts
+               .Include(po => po.Group)
+               .Include(po => po.Label)
+               .Include(po => po.Motivation)
+               .Include(po => po.Organization)
+               .SingleOrDefault(po => po.Group == group);
         }
 
         public IEnumerable<Post> GetByOrganization(Organization organization) {
-            throw new NotImplementedException();
+            return _posts
+               .Include(po => po.Group)
+               .Include(po => po.Label)
+               .Include(po => po.Motivation)
+               .Include(po => po.Organization)
+               .Where(po => po.Organization != null && po.Organization == organization);
         }
 
         public void SaveChanges() {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
     }
 }

@@ -179,7 +179,12 @@ namespace dotnet_g23.Data {
             m.HasOne(mo => mo.Group)
                 .WithOne(g => g.Motivation)
                 .HasForeignKey<Motivation>(mo => mo.GroupForeignKey);
-                
+
+            // Motivation => Post
+            m.HasOne(mo => mo.Post)
+                .WithOne(p => p.Motivation)
+                .HasForeignKey<Motivation>(mo => mo.PostForeignKey);
+
         }
 
         private static void MapCompany(EntityTypeBuilder<Company> c)
@@ -235,6 +240,11 @@ namespace dotnet_g23.Data {
             p.HasOne(po => po.Organization)
                 .WithMany(o => o.Posts)
                 .IsRequired();
+
+            // Post => Label
+            p.HasOne(po => po.Label)
+                .WithOne(l => l.Post)
+                .HasForeignKey<Label>(la => la.PostForeignKey);
         }
 
         private static void MapAction(EntityTypeBuilder<Models.Domain.Action> a)
