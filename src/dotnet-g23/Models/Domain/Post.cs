@@ -4,13 +4,13 @@ namespace dotnet_g23.Models.Domain {
     public class Post {
 
         #region Properties
-        public int PostId { get; set; }
-        public Label Label { get; set; }
+        public int PostId { get;private set; }
+        public Label Label { get; private set; }
         public String Announcement { get; set; }
         public Byte[] Logo { get; set; }
         public Motivation Motivation { get; set; }
-        public Group Group { get; set; }
-        public int GroupForeignKey { get; set; }
+        public Group Group { get; private set; }
+        public int GroupForeignKey { get; private set; }
         public Organization Organization { get; set; }
         #endregion
 

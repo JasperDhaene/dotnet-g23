@@ -25,6 +25,8 @@ namespace dotnet_g23.Tests.Controllers {
             context = new DummyApplicationDbContext();
 
             Mock<IOrganizationRepository> repo = new Mock<IOrganizationRepository>();
+            Mock<IGroupRepository> Grepo = new Mock<IGroupRepository>();
+            Mock<IPostRepository> Prepo = new Mock<IPostRepository>();
 
             repo.Setup(o => o.GetAll()).Returns(context.Organizations);
 
@@ -37,7 +39,7 @@ namespace dotnet_g23.Tests.Controllers {
             repo.Setup(o => o.GetByDomain("organization.be"))
                 .Returns(context.OrgsOrganization);
 
-            _controller = new OrganizationController(repo.Object);
+            _controller = new OrganizationController(repo.Object, Grepo.Object, Prepo.Object);
             _controller.TempData = new Mock<ITempDataDictionary>().Object;
 
             _user1 = context.Preben;

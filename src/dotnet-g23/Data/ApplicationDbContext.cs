@@ -225,26 +225,24 @@ namespace dotnet_g23.Data {
         {
             l.ToTable("Labels");
             l.HasKey(la => la.LabelId);
+
+            // Post => Label
+            l.HasOne(la => la.Post)
+                .WithOne(po => po.Label)
+                .HasForeignKey<Label>(la => la.PostForeignKey);
         }
 
         private void MapPost(EntityTypeBuilder<Post> p) {
             p.ToTable("Posts");
             p.HasKey(po => po.PostId);
 
-            p.Property(po => po.Label).IsRequired();
             p.Property(po => po.Announcement).IsRequired();
             p.Property(po => po.Logo).IsRequired();
-            p.Property(po => po.Motivation).IsRequired();
 
             // Post => Organization
             p.HasOne(po => po.Organization)
                 .WithMany(o => o.Posts)
                 .IsRequired();
-
-            // Post => Label
-            p.HasOne(po => po.Label)
-                .WithOne(l => l.Post)
-                .HasForeignKey<Label>(la => la.PostForeignKey);
         }
 
         private static void MapAction(EntityTypeBuilder<Models.Domain.Action> a)
