@@ -15,9 +15,10 @@ namespace dotnet_g23.Models.Domain {
         public Organization Organization { get; set; }
         public ICollection<Participant> Participants { get; }
         public Lector Lector { get; private set; }
-        public ICollection<Invitation> Invitations { get; set; }
+        public ICollection<Invitation> Invitations { get; }
         public Motivation Motivation { get; set; }
         public Label Label { get; set; }
+        public ICollection<Action> Actions { get; }
 
         // Memory-only property
         [NotMapped]
@@ -46,6 +47,7 @@ namespace dotnet_g23.Models.Domain {
         {
             Participants = new List<Participant>();
             Invitations = new List<Invitation>();
+            Actions = new List<Action>();
             Context = new Context();
         }
         public Group(String name) : this()

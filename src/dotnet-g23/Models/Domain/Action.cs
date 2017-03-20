@@ -24,6 +24,8 @@ namespace dotnet_g23.Models.Domain
                 _description = value;
             }
         }
+
+        public Group Group { get; private set; }
         #endregion
 
         #region Constructors

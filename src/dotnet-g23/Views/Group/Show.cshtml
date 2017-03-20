@@ -82,6 +82,27 @@
                     }
                 </div>
             }
+            <div class="clearfix">
+                <h1 class="f-md-left">Acties en evenementen</h1>
+                <a asp-controller="Action" asp-action="New" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Activiteit opzetten</a>
+            </div>
+            @if (!Model.Group.Actions.Any())
+            {
+                <div class="alert alert-info m-t-1">
+                    <i class="fa fa-info-circle"></i> Er zijn nog geen activiteiten geregistreerd.
+                </div>
+            }
+            else
+            {
+                foreach (var activity in Model.Group.Actions)
+                {
+                    <div class="card m-t-1">
+                        <strong>@activity.Title</strong>
+                        <br />
+                        @activity.Description
+                    </div>
+                }
+            }
         </div>
     </div>
 @Html.Partial("_ContainerEnd")
