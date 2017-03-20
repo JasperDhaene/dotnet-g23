@@ -53,6 +53,8 @@
             {
                 <h1>Motivatie</h1>
                 <div class="card m-t-1">
+
+                    <!-- Action button in Motivation Form -->
                     @if (Model.Group.Context.CurrentState is InitialState)
                     {
                         <a asp-controller="Motivation" asp-action="Show" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3">Motivatie bewerken</a>
@@ -75,6 +77,9 @@
                             <a asp-controller="Group" asp-action="Announce" class="btn btn-secondary btn-md f-sm-left f-md-right">Bekend maken</a>
                         </div>
                     }
+                    
+                    
+                    <!-- Fill in Motivation text -->
                     @if (Model.Group.Motivation?.MotivationText == null)
                     {
                         <em>(leeg)</em>
@@ -84,6 +89,11 @@
                         <div class="ellipsize">@Model.Group.Motivation.MotivationText</div>
                     }
                 </div>
+            }
+
+            @if (Model.Group.Context.CurrentState is GrantedState || Model.Group.Context.CurrentState is AnnouncedState){
+                <h1>Acties en evenementen</h1>
+                <a asp-controller="Event" asp-action="Create" class="btn btn-primary btn-md f-sm-left f-md-right">Actie aanmaken</a>
             }
         </div>
     </div>
