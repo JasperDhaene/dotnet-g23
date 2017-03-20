@@ -152,6 +152,10 @@ namespace dotnet_g23.Data {
             g.HasOne(gr => gr.Label)
                 .WithOne(l => l.Group)
                 .HasForeignKey<Label>(la => la.GroupForeignKey);
+
+            // Group => Action
+            g.HasMany(gr => gr.Actions)
+                .WithOne(a => a.Group);
         }
 
         private static void MapMotivation(EntityTypeBuilder<Motivation> m) {
