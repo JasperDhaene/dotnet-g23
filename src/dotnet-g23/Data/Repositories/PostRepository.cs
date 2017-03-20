@@ -17,39 +17,32 @@ namespace dotnet_g23.Data.Repositories {
             _posts = _context.Posts;
         }
 
-        public IEnumerable<Post> GetAll() {
+        public IEnumerable<Post> GetAll()
+        {
             return _posts
-                .Include(po => po.Group)
                 .Include(po => po.Label)
-                .Include(po => po.Motivation)
-                .Include(po => po.Organization);
+                .ToList();
         }
 
         public Post GetBy(int postId) {
             return _posts
-                .Include(po => po.Group)
                 .Include(po => po.Label)
-                .Include(po => po.Motivation)
-                .Include(po => po.Organization)
                 .SingleOrDefault(po => po.PostId == postId);
         }
 
         public Post GetByGroup(Group group) {
             return _posts
-               .Include(po => po.Group)
                .Include(po => po.Label)
-               .Include(po => po.Motivation)
-               .Include(po => po.Organization)
-               .SingleOrDefault(po => po.Group == group);
+               .ThenInclude(l => l.Group)
+               .SingleOrDefault(po => po.Label.Group == group);
         }
 
         public IEnumerable<Post> GetByOrganization(Organization organization) {
             return _posts
-               .Include(po => po.Group)
                .Include(po => po.Label)
-               .Include(po => po.Motivation)
-               .Include(po => po.Organization)
-               .Where(po => po.Organization != null && po.Organization == organization);
+               .ThenInclude(l => l.Group)
+               .ThenInclude(g => g.Organization)
+               .Where(po => po.Label.Group.Organization != null && po.Label.Group.Organization == organization);
         }
 
         public void SaveChanges() {

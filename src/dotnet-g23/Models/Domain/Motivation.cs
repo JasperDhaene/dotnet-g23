@@ -9,8 +9,6 @@ namespace dotnet_g23.Models.Domain {
         public int MotivationId { get; private set; }
         public Group Group { get; private set; }
         public int GroupForeignKey { get; private set; }
-        public Post Post { get; private set; }
-        public int PostForeignKey { get; private set; }
 
         public String MotivationText { get; set; }
         public Boolean Approved { get; set; }

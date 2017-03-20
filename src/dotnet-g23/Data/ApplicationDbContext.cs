@@ -152,11 +152,6 @@ namespace dotnet_g23.Data {
             g.HasOne(gr => gr.Label)
                 .WithOne(l => l.Group)
                 .HasForeignKey<Label>(la => la.GroupForeignKey);
-
-            //Group => Post
-            g.HasOne(gr => gr.Post)
-                .WithOne(p => p.Group)
-                .HasForeignKey<Post>(po => po.GroupForeignKey);
         }
 
         private static void MapMotivation(EntityTypeBuilder<Motivation> m) {
@@ -179,11 +174,6 @@ namespace dotnet_g23.Data {
             m.HasOne(mo => mo.Group)
                 .WithOne(g => g.Motivation)
                 .HasForeignKey<Motivation>(mo => mo.GroupForeignKey);
-
-            // Motivation => Post
-            m.HasOne(mo => mo.Post)
-                .WithOne(p => p.Motivation)
-                .HasForeignKey<Motivation>(mo => mo.PostForeignKey);
 
         }
 
@@ -225,11 +215,6 @@ namespace dotnet_g23.Data {
         {
             l.ToTable("Labels");
             l.HasKey(la => la.LabelId);
-
-            // Post => Label
-            l.HasOne(la => la.Post)
-                .WithOne(po => po.Label)
-                .HasForeignKey<Label>(la => la.PostForeignKey);
         }
 
         private void MapPost(EntityTypeBuilder<Post> p) {
@@ -238,10 +223,11 @@ namespace dotnet_g23.Data {
 
             p.Property(po => po.Announcement).IsRequired();
             p.Property(po => po.Logo).IsRequired();
-
-            // Post => Organization
-            p.HasOne(po => po.Organization)
-                .WithMany(o => o.Posts)
+            
+            // Post => Label
+            p.HasOne(po => po.Label)
+                .WithOne(l => l.Post)
+                .HasForeignKey<Post>(po => po.LabelForeignKey)
                 .IsRequired();
         }
 

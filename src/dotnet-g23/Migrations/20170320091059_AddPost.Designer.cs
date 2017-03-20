@@ -8,7 +8,7 @@ using dotnet_g23.Data;
 namespace dotnet_g23.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170319203943_AddPost")]
+    [Migration("20170320091059_AddPost")]
     partial class AddPost
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -232,14 +232,9 @@ namespace dotnet_g23.Migrations
 
                     b.Property<string>("OrganizationWebsite");
 
-                    b.Property<int>("PostForeignKey");
-
                     b.HasKey("MotivationId");
 
                     b.HasIndex("GroupForeignKey")
-                        .IsUnique();
-
-                    b.HasIndex("PostForeignKey")
                         .IsUnique();
 
                     b.ToTable("Motivations");
@@ -272,20 +267,15 @@ namespace dotnet_g23.Migrations
                     b.Property<string>("Announcement")
                         .IsRequired();
 
-                    b.Property<int>("GroupForeignKey");
+                    b.Property<int>("LabelForeignKey");
 
                     b.Property<byte[]>("Logo")
                         .IsRequired();
 
-                    b.Property<int?>("OrganizationId")
-                        .IsRequired();
-
                     b.HasKey("PostId");
 
-                    b.HasIndex("GroupForeignKey")
+                    b.HasIndex("LabelForeignKey")
                         .IsUnique();
-
-                    b.HasIndex("OrganizationId");
 
                     b.ToTable("Posts");
                 });
@@ -319,17 +309,12 @@ namespace dotnet_g23.Migrations
 
                     b.Property<int>("GroupForeignKey");
 
-                    b.Property<int>("PostForeignKey");
-
                     b.HasKey("LabelId");
 
                     b.HasIndex("CompanyForeignKey")
                         .IsUnique();
 
                     b.HasIndex("GroupForeignKey")
-                        .IsUnique();
-
-                    b.HasIndex("PostForeignKey")
                         .IsUnique();
 
                     b.ToTable("Labels");
@@ -521,23 +506,13 @@ namespace dotnet_g23.Migrations
                         .WithOne("Motivation")
                         .HasForeignKey("dotnet_g23.Models.Domain.Motivation", "GroupForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("dotnet_g23.Models.Domain.Post", "Post")
-                        .WithOne("Motivation")
-                        .HasForeignKey("dotnet_g23.Models.Domain.Motivation", "PostForeignKey")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("dotnet_g23.Models.Domain.Post", b =>
                 {
-                    b.HasOne("dotnet_g23.Models.Domain.Group", "Group")
+                    b.HasOne("dotnet_g23.Models.Label", "Label")
                         .WithOne("Post")
-                        .HasForeignKey("dotnet_g23.Models.Domain.Post", "GroupForeignKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("dotnet_g23.Models.Domain.Organization", "Organization")
-                        .WithMany("Posts")
-                        .HasForeignKey("OrganizationId")
+                        .HasForeignKey("dotnet_g23.Models.Domain.Post", "LabelForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -559,11 +534,6 @@ namespace dotnet_g23.Migrations
                     b.HasOne("dotnet_g23.Models.Domain.Group", "Group")
                         .WithOne("Label")
                         .HasForeignKey("dotnet_g23.Models.Label", "GroupForeignKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("dotnet_g23.Models.Domain.Post", "Post")
-                        .WithOne("Label")
-                        .HasForeignKey("dotnet_g23.Models.Label", "PostForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
