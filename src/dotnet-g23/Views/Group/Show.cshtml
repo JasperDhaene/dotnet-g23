@@ -24,19 +24,21 @@
                 <div class="card">@participant.User.Email</div>
             }
             
-            <h1>Uitnodigingen</h1>
-            @if (Model.Invitations == null || !Model.Invitations.Any())
-            {
-                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen uitnodigingen tot toetreden van deze groep gevonden.</div>
-            }
-            else
-            {
-                foreach (var invitation in Model.Invitations)
+            @if(Model.Group.Context.CurrentState is InitialState || Model.Group.Context.CurrentState is SubmittedState){
+                <h1>Uitnodigingen</h1>
+                @if (Model.Invitations == null || !Model.Invitations.Any())
                 {
-                    <div class="card">
-                        @invitation.Participant.User.Email
-                        <span class="label label-default f-right">verstuurd</span>
-                    </div>
+                    <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen uitnodigingen tot toetreden van deze groep gevonden.</div>
+                }
+                else
+                {
+                    foreach (var invitation in Model.Invitations)
+                    {
+                        <div class="card">
+                            @invitation.Participant.User.Email
+                            <span class="label label-default f-right">verstuurd</span>
+                        </div>
+                    }
                 }
             }
 
