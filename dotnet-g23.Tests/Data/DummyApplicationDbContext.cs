@@ -1,4 +1,5 @@
-﻿using dotnet_g23.Models.Domain;
+﻿using dotnet_g23.Models;
+using dotnet_g23.Models.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,23 +7,48 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Tests.Data {
     public class DummyApplicationDbContext {
-        public GUser Preben { get; set; }
-        public GUser Preben2 { get; set; }
-        public GUser Test { get; set; }
-        public GUser Tuur { get; set; }
-        public GUser Jasper { get; set; }
-        public GUser Florian { get; set; }
+        public GUser VolunteerHoGent { get; set; }
+        public GUser ParticipantHogent { get; set; }
+        public GUser OwnerHogent { get; set; }
+        public GUser OwnerHogentSubmitted { get; set; }
+        public GUser OwnerHogentApproved { get; set; }
+        public GUser ownerHogentGranted { get; set; }
+        public GUser ownerHogentAnnounced { get; set; }
         public ICollection<GUser> GUsers { get; set; }
+        public Organization HogentGent { get; set; }
+        public Organization HogentAalst { get; set; }
+        public Organization HowestKortrijk { get; set; }
+        public Organization HowestBrugge { get; set; }
+        public Organization Ugent { get; set; }
         public ICollection<Organization> Organizations { get; set; }
-        public ICollection<Organization> OrgsHogent { get; set; }
-        public ICollection<Organization> OrgsHowest { get; set; }
-        public ICollection<Organization> OrgsOrganization { get; set; }
-        public Motivation Motivation { get; set; }
-        public Organization org1 { get; set; }
-        public Organization org2 { get; set; }
-        public Organization org3 { get; set; }
-
-        private readonly ICollection<Group> _groups;
+        public Group HogentGroup { get; set; }
+        public Group HogentGroupSubmitted { get; set; }
+        public Group HogentGroupApproved { get; set; }
+        public Group HogentGroupGranted { get; set; }
+        public Group HogentGroupAnnounced { get; set; }
+        public ICollection<Group> Groups { get; set; }
+        public Motivation MotivationSubmitted { get; set; }
+        public Motivation MotivationApproved { get; set; }
+        public Motivation MotivationGranted { get; set; }
+        public Motivation MotivationAnnounced { get; set; }
+        public ICollection<Motivation> Motivations { get; set; }
+        public Company Company1 { get; set; }
+        public Company Company2 { get; set; }
+        public Company Company3 { get; set; }
+        public ICollection<Company> Companies { get; set; }
+        public Contact Contact1CEO { get; set; }
+        public Contact Contact1CFO { get; set; }
+        public Contact Contact1CTO { get; set; }
+        public Contact Contact2CEO { get; set; }
+        public Contact Contact2CFO { get; set; }
+        public Contact Contact2CTO { get; set; }
+        public Contact Contact3CEO { get; set; }
+        public Contact Contact3CFO { get; set; }
+        public Contact Contact3CTO { get; set; }
+        public ICollection<Contact> Contacts { get; set; }
+        public Label Label2 { get; set; }
+        public Label Label3 { get; set; }
+        public ICollection<Label> Labels { get; set; }
 
         public DummyApplicationDbContext() {
             org1 = new Organization("HoGent", "Gent", "hogent.be");
