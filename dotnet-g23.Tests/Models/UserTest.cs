@@ -20,21 +20,14 @@ namespace dotnet_g23.Tests.Models
         {
             string email = "foobar";
 
-            Assert.Throws<ArgumentException>(() => new GUser(email, null));
+            Assert.Throws<GoedBezigException>(() => new GUser(email, null));
         }
 
         [Fact]
         public void UserThrowsExceptionOnMissingAt() {
             string email = "foobar.be";
 
-            Assert.Throws<ArgumentException>(() => new GUser(email, null));
-        }
-
-        [Fact]
-        public void UserThrowsExceptionOnMissingDomain() {
-            string email = "foobar@";
-
-            Assert.Throws<ArgumentException>(() => new GUser(email, null));
+            Assert.Throws<GoedBezigException>(() => new GUser(email, null));
         }
     }
 }
