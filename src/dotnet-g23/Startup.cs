@@ -89,6 +89,7 @@ namespace dotnet_g23 {
             services.AddScoped<IInvitationRepository, InvitationRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<ILabelRepository, LabelRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
 
             /**
              * Authorization
