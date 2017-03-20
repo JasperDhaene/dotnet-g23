@@ -14201,36 +14201,37 @@ as per bootstrap 4 standards
     white-space: nowrap;
 }
 
-.companybody {
-    background-color: #FFF;
-}
-
-.company i {
+/* (GB) Organization Details page */
+.organization .oheader i, .organization .obody .card i {
     margin-right: 15px;
     width: 40px;
     color: #e34248;
     font-size: 28px;
 }
 
-.companyheader .socialmedia {
+.oheader .description {
+    color: #818a91;
+}
+
+.oheader .socialmedia {
     position: absolute;
     right: 0;
     bottom: 0;
 }
 
-.companybody .contact i {
+.obody {
+    background-color: #FFF;
+}
+
+.obody .card.contact i {
     font-size: 20px;
 }
 
-.companybody .contact i {
+.obody .card.contact i {
     width: 20px;
 }
 
-.companyheader .description {
-    color: #818a91;
-}
-
-.companybody .content {
+.obody .content {
     background-color: #fff;
 }
 
