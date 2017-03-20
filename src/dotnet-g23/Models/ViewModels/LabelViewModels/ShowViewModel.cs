@@ -14,5 +14,7 @@ namespace dotnet_g23.Models.ViewModels.LabelViewModels
         public IEnumerable<Contact> Contacts { get; set; }
 
         public Group Group { get; set; }
+
+        public Label Label { get; set; }
     }
 }

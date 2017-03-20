@@ -53,6 +53,7 @@ namespace dotnet_g23.Controllers
             vm.Company = _companyRepository.GetBy(id);
             vm.Contacts = vm.Company.Contacts;
             vm.Group = participant.Group;
+            vm.Label = participant.Group.Label;
 
             return View(vm);
         }

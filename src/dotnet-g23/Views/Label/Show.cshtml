@@ -44,10 +44,11 @@
                             <div class="row">
                                 <div class="col-lg-12 m-t-3">
                                     
-
-                                    <p class="heading">Goed Bezig Label</p>
-                                    <p>Hey son, you are good bezig!</p>
-                                    
+                                    @if(Model.Company.Label != null){
+                                        <p class="heading">Goed Bezig Label</p>
+                                        <p>@Model.Label.Post.Announcement</p>
+                                        <p>@Model.Group.Organization.Name</p>
+                                    }
                                     
                                     <p class="heading">Contact</p>
                                     <p>U kunt de bevestinging van het Goed Bezig label doorsturen naar de volgende contactpersonen.</p>

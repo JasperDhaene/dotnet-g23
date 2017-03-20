@@ -70,7 +70,10 @@
                     }
                     else if(Model.Group.Context.CurrentState is GrantedState)
                     {
-                        <span class="label label-info f-sm-left f-md-right m-l-3">Label toegekend</span>
+                        <div class="f-sm-left f-md-right m-l-3">
+                            <span class="label label-info m-r-3">Label toegekend</span>
+                            <a asp-controller="Group" asp-action="Announce" class="btn btn-secondary btn-md f-sm-left f-md-right">Bekend maken</a>
+                        </div>
                     }
                     @if (Model.Group.Motivation?.MotivationText == null)
                     {
