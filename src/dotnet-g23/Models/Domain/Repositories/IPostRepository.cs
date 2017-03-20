@@ -11,6 +11,7 @@ namespace dotnet_g23.Models.Domain.Repositories
         Post GetByGroup(Group group);
         IEnumerable<Post> GetAll();
         IEnumerable<Post> GetByOrganization(Organization organization);
+        void Add(Post post);
         void SaveChanges();
     }
 }

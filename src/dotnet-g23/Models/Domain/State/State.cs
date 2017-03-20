@@ -29,7 +29,7 @@ namespace dotnet_g23.Models.Domain.State
             throw new StateException($"Operation not supported in { GetType() }: Grant");
         }
 
-        public virtual void Announce(Context context, Label label, String message)
+        public virtual Post Announce(Context context, Label label, String message)
         {
             throw new StateException($"Operation not supported in { GetType() }: Announce");
         }

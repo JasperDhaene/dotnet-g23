@@ -80,9 +80,9 @@ namespace dotnet_g23.Models.Domain {
             Context.Grant(this, company);
         }
 
-        public void Announce(String message)
+        public Post Announce(String message)
         {
-            Context.Announce(Label, message);
+            return Context.Announce(Label, message);
         }
         #endregion
     }

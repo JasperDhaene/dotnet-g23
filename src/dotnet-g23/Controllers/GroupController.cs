@@ -25,17 +25,20 @@ namespace dotnet_g23.Controllers
 		private readonly IParticipantRepository _participantRepository;
 	    private readonly IInvitationRepository _invitationRepository;
 	    private readonly ILabelRepository _labelRepository;
+	    private readonly IPostRepository _postRepository;
 		#endregion
 
 		#region Constructors
 		public GroupController(IGroupRepository groupRepository, 
             IParticipantRepository participantRepository, 
             IInvitationRepository invitationRepository,
-            ILabelRepository labelRepository) {
+            ILabelRepository labelRepository,
+            IPostRepository postRepository) {
 			_groupRepository = groupRepository;
 		    _participantRepository = participantRepository;
 		    _invitationRepository = invitationRepository;
 		    _labelRepository = labelRepository;
+		    _postRepository = postRepository;
 		}
 		#endregion
 
@@ -183,8 +186,10 @@ namespace dotnet_g23.Controllers
             Group group = _groupRepository.GetBy(id);
             try
             {
-                group.Announce(message);
-                _groupRepository.SaveChanges();
+                Post post = group.Announce(message);
+
+                _postRepository.Add(post);
+                _postRepository.SaveChanges();
             }
             catch (GoedBezigException e)
             {

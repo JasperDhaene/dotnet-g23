@@ -23,10 +23,11 @@ namespace dotnet_g23.Models.Domain.State
                 throw new StateException($"Bedrijf '{ company.Name }' beschikt al over een Goed Bezig-label");
 
             Label label = new Label(group, company);
-            context.CurrentState = new GrantedState();
 
             group.Label = label;
             company.Label = label;
+
+            context.CurrentState = new GrantedState();
         }
     }
 }

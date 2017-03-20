@@ -46,6 +46,10 @@ namespace dotnet_g23.Data.Repositories {
                .Where(po => po.Label.Group.Organization == organization);
         }
 
+        public void Add(Post post) {
+            _context.Posts.Add(post);
+        }
+
         public void SaveChanges() {
             _context.SaveChanges();
         }
