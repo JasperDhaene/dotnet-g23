@@ -75,6 +75,8 @@ namespace dotnet_g23.Controllers
                     sender.SendEmailAsync(contact.FirstName + " " + contact.LastName, contact.Email,
                         contact.Company.Name, contact.Company.Description);
                 }
+
+                
             }
             catch (GoedBezigException e)
             {
