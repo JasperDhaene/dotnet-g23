@@ -35,15 +35,22 @@
             }
             else {
                 foreach (var org in Model.Organizations) {
+                    
                     <div class="card">
+                        
                         <form asp-controller="Organization" asp-action="Register" method="post" class="form-horizontal">
-                            @org.Name (@org.Location)
+                            @org.Name (@org.Location) <span class="splitter">|</span>
+                            <a asp-controller="Organization" asp-action="Show" asp-route-id="@org.OrganizationId">Details &raquo;</a>
                             <input type="hidden" value="@org.OrganizationId" name="organizationId" />
+                            
                             @if (Model.SubscribedOrganization == null) {
                                 <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-right">Registreren</a>
                             }
+                            
                         </form>
+                         
                     </div>
+                   
                 }
             }
         </div>

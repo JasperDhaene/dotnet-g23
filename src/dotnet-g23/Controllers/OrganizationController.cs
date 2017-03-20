@@ -75,6 +75,7 @@ namespace dotnet_g23.Controllers {
             //Show all Groups, linked with organization
             vm.Groups = _groupRepositroy.GetByOrganization(org);
             vm.Posts = _postRepository.GetByOrganization(org);
+            vm.Organization = org;
 
             return View(vm);
         }

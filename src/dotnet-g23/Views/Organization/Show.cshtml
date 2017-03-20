@@ -1,1 +1,63 @@
-<h1> hey</h1>
+@using System.Threading.Tasks
+@using dotnet_g23.Models.Domain
+@using dotnet_g23.Models.Domain.State
+
+@{
+    ViewData["Title"] = "Details GB Organisatie";
+}
+@model dotnet_g23.Models.ViewModels.OrganizationViewModels.ShowViewModel
+
+<div class="company">
+    <div class="companyheader p-y-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content">
+                    <h1>@Model.Organization.Name</h1>
+                    <p>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        @Model.Organization.Location
+                    </p>
+                    <p>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        @Model.Organization.Domain
+                    </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="companybody">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content">
+                        <div class="container-fluid">
+                            @Html.Partial("_Messages")
+                
+                            <div class="row">
+                                <div class="col-lg-12 m-t-3">
+                                    <p class="heading">Goed Bezig Label</p>
+                                    
+                                    @if (Model.Posts == null || !Model.Posts.Any())
+                                    {
+                                        <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen Goed Bezig labels toegekend.</div>
+                                    }
+                                    @foreach (var post in Model.Posts)
+                                    {
+                                        <div class="card">
+                                            
+                                            <i class="fa fa-certificate" aria-hidden="true"></i>
+                                            @post.Announcement
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

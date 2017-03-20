@@ -10,5 +10,6 @@ namespace dotnet_g23.Models.ViewModels.OrganizationViewModels
     {
         public IEnumerable<Group> Groups { get; set; }
         public IEnumerable<Post> Posts { get; set; }
+        public Organization Organization { get; set; }
     }
 }
