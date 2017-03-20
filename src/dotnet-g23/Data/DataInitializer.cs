@@ -77,16 +77,19 @@ namespace dotnet_g23.Data {
             GUser ownerHogentSubmitted = new GUser("owner_submitted@hogent.be"); await CreateAppUser(ownerHogentSubmitted);
             GUser ownerHogentApproved = new GUser("owner_approved@hogent.be"); await CreateAppUser(ownerHogentApproved);
             GUser ownerHogentGranted = new GUser("owner_granted@hogent.be"); await CreateAppUser(ownerHogentGranted);
+            GUser ownerHogentAnnounced = new GUser("owner_announced@hogent.be"); await CreateAppUser(ownerHogentAnnounced);
 
             _context.GUsers.Add(ownerHogent);
             _context.GUsers.Add(ownerHogentSubmitted);
             _context.GUsers.Add(ownerHogentApproved);
             _context.GUsers.Add(ownerHogentGranted);
+            _context.GUsers.Add(ownerHogentAnnounced);
 
             hogentGent.Register(ownerHogent);
             hogentGent.Register(ownerHogentSubmitted);
             hogentGent.Register(ownerHogentApproved);
             hogentGent.Register(ownerHogentGranted);
+            hogentGent.Register(ownerHogentAnnounced);
 
             /**
              * Groups
@@ -96,11 +99,13 @@ namespace dotnet_g23.Data {
             Group hogentGroupSubmitted = hogentGent.CreateGroup(ownerHogentSubmitted.UserState as Participant, "HoGent Groep 2", false);
             Group hogentGroupApproved = hogentGent.CreateGroup(ownerHogentApproved.UserState as Participant, "HoGent Groep 3", false);
             Group hogentGroupGranted = hogentGent.CreateGroup(ownerHogentGranted.UserState as Participant, "HoGent Groep 4", false);
+            Group hogentGroupAnnounced = hogentGent.CreateGroup(ownerHogentAnnounced.UserState as Participant, "HoGent Groep 5", false);
 
             _context.Groups.Add(hogentGroup);
             _context.Groups.Add(hogentGroupSubmitted);
             _context.Groups.Add(hogentGroupApproved);
             _context.Groups.Add(hogentGroupGranted);
+            _context.Groups.Add(hogentGroupAnnounced);
 
             /**
              * Motivations
@@ -110,10 +115,12 @@ namespace dotnet_g23.Data {
             Motivation motivationSubmitted = CreateMotivation(hogentGroupSubmitted, false);
             Motivation motivationApproved = CreateMotivation(hogentGroupApproved, true);
             Motivation motivationGranted = CreateMotivation(hogentGroupGranted, true);
+            Motivation motivationAnnounced = CreateMotivation(hogentGroupAnnounced, true);
 
             _context.Motivations.Add(motivationSubmitted);
             _context.Motivations.Add(motivationApproved);
             _context.Motivations.Add(motivationGranted);
+            _context.Motivations.Add(motivationAnnounced);
             
             /**
              * Companies
@@ -147,9 +154,9 @@ namespace dotnet_g23.Data {
             _context.Contacts.Add(c1Cfo);
             _context.Contacts.Add(c1Cto);
 
-            Contact c2Ceo = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company2.com", c1);
-            Contact c2Cfo = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company2.com", c1);
-            Contact c2Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company2.com", c1);
+            Contact c2Ceo = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company2.com", c2);
+            Contact c2Cfo = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company2.com", c2);
+            Contact c2Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company2.com", c2);
 
             c2.Contacts.Add(c2Ceo);
             c2.Contacts.Add(c2Cfo);
@@ -159,10 +166,30 @@ namespace dotnet_g23.Data {
             _context.Contacts.Add(c2Cfo);
             _context.Contacts.Add(c2Cto);
 
+            Contact c3Ceo = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company3.com", c3);
+            Contact c3Cfo = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company3.com", c3);
+            Contact c3Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company3.com", c3);
+
+            c3.Contacts.Add(c3Ceo);
+            c3.Contacts.Add(c3Cfo);
+            c3.Contacts.Add(c3Cto);
+
+            _context.Contacts.Add(c3Ceo);
+            _context.Contacts.Add(c3Cfo);
+            _context.Contacts.Add(c3Cto);
+
+            /**
+             * Labels
+             * 
+             * */
+
             Label l2 = new Label(hogentGroupGranted, c2);
             hogentGroupGranted.Context.CurrentState = new GrantedState();
-
             _context.Labels.Add(l2);
+
+            Label l3 = new Label(hogentGroupAnnounced, c3);
+            hogentGroupAnnounced.Context.CurrentState = new AnnouncedState();
+            _context.Labels.Add(l3);
 
 
 
