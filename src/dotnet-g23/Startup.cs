@@ -75,10 +75,8 @@ namespace dotnet_g23 {
              * Filters
              * 
              * */
-            services.AddScoped<OrganizationFilter>();
             services.AddScoped<UserFilter>();
             services.AddScoped<ParticipantFilter>();
-            services.AddScoped<LectorFilter>();
 
             /**
              * Repositories
