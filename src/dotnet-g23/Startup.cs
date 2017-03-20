@@ -122,7 +122,8 @@ namespace dotnet_g23 {
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
-            app.UseStatusCodePagesWithRedirects("/error");
+            //app.UseStatusCodePagesWithRedirects("/error");
+            app.UseStatusCodePages();
             app.UseIdentity();
 
             app.UseSession();
