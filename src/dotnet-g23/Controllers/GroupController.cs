@@ -12,6 +12,8 @@ using dotnet_g23.Models.ViewModels.GroupViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace dotnet_g23.Controllers
 {
@@ -26,20 +28,25 @@ namespace dotnet_g23.Controllers
 	    private readonly IInvitationRepository _invitationRepository;
 	    private readonly ILabelRepository _labelRepository;
 	    private readonly IPostRepository _postRepository;
-		#endregion
 
-		#region Constructors
-		public GroupController(IGroupRepository groupRepository, 
+	    private readonly IHostingEnvironment _hostingEnvironment;
+        #endregion
+
+        #region Constructors
+        public GroupController(IGroupRepository groupRepository, 
             IParticipantRepository participantRepository, 
             IInvitationRepository invitationRepository,
             ILabelRepository labelRepository,
-            IPostRepository postRepository) {
+            IPostRepository postRepository,
+            IHostingEnvironment hostingEnvironment) {
 			_groupRepository = groupRepository;
 		    _participantRepository = participantRepository;
 		    _invitationRepository = invitationRepository;
 		    _labelRepository = labelRepository;
 		    _postRepository = postRepository;
-		}
+
+            _hostingEnvironment = hostingEnvironment;
+        }
 		#endregion
 
 		#region Methods
@@ -186,7 +193,9 @@ namespace dotnet_g23.Controllers
             Group group = _groupRepository.GetBy(id);
             try
             {
-                Post post = group.Announce(message);
+                String path = System.IO.Path.Combine(_hostingEnvironment.ContentRootPath, "Assets", "logo.png");
+                Byte[] logo = System.IO.File.ReadAllBytes(path);
+                Post post = group.Announce(message, logo);
 
                 _postRepository.Add(post);
                 _postRepository.SaveChanges();

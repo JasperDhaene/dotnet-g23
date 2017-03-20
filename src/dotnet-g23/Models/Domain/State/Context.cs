@@ -47,9 +47,9 @@ namespace dotnet_g23.Models.Domain.State
             CurrentState.Grant(this, group, company);
         }
 
-        public Post Announce(Label label, String message)
+        public Post Announce(Label label, String message, byte[] logo)
         {
-            return CurrentState.Announce(this, label, message);
+            return CurrentState.Announce(this, label, message, logo);
         }
         #endregion
     }
