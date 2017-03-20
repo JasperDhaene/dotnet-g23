@@ -8,7 +8,7 @@ namespace dotnet_g23.Models.Domain {
 
         public String Announcement { get; set; }
         public Byte[] Logo { get; set; }
-        public Label Label { get; private set; }
+        public Label Label { get; set; }
         public int LabelForeignKey { get; private set; }
         #endregion
 

@@ -7,14 +7,10 @@ namespace dotnet_g23.Models.Domain.State
 {
     public class GrantedState : State
     {
-        public override void Announce(Context context, Group group, String message)
+        public override void Announce(Context context, Label label, String message)
         {
-            Label label = group.Label;
-            Motivation motivation = group.Motivation;
-
-            /*
-            Post post = new Post(label, message, label.Company);
-            */
+            Post post = new Post(message, null);
+            post.Label = label;
 
             context.CurrentState = new AnnouncedState();
         }

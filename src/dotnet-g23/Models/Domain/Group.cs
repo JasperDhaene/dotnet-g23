@@ -82,7 +82,7 @@ namespace dotnet_g23.Models.Domain {
 
         public void Announce(String message)
         {
-            Context.Announce(this, message);
+            Context.Announce(Label, message);
         }
         #endregion
     }

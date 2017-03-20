@@ -47,9 +47,9 @@ namespace dotnet_g23.Models.Domain.State
             CurrentState.Grant(this, group, company);
         }
 
-        public void Announce(Group group, String message)
+        public void Announce(Label label, String message)
         {
-            CurrentState.Announce(this, group, message);
+            CurrentState.Announce(this, label, message);
         }
         #endregion
     }
