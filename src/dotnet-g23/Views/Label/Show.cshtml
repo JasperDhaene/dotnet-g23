@@ -65,11 +65,11 @@
                                                 <i class="fa fa-briefcase" aria-hidden="true"></i> @contact.Function
                                                 <br/>
                                                 <small>@contact.Email</small>
-                                                @if(Model.Company.Label != null)
+                                                @if(Model.Group != null && Model.Group.Context.CurrentState is ApprovedState)
                                                 {
-                                                    <a href="#" class="btn btn-primary btn-md f-sm-right">Contact</a>
-                                                }else{
                                                     <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-sm-right">Verzenden</a>
+                                                }else{
+                                                    <a href="#" class="btn btn-primary btn-md f-sm-right">Contact</a>
                                                 }
                                             </form>
                                         </div>
