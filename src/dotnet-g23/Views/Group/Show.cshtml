@@ -46,7 +46,7 @@
             {
                 <div class="clearfix">
                     <h1 class="f-md-left">Motivatie</h1>
-                    <a asp-controller="Motivation" asp-action="Show" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Motivatie invoeren</a>
+                    <a asp-controller="Motivation" asp-action="Edit" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Motivatie invoeren</a>
                 </div>
                 <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> U heeft nog geen motivatie ingevoerd.
                 </div>
@@ -59,7 +59,7 @@
                     <!-- Action button in Motivation Form -->
                     @if (Model.Group.Context.CurrentState is InitialState)
                     {
-                        <a asp-controller="Motivation" asp-action="Show" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3">Motivatie bewerken</a>
+                        <a asp-controller="Motivation" asp-action="Edit" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3">Motivatie bewerken</a>
                     }
                     else if (Model.Group.Context.CurrentState is SubmittedState)
                     {
@@ -91,7 +91,7 @@
                         <div class="ellipsize">@Model.Group.Motivation.MotivationText</div>
                     }
                     @if(Model.Group.Context.CurrentState is ApprovedState || Model.Group.Context.CurrentState is GrantedState || Model.Group.Context.CurrentState is AnnouncedState){
-                        <a asp-controller="Motivation" asp-action="Show" asp-route-id="@Model.Group.GroupId">Details &raquo;</a>
+                        <a asp-controller="Motivation" asp-action="Edit" asp-route-id="@Model.Group.GroupId">Details &raquo;</a>
                     }
                 </div>
             }

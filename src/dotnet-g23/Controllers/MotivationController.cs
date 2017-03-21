@@ -30,7 +30,7 @@ namespace dotnet_g23.Controllers {
         // GET /Motivations/{id}
         [Authorize(Policy = "participant")]
         [Route("Motivations/{id}")]
-        public IActionResult Show(Participant participant, int id) {
+        public IActionResult Edit(Participant participant, int id) {
             ShowViewModel vm = new ShowViewModel();
 
             Group group = _groupRepository.GetBy(id);
@@ -70,7 +70,7 @@ namespace dotnet_g23.Controllers {
             catch (GoedBezigException e)
             {
                 TempData["error"] = e.Message;
-                return RedirectToAction("Show", new { id = group.GroupId });
+                return RedirectToAction("Edit", new { id = group.GroupId });
             }
         }
     }
