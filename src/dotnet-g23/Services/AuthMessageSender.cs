@@ -21,7 +21,7 @@ namespace dotnet_g23.Services {
 
             var builder = new BodyBuilder();
             using (StreamReader SourceReader = System.IO.File.OpenText("App_data\\Template\\EmailTemplate.txt")) {
-                builder.HtmlBody = SourceReader.ReadToEnd();
+                builder.HtmlBody = SourceReader.ReadToEnd().Replace("<<organization>>", organizationName).Replace("<<company>>",receiver).Replace("<<description>>",beschrijving);
             }
 
             emailMessage.Body = builder.ToMessageBody();
