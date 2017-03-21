@@ -96,7 +96,7 @@ namespace dotnet_g23 {
              * 
              * */
             services.AddAuthorization(options => {
-                options.AddPolicy("admin", policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
+                options.AddPolicy("volunteer", policy => policy.RequireClaim(ClaimTypes.Role, "volunteer"));
                 options.AddPolicy("participant", policy => policy.RequireClaim(ClaimTypes.Role, "participant"));
                 options.AddPolicy("lector", policy => policy.RequireClaim(ClaimTypes.Role, "lector"));
             });

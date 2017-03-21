@@ -10,6 +10,8 @@ using dotnet_g23.Models.ViewModels.OrganizationViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+
 
 namespace dotnet_g23.Controllers {
     [Authorize]
@@ -17,13 +19,18 @@ namespace dotnet_g23.Controllers {
     public class OrganizationController : Controller {
 
         #region Fields
+
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IOrganizationRepository _orgRepository;
         private readonly IGroupRepository _groupRepositroy;
         private readonly IPostRepository _postRepository;
         #endregion
 
         #region Constructors
-        public OrganizationController(IOrganizationRepository orgRepository, IGroupRepository groupRepository, IPostRepository postRepository) {
+        public OrganizationController(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager, IOrganizationRepository orgRepository, IGroupRepository groupRepository, IPostRepository postRepository) {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _orgRepository = orgRepository;
             _groupRepositroy = groupRepository;
             _postRepository = postRepository;
@@ -47,13 +54,19 @@ namespace dotnet_g23.Controllers {
         // POST /Organizations/Register
         [HttpPost]
         [Route("Organizations/Register")]
-        public IActionResult Register(GUser user, int organizationId) {
+        public async Task<IActionResult> Register(GUser user, int organizationId) {
             // Register user with organization
 
             Organization organization = _orgRepository.GetBy(organizationId);
             try
             {
                 organization.Register(user);
+
+                var appuser = await _userManager.FindByEmailAsync(user.Email);
+                await _userManager.RemoveClaimAsync(appuser, new Claim(ClaimTypes.Role, "volunteer"));
+                await _userManager.AddClaimAsync(appuser, new Claim(ClaimTypes.Role, "participant"));
+                await _signInManager.SignInAsync(appuser, isPersistent: false);
+
                 _orgRepository.SaveChanges();
             }
             catch (GoedBezigException e)

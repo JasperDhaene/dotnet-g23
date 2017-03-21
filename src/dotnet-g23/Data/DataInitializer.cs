@@ -54,9 +54,9 @@ namespace dotnet_g23.Data {
             _context.GUsers.Add(volunteerHowest);
             _context.GUsers.Add(volunteerUgent);
 
-            GUser participantHogent = new GUser("participant@hogent.be"); await CreateAppUser(participantHogent);
-            GUser participantHowest = new GUser("participant@howest.be"); await CreateAppUser(participantHowest);
-            GUser participantUgent = new GUser("participant@ugent.be"); await CreateAppUser(participantUgent);
+            GUser participantHogent = new GUser("participant@hogent.be"); 
+            GUser participantHowest = new GUser("participant@howest.be"); 
+            GUser participantUgent = new GUser("participant@ugent.be");
 
             _context.GUsers.Add(participantHogent);
             _context.GUsers.Add(participantHowest);
@@ -74,11 +74,11 @@ namespace dotnet_g23.Data {
             howestBrugge.Register(participantHowest);
             ugent.Register(participantUgent);
 
-            GUser ownerHogent = new GUser("owner@hogent.be"); await CreateAppUser(ownerHogent);
-            GUser ownerHogentSubmitted = new GUser("owner_submitted@hogent.be"); await CreateAppUser(ownerHogentSubmitted);
-            GUser ownerHogentApproved = new GUser("owner_approved@hogent.be"); await CreateAppUser(ownerHogentApproved);
-            GUser ownerHogentGranted = new GUser("owner_granted@hogent.be"); await CreateAppUser(ownerHogentGranted);
-            GUser ownerHogentAnnounced = new GUser("owner_announced@hogent.be"); await CreateAppUser(ownerHogentAnnounced);
+            GUser ownerHogent = new GUser("owner@hogent.be"); 
+            GUser ownerHogentSubmitted = new GUser("owner_submitted@hogent.be"); 
+            GUser ownerHogentApproved = new GUser("owner_approved@hogent.be"); 
+            GUser ownerHogentGranted = new GUser("owner_granted@hogent.be"); 
+            GUser ownerHogentAnnounced = new GUser("owner_announced@hogent.be");
 
             _context.GUsers.Add(ownerHogent);
             _context.GUsers.Add(ownerHogentSubmitted);
@@ -91,6 +91,17 @@ namespace dotnet_g23.Data {
             hogentGent.Register(ownerHogentApproved);
             hogentGent.Register(ownerHogentGranted);
             hogentGent.Register(ownerHogentAnnounced);
+
+            //register participants after link with GB organization
+            await CreateAppUser(participantHogent);
+            await CreateAppUser(participantHowest);
+            await CreateAppUser(participantUgent);
+
+            await CreateAppUser(ownerHogent);
+            await CreateAppUser(ownerHogentSubmitted);
+            await CreateAppUser(ownerHogentApproved);
+            await CreateAppUser(ownerHogentGranted);
+            await CreateAppUser(ownerHogentAnnounced);
 
             /**
              * Groups
@@ -210,7 +221,7 @@ namespace dotnet_g23.Data {
         private async Task CreateAppUser(GUser user) {
             ApplicationUser appUser = new ApplicationUser { UserName = user.Email, Email = user.Email };
             await _userManager.CreateAsync(appUser, "P@ssword1");
-            await _userManager.AddClaimAsync(appUser, new Claim(ClaimTypes.Role, user.UserState is Lector ? "lector" : "participant"));
+            await _userManager.AddClaimAsync(appUser, new Claim(ClaimTypes.Role, user.UserState is Lector ? "lector" : (user.UserState is Participant? "participant": "volunteer")));  
         }
 
         private Motivation CreateMotivation(Group group, Boolean approved = false)
