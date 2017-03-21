@@ -78,7 +78,7 @@ namespace dotnet_g23.Controllers
                 {
                     Contact contact = company.Contacts.First(co => co.ContactId == cId);
 
-                    sender.SendEmailAsync(contact.FirstName + " " + contact.LastName, contact.Email,
+                    sender.SendEmailAsync(contact.Company.Name, contact.Email,
                         contact.Company.Name, contact.Company.Description);
                 }
 
