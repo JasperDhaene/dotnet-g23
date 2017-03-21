@@ -56,6 +56,9 @@ namespace dotnet_g23.Models.Domain.State
         {
             CurrentState.setupAction(this, group, title, description, date);
         }
+
+        public Boolean CanInvite() { return CurrentState.CanInvite(); }
+        public Boolean CanSetup() { return CurrentState.CanSetup(); }
         #endregion
     }
 }

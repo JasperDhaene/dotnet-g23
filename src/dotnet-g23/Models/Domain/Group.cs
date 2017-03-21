@@ -92,6 +92,9 @@ namespace dotnet_g23.Models.Domain {
         {
             Context.setupAction(this, title, description, date);
         }
+
+        public Boolean CanInvite() { return Context.CanInvite(); }
+        public Boolean CanSetup() { return Context.CanSetup(); }
         #endregion
     }
 }

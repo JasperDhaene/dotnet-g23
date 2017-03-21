@@ -23,5 +23,7 @@ namespace dotnet_g23.Models.Domain.State
         {
             throw new StateException("Motivatie is reeds verzonden");
         }
+
+        public override Boolean CanInvite() { return true; }
     }
 }

@@ -17,5 +17,7 @@ namespace dotnet_g23.Models.Domain.State
             Action action = new Action(group,title,description,date);
             group.Actions.Add(action);
         }
+
+        public override Boolean CanSetup() { return true; }
     }
 }

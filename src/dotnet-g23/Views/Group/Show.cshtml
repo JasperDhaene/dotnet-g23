@@ -3,7 +3,7 @@
 @model dotnet_g23.Models.ViewModels.GroupViewModels.ShowViewModel
 
 @{
-    ViewData["Title"] = $"Groep '{ @Model.Group.Name }'";
+    ViewData["Title"] = $"Groep '{ Model.Group.Name }'";
 }
 
 @Html.Partial("_ContainerStart")
@@ -11,7 +11,7 @@
         <div class="col-lg-12">
             <div class="clearfix">
                 <h1 class="f-md-left">@(Model.Group.Closed ? "Gesloten" : "Open") groep '@Model.Group.Name'</h1>
-                @if (Model.Group.Context.CurrentState is InitialState || Model.Group.Context.CurrentState is SubmittedState)
+                @if (Model.Group.CanInvite())
                 {
                     <a asp-controller="Group" asp-action="Invite" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Vrijwilligers uitnodigen</a>
                 }
@@ -24,7 +24,7 @@
                 <div class="card">@participant.User.Email</div>
             }
             
-            @if ((Model.Group.Context.CurrentState is InitialState || Model.Group.Context.CurrentState is SubmittedState) && Model.Group.Closed)
+            @if (Model.Group.CanInvite())
             {
                 <h1>Uitnodigingen</h1>
                 if (Model.Invitations == null || !Model.Invitations.Any())
@@ -97,12 +97,12 @@
             }
 
 
-            @if (Model.Group.Context.CurrentState is GrantedState || Model.Group.Context.CurrentState is AnnouncedState){
+            @if (Model.Group.CanSetup()){
                 <div class="clearfix">
                     <h1 class="f-md-left">Acties en evenementen</h1>
                     <a asp-controller="Action" asp-action="New" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Activiteit opzetten</a>
                 </div>
-                @if (!Model.Group.Actions.Any())
+                if (!Model.Group.Actions.Any())
                 {
                     <div class="alert alert-info m-t-1">
                         <i class="fa fa-info-circle"></i> Er zijn nog geen activiteiten geregistreerd.

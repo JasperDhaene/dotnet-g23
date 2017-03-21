@@ -38,6 +38,9 @@ namespace dotnet_g23.Models.Domain.State
         {
             throw new StateException($"Operation not supported in { GetType() }: setupAction");
         }
+
+        public virtual Boolean CanInvite() { return false; }
+        public virtual Boolean CanSetup() { return false; }
         #endregion
     }
 }

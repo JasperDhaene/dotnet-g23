@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace dotnet_g23.Models.Domain.State
 {
@@ -45,5 +46,7 @@ namespace dotnet_g23.Models.Domain.State
 
             context.CurrentState = new SubmittedState();
         }
+
+        public override Boolean CanInvite() { return true; }
     }
 }
