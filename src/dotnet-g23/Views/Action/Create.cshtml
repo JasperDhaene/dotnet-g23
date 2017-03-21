@@ -1,0 +1,41 @@
+@using System.Threading.Tasks
+@using dotnet_g23.Models.Domain
+@using dotnet_g23.Models.Domain.State
+
+@{
+    ViewData["Title"] = "Actie/Evenement aanmaken";
+}
+
+@model dotnet_g23.Models.ViewModels.ActionViewModels.CreateViewModel
+
+@Html.Partial("_ContainerStart")
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Actie/Evenement aanmaken</h1>
+            <form asp-controller="Action" asp-action="Create" method="post" class="m-t-1">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p>
+                            <label asp-for="@Model.Action.Title" class="d-block">
+                            </label>
+                            <input type="text" asp-for="@Model.Action.Title" />
+                        </p>
+                        <p>
+                            <label asp-for="@Model.Action.Description" class="d-block">
+                            </label>
+                            <input type="text" asp-for="@Model.Action.Description" />
+                        </p>
+                        <p>
+                            <label asp-for="@Model.Action.Date" class="d-block">
+                            </label>
+                            <input asp-for="@Model.Action.Date" />
+                        </p>
+                    </div>
+                </div>
+                <p>
+                    <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md">Groep aanmaken</a>
+                </p>
+            </form>
+        </div>
+    </div>
+@Html.Partial("_ContainerEnd")

@@ -12,7 +12,7 @@ namespace dotnet_g23.Models.Domain.State
             throw new StateException("Er werd al een bericht gepubliceerd");
         }
 
-        public override void setupAction(Context context, Group group,String title, String description, DateTime date)
+        public override void setupAction(Context context, Group group,String title, String description, DateTime? date)
         {
             Action action = new Action(group,title,description,date);
             group.Actions.Add(action);

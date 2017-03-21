@@ -34,7 +34,7 @@ namespace dotnet_g23.Models.Domain.State
             throw new StateException($"Operation not supported in { GetType() }: Announce");
         }
 
-        public virtual void setupAction(Context context, Group group, String title, String description, DateTime date)
+        public virtual void setupAction(Context context, Group group, String title, String description, DateTime? date)
         {
             throw new StateException($"Operation not supported in { GetType() }: setupAction");
         }
