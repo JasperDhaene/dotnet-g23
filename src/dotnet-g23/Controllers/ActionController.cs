@@ -35,8 +35,7 @@ namespace dotnet_g23.Controllers
 
 		#region Methods
 
-        [Authorize(Policy = "participant")]
-        [Route("Groups/{id}/Action/New")]
+        [Route("Groups/{id}/Action")]
         public IActionResult Create(Participant participant, int id)
         {
             CreateViewModel vm = new CreateViewModel();
@@ -50,9 +49,8 @@ namespace dotnet_g23.Controllers
         }
 
         // GET /Groups/{id}/Action
-        [Authorize(Policy = "participant")]
         [HttpPost]
-        [Route("Groups/{gid}/Action/New")]
+        [Route("Groups/{gid}/Action")]
         public IActionResult Update(Participant participant, int gid, Action action)
         {
             
