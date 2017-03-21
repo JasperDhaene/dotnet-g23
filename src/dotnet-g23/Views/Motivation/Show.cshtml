@@ -1,10 +1,11 @@
 ﻿@using System.Threading.Tasks
 @using dotnet_g23.Models.Domain
+@using dotnet_g23.Models.Domain.State
 @{
     ViewData["Title"] = "Motivatie ingeven";
 }
 
-@model dotnet_g23.Models.ViewModels.MotivationViewModels.IndexViewModel
+@model dotnet_g23.Models.ViewModels.MotivationViewModels.ShowViewModel
 
 @Html.Partial("_ContainerStart")
     <div class="row">
@@ -73,10 +74,16 @@
                             </label>
                             <textarea name="motivation.MotivationText" id="motivationText" rows="4" style="width: 100%;" placeholder="Voer hier uw motivatie in (tussen 100 en 250 karakters)" maxlength="250">@Model.Motivation.MotivationText</textarea>
                         </p>
-                        <p>
-                            <input type="submit" value="Opslaan" name="update" class="btn btn-primary btn-md" />
-                            <input type="submit" value="Verzenden &raquo;" name="submit" class="btn btn-secondary btn-md" />
-                        </p>
+                        @if (Model.Group.Context.CurrentState is InitialState || Model.Group.Context.CurrentState is SubmittedState){
+                            <p>
+                                <input type="submit" value="Opslaan" name="update" class="btn btn-primary btn-md" />
+                                <input type="submit" value="Verzenden &raquo;" name="submit" class="btn btn-secondary btn-md" />
+                            </p>
+                        }else{
+                            <a asp-controller="Group" asp-action="Show" class="btn btn-secondary f-xs-left f-md-none mrg-sm-vert clear-xs clear-sm-none">
+                                <span>Terug &raquo;</span>
+                            </a>
+                        }
                     </div>
                 </div>
             </form>

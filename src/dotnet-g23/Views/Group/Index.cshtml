@@ -66,18 +66,17 @@
             {
                 foreach (var group in Model.OpenGroups)
                 {
-                    <!-- Only show the groups which you can join -->
-                    @if (Model.SubscribedGroup == null && (group.Context.CurrentState is InitialState || group.Context.CurrentState is SubmittedState)){
-                        <div class="card">
-                            <form asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" method="post">
-                                @group.Name <span class="badge">@group.Participants.Count @(group.Participants.Count == 1 ? "cursist" : "cursisten")</span>
-                                
-                                
-                                    <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Toetreden</a>
-                                
-                            </form>
-                        </div>
-                    }
+                    <div class="card">
+                        <form asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" method="post">
+                            @group.Name <span class="badge">@group.Participants.Count @(group.Participants.Count == 1 ? "cursist" : "cursisten")</span>
+                            <span class="splitter">|</span>
+                            <a asp-controller="Group" asp-action="Show" asp-route-id="@group.GroupId">Details &raquo;</a>
+                            @if (Model.SubscribedGroup == null && (group.Context.CurrentState is InitialState || group.Context.CurrentState is SubmittedState))
+                            {
+                                <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Toetreden</a>
+                            }
+                        </form>
+                    </div>
                 }
             }
         </div>

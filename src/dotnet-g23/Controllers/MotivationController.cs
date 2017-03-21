@@ -31,7 +31,7 @@ namespace dotnet_g23.Controllers {
         [Authorize(Policy = "participant")]
         [Route("Motivations/{id}")]
         public IActionResult Show(Participant participant, int id) {
-            IndexViewModel vm = new IndexViewModel();
+            ShowViewModel vm = new ShowViewModel();
 
             Group group = _groupRepository.GetBy(id);
 
