@@ -90,7 +90,7 @@ namespace dotnet_g23.Controllers
                 return RedirectToAction("Show", new { id = id });
             }
             TempData["success"] = $"Het label werd verstuurd naar de aangewezen contactpersonen";
-            return RedirectToAction("Index", "Group");
+            return RedirectToAction("Show", "Group", new { id = participant.Group.GroupId });
         }
 
     }
