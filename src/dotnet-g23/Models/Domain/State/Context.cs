@@ -51,6 +51,11 @@ namespace dotnet_g23.Models.Domain.State
         {
             return CurrentState.Announce(this, label, message, logo);
         }
+
+        public void setupAction(Group group, String title, String description, DateTime date)
+        {
+            CurrentState.setupAction(this, group, title, description, date);
+        }
         #endregion
     }
 }

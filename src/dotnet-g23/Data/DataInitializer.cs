@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using dotnet_g23.Models;
 using dotnet_g23.Models.Domain.State;
+using Action = dotnet_g23.Models.Domain.Action;
 
 namespace dotnet_g23.Data {
     public class DataInitializer {
@@ -192,6 +193,16 @@ namespace dotnet_g23.Data {
             _context.Labels.Add(l3);
 
 
+            /**
+             * Actions
+             * 
+             * */
+
+            Action a1 = new Action(hogentGroupGranted, "Koekjes bakken","Koekjes bakken op grootmoeders wijze (kopen in den Aldi dus) en dan deur aan deur verkopen met veel winst");
+            _context.Actions.Add(a1);
+
+            Action a2 = new Action(hogentGroupAnnounced, "Koekjes bakken","Koekjes bakken op grootmoeders wijze (kopen in den Aldi dus) en dan deur aan deur verkopen met veel winst");
+            _context.Actions.Add(a2);
 
             _context.SaveChanges();
         }

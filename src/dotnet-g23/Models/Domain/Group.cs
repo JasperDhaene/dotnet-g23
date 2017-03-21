@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using dotnet_g23.Models.Domain.State;
+using Action = dotnet_g23.Models.Domain.Action;
 
 namespace dotnet_g23.Models.Domain {
     public class Group {
@@ -85,6 +86,11 @@ namespace dotnet_g23.Models.Domain {
         public Post Announce(String message, byte[] logo)
         {
             return Context.Announce(Label, message, logo);
+        }
+
+        public void setupAction(String title, String description, DateTime date)
+        {
+            Context.setupAction(this, title, description, date);
         }
         #endregion
     }
