@@ -22,6 +22,7 @@ namespace dotnet_g23.Data.Repositories {
                 .Include(g => g.Lector)
                 .Include(g => g.Participants)
                 .Include(g => g.Label)
+                .Include(g => g.Actions)
                 .OrderBy(g => g.Name)
                 .ToList();
         }
@@ -33,6 +34,7 @@ namespace dotnet_g23.Data.Repositories {
                 .Include(g => g.Lector)
                 .Include(g => g.Participants)
                 .Include(g => g.Label)
+                .Include(g => g.Actions)
                 .SingleOrDefault(g => g.GroupId == groupId);
         }
 
@@ -43,6 +45,7 @@ namespace dotnet_g23.Data.Repositories {
                 .Include(g => g.Lector)
                 .Include(g => g.Participants)
                 .Include(g => g.Label)
+                .Include(g => g.Actions)
                 .SingleOrDefault(g => g.Name == groupName);
         }
 
@@ -54,6 +57,7 @@ namespace dotnet_g23.Data.Repositories {
 		        .Include(g => g.Lector)
 		        .Include(g => g.Participants)
                 .Include(g => g.Label)
+                .Include(g => g.Actions)
                 .OrderBy(g => g.Name)
                 .Where(g => g.Organization != null && g.Organization == organization);
         }
