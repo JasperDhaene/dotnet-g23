@@ -31,7 +31,6 @@ namespace dotnet_g23.Data {
         public DbSet<Post> Posts { get; private set; }
 
         public DbSet<Action> Actions { get; private set; }
-        public DbSet<Event> Events { get; private set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {
@@ -60,8 +59,7 @@ namespace dotnet_g23.Data {
 
             builder.Entity<Post>(MapPost);
 
-            builder.Entity<Models.Domain.Action>(MapAction);
-            builder.Entity<Event>(MapEvent);
+            builder.Entity<Action>(MapAction);
         }
 
         private static void MapGUser(EntityTypeBuilder<GUser> u) {
@@ -241,15 +239,7 @@ namespace dotnet_g23.Data {
 
             a.Property(ac => ac.Title).IsRequired();
             a.Property(ac => ac.Description).IsRequired();
-
-            a.HasDiscriminator<string>("action_type")
-                .HasValue<Models.Domain.Action>("action")
-                .HasValue<Event>("event");
-        }
-
-        private static void MapEvent(EntityTypeBuilder<Event> e)
-        {
-            e.Property(ev => ev.Date).IsRequired();
+            a.Property(ac => ac.Date);
         }
     }
 }

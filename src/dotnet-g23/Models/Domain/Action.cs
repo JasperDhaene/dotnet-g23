@@ -25,6 +25,8 @@ namespace dotnet_g23.Models.Domain
             }
         }
 
+        public DateTime Date { get;  set; } //TODO: private set? Don't know difference
+
         public Group Group { get; private set; }
         #endregion
 
@@ -33,10 +35,11 @@ namespace dotnet_g23.Models.Domain
         {
         }
 
-        public Action(string title, string description) : this()
+        public Action(string title, string description, DateTime date) : this()
         {
             Title = title;
             Description = description;
+            Date = date;
         } 
         #endregion
     }
