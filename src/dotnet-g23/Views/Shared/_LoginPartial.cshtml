@@ -3,21 +3,20 @@
 @using dotnet_g23.Models.Domain
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+
+
 @if (SignInManager.IsSignedIn(User)) {
-    <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
-        <ul>
-            <li class="nav-item">
-                <span class="false-nav-link">Hallo @UserManager.GetUserName(User).Split('@')[0].Split('.')[0]!</span>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" onClick="$(this).closest('form')[0].submit();">Uitloggen</a>
-            </li>
-        </ul>
-    </form>
+    <li class="nav-item">
+        Ingelogd als @UserManager.GetUserName(User).Split('@')[0].Split('.')[0]
+    </li>
+    <li class="nav-item">
+        <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+            <a href="#" class="btn btn-secondary m-l-1" onClick="$(this).closest('form')[0].submit();">Uitloggen</a>
+        </form>
+    </li>
 }
-else {
-    <ul>
-        <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="Register" class="nav-link"><i class="fa fa-user-plus"></i> Registreren</a></li>
-        <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link"><i class="fa fa-sign-in"></i> Log in</a></li>
-    </ul>
+else
+{
+    <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="Register" class="nav-link"><i class="fa fa-user-plus"></i> Registreren</a></li>
+    <li class="nav-item"><a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-secondary m-l-1"><i class="fa fa-sign-in"></i> Inloggen</a></li>
 }

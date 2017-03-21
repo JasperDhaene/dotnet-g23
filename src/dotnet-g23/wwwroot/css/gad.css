@@ -12153,9 +12153,6 @@ input[type="text"]#sublocality_level_1:-ms-input-placeholder {
         line-height: 1;
         padding: 1rem 0
     }
-    .navbar-nav .dropdown-menu {
-        max-width: 200px
-    }
     .nav-item,
     .navbar-nav .nav-divider {
         display: inline-block;

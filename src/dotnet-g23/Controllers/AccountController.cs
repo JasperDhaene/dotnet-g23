@@ -68,9 +68,6 @@ namespace dotnet_g23.Controllers {
                         return RedirectToAction("Index", "Group");
                     return RedirectToAction("Show", "Group", new { id = participant.Group.GroupId });
                 }
-                if (result.RequiresTwoFactor) {
-                    return RedirectToAction(nameof(SendCode), new { ReturnUrl = returnUrl, model.RememberMe });
-                }
                 if (result.IsLockedOut) {
                     _logger.LogWarning(2, "User account locked out.");
                     return View("Lockout");
