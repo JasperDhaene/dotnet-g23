@@ -7,7 +7,8 @@
 
 @if (SignInManager.IsSignedIn(User)) {
     <li class="nav-item">
-        Ingelogd als @UserManager.GetUserName(User).Split('@')[0].Split('.')[0]
+        <i class="fa fa-user"></i>
+        @UserManager.GetUserName(User).Split('@')[0].Split('.')[0]
     </li>
     <li class="nav-item">
         <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
