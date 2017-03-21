@@ -6,4 +6,3 @@ Dit project is een module voor de implementatie van het 'Goed Bezig'-label binne
 - Jasper D'haene
 - Florian Dejonckheere
 - Preben Leroy
-- Tuur Lievens
