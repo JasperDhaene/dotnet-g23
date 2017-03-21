@@ -49,6 +49,7 @@
       "type": "build",
       "version": "1.0.0-preview2-final"
     },
+    "System.IO": "4.3.0",
     "System.Linq": "4.3.0",
     "System.Linq.Expressions": "4.3.0",
     "System.Net.Sockets": "4.3.0"
