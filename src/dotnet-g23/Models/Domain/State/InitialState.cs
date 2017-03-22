@@ -40,10 +40,6 @@ namespace dotnet_g23.Models.Domain.State
             if (group.Motivation == null)
                 throw new StateException("Motivatie moet aanwezig zijn");
 
-            // TODO: move validation to Motivation
-            if (group.Motivation.MotivationText.Length < 100 || group.Motivation.MotivationText.Length > 250)
-                throw new StateException("Motivatie moet tussen 100 en 250 tekens lang zijn");
-
             context.CurrentState = new SubmittedState();
         }
 

@@ -161,16 +161,16 @@ namespace dotnet_g23.Data {
             m.HasKey(mo => mo.MotivationId);
 
             m.Property(mo => mo.Approved);
-            m.Property(mo => mo.MotivationText);
-            m.Property(mo => mo.OrganizationName);
-            m.Property(mo => mo.OrganizationAddress);
-            m.Property(mo => mo.OrganizationWebsite);
-            m.Property(mo => mo.OrganizationEmail);
+            m.Property(mo => mo.MotivationText).IsRequired(false);
+            m.Property(mo => mo.OrganizationName).IsRequired(false);
+            m.Property(mo => mo.OrganizationAddress).IsRequired(false);
+            m.Property(mo => mo.OrganizationWebsite).IsRequired(false);
+            m.Property(mo => mo.OrganizationEmail).IsRequired(false);
 
-            m.Property(mo => mo.OrganizationContactTitle);
-            m.Property(mo => mo.OrganizationContactFirstName);
-            m.Property(mo => mo.OrganizationContactName);
-            m.Property(mo => mo.OrganizationContactEmail);
+            m.Property(mo => mo.OrganizationContactTitle).IsRequired(false);
+            m.Property(mo => mo.OrganizationContactFirstName).IsRequired(false);
+            m.Property(mo => mo.OrganizationContactName).IsRequired(false);
+            m.Property(mo => mo.OrganizationContactEmail).IsRequired(false);
 
             // Motivation => Group
             m.HasOne(mo => mo.Group)

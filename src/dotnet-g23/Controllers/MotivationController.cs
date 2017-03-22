@@ -12,6 +12,7 @@ using dotnet_g23.Models.ViewModels.MotivationViewModels;
 using dotnet_g23.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using dotnet_g23.Data.Repositories;
+using Microsoft.EntityFrameworkCore.Internal;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -55,6 +56,9 @@ namespace dotnet_g23.Controllers {
                 group.Motivation = motivation;
                 if (Request.Form.ContainsKey("submit"))
                 {
+                    if (!ModelState.IsValid)
+                        throw new GoedBezigException(ModelState.Values.SelectMany(v => v.Errors.Select(b => b.ErrorMessage)).Join());
+
                     group.Submit();
 
                     TempData["success"] = "Uw motivatie werd verzonden naar de begeleidende lector";
