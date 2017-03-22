@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace dotnet_g23.Tests.Controllers
 {
-    public class EventController
+    public class EventControllerTest
     {
     }
 }
