@@ -69,7 +69,7 @@ namespace dotnet_g23.Controllers {
                 }
                 _groupRepository.SaveChanges();
 
-                return RedirectToAction("Dashboard");
+                return RedirectToAction("Dashboard", "Group");
             }
             catch (GoedBezigException e)
             {
