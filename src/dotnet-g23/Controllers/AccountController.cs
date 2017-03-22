@@ -66,7 +66,7 @@ namespace dotnet_g23.Controllers {
 
                     if (participant.Group == null)
                         return RedirectToAction("Index", "Group");
-                    return RedirectToAction("Show", "Group", new { id = participant.Group.GroupId });
+                    return RedirectToAction("Dashboard", "Group");
                 }
                 if (result.IsLockedOut) {
                     _logger.LogWarning(2, "User account locked out.");

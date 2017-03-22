@@ -96,16 +96,45 @@ namespace dotnet_g23.Controllers
 	        }
         }
 
-	    // GET /Groups/:id
+        // GET /Dashboard
+	    [Route("Dashboard")]
+	    public IActionResult Dashboard(Participant participant)
+	    {
+            // Show personal dashboard
+
+
+            if (participant.Group == null)
+            {
+                TempData["error"] = "U bent nog niet geregistreerd bij een groep.";
+                return RedirectToAction("Index");
+            }
+
+            Group group = _groupRepository.GetBy(participant.Group.GroupId);
+
+	        ShowViewModel vm = new ShowViewModel
+	        {
+	            Group = group,
+	            Participants = _participantRepository.GetByGroup(group),
+	            Invitations = _invitationRepository.GetByGroup(group)
+	        };
+
+	        return View(vm);
+	    }
+
+        // GET /Groups/:id
         [Route("Groups/{id}")]
         public IActionResult Show(Participant participant, int id)
         {
-            // Show group dashboard
+            // Show group
 
-            ShowViewModel vm = new ShowViewModel();
-            vm.Group = _groupRepository.GetBy(id);
-            vm.Participants = _participantRepository.GetByGroup(vm.Group);
-            vm.Invitations = _invitationRepository.GetByGroup(vm.Group);
+            Group group = _groupRepository.GetBy(participant.Group.GroupId);
+
+            ShowViewModel vm = new ShowViewModel
+            {
+                Group = group,
+                Participants = _participantRepository.GetByGroup(group),
+                Invitations = _invitationRepository.GetByGroup(group)
+            };
 
             return View(vm);
         }
@@ -130,7 +159,7 @@ namespace dotnet_g23.Controllers
                 return RedirectToAction("Index");
             }
             TempData["success"] = $"U bent geregistreerd bij groep '{ group.Name }'";
-            return RedirectToAction("Show", new { id = group.GroupId });
+            return RedirectToAction("Dashboard");
         }
 
         // GET /Groups/{id}/Invite
@@ -208,10 +237,9 @@ namespace dotnet_g23.Controllers
             TempData["success"] = "Bericht werd gepubliceerd. ";
             TempData["linkText"] = "Toon bericht";
             TempData["linkController"] = "Organization";
-            TempData["linkAction"] = "Show";
-            TempData["linkId"] = participant.Group.Organization.OrganizationId;
+            TempData["linkAction"] = "Dashboard";
 
-            return RedirectToAction("Show", new { id = group.GroupId });
+            return RedirectToAction("Dashboard");
         }
 		#endregion
 	}

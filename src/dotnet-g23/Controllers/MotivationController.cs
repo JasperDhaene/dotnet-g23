@@ -68,8 +68,8 @@ namespace dotnet_g23.Controllers {
                     TempData["success"] = "Uw motivatie werd opgeslaan";
                 }
                 _groupRepository.SaveChanges();
-                
-                return RedirectToAction("Show", "Group", new { id = group.GroupId });
+
+                return RedirectToAction("Dashboard");
             }
             catch (GoedBezigException e)
             {

@@ -19,7 +19,7 @@
                 <h1>Mijn groep</h1>
                 <div class="card">
                     @Model.SubscribedGroup.Name <span class="badge">@Model.SubscribedGroup.Participants.Count @(Model.SubscribedGroup.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
-                    <a asp-controller="Group" asp-action="Show" asp-route-id="@Model.SubscribedGroup.GroupId" class="btn btn-primary btn-md f-sm-right">Dashboard</a>
+                    <a asp-controller="Group" asp-action="Dashboard" class="btn btn-primary btn-md f-sm-right">Dashboard</a>
                 </div>
             }
         </div>
