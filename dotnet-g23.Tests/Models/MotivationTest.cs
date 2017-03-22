@@ -17,44 +17,6 @@ namespace dotnet_g23.Tests.Models {
             Assert.Equal(text, motivation.MotivationText);
         }
 
-        //[Fact]
-        //public void MotivationThrowsExceptionOnTooShortMotivationText() {
-        //    // < 99 chars
-        //    String text = "Lorem ipsum dolor sit amet";
-
-        //    Assert.Throws<ArgumentException>(() => new Motivation(text));
-
-        //}
-
-        //public void MotivationThrowsExceptionOnShortMotivationText() {
-        //    // 99 chars
-        //    String text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmod tempor incididunt ut labore";
-
-        //    Assert.Throws<ArgumentException>(() => new Motivation(text));
-        //}
-
-        //[Fact]
-        //public void MotivationThrowsExceptionOnTooLongMotivationText() {
-        //    // > 250 chars
-        //    String text =
-        //        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmod tempor incididunt " +
-        //        "ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco " +
-        //        "laboris nisi utaliquip ex ea commodo consequat. Duis aute irure dolor inreprehenderit";
-
-        //    Assert.Throws<ArgumentException>(() => new Motivation(text));
-        //}
-
-        //[Fact]
-        //public void MotivationThrowsExceptionOnLongMotivationText() {
-
-        //    // 251 chars
-        //    String text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmod tempor incididunt " +
-        //           "ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco " +
-        //           "laboris nisi utaliquip ex ea commodo consequat. Duis aute irure dolor";
-
-        //    Assert.Throws<ArgumentException>(() => new Motivation(text));
-        //}
-
         [Fact]
         public void MotivationIsNotApprovedByDefault() {
             String text =
