@@ -165,7 +165,7 @@ namespace dotnet_g23.Tests.Data {
              * Motivations
              * 
              * */
-
+            Motivations = new List<Motivation>();
             MotivationSubmitted = CreateMotivation(HogentGroupSubmitted, false);
             MotivationApproved = CreateMotivation(HogentGroupApproved, true);
             MotivationGranted = CreateMotivation(HogentGroupGranted, true);
@@ -180,7 +180,7 @@ namespace dotnet_g23.Tests.Data {
              * Companies
              * 
              * */
-
+            Companies = new List<Company>();
             Company1 = new Company("Company 1", "This is company 1", "Address of company 1", "http://www.company1.com", "hello@company1.com");
             Company2 = new Company("Company 2", "This is company 2", "Address of company 2", "http://www.company2.com", "hello@company2.com");
             Company3 = new Company("Company 3", "This is company 3", "Address of company 3", "http://www.company3.com", "hello@company3.com");
@@ -193,7 +193,7 @@ namespace dotnet_g23.Tests.Data {
              * Contacts
              * 
              * */
-
+            Contacts = new List<Contact>();
             Contact1CEO = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company1.com", Company1);
             Contact1CFO = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company1.com", Company1);
             Contact1CTO = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company1.com", Company1);
@@ -234,7 +234,7 @@ namespace dotnet_g23.Tests.Data {
              * Labels
              * 
              * */
-
+            Labels = new List<Label>();
             Label2 = new Label(HogentGroupGranted, Company2);
             HogentGroupGranted.Context.CurrentState = new GrantedState();
 

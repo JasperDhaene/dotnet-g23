@@ -17,8 +17,8 @@ namespace dotnet_g23.Tests.Controllers {
         #region Attributes
         private readonly OrganizationController _controller;
         private DummyApplicationDbContext _context;
-        private readonly GUser _user1;
-        private readonly GUser _user2;
+        private readonly GUser _volunteer;
+        private readonly GUser _participant;
         
         #endregion
 
@@ -51,13 +51,20 @@ namespace dotnet_g23.Tests.Controllers {
             _controller = new OrganizationController(userMan.Object, signMan.Object, repo.Object, Grepo.Object, Prepo.Object);
             _controller.TempData = new Mock<ITempDataDictionary>().Object;
 
-            
+            _volunteer = _context.VolunteerHoGent;
+            _participant = _context.ParticipantHogent;
 
         }
         #endregion
 
         #region Index
-        
+        [Fact]
+        public void IndexShouldGiveListOfPossibleOrganizationsForVolunteer() {
+            ViewResult result = _controller.Index(_volunteer, _volunteer.UserState as Participant, null) as ViewResult;
+            IndexViewModel ind = (IndexViewModel)result?.Model;
+            IEnumerable<Organization> orgResult = ind.Organizations;
+            Assert.True(orgResult.Contains(_context.HogentGent));
+        }
         #endregion
     }
 }
