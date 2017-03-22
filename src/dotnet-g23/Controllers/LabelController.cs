@@ -13,27 +13,30 @@ using dotnet_g23.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace dotnet_g23.Controllers
-{
+namespace dotnet_g23.Controllers {
     [Authorize]
     [ServiceFilter(typeof(ParticipantFilter))]
-    public class LabelController : Controller
-    {
+    public class LabelController : Controller {
         #region Fields
         private readonly ICompanyRepository _companyRepository;
         private readonly IGroupRepository _groupRepository;
         #endregion
 
         #region Constructor
+<<<<<<< HEAD
         public LabelController(ICompanyRepository companyRepository, IGroupRepository groupRepository) {
             _companyRepository = companyRepository;
             _groupRepository = groupRepository;
+=======
+        public LabelController(ICompanyRepository compRepo) {
+            _companyRepository = compRepo;
+            // _groupRepository = groupRepo;
+>>>>>>> place foreach outside try/catch
         }
         #endregion
 
         [Route("Companies")]
-        public IActionResult Index(GUser user, String query = null)
-        {
+        public IActionResult Index(GUser user, String query = null) {
             // Show companies
             IndexViewModel vm = new IndexViewModel() {
                 Companies = query == null ? _companyRepository.GetAll() : _companyRepository.GetByKeyword(query)
@@ -42,8 +45,7 @@ namespace dotnet_g23.Controllers
         }
 
         [Route("Companies/{id}")]
-        public IActionResult Show(Participant participant, int id)
-        {
+        public IActionResult Show(Participant participant, int id) {
             Group group = _groupRepository.GetBy(participant.Group.GroupId);
 
             // Show company contacts
@@ -60,32 +62,29 @@ namespace dotnet_g23.Controllers
 
         [HttpPost]
         [Route("Companies/{id}")]
-        public IActionResult Send(Participant participant, int id, int[] contactIds)
-        {
+        public IActionResult Send(Participant participant, int id, int[] contactIds) {
             // Grant label to company
 
             Company company = _companyRepository.GetBy(id);
             Group group = participant.Group;
-            
-            try
-            {
+
+            AuthMessageSender sender = new AuthMessageSender();
+
+            foreach (var cId in contactIds) {
+                Contact contact = company.Contacts.First(co => co.ContactId == cId);
+
+                sender.SendEmail(contact.Company.Name, contact.Email,
+                    group.Organization.Name, contact.Company.Description);
+
+            }
+
+            try {
                 group.Grant(company);
                 _companyRepository.SaveChanges();
 
-                AuthMessageSender sender = new AuthMessageSender();
 
-                foreach (var cId in contactIds)
-                {
-                    Contact contact = company.Contacts.First(co => co.ContactId == cId);
-
-                    sender.SendEmailAsync(contact.Company.Name, contact.Email,
-                        group.Organization.Name, contact.Company.Description);
-                }
-
-                
             }
-            catch (GoedBezigException e)
-            {
+            catch (GoedBezigException e) {
                 TempData["error"] = e.Message;
                 return RedirectToAction("Show", new { id = id });
             }

@@ -12,38 +12,38 @@ namespace dotnet_g23.Services {
         public AuthMessageSender() {
 
         }
-        public void SendEmailAsync(string receiver, string email, string organizationName, string beschrijving) {
+        public async void SendEmail(string receiver, string email, string organizationName, string beschrijving) {
             // Plug in your email service here to send an email.
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("Goed Bezig!", "goedbezig@dejonckhee.re"));
             emailMessage.To.Add(new MailboxAddress(receiver, email));
             emailMessage.Subject = "Uitreiking Goed Bezig!-label voor " + receiver + ".";
 
-            var builder = new BodyBuilder();
-            using (StreamReader SourceReader = System.IO.File.OpenText("App_data/Template/EmailTemplate.html")) {
-                builder.HtmlBody = SourceReader.ReadToEnd();
-                builder.HtmlBody.Replace("{organization}", organizationName).Replace("{company}", receiver).Replace("{description}", beschrijving);
-            }
+            //var builder = new BodyBuilder();
+            //using (StreamReader SourceReader = System.IO.File.OpenText("App_data/Template/EmailTemplate.html")) {
+            //    builder.HtmlBody = SourceReader.ReadToEnd();
+            //    builder.HtmlBody.Replace("{organization}", organizationName).Replace("{company}", receiver).Replace("{description}", beschrijving);
+            //}
 
-            var multipart = new Multipart("mixed");
-            multipart.Add(new TextPart("html"));
+            //var multipart = new Multipart("mixed");
+            //multipart.Add(new TextPart("html"));
 
-            emailMessage.Body = builder.ToMessageBody();
+            //emailMessage.Body = builder.ToMessageBody();
 
-            //emailMessage.Body = new TextPart() { Text = "Test" };
+            emailMessage.Body = new TextPart() { Text = "Test" };
 
             using (var client = new SmtpClient()) {
-                client.Connect("thalarion.be", 587, false);
+                await client.ConnectAsync("thalarion.be", 587, false);
 
                 // Note: since we don't have an OAuth2 token, disable
                 // the XOAUTH2 authentication mechanism.
-                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                //client.AuthenticationMechanisms.Remove("XOAUTH2");
 
                 // Note: only needed if the SMTP server requires authentication
-                client.Authenticate("goedbezig@dejonckhee.re", "z5sG3kEVioUhhqhosXgT4xWSsGzG8biMKYz1BmQPmYRUFzAD1G8nBozfdcvUnuU9UbojEU");
+                await client.AuthenticateAsync("goedbezig@dejonckhee.re", "z5sG3kEVioUhhqhosXgT4xWSsGzG8biMKYz1BmQPmYRUFzAD1G8nBozfdcvUnuU9UbojEU");
 
-                client.Send(emailMessage);
-                client.Disconnect(true);
+                await client.SendAsync(emailMessage);
+                await client.DisconnectAsync(true);
             }
         }
     }
