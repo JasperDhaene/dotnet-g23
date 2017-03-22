@@ -50,9 +50,15 @@
                 foreach (var activity in Model.Group.Actions)
                 {
                     <div class="card m-t-1">
-                        <strong>@activity.Title</strong>
-                        <br />
-                        @activity.Description
+                        <p class="heading">@activity.Title</p>
+                        <p>
+                            @activity.Description
+                        </p>
+                        @if(@activity.Date != null){
+                            <p>
+                                Datum: @activity.Date
+                            </p>
+                        }
                     </div>
                 }
             }
