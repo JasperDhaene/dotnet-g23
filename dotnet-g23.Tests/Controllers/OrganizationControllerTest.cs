@@ -58,12 +58,12 @@ namespace dotnet_g23.Tests.Controllers {
         #endregion
 
         #region Index
-        [Fact]
-        public void IndexShouldGiveListOfPossibleOrganizationsForVolunteer() {
-            ViewResult result = _controller.Index(_volunteer, _volunteer.UserState as Participant, null) as ViewResult;
-            IndexViewModel ind = (IndexViewModel)result?.Model;
-            IEnumerable<Organization> orgResult = ind.Organizations;
-            Assert.True(orgResult.Contains(_context.HogentGent));
+        //[Fact]
+        //public void IndexShouldGiveListOfPossibleOrganizationsForVolunteer() {
+        //    ViewResult result = _controller.Index(_volunteer, _volunteer.UserState as Participant, null) as ViewResult;
+        //    IndexViewModel ind = (IndexViewModel)result?.Model;
+        //    IEnumerable<Organization> orgResult = ind.Organizations;
+        //    Assert.True(orgResult.Contains(_context.HogentGent));
         }
         #endregion
     }
