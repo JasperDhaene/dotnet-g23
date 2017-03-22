@@ -12,7 +12,7 @@ namespace dotnet_g23.Services {
         public AuthMessageSender() {
 
         }
-        public void SendEmailAsync(string organizationName, string receiver, string email, string beschrijving) {
+        public void SendEmailAsync(string organizationName, string email, string receiver, string beschrijving) {
             // Plug in your email service here to send an email.
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("Goed Bezig!", "goedbezig@dejonckhee.re"));
@@ -20,11 +20,10 @@ namespace dotnet_g23.Services {
             emailMessage.Subject = "Uitreiking Goed Bezig!-label voor " + receiver + ".";
 
             var builder = new BodyBuilder();
-            using (StreamReader SourceReader = System.IO.File.OpenText("App_data\\Template\\EmailTemplate.html")) {
+            using (StreamReader SourceReader = System.IO.File.OpenText("App_data/Template/EmailTemplate.html")) {
                 builder.HtmlBody = SourceReader.ReadToEnd();
+                builder.HtmlBody.Replace("{organization}", organizationName).Replace("{company}", receiver).Replace("{description}", beschrijving);
             }
-
-            builder.HtmlBody.Replace("{organization}", organizationName).Replace("{company}", receiver).Replace("{description}", beschrijving);
 
             var multipart = new Multipart("mixed");
             multipart.Add(new TextPart("html"));
