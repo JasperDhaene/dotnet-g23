@@ -19,25 +19,25 @@ namespace dotnet_g23.Services {
             emailMessage.To.Add(new MailboxAddress(receiver, email));
             emailMessage.Subject = "Uitreiking Goed Bezig!-label voor " + receiver + ".";
 
-            //var builder = new BodyBuilder();
-            //using (StreamReader SourceReader = System.IO.File.OpenText("App_data/Template/EmailTemplate.html")) {
-            //    builder.HtmlBody = SourceReader.ReadToEnd();
-            //    builder.HtmlBody.Replace("{organization}", organizationName).Replace("{company}", receiver).Replace("{description}", beschrijving);
-            //}
+            var builder = new BodyBuilder();
+            using (StreamReader SourceReader = System.IO.File.OpenText("App_data/Template/EmailTemplate.html")) {
+                builder.HtmlBody = SourceReader.ReadToEnd();
+                builder.HtmlBody.Replace("{organization}", organizationName).Replace("{company}", receiver).Replace("{description}", beschrijving);
+            }
 
-            //var multipart = new Multipart("mixed");
-            //multipart.Add(new TextPart("html"));
+            var multipart = new Multipart("mixed");
+            multipart.Add(new TextPart("html"));
 
-            //emailMessage.Body = builder.ToMessageBody();
+            emailMessage.Body = builder.ToMessageBody();
 
-            emailMessage.Body = new TextPart() { Text = "Test" };
+            //emailMessage.Body = new TextPart() { Text = "Test" };
 
             using (var client = new SmtpClient()) {
                 client.Connect("thalarion.be", 587, false);
 
                 // Note: since we don't have an OAuth2 token, disable
                 // the XOAUTH2 authentication mechanism.
-                //client.AuthenticationMechanisms.Remove("XOAUTH2");
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
 
                 // Note: only needed if the SMTP server requires authentication
                 client.Authenticate("goedbezig@dejonckhee.re", "z5sG3kEVioUhhqhosXgT4xWSsGzG8biMKYz1BmQPmYRUFzAD1G8nBozfdcvUnuU9UbojEU");
