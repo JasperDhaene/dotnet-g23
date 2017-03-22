@@ -134,6 +134,14 @@ namespace dotnet_g23.Controllers {
             _logger.LogInformation(4, "User logged out.");
             return RedirectToAction(nameof(AccountController.Login), "Account");
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied() {
+            return View();
+        }
+
+
         
         #region Helpers
 

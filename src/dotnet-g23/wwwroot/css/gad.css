@@ -14083,6 +14083,10 @@ as per bootstrap 4 standards
     min-height: 95vh;
 }
 
+#page-wrapper.gb img {
+    width: auto;
+}
+
 .mrg-sm-vert { /* TODO look into possibility for m-t-X */
     margin: 1% 0;
 }
