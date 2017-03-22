@@ -10,18 +10,9 @@
 @Html.Partial("_ContainerStart")
     <div class="row">
         <div class="col-lg-12">
-            <div class="clearfix">
-                <h1 class="f-md-left">Mijn groep voor GB organisatie '@Model.Organization.Name'</h1>
-
-                @if (Model.SubscribedGroup == null)
-                {
-                    <a asp-controller="Group" asp-action="Create" class="btn btn-primary btn-md f-sm-left f-md-right">Groep aanmaken</a>
-                }
-            </div>
-
             @if (Model.SubscribedGroup == null)
             {
-                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> U bent niet in een groep ingeschreven. Maak een groep aan of registreer u bij een open groep van de organisatie.</div>
+                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> <strong>U bent niet in een groep ingeschreven.</strong> U kan zich aansluiten bij een open groep binnen de organisatie, of zelf <a asp-controller="Group" asp-action="Create" class="alert-link">een groep aanmaken &raquo;</a></div>
             }
             else
             {
@@ -33,11 +24,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 m-t-3">
-            <h1>Groepen</h1>
+        <div class="col-lg-12 p-y-3">
+            <h1>Alle groepen voor organisatie '@Model.Organization.Name'</h1>
             @if(Model.SubscribedGroup != null && (Model.SubscribedGroup.Context.CurrentState is InitialState || Model.SubscribedGroup.Context.CurrentState is SubmittedState)){
                 <h3>Uitnodigingen</h3>
-                @if (Model.InvitedGroups == null || !Model.InvitedGroups.Any())
+                if (Model.InvitedGroups == null || !Model.InvitedGroups.Any())
                 {
                     <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen uitnodigingen tot toetreden van een groep gevonden.</div>
                 }
@@ -60,7 +51,7 @@
             <h3>Open groepen</h3>
             @if (Model.OpenGroups == null || !Model.OpenGroups.Any())
             {
-                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen open groepen gevonden.</div>
+                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen groepen gevonden binnen de organisatie.</div>
             }
             else
             {
