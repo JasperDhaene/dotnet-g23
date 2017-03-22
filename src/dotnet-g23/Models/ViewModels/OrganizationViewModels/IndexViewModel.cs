@@ -10,5 +10,6 @@ namespace dotnet_g23.Models.ViewModels.OrganizationViewModels
     {
         public IEnumerable<Organization> Organizations { get; set; }
         public Organization SubscribedOrganization { get; set; }
+        public GUser User { get; set; }
     }
 }

@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-lg-12">
             @if (Model.SubscribedOrganization == null) {
-                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> <strong>U bent niet in een organisatie geregistreerd.</strong> U kan zich inschrijven bij een organisatie die zich aansluit bij uw emailadres. Eenmaal u geregistreerd bent bij een organisatie, kan u zich aansluiten bij een groep van de organisatie.</div>
+                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> <strong>U bent niet in een organisatie geregistreerd.</strong> U kan zich registreren bij een organisatie die zich aansluit bij uw emailadres. Eenmaal u geregistreerd bent bij een organisatie, kan u zich inschrijven in een groep van de organisatie.</div>
             }
             else
             {
@@ -46,7 +46,7 @@
                             @org.Name (@org.Location)
                             <input type="hidden" value="@org.OrganizationId" name="organizationId"/>
                             
-                            @if (Model.SubscribedOrganization == null)
+                            @if (Model.SubscribedOrganization == null && Model.User.Domain == org.Domain)
                             {
                                 <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-right">Registreren</a>
                             }

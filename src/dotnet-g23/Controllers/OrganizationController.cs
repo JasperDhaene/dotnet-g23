@@ -46,7 +46,8 @@ namespace dotnet_g23.Controllers {
 
             IndexViewModel vm = new IndexViewModel() {
                 SubscribedOrganization = participant?.Organization,
-                Organizations = query == null ? _orgRepository.GetAll() : _orgRepository.GetByKeyword(query)
+                Organizations = query == null ? _orgRepository.GetAll() : _orgRepository.GetByKeyword(query),
+                User = user
             };
             return View(vm);
         }
