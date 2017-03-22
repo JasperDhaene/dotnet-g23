@@ -37,11 +37,11 @@
                             @Html.Partial("_Messages")
                             <div class="row">
                                 <div class="col-lg-12 m-t-3">
-                                    <p class="heading">Goed Bezig Label</p>
+                                    <h3>Toegekende labels</h3>
                                     
                                     @if (Model.Posts == null || !Model.Posts.Any())
                                     {
-                                        <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen Goed Bezig labels toegekend.</div>
+                                        <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Deze organisatie heeft nog geen Goed Bezig-labels toegekend.</div>
                                     }
                                     @foreach (var post in Model.Posts)
                                     {
