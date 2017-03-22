@@ -175,15 +175,15 @@ namespace dotnet_g23.Migrations {
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Approved = table.Column<bool>(nullable: false),
                     GroupForeignKey = table.Column<int>(nullable: false),
-                    MotivationText = table.Column<string>(nullable: false),
-                    OrganizationAddress = table.Column<string>(nullable: false),
+                    MotivationText = table.Column<string>(nullable: true),
+                    OrganizationAddress = table.Column<string>(nullable: true),
                     OrganizationContactEmail = table.Column<string>(nullable: true),
                     OrganizationContactFirstName = table.Column<string>(nullable: true),
                     OrganizationContactName = table.Column<string>(nullable: true),
                     OrganizationContactTitle = table.Column<string>(nullable: true),
-                    OrganizationEmail = table.Column<string>(nullable: false),
-                    OrganizationName = table.Column<string>(nullable: false),
-                    OrganizationWebsite = table.Column<string>(nullable: false)
+                    OrganizationEmail = table.Column<string>(nullable: true),
+                    OrganizationName = table.Column<string>(nullable: true),
+                    OrganizationWebsite = table.Column<string>(nullable: true)
                 },
                 constraints: table => {
                     table.PrimaryKey("PK_Motivations", x => x.MotivationId);
