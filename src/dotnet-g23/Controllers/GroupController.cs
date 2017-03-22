@@ -98,7 +98,7 @@ namespace dotnet_g23.Controllers
 
         // GET /Dashboard
 	    [Route("Dashboard")]
-	    public IActionResult Dashboard(Participant participant)
+	    public IActionResult Dashboard(Participant participant, int id)
 	    {
             // Show personal dashboard
 

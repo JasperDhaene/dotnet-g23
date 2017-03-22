@@ -91,7 +91,7 @@
             @if (Model.Group.CanSetup()){
                 <div class="clearfix">
                     <h1 class="f-md-left">Acties en evenementen</h1>
-                    <a asp-controller="Action" asp-action="New" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Activiteit opzetten</a>
+                    <a asp-controller="Action" asp-action="Create" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Activiteit opzetten</a>
                 </div>
                 if (!Model.Group.Actions.Any())
                 {
@@ -104,9 +104,15 @@
                     foreach (var activity in Model.Group.Actions)
                     {
                         <div class="card m-t-1">
-                            <strong>@activity.Title</strong>
-                            <br />
-                            @activity.Description
+                            <p class="heading">@activity.Title</p>
+                            <p>
+                                @activity.Description
+                            </p>
+                            @if(@activity.Date != null){
+                                <p>
+                                    Datum: @activity.Date
+                                </p>
+                            }
                         </div>
                     }
                 }
