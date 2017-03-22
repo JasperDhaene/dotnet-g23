@@ -127,7 +127,7 @@ namespace dotnet_g23.Controllers
         {
             // Show group
 
-            Group group = _groupRepository.GetBy(participant.Group.GroupId);
+            Group group = _groupRepository.GetBy(id);
 
             ShowViewModel vm = new ShowViewModel
             {
