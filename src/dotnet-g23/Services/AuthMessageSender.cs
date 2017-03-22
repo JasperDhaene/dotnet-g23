@@ -12,23 +12,25 @@ namespace dotnet_g23.Services {
         public AuthMessageSender() {
 
         }
-        public void SendEmailAsync(string organizationName, string email, string receiver, string beschrijving) {
+        public void SendEmailAsync(string receiver, string email, string organizationName, string beschrijving) {
             // Plug in your email service here to send an email.
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("Goed Bezig!", "goedbezig@dejonckhee.re"));
             emailMessage.To.Add(new MailboxAddress(receiver, email));
             emailMessage.Subject = "Uitreiking Goed Bezig!-label voor " + receiver + ".";
 
-            var builder = new BodyBuilder();
-            using (StreamReader SourceReader = System.IO.File.OpenText("App_data/Template/EmailTemplate.html")) {
-                builder.HtmlBody = SourceReader.ReadToEnd();
-                builder.HtmlBody.Replace("{organization}", organizationName).Replace("{company}", receiver).Replace("{description}", beschrijving);
-            }
+            //var builder = new BodyBuilder();
+            //using (StreamReader SourceReader = System.IO.File.OpenText("App_data/Template/EmailTemplate.html")) {
+            //    builder.HtmlBody = SourceReader.ReadToEnd();
+            //    builder.HtmlBody.Replace("{organization}", organizationName).Replace("{company}", receiver).Replace("{description}", beschrijving);
+            //}
 
-            var multipart = new Multipart("mixed");
-            multipart.Add(new TextPart("html"));
+            //var multipart = new Multipart("mixed");
+            //multipart.Add(new TextPart("html"));
 
-            emailMessage.Body = builder.ToMessageBody();
+            //emailMessage.Body = builder.ToMessageBody();
+
+            emailMessage.Body = new TextPart() { Text = "Test" };
 
             using (var client = new SmtpClient()) {
                 client.Connect("thalarion.be", 587, false);

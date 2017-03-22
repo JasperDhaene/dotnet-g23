@@ -78,8 +78,8 @@ namespace dotnet_g23.Controllers
                 {
                     Contact contact = company.Contacts.First(co => co.ContactId == cId);
 
-                    sender.SendEmailAsync(group.Organization.Name, contact.Email,
-                        contact.Company.Name, contact.Company.Description);
+                    sender.SendEmailAsync(contact.Company.Name, contact.Email,
+                        group.Organization.Name, contact.Company.Description);
                 }
 
                 
