@@ -205,7 +205,12 @@ namespace dotnet_g23.Controllers
                 TempData["error"] = e.Message;
                 return RedirectToAction("Announce", new { id = group.GroupId });
             }
-            TempData["success"] = "Bericht werd gepubliceerd";
+            TempData["success"] = "Bericht werd gepubliceerd. ";
+            TempData["linkText"] = "Toon bericht";
+            TempData["linkController"] = "Organization";
+            TempData["linkAction"] = "Show";
+            TempData["linkId"] = participant.Group.Organization.OrganizationId;
+
             return RedirectToAction("Show", new { id = group.GroupId });
         }
 		#endregion
