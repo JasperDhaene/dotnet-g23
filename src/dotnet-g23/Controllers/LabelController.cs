@@ -73,8 +73,12 @@ namespace dotnet_g23.Controllers {
             foreach (var cId in contactIds) {
                 Contact contact = company.Contacts.First(co => co.ContactId == cId);
 
-                sender.SendEmail(contact.Company.Name, contact.Email,
-                    group.Organization.Name, contact.Company.Description);
+                //sender.SendEmail(contact.Company.Name, contact.Email,
+                //    group.Organization.Name, contact.Company.Description);
+
+                sender.SendEmail("Goed Bezig!", "goedbezig@dejonckhee.re",
+                        group.Organization.Name, contact.Company.Description);
+
 
             }
 
