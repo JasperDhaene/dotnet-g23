@@ -236,8 +236,9 @@ namespace dotnet_g23.Controllers
             }
             TempData["success"] = "Bericht werd gepubliceerd. ";
             TempData["linkText"] = "Toon bericht";
-            TempData["linkController"] = "Group";
-            TempData["linkAction"] = "Dashboard";
+            TempData["linkController"] = "Organization";
+            TempData["linkAction"] = "Show";
+            TempData["linkId"] = participant.Group.Organization.OrganizationId;
 
             return RedirectToAction("Dashboard");
         }
