@@ -23,15 +23,10 @@ namespace dotnet_g23.Controllers {
         #endregion
 
         #region Constructor
-<<<<<<< HEAD
+
         public LabelController(ICompanyRepository companyRepository, IGroupRepository groupRepository) {
             _companyRepository = companyRepository;
             _groupRepository = groupRepository;
-=======
-        public LabelController(ICompanyRepository compRepo) {
-            _companyRepository = compRepo;
-            // _groupRepository = groupRepo;
->>>>>>> place foreach outside try/catch
         }
         #endregion
 
@@ -68,6 +63,17 @@ namespace dotnet_g23.Controllers {
             Company company = _companyRepository.GetBy(id);
             Group group = participant.Group;
 
+            try {
+                group.Grant(company);
+                _companyRepository.SaveChanges();
+
+
+            }
+            catch (GoedBezigException e) {
+                TempData["error"] = e.Message;
+                return RedirectToAction("Show", new { id = id });
+            }
+
             AuthMessageSender sender = new AuthMessageSender();
 
             foreach (var cId in contactIds) {
@@ -78,10 +84,7 @@ namespace dotnet_g23.Controllers {
 
                 sender.SendEmail("Goed Bezig!", "goedbezig@dejonckhee.re",
                         group.Organization.Name, contact.Company.Description);
-
-
             }
-
             try {
                 group.Grant(company);
                 _companyRepository.SaveChanges();
