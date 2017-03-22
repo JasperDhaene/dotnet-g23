@@ -64,7 +64,7 @@ namespace dotnet_g23.Tests.Controllers {
         //    IndexViewModel ind = (IndexViewModel)result?.Model;
         //    IEnumerable<Organization> orgResult = ind.Organizations;
         //    Assert.True(orgResult.Contains(_context.HogentGent));
-        }
+        //}
         #endregion
     }
 }
