@@ -20,7 +20,7 @@
                                     <div asp-validation-summary="All" class="text-danger"></div>
                                     <div class="form-horizontal text-lg-left text-xs-center" role="form">
                                         <fieldset>
-                                            <div class="form-group m-t-2 has-feedback">
+                                            <div class="form-group has-feedback">
                                                 <div class="input-group">
                                                     <label asp-for="Email" class="input-group-addon">
                                                         <i class="fa fa-at"></i>
@@ -29,7 +29,7 @@
                                                 </div><i class="form-control-feedback fv-bootstrap-icon-input-group" data-fv-icon-for="email" style="display: none;"></i>
                                                 <small class="help-block" data-fv-validator="emailAddress" data-fv-for="email" data-fv-result="NOT_VALIDATED" style="display: none;">Gelieve een geldig emailadres in te vullen</small><small class="help-block" data-fv-validator="notEmpty" data-fv-for="email" data-fv-result="NOT_VALIDATED" style="display: none;">Gelieve het veld in te vullen</small>
                                             </div>
-                                            <div class="form-group m-t-2 has-feedback">
+                                            <div class="form-group has-feedback">
                                                 <div class="input-group">
                                                     <label asp-for="Password" class="input-group-addon">
                                                         <i class="fa fa-key"></i>
@@ -39,7 +39,7 @@
                                                 <progress class="progress progress-animated" value="0" max="4" aria-describedby="password"></progress>
                                                 <small class="help-block" data-fv-validator="callback" data-fv-for="password" data-fv-result="NOT_VALIDATED" style="display: none;">Please enter a valid value</small><small class="help-block" data-fv-validator="notEmpty" data-fv-for="password" data-fv-result="NOT_VALIDATED" style="display: none;">The password is required</small><small class="help-block" data-fv-validator="stringLength" data-fv-for="password" data-fv-result="NOT_VALIDATED" style="display: none;">Minimum 8 characters required</small>
                                             </div>
-                                            <div class="form-group m-t-2 has-feedback">
+                                            <div class="form-group has-feedback">
                                                 <div class="input-group">
                                                     <label asp-for="ConfirmPassword" class="input-group-addon">
                                                         <i class="fa fa-key"></i>
@@ -50,10 +50,11 @@
                                             </div>
                                             <div class="form-group m-t-2">
                                                 <button type="submit" class="btn btn-primary f-right" data-trigger="3">
-                                                    Registreren &raquo;
+                                                    <i class="fa fa-user-plus"></i>
+                                                    <span>Registreren</span>
                                                 </button>
                                             </div>
-                                            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary f-xs-left f-md-none mrg-sm-vert clear-xs clear-sm-none">
+                                            <a asp-controller="Account" asp-action="Login" class="btn btn-secondary f-xs-left f-md-none mrg-sm-vert clear-xs clear-sm-none">
                                                 <i class="fa fa-times"></i>
                                                 <span>Annuleren</span>
                                             </a>
