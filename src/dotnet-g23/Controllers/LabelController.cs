@@ -89,7 +89,7 @@ namespace dotnet_g23.Controllers
                 TempData["error"] = e.Message;
                 return RedirectToAction("Show", new { id = id });
             }
-            TempData["success"] = $"Het label werd toegenkend aan de organisatie.";
+            TempData["success"] = $"Het label werd toegekend aan de organisatie.";
             return RedirectToAction("Dashboard", "Group");
         }
 
