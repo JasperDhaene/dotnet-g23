@@ -21,13 +21,13 @@ namespace dotnet_g23.Controllers
     {
         #region Fields
         private readonly ICompanyRepository _companyRepository;
-        //private readonly IGroupRepository _groupRepository;
+        private readonly IGroupRepository _groupRepository;
         #endregion
 
         #region Constructor
-        public LabelController(ICompanyRepository compRepo) {
-            _companyRepository = compRepo;
-           // _groupRepository = groupRepo;
+        public LabelController(ICompanyRepository companyRepository, IGroupRepository groupRepository) {
+            _companyRepository = companyRepository;
+            _groupRepository = groupRepository;
         }
         #endregion
 
@@ -44,7 +44,7 @@ namespace dotnet_g23.Controllers
         [Route("Companies/{id}")]
         public IActionResult Show(Participant participant, int id)
         {
-            //Group group = _groupRepository.GetBy(participant.Group.GroupId);
+            Group group = _groupRepository.GetBy(participant.Group.GroupId);
 
             // Show company contacts
 
@@ -52,8 +52,8 @@ namespace dotnet_g23.Controllers
 
             vm.Company = _companyRepository.GetBy(id);
             vm.Contacts = vm.Company.Contacts;
-            vm.Group = participant.Group;
-            vm.Label = participant.Group.Label;
+            vm.Group = group;
+            vm.Label = group.Label;
 
             return View(vm);
         }

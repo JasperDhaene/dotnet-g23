@@ -81,9 +81,6 @@
                     {
                         <div class="ellipsize">@Model.Group.Motivation.MotivationText</div>
                     }
-                    @if(Model.Group.Context.CurrentState is ApprovedState || Model.Group.Context.CurrentState is GrantedState || Model.Group.Context.CurrentState is AnnouncedState){
-                        <a asp-controller="Motivation" asp-action="Edit" asp-route-id="@Model.Group.GroupId">Details &raquo;</a>
-                    }
                 </div>
             }
 
