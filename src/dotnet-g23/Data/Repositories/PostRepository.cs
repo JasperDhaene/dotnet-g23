@@ -21,6 +21,7 @@ namespace dotnet_g23.Data.Repositories {
         {
             return _posts
                 .Include(po => po.Label).ThenInclude(l => l.Group).ThenInclude(l => l.Organization)
+                .Include(po => po.Label).ThenInclude(l => l.Group).ThenInclude(l => l.Motivation)
                 .Include(po => po.Label).ThenInclude(l => l.Company)
                 .ToList();
         }
@@ -28,6 +29,7 @@ namespace dotnet_g23.Data.Repositories {
         public Post GetBy(int postId) {
             return _posts
                 .Include(po => po.Label).ThenInclude(l => l.Group).ThenInclude(l => l.Organization)
+                .Include(po => po.Label).ThenInclude(l => l.Group).ThenInclude(l => l.Motivation)
                 .Include(po => po.Label).ThenInclude(l => l.Company)
                 .SingleOrDefault(po => po.PostId == postId);
         }
@@ -35,6 +37,7 @@ namespace dotnet_g23.Data.Repositories {
         public Post GetByGroup(Group group) {
             return _posts
                 .Include(po => po.Label).ThenInclude(l => l.Group).ThenInclude(l => l.Organization)
+                .Include(po => po.Label).ThenInclude(l => l.Group).ThenInclude(l => l.Motivation)
                 .Include(po => po.Label).ThenInclude(l => l.Company)
                 .SingleOrDefault(po => po.Label.Group == group);
         }
@@ -42,6 +45,7 @@ namespace dotnet_g23.Data.Repositories {
         public IEnumerable<Post> GetByOrganization(Organization organization) {
             return _posts
                .Include(po => po.Label).ThenInclude(l => l.Group).ThenInclude(l => l.Organization)
+                .Include(po => po.Label).ThenInclude(l => l.Group).ThenInclude(l => l.Motivation)
                .Include(po => po.Label).ThenInclude(l => l.Company)
                .Where(po => po.Label.Group.Organization == organization);
         }

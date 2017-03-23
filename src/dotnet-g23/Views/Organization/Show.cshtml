@@ -46,9 +46,15 @@
                                     @foreach (var post in Model.Posts)
                                     {
                                         <div class="card">
-                                            
-                                            <i class="fa fa-certificate" aria-hidden="true"></i>
-                                            @post.Announcement
+                                            <p>
+                                                <strong>Label toegekend aan @post.Label.Company.Name</strong>
+                                            </p>
+                                            <p>
+                                                @post.Announcement
+                                            </p>
+                                            <blockquote class="quote">
+                                                @post.Label.Group.Motivation.MotivationText
+                                            </blockquote>
                                         </div>
                                     }
                                 </div>

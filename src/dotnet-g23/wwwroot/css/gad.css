@@ -14363,3 +14363,6 @@ a.badge:focus {
 strong {
     font-weight: 700;
 }
+blockquote {
+    font-style: italic;
+}
