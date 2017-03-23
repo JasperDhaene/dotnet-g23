@@ -12,8 +12,8 @@ namespace dotnet_g23.Models.Domain {
         public int GroupForeignKey { get; private set; }
 
         [Required(ErrorMessage = "motivatie is vereist")]
-        [MinLength(100)]
-        [MaxLength(250)]
+        [MinLength(100, ErrorMessage = "motivatie moet langer dan 100 karakters zijn")]
+        [MaxLength(250, ErrorMessage = "motivate mag niet langer dan 250 karakters zijn")]
         public String MotivationText { get; set; }
         public Boolean Approved { get; set; }
 
@@ -24,11 +24,10 @@ namespace dotnet_g23.Models.Domain {
         public String OrganizationAddress { get; set; }
 
         [Required(ErrorMessage = "website van organizatie is vereist")]
-        [DataType(DataType.Url)]
         public String OrganizationWebsite { get; set; }
 
         [Required(ErrorMessage = "email van organizatie is vereist")]
-        [DataType(DataType.EmailAddress)]
+        [DataType(DataType.EmailAddress, ErrorMessage = "email van organizatie moet een geldig emailadres zijn")]
         public String OrganizationEmail { get; set; }
 
         public String OrganizationContactTitle { get; set; }
