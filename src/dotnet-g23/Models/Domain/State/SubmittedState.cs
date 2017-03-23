@@ -19,7 +19,12 @@ namespace dotnet_g23.Models.Domain.State
             new InitialState().Register(context, group, participant);
         }
 
-        public override void Submit(Context context, Group group)
+        public override void Submit(Context context, Group group, Motivation motivation)
+        {
+            throw new StateException("Motivatie is reeds verzonden");
+        }
+
+        public override void Save(Context context, Group group, Motivation motivation)
         {
             throw new StateException("Motivatie is reeds verzonden");
         }

@@ -53,18 +53,18 @@ namespace dotnet_g23.Controllers {
 
             try
             {
-                group.Motivation = motivation;
                 if (Request.Form.ContainsKey("submit"))
                 {
                     if (!ModelState.IsValid)
                         throw new GoedBezigException(ModelState.Values.SelectMany(v => v.Errors.Select(b => b.ErrorMessage)).Join());
 
-                    group.Submit();
+                    group.Submit(motivation);
 
                     TempData["success"] = "Uw motivatie werd verzonden naar de begeleidende lector";
                 }
                 else
                 {
+                    group.Save(motivation);
                     TempData["success"] = "Uw motivatie werd opgeslaan";
                 }
                 _groupRepository.SaveChanges();

@@ -35,12 +35,17 @@ namespace dotnet_g23.Models.Domain.State
             group.Participants.Add(participant);
         }
 
-        public override void Submit(Context context, Group group)
+        public override void Submit(Context context, Group group, Motivation motivation)
         {
             if (group.Motivation == null)
                 throw new StateException("Motivatie moet aanwezig zijn");
 
             context.CurrentState = new SubmittedState();
+        }
+
+        public override void Save(Context context, Group group, Motivation motivation)
+        {
+            group.Motivation = motivation;
         }
 
         public override Boolean CanInvite() { return true; }
