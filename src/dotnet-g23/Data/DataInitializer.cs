@@ -217,13 +217,23 @@ namespace dotnet_g23.Data {
              * 
              * */
 
-            Label l2 = new Label(hogentGroupGranted, c2);
-            hogentGroupGranted.Context.CurrentState = new GrantedState();
-            _context.Labels.Add(l2);
+            hogentGroupGranted.Grant(c2);
+            _context.Labels.Add(hogentGroupGranted.Label);
 
-            Label l3 = new Label(hogentGroupAnnounced, c3);
-            hogentGroupAnnounced.Context.CurrentState = new AnnouncedState();
-            _context.Labels.Add(l3);
+            hogentGroupAnnounced.Grant(c3);
+            _context.Labels.Add(hogentGroupAnnounced.Label);
+
+            /**
+             * Posts
+             * 
+             * */
+
+            Byte[] logo = System.IO.File.ReadAllBytes("~/Assets/logo.png");
+            Post p3 = hogentGroupAnnounced.Announce(
+                "Dit Goed Bezig-label wordt toegekend aan de CM Antwerpen vanwege een voortdurende inzet en maatschappelijke verantwoordelijkheid.",
+                logo);
+
+            _context.Posts.Add(p3);
 
 
             /**
