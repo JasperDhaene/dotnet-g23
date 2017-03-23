@@ -138,11 +138,33 @@ namespace dotnet_g23.Data {
              * Companies
              * 
              * */
-            Company c1 = new Company("Company 1", "This is company 1", "Address of company 1", "http://www.company1.com", "hello@company1.com");
-            Company c2 = new Company("Company 2", "This is company 2", "Address of company 2", "http://www.company2.com", "hello@company2.com");
-            Company c3 = new Company("Company 3", "This is company 3", "Address of company 3", "http://www.company3.com", "hello@company3.com");
-            Company c4 = new Company("Company 4", "This is company 4", "Address of company 4", "http://www.company4.com", "hello@company4.com");
-            Company c5 = new Company("Company 5", "This is company 5", "Address of company 5", "http://www.company5.com", "hello@company5.com");
+            Company c1 = new Company("OCMW Brugge WZC Van Zuylen",
+            "Woon en zorgcentrum geef een thuis aan 127 bewoners",
+            "Geralaan 50, 8310 St. Kruis, Brugge",
+            "https://www.ocmw-brugge.be/",
+            "ocmw.brugge@outlook.com");
+            Company c2 = new Company("Vonk Vzw",
+            "Vrijwilligerswerk met ‘net dat ietsje meer’ Vonk! vzw is de vrijwilligerswerking van vzw Kompas." + 
+            "Kompas biedt aan mensen met een beperking ondersteuning binnen 3 domeinen: wonen, arbeidszorg en activiteiten. "+
+            " We luisteren graag naar jouw interesses en bekijken samen binnen welke deelwerking je aan de slag gaat.",
+            "Beekstraat 1, 9030 Mariakerke",
+            "http://www.vonkvzw.be/",
+            "vonkvzw@outlook.com");
+            Company c3 = new Company("CM Oppas Aan Huis Antwerpen",
+            "CM ondersteunt mensen die thuis een langdurige zieke, een hulpbehoevende bejaarde of een persoon met een handicap verzorgen in heel Vlaanderen.",
+            "Molenbergstraat 2, 2000 Antwerpen",
+            "http://www.cm.be",
+            "cm.antwerpen@outlook.com");
+            Company c4 = new Company("Le Crayon Taalkampen Vzw",
+            "“Le Crayon” is een landelijk erkende jeugdvereniging, die reeds jaren taalkampen organiseert in combinatie met recreatieve, culturele en/of actieve activiteiten.",
+            "Nieuwenhuyse 86, 8520 Kuurne",
+            "http://www.lecrayon.be",
+            "lecrayon@outlook.com");
+            Company c5 = new Company("Dansschool EMOTION Gent",
+            "We hebben lessen voor kleuters vanaf 3 jaar tot 65+ in Gent. Voor elk wat wils, als je van dansen en plezier houdt, ben je bij ons aan het goede adres.",
+            "Nederwijk 158, 9400 Ninove",
+            "http://www.dansschoolemotion.be/",
+            "emotion@outlook.com");
 
             _context.Companies.Add(c1);
             _context.Companies.Add(c2);
