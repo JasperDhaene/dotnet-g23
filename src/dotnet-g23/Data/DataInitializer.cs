@@ -231,10 +231,10 @@ namespace dotnet_g23.Data {
              * 
              * */
 
-            Action a1 = new Action(hogentGroupGranted, "Koekjes bakken","Koekjes bakken op grootmoeders wijze (kopen in den Aldi dus) en dan deur aan deur verkopen met veel winst");
+            Action a1 = new Action(hogentGroupGranted, "Koekjes bakken","Koekjes bakken op grootmoeders wijze. Verkopen aan familie en vrienden en van deur tot deur in de omgeving");
             _context.Actions.Add(a1);
 
-            Action a2 = new Action(hogentGroupAnnounced, "Koekjes bakken","Koekjes bakken op grootmoeders wijze (kopen in den Aldi dus) en dan deur aan deur verkopen met veel winst");
+            Action a2 = new Action(hogentGroupAnnounced, "Koekjes bakken","Koekjes bakken op grootmoeders wijze. Verkopen aan familie en vrienden en van deur tot deur in de omgeving");
             _context.Actions.Add(a2);
 
             _context.SaveChanges();
@@ -248,7 +248,7 @@ namespace dotnet_g23.Data {
 
         private Motivation CreateMotivation(Group group, Boolean approved = false)
         {
-            Motivation m = new Motivation("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, qu");
+            Motivation m = new Motivation("Deze organisatie helpt enorm veel mensen. We zijn enorm blij met al het werk dat ze leveren en willen hun hiermee een hart onder de riem steken.");
             group.Motivation = m;
             m.Approved = approved;
             if (approved)
@@ -256,10 +256,10 @@ namespace dotnet_g23.Data {
             else
                 group.Context.CurrentState = new SubmittedState();
 
-            m.OrganizationName = "Organization Name";
-            m.OrganizationAddress = "Organization Address";
-            m.OrganizationWebsite = "http://www.myorganization.com";
-            m.OrganizationEmail = "about@myorganization.com";
+            m.OrganizationName = "OCMW Brugge WZC Van Zuylen";
+            m.OrganizationAddress = "Geralaan 50, 8310 St. Kruis, Brugge";
+            m.OrganizationWebsite = "https://www.ocmw-brugge.be/";
+            m.OrganizationEmail = "ocmw.brugge@outlook.com";
 
             return m;
         }
