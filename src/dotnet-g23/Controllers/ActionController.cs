@@ -57,7 +57,7 @@ namespace dotnet_g23.Controllers
 	        Group group = _groupRepository.GetBy(gid);
 	        try
 	        {
-	            group.setupAction(action.Title,action.Description,action.Date);
+	            group.SetupAction(action.Title,action.Description,action.Date);
                 _groupRepository.SaveChanges();
 
 	            TempData["success"] = $"De actie '{action.Title}' is aangemaakt";

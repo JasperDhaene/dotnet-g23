@@ -93,9 +93,9 @@ namespace dotnet_g23.Models.Domain {
             return Context.Announce(Label, message, logo);
         }
 
-        public void setupAction(String title, String description, DateTime? date)
+        public void SetupAction(String title, String description, DateTime? date)
         {
-            Context.setupAction(this, title, description, date);
+            Context.SetupAction(this, title, description, date);
         }
 
         public Boolean CanInvite() { return Context.CanInvite(); }
