@@ -14,8 +14,7 @@ namespace dotnet_g23.Models.Domain.State
 
         public override void SetupAction(Context context, Group group,String title, String description, DateTime? date)
         {
-            Action action = new Action(group,title,description,date);
-            group.Actions.Add(action);
+            new GrantedState().SetupAction(context, group, title, description, date);
         }
 
         public override Boolean CanSetup() { return true; }
