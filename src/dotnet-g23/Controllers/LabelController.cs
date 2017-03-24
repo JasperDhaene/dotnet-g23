@@ -75,9 +75,8 @@ namespace dotnet_g23.Controllers {
                 TempData["error"] = e.Message;
                 return RedirectToAction("Show", new { id = id });
             }
-            if(group.Context.CurrentState is GrantedState){
+            if(group.Context.CurrentState is GrantedState){ //Grant label worked
                 AuthMessageSender sender = new AuthMessageSender();
-                sender.SendEmail("Goed Bezig!", "jasper.dhaene@gmail.com", group.Organization.Name, "je maakt goeie koekjes, oma!");
 
                 //TODO: only has one contact atm. Multiple form submissions are the solution but I don't know how this will play out in this controller.
                 foreach (var cId in contactId) { 
@@ -87,7 +86,7 @@ namespace dotnet_g23.Controllers {
                     //sender.SendEmail(contact.Company.Name, contact.Email,
                     //    group.Organization.Name, contact.Company.Description);
 
-                    sender.SendEmail("Jasper NV.", "jasper.dhaene@gmail.com", group.Organization.Name, group.Motivation.MotivationText);
+                    sender.SendEmail(company.Name, "goedbezig@dejonckhee.re", group.Organization.Name, group.Motivation.MotivationText);
                 }
             }
             
