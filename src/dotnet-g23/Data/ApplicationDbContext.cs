@@ -223,7 +223,6 @@ namespace dotnet_g23.Data {
             p.HasKey(po => po.PostId);
 
             p.Property(po => po.Announcement).IsRequired();
-            p.Property(po => po.Logo).IsRequired();
             
             // Post => Label
             p.HasOne(po => po.Label)

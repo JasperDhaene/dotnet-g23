@@ -15,6 +15,7 @@ namespace dotnet_g23.Models.Domain
         public String Address { get; set; }
         public String Website { get; set; }
         public String Email { get; set; }
+        public Byte[] Logo { get; set; }
         public ICollection<Contact> Contacts { get; private set; }
         public Label Label { get; set; }
         #endregion
@@ -25,13 +26,14 @@ namespace dotnet_g23.Models.Domain
             Contacts = new List<Contact>();
         }
 
-        public Company(string name, string description, string address, string website, string email) : this()
+        public Company(string name, string description, string address, string website, string email, Byte[] logo) : this()
         {
             Name = name;
             Description = description;
             Address = address;
             Website = website;
             Email = email;
+            Logo = logo;
         }
 
         #endregion

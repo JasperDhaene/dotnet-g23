@@ -7,7 +7,6 @@ namespace dotnet_g23.Models.Domain {
         public int PostId { get; private set; }
 
         public String Announcement { get; set; }
-        public Byte[] Logo { get; set; }
         public Label Label { get; set; }
         public int LabelForeignKey { get; private set; }
         #endregion
@@ -17,10 +16,9 @@ namespace dotnet_g23.Models.Domain {
         {
         }
 
-        public Post(String announcement, Byte[] logo) : this()
+        public Post(String announcement) : this()
         {
             Announcement = announcement;
-            Logo = logo; 
         }
         #endregion
     }
