@@ -222,9 +222,7 @@ namespace dotnet_g23.Controllers
             Group group = _groupRepository.GetBy(id);
             try
             {
-                String path = System.IO.Path.Combine(_hostingEnvironment.ContentRootPath, "Assets", "logo.png");
-                Byte[] logo = System.IO.File.ReadAllBytes(path);
-                Post post = group.Announce(message, logo);
+                Post post = group.Announce(message);
 
                 _postRepository.Add(post);
                 _postRepository.SaveChanges();

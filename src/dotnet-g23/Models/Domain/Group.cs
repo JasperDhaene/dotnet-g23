@@ -88,9 +88,9 @@ namespace dotnet_g23.Models.Domain {
             Context.Grant(this, company);
         }
 
-        public Post Announce(String message, byte[] logo)
+        public Post Announce(String message)
         {
-            return Context.Announce(Label, message, logo);
+            return Context.Announce(Label, message);
         }
 
         public void SetupAction(String title, String description, DateTime? date)

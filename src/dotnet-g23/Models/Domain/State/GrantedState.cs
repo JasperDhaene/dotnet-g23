@@ -9,7 +9,7 @@ namespace dotnet_g23.Models.Domain.State
 {
     public class GrantedState : State
     {
-        public override Post Announce(Context context, Label label, String message, byte[] logo)
+        public override Post Announce(Context context, Label label, String message)
         {
             Post post = new Post(message);
             post.Label = label;

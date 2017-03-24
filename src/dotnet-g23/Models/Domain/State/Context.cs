@@ -52,9 +52,9 @@ namespace dotnet_g23.Models.Domain.State
             CurrentState.Grant(this, group, company);
         }
 
-        public Post Announce(Label label, String message, byte[] logo)
+        public Post Announce(Label label, String message)
         {
-            return CurrentState.Announce(this, label, message, logo);
+            return CurrentState.Announce(this, label, message);
         }
 
         public void SetupAction(Group group, String title, String description, DateTime? date)

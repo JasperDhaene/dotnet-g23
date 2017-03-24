@@ -142,29 +142,29 @@ namespace dotnet_g23.Data {
             "Woon en zorgcentrum geef een thuis aan 127 bewoners",
             "Geralaan 50, 8310 St. Kruis, Brugge",
             "https://www.ocmw-brugge.be/",
-            "ocmw.brugge@outlook.com", System.IO.File.ReadAllBytes("Assets/logo_ocmwbrugge.png"));
+            "ocmw.brugge@outlook.com", System.IO.File.ReadAllBytes("Content/logo_ocmwbrugge.png"));
             Company c2 = new Company("Vonk Vzw",
             "Vrijwilligerswerk met ‘net dat ietsje meer’ Vonk! vzw is de vrijwilligerswerking van vzw Kompas." + 
             "Kompas biedt aan mensen met een beperking ondersteuning binnen 3 domeinen: wonen, arbeidszorg en activiteiten. "+
             " We luisteren graag naar jouw interesses en bekijken samen binnen welke deelwerking je aan de slag gaat.",
             "Beekstraat 1, 9030 Mariakerke",
             "http://www.vonkvzw.be/",
-            "vonkvzw@outlook.com", System.IO.File.ReadAllBytes("Assets/logo_vonk.png"));
+            "vonkvzw@outlook.com", System.IO.File.ReadAllBytes("Content/logo_vonk.png"));
             Company c3 = new Company("CM Oppas Aan Huis Antwerpen",
             "CM ondersteunt mensen die thuis een langdurige zieke, een hulpbehoevende bejaarde of een persoon met een handicap verzorgen in heel Vlaanderen.",
             "Molenbergstraat 2, 2000 Antwerpen",
             "http://www.cm.be",
-            "cm.antwerpen@outlook.com", System.IO.File.ReadAllBytes("Assets/logo_cm.png"));
+            "cm.antwerpen@outlook.com", System.IO.File.ReadAllBytes("Content/logo_cm.png"));
             Company c4 = new Company("Le Crayon Taalkampen Vzw",
             "“Le Crayon” is een landelijk erkende jeugdvereniging, die reeds jaren taalkampen organiseert in combinatie met recreatieve, culturele en/of actieve activiteiten.",
             "Nieuwenhuyse 86, 8520 Kuurne",
             "http://www.lecrayon.be",
-            "lecrayon@outlook.com", System.IO.File.ReadAllBytes("Assets/logo_crayon.jpg"));
+            "lecrayon@outlook.com", System.IO.File.ReadAllBytes("Content/logo_crayon.jpg"));
             Company c5 = new Company("Dansschool EMOTION Gent",
             "We hebben lessen voor kleuters vanaf 3 jaar tot 65+ in Gent. Voor elk wat wils, als je van dansen en plezier houdt, ben je bij ons aan het goede adres.",
             "Nederwijk 158, 9400 Ninove",
             "http://www.dansschoolemotion.be/",
-            "emotion@outlook.com", System.IO.File.ReadAllBytes("Assets/logo_emotion.png"));
+            "emotion@outlook.com", System.IO.File.ReadAllBytes("Content/logo_emotion.png"));
 
             _context.Companies.Add(c1);
             _context.Companies.Add(c2);
@@ -228,10 +228,7 @@ namespace dotnet_g23.Data {
              * 
              * */
 
-            Byte[] logo = System.IO.File.ReadAllBytes("Assets/logo.png");
-            Post p3 = hogentGroupAnnounced.Announce(
-                "Dit Goed Bezig-label wordt toegekend aan de CM Antwerpen vanwege een voortdurende inzet en maatschappelijke verantwoordelijkheid.",
-                logo);
+            Post p3 = hogentGroupAnnounced.Announce("Dit Goed Bezig-label wordt toegekend aan de CM Antwerpen vanwege een voortdurende inzet en maatschappelijke verantwoordelijkheid.");
 
             _context.Posts.Add(p3);
 
