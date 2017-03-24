@@ -31,8 +31,8 @@
                 <div class="card">
                     <form asp-controller="Label" asp-action="Show" asp-route-id="@company.CompanyId" method="get">
                         <a asp-controller="Label" asp-action="Show" asp-route-id="@company.CompanyId" class="btn btn-primary btn-md f-sm-right">Details</a>
-                        @company.Name<br/>
-                        <small>@company.Description</small>
+                        <p class="heading">@company.Name</p>
+                        <p class="small description">@company.Description</p>
                     </form>
                 </div>
             }

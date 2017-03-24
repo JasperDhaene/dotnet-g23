@@ -9045,7 +9045,7 @@ a.text-danger:hover {
 .footer .bottom {
     padding: 50px;
     color: #000;
-    background: url(../img/bottom.svg);
+    background: url(../images/bottom.svg);
     background-repeat: no-repeat;
     background-position: bottom -30px center
 }
@@ -14223,6 +14223,10 @@ blockquote p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+p.description {
+    width: 90%;
 }
 
 /* (GB) Organization Details page */

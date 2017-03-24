@@ -15,7 +15,7 @@
             }
             else
             {
-                <h1>Mijn GB organisatie</h1>
+                <h1>Mijn Goed Bezig organisatie</h1>
                 <div class="card">
                     @Model.SubscribedOrganization.Name (@Model.SubscribedOrganization.Location)
                     <a asp-controller="Organization" asp-action="Show" asp-route-id="@Model.SubscribedOrganization.OrganizationId" class="btn btn-info btn-md f-right m-r-1">Details</a>
@@ -29,7 +29,7 @@
                 <input type="text" placeholder="Naam of locatie" name="query" id="query" class="col-xs-7 col-md-4 push-md-6 col-lg-0 push-lg-0 f-lg-none" value="@ViewContext.HttpContext.Request.Query["query"]"/>
                 <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md">Zoeken</a>
             </form>
-            <h1>Alle GB organisaties</h1>
+            <h1>Goed Bezig organisaties</h1>
 
             <br/>
             @if (Model.Organizations == null || !Model.Organizations.Any())
