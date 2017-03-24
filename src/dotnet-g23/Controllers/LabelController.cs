@@ -16,8 +16,8 @@ using System.Diagnostics;
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace dotnet_g23.Controllers {
-    [Authorize]
-    [ServiceFilter(typeof(ParticipantFilter))]
+    [Authorize(Policy = "participant")]
+	[ServiceFilter(typeof(ParticipantFilter))]
     public class LabelController : Controller {
         #region Fields
         private readonly ICompanyRepository _companyRepository;
