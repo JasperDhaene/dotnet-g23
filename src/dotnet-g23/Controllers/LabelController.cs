@@ -63,7 +63,7 @@ namespace dotnet_g23.Controllers {
             // Grant label to company
 
             Company company = _companyRepository.GetBy(id);
-            Group group = participant.Group;
+            Group group = _groupRepository.GetBy(participant.Group.GroupId);
 
             try {
                 group.Grant(company);
@@ -79,16 +79,15 @@ namespace dotnet_g23.Controllers {
                 AuthMessageSender sender = new AuthMessageSender();
                 sender.SendEmail("Goed Bezig!", "jasper.dhaene@gmail.com", group.Organization.Name, "je maakt goeie koekjes, oma!");
 
-                Debug.WriteLine("/////////////////////////////////////////////////////////////////////////");
-
-                foreach (var cId in contactId) {
+                //TODO: only has one contact atm. Multiple form submissions are the solution but I don't know how this will play out in this controller.
+                foreach (var cId in contactId) { 
                     Contact contact = company.Contacts.First(co => co.ContactId == cId);
-                    Debug.WriteLine("/////////////////////////////////////////////////////////////////////////");
+                    
+                    //TODO: uncomment this for production and add valid emailadress in datainitializer for demo purposes.
                     //sender.SendEmail(contact.Company.Name, contact.Email,
                     //    group.Organization.Name, contact.Company.Description);
 
-                    sender.SendEmail("Goed Bezig!", "jasper.dhaene@gmail.com",
-                            group.Organization.Name, contact.Company.Description);
+                    sender.SendEmail("Jasper NV.", "jasper.dhaene@gmail.com", group.Organization.Name, group.Motivation.MotivationText);
                 }
             }
             
