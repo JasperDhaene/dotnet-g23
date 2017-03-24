@@ -30,6 +30,7 @@ namespace dotnet_g23.Data.Repositories
             return _invitations
                 .Include(n => n.Participant)
                 .Include(n => n.Group)
+                .ThenInclude(n => n.Participants)
                 .Where(n => n.Participant == participant);
         }
         public IEnumerable<Invitation> GetByGroup(Group group)
