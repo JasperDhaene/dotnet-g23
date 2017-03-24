@@ -3,6 +3,7 @@ using MimeKit;
 using MimeKit.Text;
 using System;
 using System.IO;
+using System.Diagnostics;
 
 namespace dotnet_g23.Services {
     // This class is used by the application to send Email and SMS
@@ -22,7 +23,8 @@ namespace dotnet_g23.Services {
             var builder = new BodyBuilder();
             using (StreamReader SourceReader = System.IO.File.OpenText("App_data/Template/EmailTemplate.html")) {
                 builder.HtmlBody = SourceReader.ReadToEnd();
-                builder.HtmlBody.Replace("{organization}", organizationName).Replace("{company}", receiver).Replace("{description}", beschrijving);
+                Debug.WriteLine(builder.HtmlBody);
+                builder.HtmlBody = builder.HtmlBody.Replace("{organization}", organizationName).Replace("{company}", receiver).Replace("{description}", beschrijving);
             }
 
             var multipart = new Multipart("mixed");

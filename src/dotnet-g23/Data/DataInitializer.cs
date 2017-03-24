@@ -228,7 +228,7 @@ namespace dotnet_g23.Data {
              * 
              * */
 
-            Byte[] logo = System.IO.File.ReadAllBytes("~/Assets/logo.png");
+            Byte[] logo = System.IO.File.ReadAllBytes("Assets/logo.png");
             Post p3 = hogentGroupAnnounced.Announce(
                 "Dit Goed Bezig-label wordt toegekend aan de CM Antwerpen vanwege een voortdurende inzet en maatschappelijke verantwoordelijkheid.",
                 logo);
