@@ -13,12 +13,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="content">
+                        <img src="data:image/png;base64,@Convert.ToBase64String(@Model.Company.Logo)" class="f-sm-right companylogo"/>
                         <h1>
                             @Model.Company.Name
-                            @if (Model.Company.Label != null)
-                            {
-                                <i class="fa fa-certificate" aria-hidden="true"></i>
-                            }
                         </h1>
                                 <p class="description">@Model.Company.Description</p>
                                 <p>
@@ -64,11 +61,12 @@
                                             @Model.Group.Motivation.MotivationText
                                         </p>
                                     }
-                                    
-                                    <div class="alert alert-info m-y-3">
-                                        <i class="fa fa-info-circle"></i>
-                                        U kunt de bevestiging van het Goed Bezig label doorsturen naar de volgende contactpersonen.
-                                    </div>
+                                    @if(Model.Group != null && Model.Group.Context.CurrentState is ApprovedState) {
+                                        <div class="alert alert-info m-y-3">
+                                            <i class="fa fa-info-circle"></i>
+                                            U kunt de bevestiging van het Goed Bezig label doorsturen naar de volgende contactpersonen.
+                                        </div>
+                                    }
                                     @if (Model.Contacts == null || !Model.Contacts.Any())
                                     {
                                         <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen contacten gevonden.</div>

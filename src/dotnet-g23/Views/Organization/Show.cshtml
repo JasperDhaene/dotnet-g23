@@ -46,7 +46,7 @@
                                     @foreach (var post in Model.Posts)
                                     {
                                         <div class="card">
-                                            <img src="data:image/png;base64,@Convert.ToBase64String(post.Label.Company.Logo)" class="f-sm-right"/>
+                                            <img src="data:image/png;base64,@Convert.ToBase64String(post.Label.Company.Logo)" class="f-sm-right companylogo"/>
                                             <p>
                                                 <strong>Label toegekend aan @post.Label.Company.Name</strong>
                                             </p>

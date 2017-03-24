@@ -14188,7 +14188,7 @@ as per bootstrap 4 standards
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-#page-wrapper.gb .card img {
+#page-wrapper.gb .companylogo {
     width: 100px;
 }
 
@@ -14235,6 +14235,7 @@ blockquote p {
 
 .oheader .description {
     color: #818a91;
+    width: 80%;
 }
 
 .oheader .socialmedia {
