@@ -64,6 +64,20 @@ namespace dotnet_g23.Tests.Controllers {
             ShowViewModel vm = (ShowViewModel)result?.Model;
             Assert.Equal(context.MotivationSubmitted.MotivationText, vm.Motivation.MotivationText);
         }
+
+        #endregion
+
+        #region Update - Post
+
+        [Fact]
+        public void UpdateCanSubmitOrSaveMotivationSoSystemRedirectsToDashboardOfGroup() {
+            Motivation mot = new Motivation("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. "
+                +"Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque.");
+            RedirectToActionResult result = _controller.Update(_ownerHogent, 1, mot) as RedirectToActionResult;
+            Assert.Equal("Dashboard", result?.ActionName);
+            Assert.Equal("Group", result?.ControllerName);
+        }
+
         #endregion
     }
 }
