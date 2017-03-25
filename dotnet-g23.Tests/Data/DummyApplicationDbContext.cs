@@ -23,6 +23,13 @@ namespace dotnet_g23.Tests.Data {
         public GUser OwnerHogentAnnounced { get; set; }
 
         /**
+         * List of participants
+         * 
+         * */
+
+        public ICollection<Participant> Participants { get; set; }
+
+        /**
          * Organization properties
          * 
          * */
@@ -159,6 +166,13 @@ namespace dotnet_g23.Tests.Data {
             HogentGent.Register(OwnerHogentApproved);
             HogentGent.Register(OwnerHogentGranted);
             HogentGent.Register(OwnerHogentAnnounced);
+
+            Participants.Add(ParticipantHogent.UserState as Participant);
+            Participants.Add(OwnerHogent.UserState as Participant);
+            Participants.Add(OwnerHogentSubmitted.UserState as Participant);
+            Participants.Add(OwnerHogentApproved.UserState as Participant);
+            Participants.Add(OwnerHogentGranted.UserState as Participant);
+            Participants.Add(OwnerHogentAnnounced.UserState as Participant);
 
             /**
              * Groups
