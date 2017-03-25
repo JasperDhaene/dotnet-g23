@@ -41,7 +41,6 @@ namespace dotnet_g23.Tests.Controllers {
             ParticipantRepo.Setup(g => g.GetBy(2)).Returns(context.OwnerHogent.UserState as Participant);
 
             _controller = new GroupController(GroupRepo.Object, ParticipantRepo.Object, InvRepo.Object, LRepo.Object, PostRepo.Object, HostEnv.Object);
-            _controller.TempData = new Mock<ITempDataDictionary>().Object;
 
             _ParticipantHogent = context.ParticipantHogent.UserState as Participant;
             _OwnerHogent = context.OwnerHogent.UserState as Participant;
@@ -112,7 +111,12 @@ namespace dotnet_g23.Tests.Controllers {
 
         #endregion
 
+        #region Show
 
+        //[Fact]
+
+
+        #endregion
 
         #region HTTP POST Register
 
