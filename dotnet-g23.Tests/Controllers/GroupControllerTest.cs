@@ -89,7 +89,33 @@ namespace dotnet_g23.Tests.Controllers {
 
         #endregion
 
+        #region HTTP POST Create
+
+        [Fact]
+        public void ParticipantShouldCreateGroup() {
+            _controller.Create(_ParticipantHogent, "testGroup", false);
+            Assert.Equal("testGroup", _ParticipantHogent.Group.Name);
+            Assert.False(_ParticipantHogent.Group.Closed);
+        }
+
+        [Fact]
+        public void ParticipantCannotCreateGroupBecauseAlreadyInGroup() {
+            Assert.Throws<GoedBezigException>(() => _controller.Create(_OwnerHogent, "test2", false));
+        }
+
+        #endregion
+
+        #region HTTP POST Invite
+        //[Fact]
+        //public void InviteShouldReturnGroupSearchedById() {
+        //    ViewResult result = _controller.Invite(_participant2, context.Groups.First().GroupId, "test.test@hogent.be") as ViewResult;
+        //    Assert.Equal("Invite", result?.ViewName);
+        //}
+
+        #endregion
+
         #region HTTP POST Register
+
         //[Fact]
         //public void ParticipantShouldRedirectToIndexOfGroupsBecauseAlreadyInGroup() {
         //    RedirectToActionResult result = _controller
@@ -108,26 +134,6 @@ namespace dotnet_g23.Tests.Controllers {
 
         #endregion
 
-        #region HTTP POST Create
-        //[Fact]
-        //public void ParticipantShouldCreateGroup() {
-        //    RedirectToActionResult result = _controller.Create(_participant, "testGroup", true) as RedirectToActionResult;
-        //    Assert.Equal("Invite", result.ActionName);
-        //}
 
-        //[Fact]
-        //public void ParticipantCannotCreateGroupBecauseAlreadyInGroupAndRedirectToIndex() {
-        //    RedirectToActionResult result = _controller.Create(_participant2, "test2", false) as RedirectToActionResult;
-        //    Assert.Equal("Index", result.ActionName);
-        //}
-        //#endregion
-
-        //#region HTTP POST Invite
-        //[Fact]
-        //public void InviteShouldReturnGroupSearchedById() {
-        //    ViewResult result = _controller.Invite(_participant2, context.Groups.First().GroupId, "test.test@hogent.be") as ViewResult;
-        //    Assert.Equal("Invite", result?.ViewName);
-        //}
-        #endregion
     }
 }
