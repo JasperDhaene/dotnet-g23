@@ -12,11 +12,9 @@ namespace dotnet_g23.Tests.Models
         [Fact]
         public void ConstructorShouldCreateNewPost() {
             String announcement = "Foobar";
-            byte[] logo = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
 
-            Post post = new Post(announcement, logo);
+            Post post = new Post(announcement);
             Assert.Equal(announcement, post.Announcement);
-            Assert.Equal(logo, post.Logo);
         }
     }
 }

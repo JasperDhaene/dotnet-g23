@@ -181,9 +181,9 @@ namespace dotnet_g23.Tests.Data {
              * 
              * */
             Companies = new List<Company>();
-            Company1 = new Company("Company 1", "This is company 1", "Address of company 1", "http://www.company1.com", "hello@company1.com");
-            Company2 = new Company("Company 2", "This is company 2", "Address of company 2", "http://www.company2.com", "hello@company2.com");
-            Company3 = new Company("Company 3", "This is company 3", "Address of company 3", "http://www.company3.com", "hello@company3.com");
+            Company1 = new Company("Company 1", "This is company 1", "Address of company 1", "http://www.company1.com", "hello@company1.com", new byte[] {0x20, 0x20, 0x20});
+            Company2 = new Company("Company 2", "This is company 2", "Address of company 2", "http://www.company2.com", "hello@company2.com", new byte[] { 0x20, 0x20, 0x20 });
+            Company3 = new Company("Company 3", "This is company 3", "Address of company 3", "http://www.company3.com", "hello@company3.com", new byte[] { 0x20, 0x20, 0x20 });
 
             Companies.Add(Company1);
             Companies.Add(Company2);

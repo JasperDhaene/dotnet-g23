@@ -17,7 +17,7 @@ namespace dotnet_g23.Tests.Models
             String website = "foo.bar";
             String email = "foo@bar";
 
-            Company company = new Company(name, descr, address, website, email);
+            Company company = new Company(name, descr, address, website, email, new byte[] { 0x20, 0x20, 0x20 });
             Assert.True(company.Contacts.Count() == 0);
         }
     }
