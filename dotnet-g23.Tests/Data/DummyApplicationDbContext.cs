@@ -167,6 +167,7 @@ namespace dotnet_g23.Tests.Data {
             HogentGent.Register(OwnerHogentGranted);
             HogentGent.Register(OwnerHogentAnnounced);
 
+            Participants = new List<Participant>();
             Participants.Add(ParticipantHogent.UserState as Participant);
             Participants.Add(OwnerHogent.UserState as Participant);
             Participants.Add(OwnerHogentSubmitted.UserState as Participant);
