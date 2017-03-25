@@ -176,9 +176,9 @@ namespace dotnet_g23.Data {
              * Contacts
              * 
              * */
-            Contact c1Ceo = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company1.com", c1);
-            Contact c1Cfo = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company1.com", c1);
-            Contact c1Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company1.com", c1);
+            Contact c1Ceo = new Contact("Mr.", "John", "Doe", "CEO", "goedbezig-g23@outlook.com", c1);
+            Contact c1Cfo = new Contact("Mr.", "James", "Doe", "CFO", "goedbezig-g23@outlook.com", c1);
+            Contact c1Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "goedbezig-g23@outlook.com", c1);
 
             c1.Contacts.Add(c1Ceo);
             c1.Contacts.Add(c1Cfo);
@@ -188,9 +188,9 @@ namespace dotnet_g23.Data {
             _context.Contacts.Add(c1Cfo);
             _context.Contacts.Add(c1Cto);
 
-            Contact c2Ceo = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company2.com", c2);
-            Contact c2Cfo = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company2.com", c2);
-            Contact c2Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company2.com", c2);
+            Contact c2Ceo = new Contact("Mr.", "John", "Doe", "CEO", "goedbezig-g23@outlook.com", c2);
+            Contact c2Cfo = new Contact("Mr.", "James", "Doe", "CFO", "goedbezig-g23@outlook.com", c2);
+            Contact c2Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "goedbezig-g23@outlook.com", c2);
 
             c2.Contacts.Add(c2Ceo);
             c2.Contacts.Add(c2Cfo);
@@ -200,9 +200,9 @@ namespace dotnet_g23.Data {
             _context.Contacts.Add(c2Cfo);
             _context.Contacts.Add(c2Cto);
 
-            Contact c3Ceo = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company3.com", c3);
-            Contact c3Cfo = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company3.com", c3);
-            Contact c3Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company3.com", c3);
+            Contact c3Ceo = new Contact("Mr.", "John", "Doe", "CEO", "goedbezig-g23@outlook.com", c3);
+            Contact c3Cfo = new Contact("Mr.", "James", "Doe", "CFO", "goedbezig-g23@outlook.com", c3);
+            Contact c3Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "goedbezig-g23@outlook.com", c3);
 
             c3.Contacts.Add(c3Ceo);
             c3.Contacts.Add(c3Cfo);

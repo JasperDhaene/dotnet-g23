@@ -83,10 +83,8 @@ namespace dotnet_g23.Controllers {
                     Contact contact = company.Contacts.First(co => co.ContactId == cId);
                     
                     //TODO: uncomment this for production and add valid emailadress in datainitializer for demo purposes.
-                    //sender.SendEmail(contact.Company.Name, contact.Email,
-                    //    group.Organization.Name, contact.Company.Description);
-
-                    sender.SendEmail(company.Name, "goedbezig-g23@outlook.com", group.Organization.Name, group.Motivation.MotivationText);
+                    sender.SendEmail(company.Name, contact.Email,
+                        group.Organization.Name, group.Motivation.MotivationText);
                 }
             }
             
