@@ -43,20 +43,27 @@ namespace dotnet_g23.Tests.Controllers {
         #endregion
 
         #region Edit - GET
+
         [Fact]
-        public void ParticipantWhereGroupHasNoMotivationCanCreateNewMotivationBecauseIsNull() {
+        public void ParticipantWhereGroupHasNoMotivationCanCreateNewMotivationBecauseIsEmpty() {
             ViewResult result = _controller.Edit(_ownerHogent, 1) as ViewResult;
             ShowViewModel vm = (ShowViewModel)result?.Model;
-            Assert.Equal(_ownerHogent.Group, vm.Group);
-            Assert.Equal(0, vm.Motivation.MotivationId);
-            Assert.Null(vm.Motivation.Group);
             Assert.Null(vm.Motivation.MotivationText);
         }
 
-        //[Fact]
-        //public void ParticipantWhereGroupHasMotivationCanShowMotivation() {
+        [Fact]
+        public void ViewmodelShouldReturnGroupOfParticipant() {
+            ViewResult result = _controller.Edit(_ownerHogent, 1) as ViewResult;
+            ShowViewModel vm = (ShowViewModel)result?.Model;
+            Assert.Equal(_ownerHogent.Group, vm.Group);
+        }
 
-        //}
+        [Fact]
+        public void ParticipantWhereGroupHasMotivationCanShowMotivation() {
+            ViewResult result = _controller.Edit(_ownerHogentSubmitted, 2) as ViewResult;
+            ShowViewModel vm = (ShowViewModel)result?.Model;
+            Assert.Equal(context.MotivationSubmitted.MotivationText, vm.Motivation.MotivationText);
+        }
         #endregion
     }
 }
