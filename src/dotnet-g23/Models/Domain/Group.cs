@@ -93,7 +93,7 @@ namespace dotnet_g23.Models.Domain {
             return Context.Announce(Label, message);
         }
 
-        public void SetupAction(String title, String description, DateTime? date)
+        public void SetupAction(String title, String description, DateTime? date = null)
         {
             Context.SetupAction(this, title, description, date);
         }

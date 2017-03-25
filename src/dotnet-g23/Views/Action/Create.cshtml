@@ -16,30 +16,21 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <p>
-                            <label for="Title" class="d-block">
-                                Titel*
-                            </label>
-                            <input type="text" id="Title" name="action.title" style="width: 50%;" placeholder="Titel actie/evenement"autofocus />
+                            <label for="Title" class="d-block">Titel*</label>
+                            <input type="text" id="Title" name="action.title" style="width: 50%;" placeholder="Titel actie/evenement" autofocus />
                         </p>
                         <p>
-                            <label for="Description" class="d-block">
-                                Beschrijving*
-                            </label>
-                            <textarea id="Description" rows="4" style="width: 100%;" name="action.description" placeholder="Beschrijving" ></textarea>
-                        </p>
-                        <p>
-                            <label for="Date" class="d-block">
-                                Datum evenement
-                            </label>
-                            <input id="Date" type="date" name="action.date" />
-                        </p>
-                        <p>
-                            <input type="checkbox" name="event" id="event" value="true"> <label for="event">Evenement?</label>
+                            <label for="Description" class="d-block">Beschrijving*</label>
+                            <textarea id="Description" rows="4" style="width: 100%;" name="action.description" placeholder="Beschrijving"></textarea>
                         </p>
                         <p>
                             <div class="alert alert-info">
-                                <i class="fa fa-info-circle"></i> Geef de startdatum in als u een evenement wilt aanmaken. Een langdurige actie heeft dit niet nodig.
+                                <i class="fa fa-info-circle"></i> Voeg een datum toe indien u een evenement wenst aan te maken. Een actie heeft dit niet nodig.
                             </div>
+                            <input type="checkbox" name="action.createEvent" id="action.createEvent" onchange="$('#eventdate').toggle($(this).checked)" checked> <label for="createEvent">Evenement</label>
+                        </p>
+                        <p id="eventdate">
+                            <input id="Date" type="date" name="action.date" />
                         </p>
                     </div>
                 </div>

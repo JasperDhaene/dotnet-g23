@@ -55,9 +55,16 @@ namespace dotnet_g23.Controllers
         {
             
 	        Group group = _groupRepository.GetBy(gid);
-	        try
+
+            String createEvent = Request.Form["action.createEvent"];
+
+            try
 	        {
-	            group.SetupAction(action.Title,action.Description,action.Date);
+                if (createEvent == "off")
+	                group.SetupAction(action.Title, action.Description);
+                else
+                    group.SetupAction(action.Title, action.Description, action.Date);
+
                 _groupRepository.SaveChanges();
 
 	            TempData["success"] = $"De actie '{action.Title}' is aangemaakt";
