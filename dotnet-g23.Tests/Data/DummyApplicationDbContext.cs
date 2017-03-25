@@ -13,6 +13,7 @@ namespace dotnet_g23.Tests.Data {
          * 
          * */
 
+        public ICollection<GUser> GUsers { get; set; }
         public GUser VolunteerHoGent { get; set; }
         public GUser ParticipantHogent { get; set; }
         public GUser OwnerHogent { get; set; }
@@ -20,58 +21,58 @@ namespace dotnet_g23.Tests.Data {
         public GUser OwnerHogentApproved { get; set; }
         public GUser OwnerHogentGranted { get; set; }
         public GUser OwnerHogentAnnounced { get; set; }
-        public ICollection<GUser> GUsers { get; set; }
 
         /**
          * Organization properties
          * 
          * */
 
+        public ICollection<Organization> Organizations { get; set; }
         public Organization HogentGent { get; set; }
         public Organization HogentAalst { get; set; }
         public Organization HowestKortrijk { get; set; }
         public Organization HowestBrugge { get; set; }
         public Organization Ugent { get; set; }
-        public ICollection<Organization> Organizations { get; set; }
 
         /**
          * Group properties
          * 
          * */
 
+        public ICollection<Group> Groups { get; set; }
         public Group HogentGroup { get; set; }
         public Group HogentGroupSubmitted { get; set; }
         public Group HogentGroupApproved { get; set; }
         public Group HogentGroupGranted { get; set; }
         public Group HogentGroupAnnounced { get; set; }
-        public ICollection<Group> Groups { get; set; }
 
         /**
          * Motivation properties
          * 
          * */
 
+        public ICollection<Motivation> Motivations { get; set; }
         public Motivation MotivationSubmitted { get; set; }
         public Motivation MotivationApproved { get; set; }
         public Motivation MotivationGranted { get; set; }
         public Motivation MotivationAnnounced { get; set; }
-        public ICollection<Motivation> Motivations { get; set; }
 
         /**
          * Company properties
          * 
          * */
 
+        public ICollection<Company> Companies { get; set; }
         public Company Company1 { get; set; }
         public Company Company2 { get; set; }
         public Company Company3 { get; set; }
-        public ICollection<Company> Companies { get; set; }
 
         /**
          * Contact properties
          * 
          * */
 
+        public ICollection<Contact> Contacts { get; set; }
         public Contact Contact1CEO { get; set; }
         public Contact Contact1CFO { get; set; }
         public Contact Contact1CTO { get; set; }
@@ -81,16 +82,32 @@ namespace dotnet_g23.Tests.Data {
         public Contact Contact3CEO { get; set; }
         public Contact Contact3CFO { get; set; }
         public Contact Contact3CTO { get; set; }
-        public ICollection<Contact> Contacts { get; set; }
 
         /**
          * Label properties
          * 
          * */
 
+        public ICollection<Label> Labels { get; set; }
         public Label Label2 { get; set; }
         public Label Label3 { get; set; }
-        public ICollection<Label> Labels { get; set; }
+
+        /**
+         * Post properties
+         * 
+         * */
+
+        public ICollection<Post> Posts { get; set; }
+        public Post Post3 { get; set; }
+
+        /**
+         * Action properties
+         * 
+         * */
+
+        public ICollection<dotnet_g23.Models.Domain.Action> Actions { get; set; }
+        public dotnet_g23.Models.Domain.Action Action1 { get; set; }
+        public dotnet_g23.Models.Domain.Action Action2 { get; set; }
 
         public DummyApplicationDbContext() {
 
@@ -99,13 +116,13 @@ namespace dotnet_g23.Tests.Data {
              * 
              * */
 
+            Organizations = new List<Organization>();
+
             HogentGent = new Organization("HoGent", "Gent", "hogent.be");
             HogentAalst = new Organization("HoGent", "Aalst", "hogent.be");
             HowestKortrijk = new Organization("Howest", "Kortrijk", "howest.be");
             HowestBrugge = new Organization("Howest", "Brugge", "howest.be");
             Ugent = new Organization("UGent", "Gent", "ugent.be");
-
-            Organizations = new List<Organization>();
 
             Organizations.Add(HogentGent);
             Organizations.Add(HogentAalst);
@@ -118,6 +135,8 @@ namespace dotnet_g23.Tests.Data {
              * 
              * */
 
+            GUsers = new List<GUser>();
+
             VolunteerHoGent = new GUser("volunteer@hogent.be");
             ParticipantHogent = new GUser("participant@hogent.be");
             OwnerHogent = new GUser("owner@hogent.be");
@@ -125,8 +144,6 @@ namespace dotnet_g23.Tests.Data {
             OwnerHogentApproved = new GUser("owner_approved@hogent.be");
             OwnerHogentGranted = new GUser("owner_granted@hogent.be");
             OwnerHogentAnnounced = new GUser("owner_announced@hogent.be");
-
-            GUsers = new List<GUser>();
 
             GUsers.Add(VolunteerHoGent);
             GUsers.Add(ParticipantHogent);
@@ -149,6 +166,7 @@ namespace dotnet_g23.Tests.Data {
              * */
 
             Groups = new List<Group>();
+
             HogentGroup = HogentGent.CreateGroup(OwnerHogent.UserState as Participant, "HoGent Groep 1", false);
             HogentGroupSubmitted = HogentGent.CreateGroup(OwnerHogentSubmitted.UserState as Participant, "HoGent Groep 2", false);
             HogentGroupApproved = HogentGent.CreateGroup(OwnerHogentApproved.UserState as Participant, "HoGent Groep 3", false);
@@ -165,7 +183,9 @@ namespace dotnet_g23.Tests.Data {
              * Motivations
              * 
              * */
+
             Motivations = new List<Motivation>();
+
             MotivationSubmitted = CreateMotivation(HogentGroupSubmitted, false);
             MotivationApproved = CreateMotivation(HogentGroupApproved, true);
             MotivationGranted = CreateMotivation(HogentGroupGranted, true);
@@ -180,7 +200,9 @@ namespace dotnet_g23.Tests.Data {
              * Companies
              * 
              * */
+
             Companies = new List<Company>();
+
             Company1 = new Company("Company 1", "This is company 1", "Address of company 1", "http://www.company1.com", "hello@company1.com", new byte[] {0x20, 0x20, 0x20});
             Company2 = new Company("Company 2", "This is company 2", "Address of company 2", "http://www.company2.com", "hello@company2.com", new byte[] { 0x20, 0x20, 0x20 });
             Company3 = new Company("Company 3", "This is company 3", "Address of company 3", "http://www.company3.com", "hello@company3.com", new byte[] { 0x20, 0x20, 0x20 });
@@ -193,7 +215,9 @@ namespace dotnet_g23.Tests.Data {
              * Contacts
              * 
              * */
+
             Contacts = new List<Contact>();
+
             Contact1CEO = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company1.com", Company1);
             Contact1CFO = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company1.com", Company1);
             Contact1CTO = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company1.com", Company1);
@@ -234,15 +258,38 @@ namespace dotnet_g23.Tests.Data {
              * Labels
              * 
              * */
+
             Labels = new List<Label>();
-            Label2 = new Label(HogentGroupGranted, Company2);
-            HogentGroupGranted.Context.CurrentState = new GrantedState();
 
-            Label3 = new Label(HogentGroupAnnounced, Company2);
-            HogentGroupAnnounced.Context.CurrentState = new AnnouncedState();
+            HogentGroupGranted.Grant(Company2);
+            HogentGroupAnnounced.Grant(Company3);
 
-            Labels.Add(Label2);
-            Labels.Add(Label3);
+            Labels.Add(HogentGroupGranted.Label);
+            Labels.Add(HogentGroupAnnounced.Label);
+
+            /**
+             * Posts
+             * 
+             * */
+
+            Posts = new List<Post>();
+
+            Post3 = HogentGroupAnnounced.Announce("Dit Goed Bezig-label wordt toegekend aan Company 3 vanwege een voortdurende inzet en maatschappelijke verantwoordelijkheid.");
+
+            Posts.Add(Post3);
+
+            /**
+             * Actions
+             * 
+             * */
+
+            Actions = new List<dotnet_g23.Models.Domain.Action>();
+
+            Action1 = new dotnet_g23.Models.Domain.Action(HogentGroupGranted, "Action1", "Dit is een actie tvv Goed Bezig!");
+            Action2 = new dotnet_g23.Models.Domain.Action(HogentGroupAnnounced, "Action2", "Dit is een actie tvv Goed Bezig!");
+
+            Actions.Add(Action1);
+            Actions.Add(Action2);
         }
 
         private Motivation CreateMotivation(Group group, Boolean approved = false) {
