@@ -65,11 +65,26 @@ namespace dotnet_g23.Tests.Controllers {
         }
 
         [Fact]
+        public void IndexNotEmptyInvitedGroupOfUser() {
+            ViewResult result = _controller.Index(_ParticipantHogent) as ViewResult;
+            IndexViewModel ind = (IndexViewModel)result?.Model;
+            IEnumerable<Group> groups = ind.InvitedGroups;
+            Assert.Empty(groups);
+        }
+
+        [Fact]
         public void IndexShouldReturnPossibleOpenGroupsForUserSoNotNull() {
             ViewResult result = _controller.Index(_ParticipantHogent) as ViewResult;
             IndexViewModel ind = (IndexViewModel)result?.Model;
             IEnumerable<Group> groups = ind.OpenGroups;
             Assert.NotNull(groups);
+        }
+
+        [Fact]
+        public void IndexShouldReturnNullForSubscribedGroupOfUserParticipant() {
+            ViewResult result = _controller.Index(_ParticipantHogent) as ViewResult;
+            IndexViewModel ind = (IndexViewModel)result?.Model;
+            Assert.Null(ind.SubscribedGroup);
         }
 
         #endregion
