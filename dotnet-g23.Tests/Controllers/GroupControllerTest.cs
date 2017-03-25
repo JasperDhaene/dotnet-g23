@@ -99,20 +99,20 @@ namespace dotnet_g23.Tests.Controllers {
         }
 
         [Fact]
-        public void ParticipantCannotCreateGroupBecauseAlreadyInGroup() {
-            Assert.Throws<GoedBezigException>(() => _controller.Create(_OwnerHogent, "test2", false));
+        public void ParticipantRedirectToInviteWhenCreatingGroup() {
+            RedirectToActionResult res = _controller.Create(_ParticipantHogent, "testGroup", false) as RedirectToActionResult;
+            Assert.Equal("Invite", res.ActionName);
+        }
+
+        [Fact]
+        public void ParticipantCannotCreateAndRedirectsToCreate() {
+            ViewResult res = _controller.Create(_OwnerHogent, "test", false) as ViewResult;
+            Assert.Equal("Create", res.ViewName);
         }
 
         #endregion
 
-        #region HTTP POST Invite
-        //[Fact]
-        //public void InviteShouldReturnGroupSearchedById() {
-        //    ViewResult result = _controller.Invite(_participant2, context.Groups.First().GroupId, "test.test@hogent.be") as ViewResult;
-        //    Assert.Equal("Invite", result?.ViewName);
-        //}
 
-        #endregion
 
         #region HTTP POST Register
 
@@ -134,6 +134,13 @@ namespace dotnet_g23.Tests.Controllers {
 
         #endregion
 
+        #region HTTP POST Invite
+        //[Fact]
+        //public void InviteShouldReturnGroupSearchedById() {
+        //    ViewResult result = _controller.Invite(_participant2, context.Groups.First().GroupId, "test.test@hogent.be") as ViewResult;
+        //    Assert.Equal("Invite", result?.ViewName);
+        //}
 
+        #endregion
     }
 }
