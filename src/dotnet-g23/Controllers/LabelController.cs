@@ -86,7 +86,7 @@ namespace dotnet_g23.Controllers {
                     //sender.SendEmail(contact.Company.Name, contact.Email,
                     //    group.Organization.Name, contact.Company.Description);
 
-                    sender.SendEmail(company.Name, "goedbezig@dejonckhee.re", group.Organization.Name, group.Motivation.MotivationText);
+                    sender.SendEmail(company.Name, "goedbezig-g23@outlook.com", group.Organization.Name, group.Motivation.MotivationText);
                 }
             }
             

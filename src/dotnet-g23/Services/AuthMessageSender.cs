@@ -16,7 +16,7 @@ namespace dotnet_g23.Services {
         public async void SendEmail(string receiver, string email, string organizationName, string beschrijving) {
             // Plug in your email service here to send an email.
             var emailMessage = new MimeMessage();
-            emailMessage.From.Add(new MailboxAddress("Goed Bezig!", "goedbezig@dejonckhee.re"));
+            emailMessage.From.Add(new MailboxAddress("Goed Bezig!", "goedbezig-g23@outlook.com"));
             emailMessage.To.Add(new MailboxAddress(receiver, email));
             emailMessage.Subject = "Uitreiking Goed Bezig!-label voor " + receiver + ".";
 
@@ -34,14 +34,14 @@ namespace dotnet_g23.Services {
             //emailMessage.Body = new TextPart("plain") { Text = @"Test" };
 
             using (var client = new SmtpClient()) {
-                client.Connect("thalarion.be", 587, false);
+                client.Connect("smtp-mail.outlook.com", 587, false);
 
                 // Note: since we don't have an OAuth2 token, disable
                 // the XOAUTH2 authentication mechanism.
                 //client.AuthenticationMechanisms.Remove("XOAUTH2");
 
                 // Note: only needed if the SMTP server requires authentication
-                client.Authenticate("goedbezig@dejonckhee.re", "z5sG3kEVioUhhqhosXgT4xWSsGzG8biMKYz1BmQPmYRUFzAD1G8nBozfdcvUnuU9UbojEU");
+                client.Authenticate("goedbezig-g23@outlook.com", "AUnws8ClDrVAN7ui6wP55g80LxgZ1DU1jgFA5dDPFY25oapScj");
 
                 await client.SendAsync(emailMessage);
                 client.Disconnect(true);
