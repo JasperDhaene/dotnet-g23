@@ -16,6 +16,8 @@ namespace dotnet_g23
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
+                .CaptureStartupErrors(true)
+                .UseSetting("detailedErrors", "true")
                 .Build();
 
             host.Run();

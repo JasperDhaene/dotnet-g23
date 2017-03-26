@@ -109,21 +109,14 @@ namespace dotnet_g23 {
 
 
             app.UseApplicationInsightsRequestTelemetry();
-
-            if (env.IsDevelopment()) {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-                app.UseBrowserLink();
-            }
-            else {
-                app.UseExceptionHandler("Error");
-            }
+            app.UseDeveloperExceptionPage();
+            app.UseDatabaseErrorPage();
+            app.UseBrowserLink();
 
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
             app.UseStatusCodePagesWithRedirects("/error");
-            //app.UseStatusCodePages();
             app.UseIdentity();
 
             app.UseSession();
