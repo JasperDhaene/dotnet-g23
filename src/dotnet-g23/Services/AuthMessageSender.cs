@@ -21,7 +21,8 @@ namespace dotnet_g23.Services {
             emailMessage.Subject = "Uitreiking Goed Bezig!-label voor " + receiver + ".";
 
             var builder = new BodyBuilder();
-            using (StreamReader SourceReader = System.IO.File.OpenText("App_data/Template/EmailTemplate.html")) {
+            using (var SourceReader = File.OpenText("wwwroot/EmailTemplate.html"))
+            {
                 builder.HtmlBody = SourceReader.ReadToEnd();
                 builder.HtmlBody = builder.HtmlBody.Replace("{organization}", organizationName).Replace("{company}", receiver).Replace("{description}", beschrijving);
             }
