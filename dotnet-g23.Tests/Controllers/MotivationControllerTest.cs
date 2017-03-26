@@ -25,7 +25,7 @@ namespace dotnet_g23.Tests.Controllers {
             context = new DummyApplicationDbContext();
 
             Mock<IGroupRepository> GroupRepo = new Mock<IGroupRepository>();
-
+            
             GroupRepo.Setup(g => g.GetAll()).Returns(context.Groups);
             GroupRepo.Setup(g => g.GetBy(1)).Returns(context.HogentGroup);
             GroupRepo.Setup(o => o.GetBy(2)).Returns(context.HogentGroupSubmitted);
@@ -66,17 +66,19 @@ namespace dotnet_g23.Tests.Controllers {
 
         #endregion
 
-        #region Update - Post
+        //#region Update - Post
 
         //[Fact]
         //public void UpdateCanSubmitOrSaveMotivationSoSystemRedirectsToDashboardOfGroup() {
         //    Motivation mot = new Motivation("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. "
-        //        +"Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque.");
+        //        + "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque.");
+
         //    RedirectToActionResult result = _controller.Update(_ownerHogent, 1, mot) as RedirectToActionResult;
+            
         //    Assert.Equal("Dashboard", result?.ActionName);
         //    Assert.Equal("Group", result?.ControllerName);
         //}
 
-        #endregion
+        //#endregion
     }
 }
