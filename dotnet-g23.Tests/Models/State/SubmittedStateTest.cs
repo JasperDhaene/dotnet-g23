@@ -8,7 +8,7 @@ using Xunit;
 
 namespace dotnet_g23.Tests.Models.State
 {
-    public class InitialStateTest
+    public class SubmittedStateTest
     {
         private Context Context { get; set; }
         private Group Group { get; set; }
@@ -18,9 +18,9 @@ namespace dotnet_g23.Tests.Models.State
 
         private Motivation Motivation { get; set; }
 
-        public InitialStateTest()
+        public SubmittedStateTest()
         {
-            Context = new Context { CurrentState = new InitialState() };
+            Context = new Context { CurrentState = new SubmittedState() };
             Group = new Group("Foobar");
             Organization = new Organization("Foo", "Bar", "foobar.com");
             Participant = new Participant(Organization);
@@ -63,7 +63,7 @@ namespace dotnet_g23.Tests.Models.State
         public void InviteShouldNotChangeState() {
             Context.Invite(Group, Participant);
 
-            Assert.True(Context.CurrentState is InitialState);
+            Assert.True(Context.CurrentState is SubmittedState);
         }
 
         [Fact]
@@ -108,7 +108,7 @@ namespace dotnet_g23.Tests.Models.State
         public void RegisterShouldNotChangeState() {
             Context.Register(Group, Participant);
 
-            Assert.True(Context.CurrentState is InitialState);
+            Assert.True(Context.CurrentState is SubmittedState);
         }
 
         [Fact]
@@ -155,33 +155,20 @@ namespace dotnet_g23.Tests.Models.State
          * 
          * */
         [Fact]
-        public void SubmitShouldChangeState()
+        public void SubmitThrows()
         {
-            Context.Submit(Group);
-
-            Assert.True(Context.CurrentState is SubmittedState);
-        }
-
-        [Fact]
-        public void SubmitThrowsOnNoMotivation()
-        {
-            Group.Motivation = null;
-
             Assert.Throws<StateException>(() => Context.Submit(Group));
         }
-
+        
         /**
          * Save
          * 
          * */
 
         [Fact]
-        public void SaveShouldSaveMotivation()
+        public void SaveThrows()
         {
-            Group.Motivation = null;
-            Context.Save(Group, Motivation);
-
-            Assert.Equal(Motivation, Group.Motivation);
+            Assert.Throws<StateException>(() => Context.Save(Group, Motivation));
         }
     }
 }
