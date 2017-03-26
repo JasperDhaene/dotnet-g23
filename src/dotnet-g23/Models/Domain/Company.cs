@@ -9,14 +9,14 @@ namespace dotnet_g23.Models.Domain
     public class Company
     {
         #region Properties
-        public int CompanyId { get; private set; }
+        public int CompanyId { get; private set;  }
         public String Name { get; set; }
         public String Description { get; set; }
         public String Address { get; set; }
         public String Website { get; set; }
         public String Email { get; set; }
         public Byte[] Logo { get; set; }
-        public ICollection<Contact> Contacts { get; private set; }
+        public ICollection<Contact> Contacts { get; }
         public Label Label { get; set; }
         #endregion
 
