@@ -15,6 +15,10 @@ namespace dotnet_g23.Models.ViewModels.LabelViewModels
 
         public Group Group { get; set; }
 
+        public Motivation Motivation { get; set; }
+
+        public Organization Organization { get; set; }
+
         public Label Label { get; set; }
     }
 }

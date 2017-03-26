@@ -29,6 +29,7 @@ namespace dotnet_g23.Data.Repositories
             return _companies
                 .Include(c => c.Contacts)
                 .Include(c => c.Label)
+                .ThenInclude(label => label.Group)
                 .SingleOrDefault(c => c.CompanyId == companyId);
         }
 

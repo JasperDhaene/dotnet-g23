@@ -43,16 +43,30 @@ namespace dotnet_g23.Controllers {
 
         [Route("Companies/{id}")]
         public IActionResult Show(Participant participant, int id) {
-            Group group = _groupRepository.GetBy(participant.Group.GroupId);
+            
+            
 
             // Show company contacts
 
             ShowViewModel vm = new ShowViewModel();
+            Company company = _companyRepository.GetBy(id);
+            
 
-            vm.Company = _companyRepository.GetBy(id);
+            Group group;
+            if(participant.Group != null) {
+                group = _groupRepository.GetBy(participant.Group.GroupId);
+            }else if(company.Label != null) {
+                group = _groupRepository.GetBy(company.Label.Group.GroupId);
+            }else{
+                group = null;
+            }
+
+            vm.Company = company;
             vm.Contacts = vm.Company.Contacts;
             vm.Group = group;
-            vm.Label = group.Label;
+            vm.Motivation = group?.Motivation;
+            vm.Organization = group?.Organization;
+            vm.Label = company.Label;
 
             return View(vm);
         }
