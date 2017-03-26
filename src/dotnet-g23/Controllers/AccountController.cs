@@ -150,18 +150,12 @@ namespace dotnet_g23.Controllers {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
         }
-
-        private Task<ApplicationUser> GetCurrentUserAsync() {
-            return _userManager.GetUserAsync(HttpContext.User);
-        }
-
+        
         private IActionResult RedirectToLocal(string returnUrl) {
-            if (Url.IsLocalUrl(returnUrl)) {
+            if (Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
-            }
-            else {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
+            else
+                return RedirectToAction("Index", "Home");
         }
 
         #endregion

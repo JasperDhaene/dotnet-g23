@@ -73,10 +73,10 @@ namespace dotnet_g23.Controllers {
             catch (GoedBezigException e)
             {
                 TempData["error"] = e.Message;
-                return RedirectToAction("Index", "Organizations");
+                return RedirectToAction("Index", "Organization");
             }
             TempData["success"] = $"U bent geregistreerd bij organisatie '{organization.Name}'";
-            return RedirectToAction("Index", "Groups");
+            return RedirectToAction("Index", "Group");
         }
 
         [Route("Organizations/{id}")]
