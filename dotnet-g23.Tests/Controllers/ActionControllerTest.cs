@@ -45,23 +45,13 @@ namespace dotnet_g23.Tests.Controllers
         }
         #endregion
 
-        #region Create
-
-        [Fact]
-        public void ParticipantCanCreateNewAction() {
-            ViewResult result = _controller.Create(_OwnerAnnounced, 5) as ViewResult;
-            CreateViewModel vm = (CreateViewModel)result?.Model;
-            Assert.Equal(_OwnerAnnounced.Group, vm.Group);
-        }
-
-        #endregion
-
         #region Update
 
         [Fact]
-        public void ParticipantCanUpdateAction() {
+        public void ParticipantCanUpdateActionAndRedirectToShow() {
             RedirectToActionResult res = _controller.Update(_OwnerGranted, 4, context.Action1) as RedirectToActionResult;
-
+            Assert.Equal("Show", res?.ActionName);
+            Assert.Equal("Group", res?.ControllerName);
         }
 
         #endregion
