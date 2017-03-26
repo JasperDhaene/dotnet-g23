@@ -8,7 +8,9 @@ namespace dotnet_g23.Models.Domain.State
     public class Context
     {
         #region Properties
+
         public State CurrentState { get; set; }
+
         public string SerializableState
         {
             // Serialize State to string
@@ -17,16 +19,20 @@ namespace dotnet_g23.Models.Domain.State
             // Deserialize string to State
             set { CurrentState = Activator.CreateInstance(Type.GetType(value)) as State; }
         }
+
         #endregion
 
         #region Constructors
+
         public Context()
         {
             CurrentState = new InitialState();
         }
+
         #endregion
 
         #region Methods
+
         public void Invite(Group group, Participant participant)
         {
             CurrentState.Invite(this, group, participant);
@@ -62,8 +68,16 @@ namespace dotnet_g23.Models.Domain.State
             CurrentState.SetupAction(this, group, title, description, date);
         }
 
-        public Boolean CanInvite() { return CurrentState.CanInvite(); }
-        public Boolean CanSetup() { return CurrentState.CanSetup(); }
+        public Boolean CanInvite()
+        {
+            return CurrentState.CanInvite();
+        }
+
+        public Boolean CanSetup()
+        {
+            return CurrentState.CanSetup();
+        }
+
         #endregion
     }
 }

@@ -12,11 +12,14 @@ namespace dotnet_g23.Models.Domain.State
             throw new StateException("Er werd al een bericht gepubliceerd");
         }
 
-        public override void SetupAction(Context context, Group group,String title, String description, DateTime? date)
+        public override void SetupAction(Context context, Group group, String title, String description, DateTime? date)
         {
             new GrantedState().SetupAction(context, group, title, description, date);
         }
 
-        public override Boolean CanSetup() { return true; }
+        public override Boolean CanSetup()
+        {
+            return true;
+        }
     }
 }

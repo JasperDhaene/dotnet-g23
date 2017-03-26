@@ -1,7 +1,8 @@
 @using Microsoft.AspNetCore.Authorization
 @inject IAuthorizationService AuthorizationService
 
-@if (await AuthorizationService.AuthorizeAsync(User, "volunteer")) {
+@if (await AuthorizationService.AuthorizeAsync(User, "volunteer"))
+{
     <li class="nav-item">
         <a asp-area="" asp-controller="Organization" asp-action="Index" class="nav-link">
             <span>GB Organisaties</span>
@@ -9,7 +10,8 @@
     </li>
 }
 
-@if (await AuthorizationService.AuthorizeAsync(User, "participant")) {
+@if (await AuthorizationService.AuthorizeAsync(User, "participant"))
+{
     <li class="nav-item">
         <a asp-area="" asp-controller="Organization" asp-action="Index" class="nav-link">
             <span>GB organisaties</span>

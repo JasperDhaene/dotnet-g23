@@ -9,33 +9,35 @@
 @model dotnet_g23.Models.ViewModels.LabelViewModels.IndexViewModel
 
 @Html.Partial("_ContainerStart")
-    <div class="row">
-        <div class="col-lg-12 m-t-3">
-            <form asp-controller="Label" asp-action="Index" method="get" class="form-horizontal f-sm-right" style="text-align: right;">
-                <input type="text" placeholder="Naam of adres" name="query" id="query" class="col-xs-7 col-md-4 push-md-6 col-lg-0 push-lg-0 f-lg-none" value="@ViewContext.HttpContext.Request.Query["query"]" />
-                <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md">Zoeken</a>
-            </form>
-            <h1>Externe organisaties</h1>
-            
-            @if (Model.Companies == null || !Model.Companies.Any())
-            {
-                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen organisaties gevonden.</div>
-            }
-            else
-            {
-                <p>U kunt een Goed Bezig label toekennen aan een van de volgende organisaties.</p>
-            }
-            
-            @foreach (var company in Model.Companies)
-            {
-                <div class="card">
-                    <form asp-controller="Label" asp-action="Show" asp-route-id="@company.CompanyId" method="get">
-                        <a asp-controller="Label" asp-action="Show" asp-route-id="@company.CompanyId" class="btn btn-primary btn-md f-sm-right">Details</a>
-                        <p class="heading">@company.Name</p>
-                        <p class="small description">@company.Description</p>
-                    </form>
-                </div>
-            }
-        </div>
+<div class="row">
+    <div class="col-lg-12 m-t-3">
+        <form asp-controller="Label" asp-action="Index" method="get" class="form-horizontal f-sm-right" style="text-align: right;">
+            <input type="text" placeholder="Naam of adres" name="query" id="query" class="col-xs-7 col-md-4 push-md-6 col-lg-0 push-lg-0 f-lg-none" value="@ViewContext.HttpContext.Request.Query["query"]"/>
+            <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md">Zoeken</a>
+        </form>
+        <h1>Externe organisaties</h1>
+
+        @if (Model.Companies == null || !Model.Companies.Any())
+        {
+            <div class="alert alert-info m-t-1">
+                <i class="fa fa-info-circle"></i> Geen organisaties gevonden.
+            </div>
+        }
+        else
+        {
+            <p>U kunt een Goed Bezig label toekennen aan een van de volgende organisaties.</p>
+        }
+
+        @foreach (var company in Model.Companies)
+        {
+            <div class="card">
+                <form asp-controller="Label" asp-action="Show" asp-route-id="@company.CompanyId" method="get">
+                    <a asp-controller="Label" asp-action="Show" asp-route-id="@company.CompanyId" class="btn btn-primary btn-md f-sm-right">Details</a>
+                    <p class="heading">@company.Name</p>
+                    <p class="small description">@company.Description</p>
+                </form>
+            </div>
+        }
     </div>
+</div>
 @Html.Partial("_ContainerEnd")

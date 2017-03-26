@@ -3,72 +3,74 @@
 @model dotnet_g23.Models.ViewModels.GroupViewModels.ShowViewModel
 
 @{
-    ViewData["Title"] = $"Groep '{ Model.Group.Name }'";
+    ViewData["Title"] = $"Groep '{Model.Group.Name}'";
 }
 
 @Html.Partial("_ContainerStart")
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="clearfix">
-                <h1 class="f-md-left">@(Model.Group.Closed ? "Gesloten" : "Open") groep '@Model.Group.Name'</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="clearfix">
+            <h1 class="f-md-left">@(Model.Group.Closed ? "Gesloten" : "Open") groep '@Model.Group.Name'</h1>
+        </div>
+        <h3>Cursisten</h3>
+        @foreach (var participant in Model.Participants)
+        {
+            <div class="card">@participant.User.Email</div>
+        }
+
+        <h3>Motivatie</h3>
+        @if (Model.Group.Motivation == null)
+        {
+            <div class="alert alert-info m-t-1">
+                <i class="fa fa-info-circle"></i> Deze groep heeft nog geen motivatie ingevoerd.
             </div>
-            <h3>Cursisten</h3>
-            @foreach (var participant in Model.Participants)
+        }
+        else
+        {
+            <div class="card m-t-1">
+                @if (Model.Group.Motivation.OrganizationName != null)
+                {
+                    <p>
+                        Organisatie: <strong>@Model.Group.Motivation.OrganizationName</strong>
+                    </p>
+                }
+                <p>
+                    @Model.Group.Motivation.MotivationText
+                </p>
+            </div>
+        }
+
+        @if (Model.Group.CanSetup())
+        {
+            <div class="clearfix">
+                <h1 class="f-md-left">Acties en evenementen</h1>
+                <a asp-controller="Action" asp-action="Create" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Activiteit opzetten</a>
+            </div>
+            if (!Model.Group.Actions.Any())
             {
-                <div class="card">@participant.User.Email</div>
-            }
-            
-            <h3>Motivatie</h3>
-            @if (Model.Group.Motivation == null)
-            {
-                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Deze groep heeft nog geen motivatie ingevoerd.
+                <div class="alert alert-info m-t-1">
+                    <i class="fa fa-info-circle"></i> Er zijn nog geen activiteiten geregistreerd.
                 </div>
             }
             else
             {
-                <div class="card m-t-1">
-                    @if (Model.Group.Motivation.OrganizationName != null)
-                    {
-                        <p>
-                            Organisatie: <strong>@Model.Group.Motivation.OrganizationName</strong>
-                        </p>
-                    }
-                    <p>
-                        @Model.Group.Motivation.MotivationText
-                    </p>
-                </div>
-            }
-
-            @if (Model.Group.CanSetup()){
-                <div class="clearfix">
-                    <h1 class="f-md-left">Acties en evenementen</h1>
-                    <a asp-controller="Action" asp-action="Create" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Activiteit opzetten</a>
-                </div>
-                if (!Model.Group.Actions.Any())
+                foreach (var activity in Model.Group.Actions)
                 {
-                    <div class="alert alert-info m-t-1">
-                        <i class="fa fa-info-circle"></i> Er zijn nog geen activiteiten geregistreerd.
+                    <div class="card m-t-1">
+                        @if (@activity.Date != null)
+                        {
+                            <p class="f-sm-right">
+                                Datum: @activity.Date.Value.ToString("dd-MM-yyyy")
+                            </p>
+                        }
+                        <p class="heading">@activity.Title</p>
+                        <p>
+                            @activity.Description
+                        </p>
                     </div>
                 }
-                else
-                {
-                    foreach (var activity in Model.Group.Actions)
-                    {
-                        <div class="card m-t-1">
-                            @if (@activity.Date != null)
-                            {
-                                <p class="f-sm-right">
-                                    Datum: @activity.Date.Value.ToString("dd-MM-yyyy")
-                                </p>
-                            }
-                            <p class="heading">@activity.Title</p>
-                            <p>
-                                @activity.Description
-                            </p>
-                        </div>
-                    }
-                }
             }
-        </div>
+        }
     </div>
+</div>
 @Html.Partial("_ContainerEnd")

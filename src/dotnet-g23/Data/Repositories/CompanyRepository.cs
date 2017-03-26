@@ -13,19 +13,22 @@ namespace dotnet_g23.Data.Repositories
         private readonly ApplicationDbContext _context;
         private readonly DbSet<Company> _companies;
 
-        public CompanyRepository(ApplicationDbContext context) {
+        public CompanyRepository(ApplicationDbContext context)
+        {
             _context = context;
             _companies = context.Companies;
         }
 
-        public IEnumerable<Company> GetAll() {
+        public IEnumerable<Company> GetAll()
+        {
             return _companies
                 .Include(c => c.Contacts)
                 .Include(c => c.Label)
                 .ToList();
         }
 
-        public Company GetBy(int companyId) {
+        public Company GetBy(int companyId)
+        {
             return _companies
                 .Include(c => c.Contacts)
                 .Include(c => c.Label)
@@ -33,7 +36,8 @@ namespace dotnet_g23.Data.Repositories
                 .SingleOrDefault(c => c.CompanyId == companyId);
         }
 
-        public IEnumerable<Company> GetByKeyword(String query) {
+        public IEnumerable<Company> GetByKeyword(String query)
+        {
             return _companies
                 .Include(c => c.Contacts)
                 .Include(c => c.Label)
@@ -41,7 +45,8 @@ namespace dotnet_g23.Data.Repositories
                 .ToList();
         }
 
-        public void SaveChanges() {
+        public void SaveChanges()
+        {
             _context.SaveChanges();
         }
     }

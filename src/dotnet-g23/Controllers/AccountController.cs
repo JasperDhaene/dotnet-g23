@@ -14,9 +14,11 @@ using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.ViewModels.AccountViewModels;
 using dotnet_g23.Services;
 
-namespace dotnet_g23.Controllers {
+namespace dotnet_g23.Controllers
+{
     [Authorize]
-    public class AccountController : Controller {
+    public class AccountController : Controller
+    {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger _logger;
@@ -28,7 +30,8 @@ namespace dotnet_g23.Controllers {
             SignInManager<ApplicationUser> signInManager,
             ILoggerFactory loggerFactory,
             IParticipantRepository participantRepository,
-            ApplicationDbContext context) {
+            ApplicationDbContext context)
+        {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = loggerFactory.CreateLogger<AccountController>();
@@ -40,7 +43,8 @@ namespace dotnet_g23.Controllers {
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null) {
+        public IActionResult Login(string returnUrl = null)
+        {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -50,13 +54,19 @@ namespace dotnet_g23.Controllers {
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null) {
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        {
             ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded) {
+                var result =
+                    await
+                        _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe,
+                            lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
                     _logger.LogInformation(1, "User logged in.");
 
                     // Redirect to appropriate page
@@ -68,11 +78,13 @@ namespace dotnet_g23.Controllers {
                         return RedirectToAction("Index", "Group");
                     return RedirectToAction("Dashboard", "Group");
                 }
-                if (result.IsLockedOut) {
+                if (result.IsLockedOut)
+                {
                     _logger.LogWarning(2, "User account locked out.");
                     return View("Lockout");
                 }
-                else {
+                else
+                {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return View(model);
                 }
@@ -86,7 +98,8 @@ namespace dotnet_g23.Controllers {
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null) {
+        public IActionResult Register(string returnUrl = null)
+        {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -96,10 +109,12 @@ namespace dotnet_g23.Controllers {
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null) {
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        {
             ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid) {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "participant"));
 
@@ -107,7 +122,8 @@ namespace dotnet_g23.Controllers {
                 _context.GUsers.Add(guser);
                 _context.SaveChanges();
 
-                if (result.Succeeded) {
+                if (result.Succeeded)
+                {
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -129,7 +145,8 @@ namespace dotnet_g23.Controllers {
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogOff() {
+        public async Task<IActionResult> LogOff()
+        {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
             return RedirectToAction(nameof(AccountController.Login), "Account");
@@ -137,21 +154,23 @@ namespace dotnet_g23.Controllers {
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult AccessDenied() {
+        public IActionResult AccessDenied()
+        {
             return View();
         }
 
-
-        
         #region Helpers
 
-        private void AddErrors(IdentityResult result) {
-            foreach (var error in result.Errors) {
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
         }
-        
-        private IActionResult RedirectToLocal(string returnUrl) {
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
             if (Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
             else

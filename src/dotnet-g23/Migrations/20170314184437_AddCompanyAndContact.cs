@@ -20,10 +20,7 @@ namespace dotnet_g23.Migrations
                     Name = table.Column<string>(nullable: false),
                     Website = table.Column<string>(nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Companies", x => x.CompanyId);
-                });
+                constraints: table => { table.PrimaryKey("PK_Companies", x => x.CompanyId); });
 
             migrationBuilder.CreateTable(
                 name: "Contacts",

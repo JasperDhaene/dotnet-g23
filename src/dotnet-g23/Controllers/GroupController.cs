@@ -18,54 +18,59 @@ using Microsoft.AspNetCore.Hosting;
 namespace dotnet_g23.Controllers
 {
     [Authorize(Policy = "participant")]
-	[ServiceFilter(typeof(ParticipantFilter))]
-	public class GroupController : Controller
-	{
+    [ServiceFilter(typeof(ParticipantFilter))]
+    public class GroupController : Controller
+    {
+        #region Fields
 
-		#region Fields
-		private readonly IGroupRepository _groupRepository;
-		private readonly IParticipantRepository _participantRepository;
-	    private readonly IInvitationRepository _invitationRepository;
-	    private readonly ILabelRepository _labelRepository;
-	    private readonly IPostRepository _postRepository;
+        private readonly IGroupRepository _groupRepository;
+        private readonly IParticipantRepository _participantRepository;
+        private readonly IInvitationRepository _invitationRepository;
+        private readonly ILabelRepository _labelRepository;
+        private readonly IPostRepository _postRepository;
 
-	    private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IHostingEnvironment _hostingEnvironment;
+
         #endregion
 
         #region Constructors
-        public GroupController(IGroupRepository groupRepository, 
-            IParticipantRepository participantRepository, 
+
+        public GroupController(IGroupRepository groupRepository,
+            IParticipantRepository participantRepository,
             IInvitationRepository invitationRepository,
             ILabelRepository labelRepository,
             IPostRepository postRepository,
-            IHostingEnvironment hostingEnvironment) {
-			_groupRepository = groupRepository;
-		    _participantRepository = participantRepository;
-		    _invitationRepository = invitationRepository;
-		    _labelRepository = labelRepository;
-		    _postRepository = postRepository;
+            IHostingEnvironment hostingEnvironment)
+        {
+            _groupRepository = groupRepository;
+            _participantRepository = participantRepository;
+            _invitationRepository = invitationRepository;
+            _labelRepository = labelRepository;
+            _postRepository = postRepository;
 
             _hostingEnvironment = hostingEnvironment;
         }
-		#endregion
 
-		#region Methods
+        #endregion
+
+        #region Methods
+
         // GET /Groups
-		[Route("Groups")]
-		public IActionResult Index(Participant participant)
-		{
+        [Route("Groups")]
+        public IActionResult Index(Participant participant)
+        {
             // Return list with invites and open organizations
 
-		    IndexViewModel vm = new IndexViewModel
-		    {
+            IndexViewModel vm = new IndexViewModel
+            {
                 Organization = participant.Organization,
-		        SubscribedGroup = participant.Group,
-		        InvitedGroups = _invitationRepository.GetByParticipant(participant).Select(i => i.Group),
+                SubscribedGroup = participant.Group,
+                InvitedGroups = _invitationRepository.GetByParticipant(participant).Select(i => i.Group),
                 OpenGroups = _groupRepository.GetByOrganization(participant.Organization).Where(g => !g.Closed)
             };
 
-		    return View(vm);
-		}
+            return View(vm);
+        }
 
         // GET /Groups/Create
         [Route("Groups/Create")]
@@ -76,30 +81,30 @@ namespace dotnet_g23.Controllers
 
         // POST /Groups/Create
         [HttpPost]
-	    [Route("Groups/Create")]
-	    public IActionResult Create(Participant participant, String name, Boolean closed = false)
-	    {
-	        // Create new group
-	        Organization organization = participant.Organization;
-	        try
-	        {
-	            Group group = organization.CreateGroup(participant, name, closed);
+        [Route("Groups/Create")]
+        public IActionResult Create(Participant participant, String name, Boolean closed = false)
+        {
+            // Create new group
+            Organization organization = participant.Organization;
+            try
+            {
+                Group group = organization.CreateGroup(participant, name, closed);
                 _groupRepository.SaveChanges();
 
-	            TempData["success"] = $"De groep '{name}' is aangemaakt";
-                return RedirectToAction("Invite", new { id = group.GroupId });
+                TempData["success"] = $"De groep '{name}' is aangemaakt";
+                return RedirectToAction("Invite", new {id = group.GroupId});
             }
-	        catch (GoedBezigException e)
-	        {
-	            TempData["error"] = e.Message;
-	            return View("Create");
-	        }
+            catch (GoedBezigException e)
+            {
+                TempData["error"] = e.Message;
+                return View("Create");
+            }
         }
 
         // GET /Dashboard
-	    [Route("Dashboard")]
-	    public IActionResult Dashboard(Participant participant, int id)
-	    {
+        [Route("Dashboard")]
+        public IActionResult Dashboard(Participant participant, int id)
+        {
             // Show personal dashboard
 
 
@@ -111,15 +116,15 @@ namespace dotnet_g23.Controllers
 
             Group group = _groupRepository.GetBy(participant.Group.GroupId);
 
-	        ShowViewModel vm = new ShowViewModel
-	        {
-	            Group = group,
-	            Participants = _participantRepository.GetByGroup(group),
-	            Invitations = _invitationRepository.GetByGroup(group)
-	        };
+            ShowViewModel vm = new ShowViewModel
+            {
+                Group = group,
+                Participants = _participantRepository.GetByGroup(group),
+                Invitations = _invitationRepository.GetByGroup(group)
+            };
 
-	        return View(vm);
-	    }
+            return View(vm);
+        }
 
         // GET /Groups/:id
         [Route("Groups/{id}")]
@@ -141,8 +146,9 @@ namespace dotnet_g23.Controllers
 
         // POST /Groups/{id}/Register
         [HttpPost]
-		[Route("Groups/{id}/Register")]
-		public IActionResult Register(Participant participant, int id) {
+        [Route("Groups/{id}/Register")]
+        public IActionResult Register(Participant participant, int id)
+        {
             // Register user with group
 
             Group group = _groupRepository.GetBy(id);
@@ -158,46 +164,46 @@ namespace dotnet_g23.Controllers
                 TempData["error"] = e.Message;
                 return RedirectToAction("Index");
             }
-            TempData["success"] = $"U bent geregistreerd bij groep '{ group.Name }'";
+            TempData["success"] = $"U bent geregistreerd bij groep '{group.Name}'";
             return RedirectToAction("Dashboard");
         }
 
         // GET /Groups/{id}/Invite
-	    [Route("Groups/{id}/Invite")]
-	    public IActionResult Invite(Participant participant, int id)
-	    {
+        [Route("Groups/{id}/Invite")]
+        public IActionResult Invite(Participant participant, int id)
+        {
             // Show invite form
 
             Group group = _groupRepository.GetBy(id);
-	        return View(group);
-	    }
+            return View(group);
+        }
 
         // POST /Groups/{id}/Invite
-		[HttpPost]
-		[Route("Groups/{id}/Invite")]
-		public IActionResult Invite(Participant participant, int id, String address)
-		{
+        [HttpPost]
+        [Route("Groups/{id}/Invite")]
+        public IActionResult Invite(Participant participant, int id, String address)
+        {
             // Invite user to group
 
             Group group = _groupRepository.GetBy(id);
             Participant invitee = _participantRepository.GetByEmail(address);
             try
-		    {
-		        group.Invite(invitee);
-		        _groupRepository.SaveChanges();
-		    }
-		    catch (GoedBezigException e)
+            {
+                group.Invite(invitee);
+                _groupRepository.SaveChanges();
+            }
+            catch (GoedBezigException e)
             {
                 TempData["error"] = e.Message;
                 return View("Invite", group);
             }
-            TempData["success"] = $"Gebruiker '{ address }' werd uitgenodigd tot de groep";
+            TempData["success"] = $"Gebruiker '{address}' werd uitgenodigd tot de groep";
             return View("Invite", group);
         }
 
         // GET /Groups/{id}/Announce
-	    [Route("Groups/{id}/Announce")]
-	    public IActionResult Announce(Participant participant, int id)
+        [Route("Groups/{id}/Announce")]
+        public IActionResult Announce(Participant participant, int id)
         {
             // Show announce form
 
@@ -213,10 +219,10 @@ namespace dotnet_g23.Controllers
         }
 
         // POST /Groups/{id}/Announce
-	    [HttpPost]
-	    [Route("Groups/{id}/Announce")]
-	    public IActionResult Announce(Participant participant, int id, String message)
-	    {
+        [HttpPost]
+        [Route("Groups/{id}/Announce")]
+        public IActionResult Announce(Participant participant, int id, String message)
+        {
             // Announce label on social media
 
             Group group = _groupRepository.GetBy(id);
@@ -230,7 +236,7 @@ namespace dotnet_g23.Controllers
             catch (GoedBezigException e)
             {
                 TempData["error"] = e.Message;
-                return RedirectToAction("Announce", new { id = group.GroupId });
+                return RedirectToAction("Announce", new {id = group.GroupId});
             }
             TempData["success"] = "Bericht werd gepubliceerd. ";
             TempData["linkText"] = "Toon bericht";
@@ -240,7 +246,7 @@ namespace dotnet_g23.Controllers
 
             return RedirectToAction("Dashboard");
         }
-		#endregion
-	}
-}
 
+        #endregion
+    }
+}

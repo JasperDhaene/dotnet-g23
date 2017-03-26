@@ -9,7 +9,8 @@ namespace dotnet_g23.Models.Domain
     public class Company
     {
         #region Properties
-        public int CompanyId { get; private set;  }
+
+        public int CompanyId { get; private set; }
         public String Name { get; set; }
         public String Description { get; set; }
         public String Address { get; set; }
@@ -18,15 +19,18 @@ namespace dotnet_g23.Models.Domain
         public Byte[] Logo { get; set; }
         public ICollection<Contact> Contacts { get; }
         public Label Label { get; set; }
+
         #endregion
 
         #region Constructors
+
         public Company()
         {
             Contacts = new List<Contact>();
         }
 
-        public Company(string name, string description, string address, string website, string email, Byte[] logo) : this()
+        public Company(string name, string description, string address, string website, string email, Byte[] logo)
+            : this()
         {
             Name = name;
             Description = description;

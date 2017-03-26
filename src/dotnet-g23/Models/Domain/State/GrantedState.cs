@@ -23,12 +23,15 @@ namespace dotnet_g23.Models.Domain.State
             return post;
         }
 
-        public override void SetupAction(Context context, Group group,String title, String description, DateTime? date)
+        public override void SetupAction(Context context, Group group, String title, String description, DateTime? date)
         {
-            Action action = new Action(group,title,description,date);
+            Action action = new Action(group, title, description, date);
             group.Actions.Add(action);
         }
 
-        public override Boolean CanSetup() { return true; }
+        public override Boolean CanSetup()
+        {
+            return true;
+        }
     }
 }

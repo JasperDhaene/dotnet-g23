@@ -5,13 +5,18 @@ using System.Linq;
 using dotnet_g23.Models.Domain.State;
 using Action = dotnet_g23.Models.Domain.Action;
 
-namespace dotnet_g23.Models.Domain {
-    public class Group {
+namespace dotnet_g23.Models.Domain
+{
+    public class Group
+    {
         #region Fields
+
         private String _name;
+
         #endregion
 
         #region Properties
+
         public int GroupId { get; private set; }
         public Organization Organization { get; set; }
         public ICollection<Participant> Participants { get; }
@@ -26,24 +31,31 @@ namespace dotnet_g23.Models.Domain {
         public Context Context { get; set; }
 
         // Database serialisation property
-        public String StateContext {
+        public String StateContext
+        {
             get { return Context.SerializableState; }
             set { Context.SerializableState = value; }
         }
 
-        public String Name {
+        public String Name
+        {
             get { return _name; }
-            private set {
-                if (value == null || value.Trim() == String.Empty || value == String.Empty) {
+            private set
+            {
+                if (value == null || value.Trim() == String.Empty || value == String.Empty)
+                {
                     throw new GoedBezigException("Naam mag niet leeg zijn");
                 }
                 _name = value;
             }
         }
+
         public Boolean Closed { get; set; }
+
         #endregion
 
         #region Constructors
+
         public Group()
         {
             Participants = new List<Participant>();
@@ -51,6 +63,7 @@ namespace dotnet_g23.Models.Domain {
             Actions = new List<Action>();
             Context = new Context();
         }
+
         public Group(String name) : this()
         {
             Name = name;
@@ -61,9 +74,11 @@ namespace dotnet_g23.Models.Domain {
         {
             Closed = closed;
         }
+
         #endregion
 
         #region Methods
+
         public void Invite(Participant participant)
         {
             Context.Invite(this, participant);
@@ -73,6 +88,7 @@ namespace dotnet_g23.Models.Domain {
         {
             Context.Register(this, participant);
         }
+
         public void Submit()
         {
             Context.Submit(this);
@@ -98,8 +114,16 @@ namespace dotnet_g23.Models.Domain {
             Context.SetupAction(this, title, description, date);
         }
 
-        public Boolean CanInvite() { return Context.CanInvite(); }
-        public Boolean CanSetup() { return Context.CanSetup(); }
+        public Boolean CanInvite()
+        {
+            return Context.CanInvite();
+        }
+
+        public Boolean CanSetup()
+        {
+            return Context.CanSetup();
+        }
+
         #endregion
     }
 }

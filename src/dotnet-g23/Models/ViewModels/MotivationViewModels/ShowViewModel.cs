@@ -12,6 +12,5 @@ namespace dotnet_g23.Models.ViewModels.MotivationViewModels
         public Group Group { get; set; }
 
         public Motivation Motivation { get; set; }
-
     }
 }

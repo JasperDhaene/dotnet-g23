@@ -20,10 +20,7 @@ namespace dotnet_g23.Migrations
                     action_type = table.Column<string>(nullable: false),
                     Date = table.Column<DateTime>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Actions", x => x.ActionId);
-                });
+                constraints: table => { table.PrimaryKey("PK_Actions", x => x.ActionId); });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -8,70 +8,73 @@
 
 @model dotnet_g23.Models.ViewModels.GroupViewModels.IndexViewModel
 @Html.Partial("_ContainerStart")
-    <div class="row">
-        <div class="col-lg-12">
-            @if (Model.SubscribedGroup == null)
-            {
-                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> <strong>U bent niet in een groep ingeschreven.</strong> U kan zich aansluiten bij een open groep binnen de organisatie die nog geen actie ondernomen heeft, ingaan op een eventuele uitnodiging tot een gesloten groep of zelf <a asp-controller="Group" asp-action="Create" class="alert-link">een groep aanmaken &raquo;</a></div>
-            }
-            else
-            {
-                <h1>Mijn groep</h1>
-                <div class="card">
-                    @Model.SubscribedGroup.Name <span class="badge">@Model.SubscribedGroup.Participants.Count @(Model.SubscribedGroup.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
-                    <a asp-controller="Group" asp-action="Dashboard" class="btn btn-primary btn-md f-sm-right">Dashboard</a>
-                </div>
-            }
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 p-y-3">
+<div class="row">
+    <div class="col-lg-12">
         @if (Model.SubscribedGroup == null)
-            {
+        {
+            <div class="alert alert-info m-t-1">
+                <i class="fa fa-info-circle"></i> <strong>U bent niet in een groep ingeschreven.</strong> U kan zich aansluiten bij een open groep binnen de organisatie die nog geen actie ondernomen heeft, ingaan op een eventuele uitnodiging tot een gesloten groep of zelf <a asp-controller="Group" asp-action="Create" class="alert-link">een groep aanmaken &raquo;</a>
+            </div>
+        }
+        else
+        {
+            <h1>Mijn groep</h1>
+            <div class="card">
+                @Model.SubscribedGroup.Name <span class="badge">@Model.SubscribedGroup.Participants.Count @(Model.SubscribedGroup.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
+                <a asp-controller="Group" asp-action="Dashboard" class="btn btn-primary btn-md f-sm-right">Dashboard</a>
+            </div>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 p-y-3">
+        @if (Model.SubscribedGroup == null)
+        {
             <a asp-controller="Group" asp-action="Create" class="btn btn-primary btn-md f-sm-left f-md-right">Maak groep</a>
         }
-            <h1>Groepen van de GB organisatie '@Model.Organization.Name'</h1>
-            @if (Model.SubscribedGroup == null)
+        <h1>Groepen van de GB organisatie '@Model.Organization.Name'</h1>
+        @if (Model.SubscribedGroup == null)
+        {
+            if (Model.InvitedGroups.Any())
             {
-                if (Model.InvitedGroups.Any())
-                {
-                    <h3>Uitnodigingen</h3>
-                    foreach (var group in Model.InvitedGroups)
-                    {
-                        <div class="card">
-                            <form asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" method="post">
-                                @group.Name <span class="badge">@group.Participants.Count @(group.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
-                                @if (Model.SubscribedGroup == null)
-                                {
-                                    <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Toetreden</a>
-                                }
-                            </form>
-                        </div>
-                    }
-                }
-            }
-            <h3>Open groepen</h3>
-            @if (Model.OpenGroups == null || !Model.OpenGroups.Any())
-            {
-                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Geen groepen gevonden binnen de organisatie.
-                </div>
-            }
-            else
-            {
-                foreach (var group in Model.OpenGroups)
+                <h3>Uitnodigingen</h3>
+                foreach (var group in Model.InvitedGroups)
                 {
                     <div class="card">
                         <form asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" method="post">
-                            @group.Name <span class="badge">@group.Participants.Count @(group.Participants.Count == 1 ? "cursist" : "cursisten")</span>
-                            @if (Model.SubscribedGroup == null && (group.Context.CurrentState is InitialState || group.Context.CurrentState is SubmittedState))
+                            @group.Name <span class="badge">@group.Participants.Count @(group.Participants.Count() == 1 ? "cursist" : "cursisten")</span>
+                            @if (Model.SubscribedGroup == null)
                             {
                                 <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Toetreden</a>
                             }
-                            <a asp-controller="Group" asp-action="Show" asp-route-id="@group.GroupId" class="btn btn-info btn-md f-right m-r-1">Details</a>
                         </form>
                     </div>
                 }
             }
-        </div>
+        }
+        <h3>Open groepen</h3>
+        @if (Model.OpenGroups == null || !Model.OpenGroups.Any())
+        {
+            <div class="alert alert-info m-t-1">
+                <i class="fa fa-info-circle"></i> Geen groepen gevonden binnen de organisatie.
+            </div>
+        }
+        else
+        {
+            foreach (var group in Model.OpenGroups)
+            {
+                <div class="card">
+                    <form asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" method="post">
+                        @group.Name <span class="badge">@group.Participants.Count @(group.Participants.Count == 1 ? "cursist" : "cursisten")</span>
+                        @if (Model.SubscribedGroup == null && (group.Context.CurrentState is InitialState || group.Context.CurrentState is SubmittedState))
+                        {
+                            <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Toetreden</a>
+                        }
+                        <a asp-controller="Group" asp-action="Show" asp-route-id="@group.GroupId" class="btn btn-info btn-md f-right m-r-1">Details</a>
+                    </form>
+                </div>
+            }
+        }
     </div>
+</div>
 @Html.Partial("_ContainerEnd")

@@ -3,118 +3,120 @@
 @model dotnet_g23.Models.ViewModels.GroupViewModels.ShowViewModel
 
 @{
-    ViewData["Title"] = $"Dashboard voor '{ Model.Group.Name }'";
+    ViewData["Title"] = $"Dashboard voor '{Model.Group.Name}'";
 }
 
 @Html.Partial("_ContainerStart")
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="clearfix">
-                <h1 class="f-md-left">@(Model.Group.Closed ? "Gesloten" : "Open") groep '@Model.Group.Name'</h1>
-                @if (Model.Group.CanInvite())
-                {
-                    <a asp-controller="Group" asp-action="Invite" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Vrijwilligers uitnodigen</a>
-                }
-            </div>
-            <h3>Cursisten</h3>
-            @foreach (var participant in Model.Participants)
+<div class="row">
+    <div class="col-lg-12">
+        <div class="clearfix">
+            <h1 class="f-md-left">@(Model.Group.Closed ? "Gesloten" : "Open") groep '@Model.Group.Name'</h1>
+            @if (Model.Group.CanInvite())
             {
-                <div class="card">@participant.User.Email</div>
+                <a asp-controller="Group" asp-action="Invite" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Vrijwilligers uitnodigen</a>
             }
-            
-            @if (Model.Group.CanInvite() && Model.Invitations.Any())
+        </div>
+        <h3>Cursisten</h3>
+        @foreach (var participant in Model.Participants)
+        {
+            <div class="card">@participant.User.Email</div>
+        }
+
+        @if (Model.Group.CanInvite() && Model.Invitations.Any())
+        {
+            <h3>Uitnodigingen</h3>
+            foreach (var invitation in Model.Invitations)
             {
-                <h3>Uitnodigingen</h3>
-                foreach (var invitation in Model.Invitations)
+                <div class="card">
+                    @invitation.Participant.User.Email <span class="label label-default">verstuurd</span>
+                </div>
+            }
+        }
+
+        @if (Model.Group.Motivation == null)
+        {
+            <div class="clearfix">
+                <h3 class="f-md-left">Motivatie</h3>
+                <a asp-controller="Motivation" asp-action="Edit" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Motivatie invoeren</a>
+            </div>
+            <div class="alert alert-info m-t-1">
+                <i class="fa fa-info-circle"></i> U heeft nog geen motivatie ingevoerd.
+            </div>
+        }
+        else
+        {
+            <h3>Motivatie</h3>
+            <div class="card m-t-1">
+
+                <!-- Action button in Motivation Form -->
+                @if (Model.Group.Context.CurrentState is InitialState)
                 {
-                    <div class="card">
-                        @invitation.Participant.User.Email <span class="label label-default">verstuurd</span>
+                    <a asp-controller="Motivation" asp-action="Edit" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3">Motivatie bewerken</a>
+                }
+                else if (Model.Group.Context.CurrentState is SubmittedState)
+                {
+                    <span class="label label-info f-sm-left f-md-right m-l-3">Verzonden naar lector</span>
+                }
+                else if (Model.Group.Context.CurrentState is ApprovedState)
+                {
+                    <div class="f-sm-left f-md-right m-l-3">
+                        <span class="label label-success m-r-1">Goedgekeurd</span>
+                        <a asp-controller="Label" asp-action="Index" class="btn btn-secondary btn-md">Label toekennen</a>
                     </div>
                 }
-            }
+                else if (Model.Group.Context.CurrentState is GrantedState)
+                {
+                    <div class="f-sm-left f-md-right m-l-3">
+                        <span class="label label-info m-r-3">Label toegekend</span>
+                        <a asp-controller="Group" asp-action="Announce" asp-route-id="@Model.Group.GroupId" class="btn btn-secondary btn-md">Bekend maken</a>
+                    </div>
+                }
 
-            @if (Model.Group.Motivation == null)
+
+                <!-- Fill in Motivation text -->
+                @if (Model.Group.Motivation?.MotivationText == null)
+                {
+                    <em>(leeg)</em>
+                }
+                else
+                {
+                    <div class="ellipsize">@Model.Group.Motivation.MotivationText</div>
+                }
+            </div>
+        }
+
+
+        @if (Model.Group.CanSetup())
+        {
+            <div class="clearfix">
+                <h1 class="f-md-left">Acties en evenementen</h1>
+                <a asp-controller="Action" asp-action="Create" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Activiteit opzetten</a>
+            </div>
+            if (!Model.Group.Actions.Any())
             {
-                <div class="clearfix">
-                    <h3 class="f-md-left">Motivatie</h3>
-                    <a asp-controller="Motivation" asp-action="Edit" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Motivatie invoeren</a>
-                </div>
-                <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> U heeft nog geen motivatie ingevoerd.
+                <div class="alert alert-info m-t-1">
+                    <i class="fa fa-info-circle"></i> Er zijn nog geen activiteiten geregistreerd.
                 </div>
             }
             else
             {
-                <h3>Motivatie</h3>
-                <div class="card m-t-1">
-
-                    <!-- Action button in Motivation Form -->
-                    @if (Model.Group.Context.CurrentState is InitialState)
-                    {
-                        <a asp-controller="Motivation" asp-action="Edit" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right m-l-3">Motivatie bewerken</a>
-                    }
-                    else if (Model.Group.Context.CurrentState is SubmittedState)
-                    {
-                        <span class="label label-info f-sm-left f-md-right m-l-3">Verzonden naar lector</span>
-                    }
-                    else if (Model.Group.Context.CurrentState is ApprovedState)
-                    {
-                        <div class="f-sm-left f-md-right m-l-3">
-                            <span class="label label-success m-r-1">Goedgekeurd</span>
-                            <a asp-controller="Label" asp-action="Index" class="btn btn-secondary btn-md">Label toekennen</a>
-                        </div>
-                    }
-                    else if(Model.Group.Context.CurrentState is GrantedState)
-                    {
-                        <div class="f-sm-left f-md-right m-l-3">
-                            <span class="label label-info m-r-3">Label toegekend</span>
-                            <a asp-controller="Group" asp-action="Announce" asp-route-id="@Model.Group.GroupId" class="btn btn-secondary btn-md">Bekend maken</a>
-                        </div>
-                    }
-                    
-                    
-                    <!-- Fill in Motivation text -->
-                    @if (Model.Group.Motivation?.MotivationText == null)
-                    {
-                        <em>(leeg)</em>
-                    }
-                    else
-                    {
-                        <div class="ellipsize">@Model.Group.Motivation.MotivationText</div>
-                    }
-                </div>
-            }
-
-
-            @if (Model.Group.CanSetup()){
-                <div class="clearfix">
-                    <h1 class="f-md-left">Acties en evenementen</h1>
-                    <a asp-controller="Action" asp-action="Create" asp-route-id="@Model.Group.GroupId" class="btn btn-primary btn-md f-sm-left f-md-right">Activiteit opzetten</a>
-                </div>
-                if (!Model.Group.Actions.Any())
+                foreach (var activity in Model.Group.Actions)
                 {
-                    <div class="alert alert-info m-t-1">
-                        <i class="fa fa-info-circle"></i> Er zijn nog geen activiteiten geregistreerd.
+                    <div class="card m-t-1">
+                        @if (@activity.Date != null)
+                        {
+                            <p class="f-sm-right">
+                                Datum: @activity.Date.Value.ToString("dd-MM-yyyy")
+                            </p>
+                        }
+                        <p class="heading">@activity.Title</p>
+                        <p>
+                            @activity.Description
+                        </p>
                     </div>
                 }
-                else
-                {
-                    foreach (var activity in Model.Group.Actions)
-                    {
-                        <div class="card m-t-1">
-                            @if (@activity.Date != null)
-                            {
-                                <p class="f-sm-right">
-                                    Datum: @activity.Date.Value.ToString("dd-MM-yyyy")
-                                </p>
-                            }
-                            <p class="heading">@activity.Title</p>
-                            <p>
-                                @activity.Description
-                            </p>
-                        </div>
-                    }
-                }
             }
-        </div>
+        }
     </div>
+</div>
 @Html.Partial("_ContainerEnd")

@@ -4,13 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotnet_g23.Controllers {
-    public class HomeController : Controller {
-        public IActionResult Index() {
+namespace dotnet_g23.Controllers
+{
+    public class HomeController : Controller
+    {
+        public IActionResult Index()
+        {
             return View();
         }
 
-        public IActionResult Error() {
+        public IActionResult Error()
+        {
             return View();
         }
     }

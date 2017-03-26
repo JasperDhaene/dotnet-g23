@@ -17,16 +17,20 @@ using System.Security.Claims;
 using dotnet_g23.Filters;
 using dotnet_g23.Models.Domain.Repositories;
 
-namespace dotnet_g23 {
-    public class Startup {
-        public Startup(IHostingEnvironment env) {
+namespace dotnet_g23
+{
+    public class Startup
+    {
+        public Startup(IHostingEnvironment env)
+        {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-            if (env.IsDevelopment()) {
+            if (env.IsDevelopment())
+            {
                 //// For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
                 //builder.AddUserSecrets();
 
@@ -41,7 +45,8 @@ namespace dotnet_g23 {
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services) {
+        public void ConfigureServices(IServiceCollection services)
+        {
             // Add framework services
             services.AddApplicationInsightsTelemetry(Configuration);
 
@@ -50,9 +55,9 @@ namespace dotnet_g23 {
 
             // Database setup
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
-            
+
             services.AddScoped<DataInitializer>();
 
             // Identity framework
@@ -60,7 +65,8 @@ namespace dotnet_g23 {
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.Configure<IdentityOptions>(options => {
+            services.Configure<IdentityOptions>(options =>
+            {
                 // Password settings
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 5;
@@ -95,7 +101,8 @@ namespace dotnet_g23 {
              * Authorization
              * 
              * */
-            services.AddAuthorization(options => {
+            services.AddAuthorization(options =>
+            {
                 options.AddPolicy("volunteer", policy => policy.RequireClaim(ClaimTypes.Role, "volunteer"));
                 options.AddPolicy("participant", policy => policy.RequireClaim(ClaimTypes.Role, "participant"));
                 options.AddPolicy("lector", policy => policy.RequireClaim(ClaimTypes.Role, "lector"));
@@ -103,7 +110,9 @@ namespace dotnet_g23 {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, DataInitializer initializer) {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
+            DataInitializer initializer)
+        {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -120,7 +129,8 @@ namespace dotnet_g23 {
             app.UseIdentity();
 
             app.UseSession();
-            app.UseMvc(routes => {
+            app.UseMvc(routes =>
+            {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

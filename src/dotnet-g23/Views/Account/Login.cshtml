@@ -19,7 +19,7 @@
                                 <h2>@ViewData["Title"]</h2>
                                 <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
                                     Log in bij Goed Bezig met uw Give A Day-account.
-                                    <hr />
+                                    <hr/>
                                     <div asp-validation-summary="All" class="text-danger"></div>
 
                                     <div class="form-group">
@@ -27,7 +27,7 @@
                                             <label asp-for="Email" class="input-group-addon">
                                                 <i class="fa fa-user"></i>
                                             </label>
-                                            <input asp-for="Email" type="text" class="form-control" placeholder="email" autofocus />
+                                            <input asp-for="Email" type="text" class="form-control" placeholder="email" autofocus/>
                                             <span asp-validation-for="Email" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -37,7 +37,7 @@
                                             <label asp-for="Password" class="input-group-addon control-label">
                                                 <i class="fa fa-key"></i>
                                             </label>
-                                            <input asp-for="Password" type="password" class="form-control" placeholder="wachtwoord" />
+                                            <input asp-for="Password" type="password" class="form-control" placeholder="wachtwoord"/>
                                             <span asp-validation-for="Password" class="text-danger"></span>
                                         </div>
                                     </div>

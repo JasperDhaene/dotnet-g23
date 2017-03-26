@@ -9,17 +9,21 @@ namespace dotnet_g23.Models.Domain
     public class Organization
     {
         #region Fields
+
         private String _name;
         private String _location;
-		private String _domain;
+        private String _domain;
+
         #endregion
 
         #region Properties
+
         public int OrganizationId { get; private set; }
         public ICollection<Participant> Participants { get; }
         public ICollection<Group> Groups { get; }
 
-        public String Name {
+        public String Name
+        {
             get { return _name; }
             private set
             {
@@ -30,7 +34,9 @@ namespace dotnet_g23.Models.Domain
                 _name = value;
             }
         }
-        public string Location {
+
+        public string Location
+        {
             get { return _location; }
             private set
             {
@@ -41,47 +47,56 @@ namespace dotnet_g23.Models.Domain
                 _location = value;
             }
         }
-		public string Domain {
-			get { return _domain; }
-			private set {
-				if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty) {
-					throw new GoedBezigException("Domein mag niet leeg zijn");
-				}
-				_domain = value;
-			}
-		}
-		#endregion
 
-		#region Constructors
+        public string Domain
+        {
+            get { return _domain; }
+            private set
+            {
+                if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
+                {
+                    throw new GoedBezigException("Domein mag niet leeg zijn");
+                }
+                _domain = value;
+            }
+        }
+
+        #endregion
+
+        #region Constructors
+
         public Organization()
         {
             Participants = new List<Participant>();
             Groups = new List<Group>();
         }
-        
-        public Organization(String name, String location, String domain): this()
+
+        public Organization(String name, String location, String domain) : this()
         {
             Name = name;
             Location = location;
-	        Domain = domain;
+            Domain = domain;
         }
-		#endregion
 
-	    #region Methods
-	    public void Register(GUser user)
-	    {
+        #endregion
+
+        #region Methods
+
+        public void Register(GUser user)
+        {
             if (user.Domain != Domain)
                 throw new GoedBezigException("Gebruiker behoort niet tot hetzelfde domein als de organisatie");
 
-	        if (user.UserState != null)
-	            throw new GoedBezigException("Gebruiker behoort al tot een organisatie");
+            if (user.UserState != null)
+                throw new GoedBezigException("Gebruiker behoort al tot een organisatie");
 
             user.UserState = new Participant(this);
-	    }
+        }
 
-		public Group CreateGroup(Participant participant, String name, Boolean closed) {
-		    if (participant.Group != null)
-		        throw new GoedBezigException("U bent reeds ingeschreven in een groep");
+        public Group CreateGroup(Participant participant, String name, Boolean closed)
+        {
+            if (participant.Group != null)
+                throw new GoedBezigException("U bent reeds ingeschreven in een groep");
 
             if (Groups.Any(g => g.Name == name))
                 throw new GoedBezigException($"De naam '{name}' is al in gebruik binnen deze organisatie");
@@ -89,7 +104,7 @@ namespace dotnet_g23.Models.Domain
             Group group = new Group(name, closed);
 
             Groups.Add(group);
-		    group.Organization = this;
+            group.Organization = this;
 
             // Registering with a closed group requires an invitation
             if (closed)
@@ -97,8 +112,9 @@ namespace dotnet_g23.Models.Domain
 
             // FIXME: invitation doesn't get destroyed (because that happens in the controller)
             group.Register(participant);
-		    return group;
-		}
-		#endregion
-	}
+            return group;
+        }
+
+        #endregion
+    }
 }

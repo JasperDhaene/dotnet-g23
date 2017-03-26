@@ -9,8 +9,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Action = dotnet_g23.Models.Domain.Action;
 using ApplicationUser = dotnet_g23.Models.Domain.ApplicationUser;
 
-namespace dotnet_g23.Data {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
+namespace dotnet_g23.Data
+{
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
         // GiveADay database entities
         public DbSet<GUser> GUsers { get; private set; }
         public DbSet<Organization> Organizations { get; private set; }
@@ -33,10 +35,12 @@ namespace dotnet_g23.Data {
         public DbSet<Action> Actions { get; private set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options) {
+            : base(options)
+        {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder) {
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
             base.OnModelCreating(builder);
 
             // GiveADay database entities
@@ -62,7 +66,8 @@ namespace dotnet_g23.Data {
             builder.Entity<Action>(MapAction);
         }
 
-        private static void MapGUser(EntityTypeBuilder<GUser> u) {
+        private static void MapGUser(EntityTypeBuilder<GUser> u)
+        {
             u.ToTable("Users");
             u.HasKey(user => user.UserId);
 
@@ -71,7 +76,8 @@ namespace dotnet_g23.Data {
             u.HasAlternateKey(user => user.Email);
         }
 
-        public static void MapUserState(EntityTypeBuilder<UserState> us) {
+        public static void MapUserState(EntityTypeBuilder<UserState> us)
+        {
             us.ToTable("UserStates");
             us.HasKey(userState => userState.UserStateId);
 
@@ -86,7 +92,8 @@ namespace dotnet_g23.Data {
                 .IsRequired();
         }
 
-        private static void MapOrganization(EntityTypeBuilder<Organization> o) {
+        private static void MapOrganization(EntityTypeBuilder<Organization> o)
+        {
             o.ToTable("Organizations");
             o.HasKey(org => org.OrganizationId);
 
@@ -95,7 +102,8 @@ namespace dotnet_g23.Data {
             o.Property(org => org.Domain).IsRequired();
         }
 
-        private static void MapParticipant(EntityTypeBuilder<Participant> p) {
+        private static void MapParticipant(EntityTypeBuilder<Participant> p)
+        {
             // Participant => Organization
             p.HasOne(pa => pa.Organization)
                 .WithMany(o => o.Participants)
@@ -114,11 +122,13 @@ namespace dotnet_g23.Data {
                 .WithOne(inv => inv.Participant);
         }
 
-        private static void MapLector(EntityTypeBuilder<Lector> l) {
+        private static void MapLector(EntityTypeBuilder<Lector> l)
+        {
             l.ToTable("Lectors");
         }
 
-        private static void MapInvitation(EntityTypeBuilder<Invitation> i) {
+        private static void MapInvitation(EntityTypeBuilder<Invitation> i)
+        {
             i.ToTable("Invitations");
             i.HasKey(no => no.InvitationId);
 
@@ -127,7 +137,8 @@ namespace dotnet_g23.Data {
                 .WithMany(g => g.Invitations);
         }
 
-        private static void MapGroup(EntityTypeBuilder<Group> g) {
+        private static void MapGroup(EntityTypeBuilder<Group> g)
+        {
             g.ToTable("Groups");
             g.HasKey(gr => gr.GroupId);
 
@@ -156,7 +167,8 @@ namespace dotnet_g23.Data {
                 .WithOne(a => a.Group);
         }
 
-        private static void MapMotivation(EntityTypeBuilder<Motivation> m) {
+        private static void MapMotivation(EntityTypeBuilder<Motivation> m)
+        {
             m.ToTable("Motivations");
             m.HasKey(mo => mo.MotivationId);
 
@@ -218,12 +230,13 @@ namespace dotnet_g23.Data {
             l.HasKey(la => la.LabelId);
         }
 
-        private void MapPost(EntityTypeBuilder<Post> p) {
+        private void MapPost(EntityTypeBuilder<Post> p)
+        {
             p.ToTable("Posts");
             p.HasKey(po => po.PostId);
 
             p.Property(po => po.Announcement).IsRequired();
-            
+
             // Post => Label
             p.HasOne(po => po.Label)
                 .WithOne(l => l.Post)

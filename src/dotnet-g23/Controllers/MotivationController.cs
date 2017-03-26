@@ -16,22 +16,28 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace dotnet_g23.Controllers {
+namespace dotnet_g23.Controllers
+{
     [Authorize]
     [ServiceFilter(typeof(ParticipantFilter))]
-    public class MotivationController : Controller {
+    public class MotivationController : Controller
+    {
         #region Fields
+
         private readonly IGroupRepository _groupRepository;
+
         #endregion
 
-        public MotivationController(IGroupRepository groupRepository) {
+        public MotivationController(IGroupRepository groupRepository)
+        {
             _groupRepository = groupRepository;
         }
 
         // GET /Motivations/{id}
         [Authorize(Policy = "participant")]
         [Route("Motivations/{id}")]
-        public IActionResult Edit(Participant participant, int id) {
+        public IActionResult Edit(Participant participant, int id)
+        {
             ShowViewModel vm = new ShowViewModel();
 
             Group group = _groupRepository.GetBy(id);
@@ -46,7 +52,8 @@ namespace dotnet_g23.Controllers {
         [Authorize(Policy = "participant")]
         [HttpPost]
         [Route("Motivations/{id}")]
-        public IActionResult Update(Participant participant, int id, Motivation motivation) {
+        public IActionResult Update(Participant participant, int id, Motivation motivation)
+        {
             // Save or submit motivation
 
             Group group = _groupRepository.GetBy(id);
@@ -56,7 +63,8 @@ namespace dotnet_g23.Controllers {
                 if (Request.Form.ContainsKey("submit"))
                 {
                     if (!ModelState.IsValid)
-                        throw new GoedBezigException(ModelState.Values.SelectMany(v => v.Errors.Select(b => b.ErrorMessage)).Join());
+                        throw new GoedBezigException(
+                            ModelState.Values.SelectMany(v => v.Errors.Select(b => b.ErrorMessage)).Join());
 
                     group.Save(motivation);
                     group.Submit();
@@ -75,7 +83,7 @@ namespace dotnet_g23.Controllers {
             catch (GoedBezigException e)
             {
                 TempData["error"] = e.Message;
-                return RedirectToAction("Edit", new { id = group.GroupId });
+                return RedirectToAction("Edit", new {id = group.GroupId});
             }
         }
     }

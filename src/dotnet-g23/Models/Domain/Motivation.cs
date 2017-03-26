@@ -4,9 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace dotnet_g23.Models.Domain {
-    public class Motivation {
+namespace dotnet_g23.Models.Domain
+{
+    public class Motivation
+    {
         #region Properties
+
         public int MotivationId { get; private set; }
         public Group Group { get; set; }
         public int GroupForeignKey { get; private set; }
@@ -15,11 +18,12 @@ namespace dotnet_g23.Models.Domain {
         [MinLength(100, ErrorMessage = "motivatie moet langer dan 100 karakters zijn")]
         [MaxLength(250, ErrorMessage = "motivate mag niet langer dan 250 karakters zijn")]
         public String MotivationText { get; set; }
+
         public Boolean Approved { get; set; }
 
         [Required(ErrorMessage = "naam van organizatie is vereist")]
         public String OrganizationName { get; set; }
-        
+
         [Required(ErrorMessage = "adres van organizatie is vereist")]
         public String OrganizationAddress { get; set; }
 
@@ -34,9 +38,11 @@ namespace dotnet_g23.Models.Domain {
         public String OrganizationContactFirstName { get; set; }
         public String OrganizationContactName { get; set; }
         public String OrganizationContactEmail { get; set; }
+
         #endregion
 
         #region Constructors
+
         public Motivation()
         {
         }
@@ -46,6 +52,7 @@ namespace dotnet_g23.Models.Domain {
             MotivationText = motivationText;
             Approved = false;
         }
+
         #endregion
     }
 }

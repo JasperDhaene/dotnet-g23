@@ -13,11 +13,12 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 
-namespace dotnet_g23.Controllers {
+namespace dotnet_g23.Controllers
+{
     [Authorize]
     [ServiceFilter(typeof(UserFilter))]
-    public class OrganizationController : Controller {
-
+    public class OrganizationController : Controller
+    {
         #region Fields
 
         private readonly UserManager<ApplicationUser> _userManager;
@@ -25,26 +26,35 @@ namespace dotnet_g23.Controllers {
         private readonly IOrganizationRepository _orgRepository;
         private readonly IGroupRepository _groupRepositroy;
         private readonly IPostRepository _postRepository;
+
         #endregion
 
         #region Constructors
-        public OrganizationController(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager, IOrganizationRepository orgRepository, IGroupRepository groupRepository, IPostRepository postRepository) {
+
+        public OrganizationController(UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager, IOrganizationRepository orgRepository,
+            IGroupRepository groupRepository, IPostRepository postRepository)
+        {
             _userManager = userManager;
             _signInManager = signInManager;
             _orgRepository = orgRepository;
             _groupRepositroy = groupRepository;
             _postRepository = postRepository;
         }
+
         #endregion
 
         #region Methods
+
         // GET /Organizations
         [Route("Organizations")]
         [ServiceFilter(typeof(ParticipantFilter))]
-        public IActionResult Index(GUser user, Participant participant, String query = null) {
+        public IActionResult Index(GUser user, Participant participant, String query = null)
+        {
             // Return filtered list with name & location of organisations
 
-            IndexViewModel vm = new IndexViewModel() {
+            IndexViewModel vm = new IndexViewModel()
+            {
                 SubscribedOrganization = participant?.Organization,
                 Organizations = query == null ? _orgRepository.GetAll() : _orgRepository.GetByKeyword(query),
                 User = user
@@ -55,7 +65,8 @@ namespace dotnet_g23.Controllers {
         // POST /Organizations/Register
         [HttpPost]
         [Route("Organizations/Register")]
-        public async Task<IActionResult> Register(GUser user, int organizationId) {
+        public async Task<IActionResult> Register(GUser user, int organizationId)
+        {
             // Register user with organization
 
             Organization organization = _orgRepository.GetBy(organizationId);
@@ -80,7 +91,8 @@ namespace dotnet_g23.Controllers {
         }
 
         [Route("Organizations/{id}")]
-        public IActionResult Show(Participant participant, int id) {
+        public IActionResult Show(Participant participant, int id)
+        {
             //Get Organization with id from Repo
 
             Organization org = _orgRepository.GetBy(id);
@@ -93,7 +105,7 @@ namespace dotnet_g23.Controllers {
 
             return View(vm);
         }
-        #endregion
 
+        #endregion
     }
 }

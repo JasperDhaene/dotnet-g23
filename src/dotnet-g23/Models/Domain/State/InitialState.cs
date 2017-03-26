@@ -35,8 +35,8 @@ namespace dotnet_g23.Models.Domain.State
                 throw new StateException("U behoort al tot een groep");
 
             if (group.Closed && participant.Invitations.All(i => i.Group != group))
-                throw new StateException($"U bent niet uitgenodigd tot de groep '{ group.Name }'");
-            
+                throw new StateException($"U bent niet uitgenodigd tot de groep '{group.Name}'");
+
             participant.Group = group;
             group.Participants.Add(participant);
         }
@@ -54,6 +54,9 @@ namespace dotnet_g23.Models.Domain.State
             group.Motivation = motivation;
         }
 
-        public override Boolean CanInvite() { return true; }
+        public override Boolean CanInvite()
+        {
+            return true;
+        }
     }
 }

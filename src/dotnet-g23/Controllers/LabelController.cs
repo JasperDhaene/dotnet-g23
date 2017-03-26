@@ -15,49 +15,60 @@ using System.Diagnostics;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace dotnet_g23.Controllers {
+namespace dotnet_g23.Controllers
+{
     [Authorize(Policy = "participant")]
-	[ServiceFilter(typeof(ParticipantFilter))]
-    public class LabelController : Controller {
+    [ServiceFilter(typeof(ParticipantFilter))]
+    public class LabelController : Controller
+    {
         #region Fields
+
         private readonly ICompanyRepository _companyRepository;
         private readonly IGroupRepository _groupRepository;
+
         #endregion
 
         #region Constructor
 
-        public LabelController(ICompanyRepository companyRepository, IGroupRepository groupRepository) {
+        public LabelController(ICompanyRepository companyRepository, IGroupRepository groupRepository)
+        {
             _companyRepository = companyRepository;
             _groupRepository = groupRepository;
         }
+
         #endregion
 
         [Route("Companies")]
-        public IActionResult Index(GUser user, String query = null) {
+        public IActionResult Index(GUser user, String query = null)
+        {
             // Show companies
-            IndexViewModel vm = new IndexViewModel() {
+            IndexViewModel vm = new IndexViewModel()
+            {
                 Companies = query == null ? _companyRepository.GetAll() : _companyRepository.GetByKeyword(query)
             };
             return View(vm);
         }
 
         [Route("Companies/{id}")]
-        public IActionResult Show(Participant participant, int id) {
-            
-            
-
+        public IActionResult Show(Participant participant, int id)
+        {
             // Show company contacts
 
             ShowViewModel vm = new ShowViewModel();
             Company company = _companyRepository.GetBy(id);
-            
+
 
             Group group;
-            if(participant.Group != null) {
+            if (participant.Group != null)
+            {
                 group = _groupRepository.GetBy(participant.Group.GroupId);
-            }else if(company.Label != null) {
+            }
+            else if (company.Label != null)
+            {
                 group = _groupRepository.GetBy(company.Label.Group.GroupId);
-            }else{
+            }
+            else
+            {
                 group = null;
             }
 
@@ -73,38 +84,41 @@ namespace dotnet_g23.Controllers {
 
         [HttpPost]
         [Route("Companies/{id}")]
-        public IActionResult Send(Participant participant, int id, int[] contactId) {
+        public IActionResult Send(Participant participant, int id, int[] contactId)
+        {
             // Grant label to company
 
             Company company = _companyRepository.GetBy(id);
             Group group = _groupRepository.GetBy(participant.Group.GroupId);
 
-            try {
+            try
+            {
                 group.Grant(company);
                 _companyRepository.SaveChanges();
-
-
             }
-            catch (GoedBezigException e) {
+            catch (GoedBezigException e)
+            {
                 TempData["error"] = e.Message;
-                return RedirectToAction("Show", new { id = id });
+                return RedirectToAction("Show", new {id = id});
             }
-            if(group.Context.CurrentState is GrantedState){ //Grant label worked
+            if (group.Context.CurrentState is GrantedState)
+            {
+                //Grant label worked
                 AuthMessageSender sender = new AuthMessageSender();
 
                 //TODO: only has one contact atm. Multiple form submissions are the solution but I don't know how this will play out in this controller.
-                foreach (var cId in contactId) { 
+                foreach (var cId in contactId)
+                {
                     Contact contact = company.Contacts.First(co => co.ContactId == cId);
-                    
+
                     sender.SendEmail(company.Name, contact.Email,
                         group.Organization.Name, group.Motivation.MotivationText);
                 }
             }
-            
-            
+
+
             TempData["success"] = $"Het label werd toegekend aan de organisatie.";
             return RedirectToAction("Dashboard", "Group");
         }
-
     }
 }

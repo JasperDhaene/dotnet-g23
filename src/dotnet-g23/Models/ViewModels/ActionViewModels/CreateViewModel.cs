@@ -12,6 +12,5 @@ namespace dotnet_g23.Models.ViewModels.ActionViewModels
     {
         public Group Group { get; set; }
         public Action Action { get; set; }
-
     }
 }

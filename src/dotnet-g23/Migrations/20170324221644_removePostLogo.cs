@@ -42,7 +42,7 @@ namespace dotnet_g23.Migrations
                 name: "Logo",
                 table: "Posts",
                 nullable: false,
-                defaultValue: new byte[] {  });
+                defaultValue: new byte[] {});
 
             migrationBuilder.AlterColumn<string>(
                 name: "MotivationText",

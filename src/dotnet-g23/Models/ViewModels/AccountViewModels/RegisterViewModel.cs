@@ -10,7 +10,8 @@ namespace dotnet_g23.Models.ViewModels.AccountViewModels
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "De {0} moet minstens {2} en maximaal {1} karakters lang zijn.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "De {0} moet minstens {2} en maximaal {1} karakters lang zijn.",
+             MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

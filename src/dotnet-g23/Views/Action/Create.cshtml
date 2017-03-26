@@ -9,36 +9,36 @@
 @model dotnet_g23.Models.ViewModels.ActionViewModels.CreateViewModel
 
 @Html.Partial("_ContainerStart")
-    <div class="row">
-        <div class="col-lg-12">
-            <h1>Actie/Evenement aanmaken</h1>
-            <form asp-controller="Action" asp-action="Create" method="post" class="m-t-1">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p>
-                            <label for="Title" class="d-block">Titel*</label>
-                            <input type="text" id="Title" name="action.title" style="width: 50%;" placeholder="Titel actie/evenement" autofocus />
-                        </p>
-                        <p>
-                            <label for="Description" class="d-block">Beschrijving*</label>
-                            <textarea id="Description" rows="4" style="width: 100%;" name="action.description" placeholder="Beschrijving"></textarea>
-                        </p>
-                        <p>
-                            <div class="alert alert-info">
-                                <i class="fa fa-info-circle"></i> Voeg een datum toe indien u een evenement wenst aan te maken. Een actie heeft dit niet nodig.
-                            </div>
-                            <input type="checkbox" name="action.createEvent" id="action.createEvent" onchange="$('#eventdate').toggle($(this).checked)" checked> 
-                            <label for="createEvent">Evenement</label>
-                        </p>
-                        <p id="eventdate">
-                            <input id="Date" type="date" name="action.date" />
-                        </p>
-                    </div>
+<div class="row">
+    <div class="col-lg-12">
+        <h1>Actie/Evenement aanmaken</h1>
+        <form asp-controller="Action" asp-action="Create" method="post" class="m-t-1">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>
+                        <label for="Title" class="d-block">Titel*</label>
+                        <input type="text" id="Title" name="action.title" style="width: 50%;" placeholder="Titel actie/evenement" autofocus/>
+                    </p>
+                    <p>
+                        <label for="Description" class="d-block">Beschrijving*</label>
+                        <textarea id="Description" rows="4" style="width: 100%;" name="action.description" placeholder="Beschrijving"></textarea>
+                    </p>
+                    <p>
+                        <div class="alert alert-info">
+                            <i class="fa fa-info-circle"></i> Voeg een datum toe indien u een evenement wenst aan te maken. Een actie heeft dit niet nodig.
+                        </div>
+                        <input type="checkbox" name="action.createEvent" id="action.createEvent" onchange="$('#eventdate').toggle($(this).checked)" checked>
+                        <label for="createEvent">Evenement</label>
+                    </p>
+                    <p id="eventdate">
+                        <input id="Date" type="date" name="action.date"/>
+                    </p>
                 </div>
-                <p>
-                    <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md">Actie aanmaken</a>
-                </p>
-            </form>
-        </div>
+            </div>
+            <p>
+                <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md">Actie aanmaken</a>
+            </p>
+        </form>
     </div>
+</div>
 @Html.Partial("_ContainerEnd")
