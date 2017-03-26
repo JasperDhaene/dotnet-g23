@@ -55,13 +55,19 @@ namespace dotnet_g23.Tests.Controllers
             Assert.Equal(context.Companies, vm.Companies);
         }
 
+        #endregion
+
+        #region Show
+
         [Fact]
-        public void UserCanSeeOneCompanyWhenQueryIsNotNull() {
-            ViewResult res = _controller.Index(_ownerApproved.User, "Company 1") as ViewResult;
-            IndexViewModel vm = (IndexViewModel)res?.Model;
-            Assert.Equal(context.Company1, vm.Companies.First());
+        public void ParticipantCanShowDetailsOfCompany() {
+            ViewResult result = _controller.Show(_ownerApproved, 1) as ViewResult;
+            ShowViewModel vm = (ShowViewModel)result?.Model;
+            Assert.Equal(context.Company1, vm.Company);
+            Assert.Equal(context.Company1.Contacts, vm.Contacts);
+
         }
 
-        #endregion
+        #endregion 
     }
 }
