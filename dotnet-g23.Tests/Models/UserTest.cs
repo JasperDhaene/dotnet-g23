@@ -1,5 +1,4 @@
-﻿using System;
-using dotnet_g23.Models.Domain;
+﻿using dotnet_g23.Models.Domain;
 using Xunit;
 
 namespace dotnet_g23.Tests.Models

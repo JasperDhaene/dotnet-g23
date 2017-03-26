@@ -6,9 +6,6 @@ using dotnet_g23.Tests.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace dotnet_g23.Tests.Controllers {
