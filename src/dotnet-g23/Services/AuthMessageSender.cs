@@ -10,9 +10,6 @@ namespace dotnet_g23.Services {
     // when you turn on two-factor authentication in ASP.NET Identity.
     // For more details see this link http://go.microsoft.com/fwlink/?LinkID=532713
     public class AuthMessageSender {
-        public AuthMessageSender() {
-
-        }
         public async void SendEmail(string receiver, string email, string organizationName, string beschrijving) {
             // Plug in your email service here to send an email.
             var emailMessage = new MimeMessage();
@@ -21,14 +18,13 @@ namespace dotnet_g23.Services {
             emailMessage.Subject = "Uitreiking Goed Bezig!-label voor " + receiver + ".";
 
             var builder = new BodyBuilder();
-            using (var SourceReader = File.OpenText("wwwroot/EmailTemplate.html"))
+            using (var sourceReader = File.OpenText("wwwroot/EmailTemplate.html"))
             {
-                builder.HtmlBody = SourceReader.ReadToEnd();
+                builder.HtmlBody = sourceReader.ReadToEnd();
                 builder.HtmlBody = builder.HtmlBody.Replace("{organization}", organizationName).Replace("{company}", receiver).Replace("{description}", beschrijving);
             }
 
-            var multipart = new Multipart("mixed");
-            multipart.Add(new TextPart("html"));
+            var multipart = new Multipart("mixed") { new TextPart("html") };
 
             emailMessage.Body = builder.ToMessageBody();
 

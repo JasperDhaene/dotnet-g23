@@ -49,9 +49,9 @@
                                     
                                     @if (Model.Company.Label != null)
                                     {
-                                        <center>
+                                        <div class="text-center">
                                             <img src="~/images/label.png" alt="Label" class="m-b-3" />
-                                        </center>
+                                        </div>
 
                                         <p class="heading">Goed Bezig-label toegekend</p>
                                         <p>
@@ -61,7 +61,7 @@
                                             @Model.Group.Motivation.MotivationText
                                         </p>
                                     }
-                                    @if(Model.Group != null && Model.Group.Context.CurrentState is ApprovedState) {
+                                    @if(Model.Group?.Context.CurrentState is ApprovedState) {
                                         <div class="alert alert-info m-y-3">
                                             <i class="fa fa-info-circle"></i>
                                             U kunt de bevestiging van het Goed Bezig label doorsturen naar de volgende contactpersonen.
@@ -81,7 +81,7 @@
                                                 <i class="fa fa-briefcase" aria-hidden="true"></i> @contact.Function
                                                 <br/>
                                                 <small>@contact.Email</small>
-                                                @if(Model.Group != null && Model.Group.Context.CurrentState is ApprovedState)
+                                                @if(Model.Group?.Context.CurrentState is ApprovedState)
                                                 {
                                                     <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-sm-right">Verzenden</a>
                                                 }else{

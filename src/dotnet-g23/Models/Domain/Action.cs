@@ -43,10 +43,8 @@ namespace dotnet_g23.Models.Domain
             Date = null;
         } 
 
-        public Action(Group group, string title, string description, DateTime? date) : this()
+        public Action(Group group, string title, string description, DateTime? date) : this(group, title, description)
         {
-            Title = title;
-            Description = description;
             Date = date;
         } 
         #endregion

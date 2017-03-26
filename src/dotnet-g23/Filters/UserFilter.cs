@@ -12,8 +12,8 @@ namespace dotnet_g23.Filters {
 
         public override void OnActionExecuting(ActionExecutingContext context) {
             if (context.HttpContext.User.Identity.IsAuthenticated) {
-                GUser _user = _userRepository.GetByEmail(context.HttpContext.User.Identity.Name);
-                context.ActionArguments["user"] = _user;
+                GUser user = _userRepository.GetByEmail(context.HttpContext.User.Identity.Name);
+                context.ActionArguments["user"] = user;
             }
             base.OnActionExecuting(context);
         }

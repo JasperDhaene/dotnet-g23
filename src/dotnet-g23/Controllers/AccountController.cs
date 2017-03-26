@@ -103,8 +103,8 @@ namespace dotnet_g23.Controllers {
                 var result = await _userManager.CreateAsync(user, model.Password);
                 await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "participant"));
 
-                GUser _user = new GUser(model.Email);
-                _context.GUsers.Add(_user);
+                GUser guser = new GUser(model.Email);
+                _context.GUsers.Add(guser);
                 _context.SaveChanges();
 
                 if (result.Succeeded) {

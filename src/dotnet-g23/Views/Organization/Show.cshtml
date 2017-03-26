@@ -43,7 +43,7 @@
                                     {
                                         <div class="alert alert-info m-t-1"><i class="fa fa-info-circle"></i> Deze organisatie heeft nog geen Goed Bezig-labels toegekend.</div>
                                     }else{
-                                        @foreach (var post in Model.Posts)
+                                        foreach (var post in Model.Posts)
                                         {
                                             <div class="card">
                                                 <img src="data:image/png;base64,@Convert.ToBase64String(post.Label.Company.Logo)" class="f-sm-right companylogo"/>
