@@ -11,6 +11,9 @@ namespace dotnet_g23.Models.Domain.State
     {
         public override Post Announce(Context context, Label label, String message)
         {
+            if (label.Post != null)
+                throw new StateException("Er bestaat al een nieuwsbericht");
+
             Post post = new Post(message);
             post.Label = label;
             label.Post = post;
