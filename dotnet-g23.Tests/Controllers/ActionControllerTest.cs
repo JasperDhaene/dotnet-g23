@@ -55,5 +55,15 @@ namespace dotnet_g23.Tests.Controllers
         }
 
         #endregion
+
+        #region Update
+
+        [Fact]
+        public void ParticipantCanUpdateAction() {
+            RedirectToActionResult res = _controller.Update(_OwnerGranted, 4, context.Action1) as RedirectToActionResult;
+
+        }
+
+        #endregion
     }
 }
