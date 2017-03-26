@@ -59,14 +59,12 @@ namespace dotnet_g23.Tests.Controllers
 
         #region Show
 
-        //[Fact]
-        //public void ParticipantCanShowDetailsOfCompany() {
-            //ViewResult result = _controller.Show(_ownerApproved, 1) as ViewResult;
-            //ShowViewModel vm = (ShowViewModel)result?.Model;
-            //Assert.Equal(context.Company1, vm.Company);
-            //Assert.Equal(context.Company1.Contacts, vm.Contacts);
-
-        //}
+        [Fact]
+        public void ParticipantCanShowDetailsOfCompany() {
+            ViewResult result = _controller.Show(_ownerApproved, 2) as ViewResult;
+            ShowViewModel vm = (ShowViewModel)result?.Model;
+            Assert.Null(vm.Label);
+        }
 
         #endregion 
     }
