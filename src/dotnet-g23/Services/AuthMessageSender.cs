@@ -28,8 +28,6 @@ namespace dotnet_g23.Services {
 
             emailMessage.Body = builder.ToMessageBody();
 
-            //emailMessage.Body = new TextPart("plain") { Text = @"Test" };
-
             using (var client = new SmtpClient()) {
                 client.Connect("smtp-mail.outlook.com", 587, false);
 
