@@ -178,7 +178,7 @@ namespace dotnet_g23.Tests.Controllers {
             ViewResult res = _controller.Announce(_OwnerGranted, 4) as ViewResult;
             AnnounceViewModel vm = (AnnounceViewModel)res?.Model;
             Assert.Equal(context.Label2, vm.Label);
-            Assert.Equal("Mijn aankondiging", vm.Message);
+            Assert.Equal("", vm.Message);
         }
 
         #endregion

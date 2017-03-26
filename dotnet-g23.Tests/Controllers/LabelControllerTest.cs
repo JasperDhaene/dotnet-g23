@@ -63,7 +63,7 @@ namespace dotnet_g23.Tests.Controllers
         public void ParticipantCanShowDetailsOfCompany() {
             ViewResult result = _controller.Show(_ownerApproved, 2) as ViewResult;
             ShowViewModel vm = (ShowViewModel)result?.Model;
-            Assert.Null(vm.Label);
+            Assert.NotNull(vm.Label);
         }
 
         #endregion 
