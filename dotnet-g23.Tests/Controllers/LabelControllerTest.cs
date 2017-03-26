@@ -1,21 +1,27 @@
 ﻿using dotnet_g23.Controllers;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
+using dotnet_g23.Models.ViewModels.LabelViewModels;
 using dotnet_g23.Tests.Data;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace dotnet_g23.Tests.Controllers
 {
     public class LabelControllerTest
     {
+        #region Attributes
         private readonly LabelController _controller;
         private readonly Participant _ownerApproved;
         private DummyApplicationDbContext context;
+        #endregion
 
+        #region Constructor
         public LabelControllerTest() {
             context = new DummyApplicationDbContext();
 
@@ -38,5 +44,24 @@ namespace dotnet_g23.Tests.Controllers
 
             _ownerApproved = context.OwnerHogentApproved.UserState as Participant;
         }
+        #endregion
+
+        #region Index
+
+        [Fact]
+        public void UserCanSeeAllTheCompaniesInTheSystem() {
+            ViewResult res = _controller.Index(_ownerApproved.User) as ViewResult;
+            IndexViewModel vm = (IndexViewModel)res?.Model;
+            Assert.Equal(context.Companies, vm.Companies);
+        }
+
+        [Fact]
+        public void UserCanSeeOneCompanyWhenQueryIsNotNull() {
+            ViewResult res = _controller.Index(_ownerApproved.User, "Company 1") as ViewResult;
+            IndexViewModel vm = (IndexViewModel)res?.Model;
+            Assert.Equal(context.Company1, vm.Companies.First());
+        }
+
+        #endregion
     }
 }
