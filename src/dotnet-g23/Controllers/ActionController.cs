@@ -15,9 +15,8 @@ namespace dotnet_g23.Controllers
     {
         #region Constructors
 
-        public ActionController(IParticipantRepository participantRepository, IGroupRepository groupRepository)
+        public ActionController(IGroupRepository groupRepository)
         {
-            _participantRepository = participantRepository;
             _groupRepository = groupRepository;
         }
 
@@ -25,7 +24,6 @@ namespace dotnet_g23.Controllers
 
         #region Fields
 
-        private readonly IParticipantRepository _participantRepository;
         private readonly IGroupRepository _groupRepository;
 
         #endregion

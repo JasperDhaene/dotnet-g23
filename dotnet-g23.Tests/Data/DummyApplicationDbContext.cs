@@ -77,15 +77,15 @@ namespace dotnet_g23.Tests.Data {
          * */
 
         public ICollection<Contact> Contacts { get; set; }
-        public Contact Contact1CEO { get; set; }
-        public Contact Contact1CFO { get; set; }
-        public Contact Contact1CTO { get; set; }
-        public Contact Contact2CEO { get; set; }
-        public Contact Contact2CFO { get; set; }
-        public Contact Contact2CTO { get; set; }
-        public Contact Contact3CEO { get; set; }
-        public Contact Contact3CFO { get; set; }
-        public Contact Contact3CTO { get; set; }
+        public Contact Contact1Ceo { get; set; }
+        public Contact Contact1Cfo { get; set; }
+        public Contact Contact1Cto { get; set; }
+        public Contact Contact2Ceo { get; set; }
+        public Contact Contact2Cfo { get; set; }
+        public Contact Contact2Cto { get; set; }
+        public Contact Contact3Ceo { get; set; }
+        public Contact Contact3Cfo { get; set; }
+        public Contact Contact3Cto { get; set; }
 
         /**
          * Label properties
@@ -230,41 +230,41 @@ namespace dotnet_g23.Tests.Data {
 
             Contacts = new List<Contact>();
 
-            Contact1CEO = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company1.com", Company1);
-            Contact1CFO = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company1.com", Company1);
-            Contact1CTO = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company1.com", Company1);
+            Contact1Ceo = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company1.com", Company1);
+            Contact1Cfo = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company1.com", Company1);
+            Contact1Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company1.com", Company1);
 
-            Company1.Contacts.Add(Contact1CEO);
-            Company1.Contacts.Add(Contact1CFO);
-            Company1.Contacts.Add(Contact1CTO);
+            Company1.Contacts.Add(Contact1Ceo);
+            Company1.Contacts.Add(Contact1Cfo);
+            Company1.Contacts.Add(Contact1Cto);
 
-            Contacts.Add(Contact1CEO);
-            Contacts.Add(Contact1CFO);
-            Contacts.Add(Contact1CTO);
+            Contacts.Add(Contact1Ceo);
+            Contacts.Add(Contact1Cfo);
+            Contacts.Add(Contact1Cto);
 
-            Contact2CEO = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company2.com", Company2);
-            Contact2CFO = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company2.com", Company2);
-            Contact2CTO = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company2.com", Company2);
+            Contact2Ceo = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company2.com", Company2);
+            Contact2Cfo = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company2.com", Company2);
+            Contact2Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company2.com", Company2);
 
-            Company2.Contacts.Add(Contact2CEO);
-            Company2.Contacts.Add(Contact2CFO);
-            Company2.Contacts.Add(Contact2CTO);
+            Company2.Contacts.Add(Contact2Ceo);
+            Company2.Contacts.Add(Contact2Cfo);
+            Company2.Contacts.Add(Contact2Cto);
 
-            Contacts.Add(Contact2CEO);
-            Contacts.Add(Contact2CFO);
-            Contacts.Add(Contact2CTO);
+            Contacts.Add(Contact2Ceo);
+            Contacts.Add(Contact2Cfo);
+            Contacts.Add(Contact2Cto);
 
-            Contact3CEO = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company3.com", Company3);
-            Contact3CFO = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company3.com", Company3);
-            Contact3CTO = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company3.com", Company3);
+            Contact3Ceo = new Contact("Mr.", "John", "Doe", "CEO", "john.doe@company3.com", Company3);
+            Contact3Cfo = new Contact("Mr.", "James", "Doe", "CFO", "james.doe@company3.com", Company3);
+            Contact3Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "jane.doe@company3.com", Company3);
 
-            Company3.Contacts.Add(Contact3CEO);
-            Company3.Contacts.Add(Contact3CFO);
-            Company3.Contacts.Add(Contact3CTO);
+            Company3.Contacts.Add(Contact3Ceo);
+            Company3.Contacts.Add(Contact3Cfo);
+            Company3.Contacts.Add(Contact3Cto);
 
-            Contacts.Add(Contact3CEO);
-            Contacts.Add(Contact3CFO);
-            Contacts.Add(Contact3CTO);
+            Contacts.Add(Contact3Ceo);
+            Contacts.Add(Contact3Cfo);
+            Contacts.Add(Contact3Cto);
 
             /**
              * Labels

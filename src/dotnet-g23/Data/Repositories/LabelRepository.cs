@@ -7,12 +7,10 @@ namespace dotnet_g23.Data.Repositories
 {
     public class LabelRepository : ILabelRepository
     {
-        private readonly ApplicationDbContext _context;
         private readonly DbSet<Label> _labels;
 
         public LabelRepository(ApplicationDbContext context)
         {
-            _context = context;
             _labels = context.Labels;
         }
 

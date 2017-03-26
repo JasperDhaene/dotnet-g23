@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dotnet_g23.Migrations
 {
-    public partial class removePostLogo : Migration
+    public partial class RemovePostLogo : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

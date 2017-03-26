@@ -4,7 +4,6 @@ using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.ViewModels.GroupViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_g23.Controllers
@@ -19,16 +18,13 @@ namespace dotnet_g23.Controllers
             IParticipantRepository participantRepository,
             IInvitationRepository invitationRepository,
             ILabelRepository labelRepository,
-            IPostRepository postRepository,
-            IHostingEnvironment hostingEnvironment)
+            IPostRepository postRepository)
         {
             _groupRepository = groupRepository;
             _participantRepository = participantRepository;
             _invitationRepository = invitationRepository;
             _labelRepository = labelRepository;
             _postRepository = postRepository;
-
-            _hostingEnvironment = hostingEnvironment;
         }
 
         #endregion
@@ -40,8 +36,6 @@ namespace dotnet_g23.Controllers
         private readonly IInvitationRepository _invitationRepository;
         private readonly ILabelRepository _labelRepository;
         private readonly IPostRepository _postRepository;
-
-        private readonly IHostingEnvironment _hostingEnvironment;
 
         #endregion
 

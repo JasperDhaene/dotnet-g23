@@ -9,7 +9,7 @@ namespace dotnet_g23.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20170321134635_removeEvents")]
-    partial class removeEvents
+    partial class RemoveEvents
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

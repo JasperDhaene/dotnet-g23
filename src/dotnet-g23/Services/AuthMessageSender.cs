@@ -29,8 +29,6 @@ namespace dotnet_g23.Services
                         .Replace("{description}", beschrijving);
             }
 
-            var multipart = new Multipart("mixed") {new TextPart("html")};
-
             emailMessage.Body = builder.ToMessageBody();
 
             using (var client = new SmtpClient())

@@ -134,7 +134,7 @@ namespace dotnet_g23.Data
              * 
              * */
 
-            var motivationSubmitted = CreateMotivation(hogentGroupSubmitted, false);
+            var motivationSubmitted = CreateMotivation(hogentGroupSubmitted);
             var motivationApproved = CreateMotivation(hogentGroupApproved, true);
             var motivationGranted = CreateMotivation(hogentGroupGranted, true);
             var motivationAnnounced = CreateMotivation(hogentGroupAnnounced, true);

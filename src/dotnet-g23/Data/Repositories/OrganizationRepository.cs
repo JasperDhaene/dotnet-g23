@@ -23,10 +23,10 @@ namespace dotnet_g23.Data.Repositories
                 .ToList();
         }
 
-        public Organization GetBy(int OrganizationId)
+        public Organization GetBy(int organizationId)
         {
             return _organizations
-                .SingleOrDefault(o => o.OrganizationId == OrganizationId);
+                .SingleOrDefault(o => o.OrganizationId == organizationId);
         }
 
         public IEnumerable<Organization> GetByKeyword(string query)

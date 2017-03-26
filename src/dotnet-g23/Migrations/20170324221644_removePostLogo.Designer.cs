@@ -9,7 +9,7 @@ namespace dotnet_g23.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20170324221644_removePostLogo")]
-    partial class removePostLogo
+    partial class RemovePostLogo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -15,32 +15,32 @@ namespace dotnet_g23.Tests.Controllers {
 
         #region Fields
         private readonly GroupController _controller;
-        private DummyApplicationDbContext context;
-        private readonly Participant _ParticipantHogent;
-        private readonly Participant _OwnerHogent;
-        private readonly Participant _OwnerGranted;
+        private DummyApplicationDbContext _context;
+        private readonly Participant _participantHogent;
+        private readonly Participant _ownerHogent;
+        private readonly Participant _ownerGranted;
         #endregion
 
         #region Constructor
         public GroupControllerTest() {
-            context = new DummyApplicationDbContext();
+            _context = new DummyApplicationDbContext();
 
-            Mock<IGroupRepository> GroupRepo = new Mock<IGroupRepository>();
-            Mock<IParticipantRepository> ParticipantRepo = new Mock<IParticipantRepository>();
-            Mock<IInvitationRepository> InvRepo = new Mock<IInvitationRepository>();
-            Mock<ILabelRepository> LRepo = new Mock<ILabelRepository>();
-            Mock<IPostRepository> PostRepo = new Mock<IPostRepository>();
-            Mock<IHostingEnvironment> HostEnv = new Mock<IHostingEnvironment>();
+            Mock<IGroupRepository> groupRepo = new Mock<IGroupRepository>();
+            Mock<IParticipantRepository> participantRepo = new Mock<IParticipantRepository>();
+            Mock<IInvitationRepository> invRepo = new Mock<IInvitationRepository>();
+            Mock<ILabelRepository> lRepo = new Mock<ILabelRepository>();
+            Mock<IPostRepository> postRepo = new Mock<IPostRepository>();
+            Mock<IHostingEnvironment> hostEnv = new Mock<IHostingEnvironment>();
 
-            GroupRepo.Setup(g => g.GetAll()).Returns(context.Groups);
-            GroupRepo.Setup(g => g.GetBy(1)).Returns(context.HogentGroup);
+            groupRepo.Setup(g => g.GetAll()).Returns(_context.Groups);
+            groupRepo.Setup(g => g.GetBy(1)).Returns(_context.HogentGroup);
 
-            _controller = new GroupController(GroupRepo.Object, ParticipantRepo.Object, InvRepo.Object, LRepo.Object, PostRepo.Object, HostEnv.Object);
+            _controller = new GroupController(groupRepo.Object, participantRepo.Object, invRepo.Object, lRepo.Object, postRepo.Object, hostEnv.Object);
             _controller.TempData = new Mock<ITempDataDictionary>().Object;
 
-            _ParticipantHogent = context.ParticipantHogent.UserState as Participant;
-            _OwnerHogent = context.OwnerHogent.UserState as Participant;
-            _OwnerGranted = context.OwnerHogentGranted.UserState as Participant;
+            _participantHogent = _context.ParticipantHogent.UserState as Participant;
+            _ownerHogent = _context.OwnerHogent.UserState as Participant;
+            _ownerGranted = _context.OwnerHogentGranted.UserState as Participant;
         }
         #endregion
 
@@ -48,21 +48,21 @@ namespace dotnet_g23.Tests.Controllers {
 
         [Fact]
         public void IndexShouldReturnOrganizationOfUser() {
-            ViewResult result = _controller.Index(_ParticipantHogent) as ViewResult;
+            ViewResult result = _controller.Index(_participantHogent) as ViewResult;
             IndexViewModel ind = (IndexViewModel)result?.Model;
-            Assert.Equal(_ParticipantHogent.Organization, ind.Organization);
+            Assert.Equal(_participantHogent.Organization, ind.Organization);
         }
 
         [Fact]
         public void IndexShouldReturnSubscribedGroupOfUser() {
-            ViewResult result = _controller.Index(_OwnerHogent) as ViewResult;
+            ViewResult result = _controller.Index(_ownerHogent) as ViewResult;
             IndexViewModel ind = (IndexViewModel)result?.Model;
-            Assert.Equal(_OwnerHogent.Group, ind.SubscribedGroup);
+            Assert.Equal(_ownerHogent.Group, ind.SubscribedGroup);
         }
 
         [Fact]
         public void IndexNotEmptyInvitedGroupOfUser() {
-            ViewResult result = _controller.Index(_ParticipantHogent) as ViewResult;
+            ViewResult result = _controller.Index(_participantHogent) as ViewResult;
             IndexViewModel ind = (IndexViewModel)result?.Model;
             IEnumerable<Group> groups = ind.InvitedGroups;
             Assert.Empty(groups);
@@ -70,7 +70,7 @@ namespace dotnet_g23.Tests.Controllers {
 
         [Fact]
         public void IndexShouldReturnPossibleOpenGroupsForUserSoNotNull() {
-            ViewResult result = _controller.Index(_ParticipantHogent) as ViewResult;
+            ViewResult result = _controller.Index(_participantHogent) as ViewResult;
             IndexViewModel ind = (IndexViewModel)result?.Model;
             IEnumerable<Group> groups = ind.OpenGroups;
             Assert.NotNull(groups);
@@ -78,7 +78,7 @@ namespace dotnet_g23.Tests.Controllers {
 
         [Fact]
         public void IndexShouldReturnNullForSubscribedGroupOfUserParticipant() {
-            ViewResult result = _controller.Index(_ParticipantHogent) as ViewResult;
+            ViewResult result = _controller.Index(_participantHogent) as ViewResult;
             IndexViewModel ind = (IndexViewModel)result?.Model;
             Assert.Null(ind.SubscribedGroup);
         }
@@ -89,20 +89,20 @@ namespace dotnet_g23.Tests.Controllers {
 
         [Fact]
         public void ParticipantShouldCreateGroup() {
-            _controller.Create(_ParticipantHogent, "testGroup", false);
-            Assert.Equal("testGroup", _ParticipantHogent.Group.Name);
-            Assert.False(_ParticipantHogent.Group.Closed);
+            _controller.Create(_participantHogent, "testGroup", false);
+            Assert.Equal("testGroup", _participantHogent.Group.Name);
+            Assert.False(_participantHogent.Group.Closed);
         }
 
         [Fact]
         public void ParticipantRedirectToInviteWhenCreatingGroup() {
-            RedirectToActionResult res = _controller.Create(_ParticipantHogent, "testGroup", false) as RedirectToActionResult;
+            RedirectToActionResult res = _controller.Create(_participantHogent, "testGroup", false) as RedirectToActionResult;
             Assert.Equal("Invite", res.ActionName);
         }
 
         [Fact]
         public void ParticipantCannotCreateAndRedirectsToCreate() {
-            ViewResult res = _controller.Create(_OwnerHogent, "test", false) as ViewResult;
+            ViewResult res = _controller.Create(_ownerHogent, "test", false) as ViewResult;
             Assert.Equal("Create", res.ViewName);
         }
 
@@ -112,16 +112,16 @@ namespace dotnet_g23.Tests.Controllers {
 
         [Fact]
         public void ParticipantWithGroupCanSeeSubscribedGroup() {
-            ViewResult result = _controller.Show(_OwnerHogent, 1) as ViewResult;
+            ViewResult result = _controller.Show(_ownerHogent, 1) as ViewResult;
             ShowViewModel vm = (ShowViewModel)result?.Model;
-            Assert.Equal(context.HogentGroup, vm.Group);
+            Assert.Equal(_context.HogentGroup, vm.Group);
         }
 
         [Fact]
         public void ParticipantWithGroupCanSeeInvitationsForGroup() {
-            ViewResult result = _controller.Show(_OwnerHogent, 1) as ViewResult;
+            ViewResult result = _controller.Show(_ownerHogent, 1) as ViewResult;
             ShowViewModel vm = (ShowViewModel)result?.Model;
-            Assert.Equal(context.HogentGroup.Invitations, vm.Invitations);
+            Assert.Equal(_context.HogentGroup.Invitations, vm.Invitations);
         }
 
         #endregion
@@ -130,14 +130,14 @@ namespace dotnet_g23.Tests.Controllers {
 
         [Fact]
         public void ParticipantCanRegisterInGroup1() {
-            _controller.Register(_ParticipantHogent, 1);
-            Assert.Equal(context.HogentGroup, _ParticipantHogent.Group);
+            _controller.Register(_participantHogent, 1);
+            Assert.Equal(_context.HogentGroup, _participantHogent.Group);
         }
 
         [Fact]
         public void ParticipantShouldRedirectToIndexOfGroupsBecauseAlreadyInGroup() {
             RedirectToActionResult result = _controller
-                .Register(_OwnerHogent, 1)
+                .Register(_ownerHogent, 1)
                 as RedirectToActionResult;
             Assert.Equal("Index", result.ActionName);
         }
@@ -145,7 +145,7 @@ namespace dotnet_g23.Tests.Controllers {
         [Fact]
         public void ParticipantShouldRegisterInGroupAndRedirectsToDashboard() {
             RedirectToActionResult result = _controller
-                .Register(_ParticipantHogent, 1)
+                .Register(_participantHogent, 1)
                 as RedirectToActionResult;
             Assert.Equal("Dashboard", result.ActionName);
         }
@@ -156,13 +156,13 @@ namespace dotnet_g23.Tests.Controllers {
 
         [Fact]
         public void InviteShouldRedirectToInviteOfController() {
-            ViewResult result = _controller.Invite(_OwnerHogent, 1, "participant@hogent.be") as ViewResult;
+            ViewResult result = _controller.Invite(_ownerHogent, 1, "participant@hogent.be") as ViewResult;
             Assert.Equal("Invite", result?.ViewName);
         }
 
         [Fact]
         public void InviteShouldRedirectToInviteOfControllerWhenAlreadyInGroup() {
-            ViewResult result = _controller.Invite(_OwnerHogent, 1, "owner_approved@hogent.be") as ViewResult;
+            ViewResult result = _controller.Invite(_ownerHogent, 1, "owner_approved@hogent.be") as ViewResult;
             Assert.Equal("Invite", result?.ViewName);
         }
 
@@ -172,9 +172,9 @@ namespace dotnet_g23.Tests.Controllers {
 
         [Fact]
         public void ParticipantCanShowAnnounceForm() {
-            ViewResult res = _controller.Announce(_OwnerGranted, 4) as ViewResult;
+            ViewResult res = _controller.Announce(_ownerGranted, 4) as ViewResult;
             AnnounceViewModel vm = (AnnounceViewModel)res?.Model;
-            Assert.Equal(context.Label2, vm.Label);
+            Assert.Equal(_context.Label2, vm.Label);
             Assert.Equal("", vm.Message);
         }
 
