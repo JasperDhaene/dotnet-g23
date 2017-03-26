@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Linq;
 using dotnet_g23.Filters;
-using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.Domain;
-using dotnet_g23.Models.Domain.State;
+using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.ViewModels.MotivationViewModels;
-using dotnet_g23.Services;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using dotnet_g23.Data.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Internal;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -38,9 +31,9 @@ namespace dotnet_g23.Controllers
         [Route("Motivations/{id}")]
         public IActionResult Edit(Participant participant, int id)
         {
-            ShowViewModel vm = new ShowViewModel();
+            var vm = new ShowViewModel();
 
-            Group group = _groupRepository.GetBy(id);
+            var group = _groupRepository.GetBy(id);
 
             vm.Group = group;
             vm.Motivation = group.Motivation ?? new Motivation();
@@ -56,7 +49,7 @@ namespace dotnet_g23.Controllers
         {
             // Save or submit motivation
 
-            Group group = _groupRepository.GetBy(id);
+            var group = _groupRepository.GetBy(id);
 
             try
             {

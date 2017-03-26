@@ -1,12 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace dotnet_g23.Models.Domain.State
 {
     public class Context
     {
+        #region Constructors
+
+        public Context()
+        {
+            CurrentState = new InitialState();
+        }
+
+        #endregion
+
         #region Properties
 
         public State CurrentState { get; set; }
@@ -18,15 +24,6 @@ namespace dotnet_g23.Models.Domain.State
 
             // Deserialize string to State
             set { CurrentState = Activator.CreateInstance(Type.GetType(value)) as State; }
-        }
-
-        #endregion
-
-        #region Constructors
-
-        public Context()
-        {
-            CurrentState = new InitialState();
         }
 
         #endregion
@@ -58,22 +55,22 @@ namespace dotnet_g23.Models.Domain.State
             CurrentState.Grant(this, group, company);
         }
 
-        public Post Announce(Label label, String message)
+        public Post Announce(Label label, string message)
         {
             return CurrentState.Announce(this, label, message);
         }
 
-        public void SetupAction(Group group, String title, String description, DateTime? date)
+        public void SetupAction(Group group, string title, string description, DateTime? date)
         {
             CurrentState.SetupAction(this, group, title, description, date);
         }
 
-        public Boolean CanInvite()
+        public bool CanInvite()
         {
             return CurrentState.CanInvite();
         }
 
-        public Boolean CanSetup()
+        public bool CanSetup()
         {
             return CurrentState.CanSetup();
         }

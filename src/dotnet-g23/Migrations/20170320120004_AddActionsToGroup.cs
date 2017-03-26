@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dotnet_g23.Migrations
 {
@@ -9,20 +7,20 @@ namespace dotnet_g23.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "GroupId",
-                table: "Actions",
+                "GroupId",
+                "Actions",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Actions_GroupId",
-                table: "Actions",
-                column: "GroupId");
+                "IX_Actions_GroupId",
+                "Actions",
+                "GroupId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Actions_Groups_GroupId",
-                table: "Actions",
-                column: "GroupId",
-                principalTable: "Groups",
+                "FK_Actions_Groups_GroupId",
+                "Actions",
+                "GroupId",
+                "Groups",
                 principalColumn: "GroupId",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -30,16 +28,16 @@ namespace dotnet_g23.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Actions_Groups_GroupId",
-                table: "Actions");
+                "FK_Actions_Groups_GroupId",
+                "Actions");
 
             migrationBuilder.DropIndex(
-                name: "IX_Actions_GroupId",
-                table: "Actions");
+                "IX_Actions_GroupId",
+                "Actions");
 
             migrationBuilder.DropColumn(
-                name: "GroupId",
-                table: "Actions");
+                "GroupId",
+                "Actions");
         }
     }
 }

@@ -1,11 +1,8 @@
-﻿@using System.Threading.Tasks
-@using dotnet_g23.Models.Domain
-@using dotnet_g23.Models.Domain.State
-
-@{
+﻿@{
     ViewData["Title"] = "Organisaties";
 }
 
+@using System.Threading.Tasks
 @model dotnet_g23.Models.ViewModels.LabelViewModels.IndexViewModel
 
 @Html.Partial("_ContainerStart")
@@ -17,7 +14,7 @@
         </form>
         <h1>Externe organisaties</h1>
 
-        @if (Model.Companies == null || !Model.Companies.Any())
+        @if ((Model.Companies == null) || !Model.Companies.Any())
         {
             <div class="alert alert-info m-t-1">
                 <i class="fa fa-info-circle"></i> Geen organisaties gevonden.

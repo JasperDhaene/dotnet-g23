@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
@@ -18,7 +17,7 @@ namespace dotnet_g23.Data.Repositories
             _participants = context.Participants;
         }
 
-        public Participant GetByEmail(String email)
+        public Participant GetByEmail(string email)
         {
             return _participants
                 .Include(p => p.Group)
@@ -37,7 +36,7 @@ namespace dotnet_g23.Data.Repositories
                 .Include(p => p.Organization)
                 .Include(p => p.User)
                 .Include(p => p.Invitations)
-                .Where(p => p.Group != null && p.Group == group)
+                .Where(p => (p.Group != null) && (p.Group == group))
                 .ToList();
         }
 

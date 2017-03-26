@@ -1,14 +1,9 @@
-﻿using dotnet_g23.Models.Domain;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using dotnet_g23.Models;
+using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.State;
-using Action = dotnet_g23.Models.Domain.Action;
+using Microsoft.AspNetCore.Identity;
 
 namespace dotnet_g23.Data
 {
@@ -35,11 +30,11 @@ namespace dotnet_g23.Data
              * Organizations
              * 
              * */
-            Organization hogentGent = new Organization("HoGent", "Gent", "hogent.be");
-            Organization hogentAalst = new Organization("HoGent", "Aalst", "hogent.be");
-            Organization howestKortrijk = new Organization("HoWest", "Kortrijk", "howest.be");
-            Organization howestBrugge = new Organization("HoWest", "Brugge", "howest.be");
-            Organization ugent = new Organization("UGent", "Gent", "ugent.be");
+            var hogentGent = new Organization("HoGent", "Gent", "hogent.be");
+            var hogentAalst = new Organization("HoGent", "Aalst", "hogent.be");
+            var howestKortrijk = new Organization("HoWest", "Kortrijk", "howest.be");
+            var howestBrugge = new Organization("HoWest", "Brugge", "howest.be");
+            var ugent = new Organization("UGent", "Gent", "ugent.be");
 
             _context.Organizations.Add(hogentGent);
             _context.Organizations.Add(hogentAalst);
@@ -51,30 +46,30 @@ namespace dotnet_g23.Data
              * Users
              * 
              * */
-            GUser volunteerHogent = new GUser("volunteer@hogent.be");
+            var volunteerHogent = new GUser("volunteer@hogent.be");
             await CreateAppUser(volunteerHogent);
-            GUser volunteerHowest = new GUser("volunteer@howest.be");
+            var volunteerHowest = new GUser("volunteer@howest.be");
             await CreateAppUser(volunteerHowest);
-            GUser volunteerUgent = new GUser("volunteer@ugent.be");
+            var volunteerUgent = new GUser("volunteer@ugent.be");
             await CreateAppUser(volunteerUgent);
 
             _context.GUsers.Add(volunteerHogent);
             _context.GUsers.Add(volunteerHowest);
             _context.GUsers.Add(volunteerUgent);
 
-            GUser participantHogent = new GUser("participant@hogent.be");
-            GUser participantHowest = new GUser("participant@howest.be");
-            GUser participantUgent = new GUser("participant@ugent.be");
+            var participantHogent = new GUser("participant@hogent.be");
+            var participantHowest = new GUser("participant@howest.be");
+            var participantUgent = new GUser("participant@ugent.be");
 
             _context.GUsers.Add(participantHogent);
             _context.GUsers.Add(participantHowest);
             _context.GUsers.Add(participantUgent);
 
-            GUser lectorHogent = new GUser("lector@hogent.be", new Lector());
+            var lectorHogent = new GUser("lector@hogent.be", new Lector());
             await CreateAppUser(lectorHogent);
-            GUser lectorHowest = new GUser("lector@howest.be", new Lector());
+            var lectorHowest = new GUser("lector@howest.be", new Lector());
             await CreateAppUser(lectorHowest);
-            GUser lectorUgent = new GUser("lector@ugent.be", new Lector());
+            var lectorUgent = new GUser("lector@ugent.be", new Lector());
             await CreateAppUser(lectorUgent);
 
             _context.GUsers.Add(lectorHogent);
@@ -85,11 +80,11 @@ namespace dotnet_g23.Data
             howestBrugge.Register(participantHowest);
             ugent.Register(participantUgent);
 
-            GUser ownerHogent = new GUser("owner@hogent.be");
-            GUser ownerHogentSubmitted = new GUser("owner_submitted@hogent.be");
-            GUser ownerHogentApproved = new GUser("owner_approved@hogent.be");
-            GUser ownerHogentGranted = new GUser("owner_granted@hogent.be");
-            GUser ownerHogentAnnounced = new GUser("owner_announced@hogent.be");
+            var ownerHogent = new GUser("owner@hogent.be");
+            var ownerHogentSubmitted = new GUser("owner_submitted@hogent.be");
+            var ownerHogentApproved = new GUser("owner_approved@hogent.be");
+            var ownerHogentGranted = new GUser("owner_granted@hogent.be");
+            var ownerHogentAnnounced = new GUser("owner_announced@hogent.be");
 
             _context.GUsers.Add(ownerHogent);
             _context.GUsers.Add(ownerHogentSubmitted);
@@ -118,14 +113,14 @@ namespace dotnet_g23.Data
              * Groups
              * 
              * */
-            Group hogentGroup = hogentGent.CreateGroup(ownerHogent.UserState as Participant, "HoGent Groep 1", false);
-            Group hogentGroupSubmitted = hogentGent.CreateGroup(ownerHogentSubmitted.UserState as Participant,
+            var hogentGroup = hogentGent.CreateGroup(ownerHogent.UserState as Participant, "HoGent Groep 1", false);
+            var hogentGroupSubmitted = hogentGent.CreateGroup(ownerHogentSubmitted.UserState as Participant,
                 "HoGent Groep 2", false);
-            Group hogentGroupApproved = hogentGent.CreateGroup(ownerHogentApproved.UserState as Participant,
+            var hogentGroupApproved = hogentGent.CreateGroup(ownerHogentApproved.UserState as Participant,
                 "HoGent Groep 3", false);
-            Group hogentGroupGranted = hogentGent.CreateGroup(ownerHogentGranted.UserState as Participant,
+            var hogentGroupGranted = hogentGent.CreateGroup(ownerHogentGranted.UserState as Participant,
                 "HoGent Groep 4", false);
-            Group hogentGroupAnnounced = hogentGent.CreateGroup(ownerHogentAnnounced.UserState as Participant,
+            var hogentGroupAnnounced = hogentGent.CreateGroup(ownerHogentAnnounced.UserState as Participant,
                 "HoGent Groep 5", false);
 
             _context.Groups.Add(hogentGroup);
@@ -139,10 +134,10 @@ namespace dotnet_g23.Data
              * 
              * */
 
-            Motivation motivationSubmitted = CreateMotivation(hogentGroupSubmitted, false);
-            Motivation motivationApproved = CreateMotivation(hogentGroupApproved, true);
-            Motivation motivationGranted = CreateMotivation(hogentGroupGranted, true);
-            Motivation motivationAnnounced = CreateMotivation(hogentGroupAnnounced, true);
+            var motivationSubmitted = CreateMotivation(hogentGroupSubmitted, false);
+            var motivationApproved = CreateMotivation(hogentGroupApproved, true);
+            var motivationGranted = CreateMotivation(hogentGroupGranted, true);
+            var motivationAnnounced = CreateMotivation(hogentGroupAnnounced, true);
 
             _context.Motivations.Add(motivationSubmitted);
             _context.Motivations.Add(motivationApproved);
@@ -191,9 +186,9 @@ namespace dotnet_g23.Data
              * Contacts
              * 
              * */
-            Contact c1Ceo = new Contact("Mr.", "John", "Doe", "CEO", "goedbezig-g23@outlook.com", c1);
-            Contact c1Cfo = new Contact("Mr.", "James", "Doe", "CFO", "goedbezig-g23@outlook.com", c1);
-            Contact c1Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "goedbezig-g23@outlook.com", c1);
+            var c1Ceo = new Contact("Mr.", "John", "Doe", "CEO", "goedbezig-g23@outlook.com", c1);
+            var c1Cfo = new Contact("Mr.", "James", "Doe", "CFO", "goedbezig-g23@outlook.com", c1);
+            var c1Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "goedbezig-g23@outlook.com", c1);
 
             c1.Contacts.Add(c1Ceo);
             c1.Contacts.Add(c1Cfo);
@@ -203,9 +198,9 @@ namespace dotnet_g23.Data
             _context.Contacts.Add(c1Cfo);
             _context.Contacts.Add(c1Cto);
 
-            Contact c2Ceo = new Contact("Mr.", "John", "Doe", "CEO", "goedbezig-g23@outlook.com", c2);
-            Contact c2Cfo = new Contact("Mr.", "James", "Doe", "CFO", "goedbezig-g23@outlook.com", c2);
-            Contact c2Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "goedbezig-g23@outlook.com", c2);
+            var c2Ceo = new Contact("Mr.", "John", "Doe", "CEO", "goedbezig-g23@outlook.com", c2);
+            var c2Cfo = new Contact("Mr.", "James", "Doe", "CFO", "goedbezig-g23@outlook.com", c2);
+            var c2Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "goedbezig-g23@outlook.com", c2);
 
             c2.Contacts.Add(c2Ceo);
             c2.Contacts.Add(c2Cfo);
@@ -215,9 +210,9 @@ namespace dotnet_g23.Data
             _context.Contacts.Add(c2Cfo);
             _context.Contacts.Add(c2Cto);
 
-            Contact c3Ceo = new Contact("Mr.", "John", "Doe", "CEO", "goedbezig-g23@outlook.com", c3);
-            Contact c3Cfo = new Contact("Mr.", "James", "Doe", "CFO", "goedbezig-g23@outlook.com", c3);
-            Contact c3Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "goedbezig-g23@outlook.com", c3);
+            var c3Ceo = new Contact("Mr.", "John", "Doe", "CEO", "goedbezig-g23@outlook.com", c3);
+            var c3Cfo = new Contact("Mr.", "James", "Doe", "CFO", "goedbezig-g23@outlook.com", c3);
+            var c3Cto = new Contact("Mrs.", "Jane", "Doe", "CTO", "goedbezig-g23@outlook.com", c3);
 
             c3.Contacts.Add(c3Ceo);
             c3.Contacts.Add(c3Cfo);
@@ -243,7 +238,7 @@ namespace dotnet_g23.Data
              * 
              * */
 
-            Post p3 =
+            var p3 =
                 hogentGroupAnnounced.Announce(
                     "Dit Goed Bezig-label wordt toegekend aan de CM Antwerpen vanwege een voortdurende inzet en maatschappelijke verantwoordelijkheid.");
 
@@ -255,11 +250,11 @@ namespace dotnet_g23.Data
              * 
              * */
 
-            Action a1 = new Action(hogentGroupGranted, "Koekjes bakken",
+            var a1 = new Action(hogentGroupGranted, "Koekjes bakken",
                 "Koekjes bakken op grootmoeders wijze. Verkopen aan familie en vrienden en van deur tot deur in de omgeving");
             _context.Actions.Add(a1);
 
-            Action a2 = new Action(hogentGroupAnnounced, "Koekjes bakken",
+            var a2 = new Action(hogentGroupAnnounced, "Koekjes bakken",
                 "Koekjes bakken op grootmoeders wijze. Verkopen aan familie en vrienden en van deur tot deur in de omgeving");
             _context.Actions.Add(a2);
 
@@ -268,7 +263,7 @@ namespace dotnet_g23.Data
 
         private async Task CreateAppUser(GUser user)
         {
-            ApplicationUser appUser = new ApplicationUser {UserName = user.Email, Email = user.Email};
+            var appUser = new ApplicationUser {UserName = user.Email, Email = user.Email};
             await _userManager.CreateAsync(appUser, "P@ssword1");
             await
                 _userManager.AddClaimAsync(appUser,
@@ -278,9 +273,9 @@ namespace dotnet_g23.Data
                             : (user.UserState is Participant ? "participant" : "volunteer")));
         }
 
-        private Motivation CreateMotivation(Group group, Boolean approved = false)
+        private Motivation CreateMotivation(Group group, bool approved = false)
         {
-            Motivation m =
+            var m =
                 new Motivation(
                     "Deze organisatie helpt enorm veel mensen. We zijn enorm blij met al het werk dat ze leveren en willen hun hiermee een hart onder de riem steken.");
             group.Motivation = m;

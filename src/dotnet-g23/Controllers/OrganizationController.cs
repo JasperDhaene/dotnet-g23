@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
-using dotnet_g23.Data.Repositories;
 using dotnet_g23.Filters;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
@@ -10,8 +7,6 @@ using dotnet_g23.Models.ViewModels.OrganizationViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-
 
 namespace dotnet_g23.Controllers
 {
@@ -19,16 +14,6 @@ namespace dotnet_g23.Controllers
     [ServiceFilter(typeof(UserFilter))]
     public class OrganizationController : Controller
     {
-        #region Fields
-
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IOrganizationRepository _orgRepository;
-        private readonly IGroupRepository _groupRepositroy;
-        private readonly IPostRepository _postRepository;
-
-        #endregion
-
         #region Constructors
 
         public OrganizationController(UserManager<ApplicationUser> userManager,
@@ -44,16 +29,26 @@ namespace dotnet_g23.Controllers
 
         #endregion
 
+        #region Fields
+
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IOrganizationRepository _orgRepository;
+        private readonly IGroupRepository _groupRepositroy;
+        private readonly IPostRepository _postRepository;
+
+        #endregion
+
         #region Methods
 
         // GET /Organizations
         [Route("Organizations")]
         [ServiceFilter(typeof(ParticipantFilter))]
-        public IActionResult Index(GUser user, Participant participant, String query = null)
+        public IActionResult Index(GUser user, Participant participant, string query = null)
         {
             // Return filtered list with name & location of organisations
 
-            IndexViewModel vm = new IndexViewModel()
+            var vm = new IndexViewModel
             {
                 SubscribedOrganization = participant?.Organization,
                 Organizations = query == null ? _orgRepository.GetAll() : _orgRepository.GetByKeyword(query),
@@ -69,7 +64,7 @@ namespace dotnet_g23.Controllers
         {
             // Register user with organization
 
-            Organization organization = _orgRepository.GetBy(organizationId);
+            var organization = _orgRepository.GetBy(organizationId);
             try
             {
                 organization.Register(user);
@@ -77,7 +72,7 @@ namespace dotnet_g23.Controllers
                 var appuser = await _userManager.FindByEmailAsync(user.Email);
                 await _userManager.RemoveClaimAsync(appuser, new Claim(ClaimTypes.Role, "volunteer"));
                 await _userManager.AddClaimAsync(appuser, new Claim(ClaimTypes.Role, "participant"));
-                await _signInManager.SignInAsync(appuser, isPersistent: false);
+                await _signInManager.SignInAsync(appuser, false);
 
                 _orgRepository.SaveChanges();
             }
@@ -95,9 +90,9 @@ namespace dotnet_g23.Controllers
         {
             //Get Organization with id from Repo
 
-            Organization org = _orgRepository.GetBy(id);
+            var org = _orgRepository.GetBy(id);
 
-            ShowViewModel vm = new ShowViewModel();
+            var vm = new ShowViewModel();
             //Show all Groups, linked with organization
             vm.Groups = _groupRepositroy.GetByOrganization(org);
             vm.Posts = _postRepository.GetByOrganization(org);

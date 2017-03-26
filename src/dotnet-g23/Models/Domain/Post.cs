@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace dotnet_g23.Models.Domain
+﻿namespace dotnet_g23.Models.Domain
 {
     public class Post
     {
@@ -8,7 +6,7 @@ namespace dotnet_g23.Models.Domain
 
         public int PostId { get; private set; }
 
-        public String Announcement { get; set; }
+        public string Announcement { get; set; }
         public Label Label { get; set; }
         public int LabelForeignKey { get; private set; }
 
@@ -20,7 +18,7 @@ namespace dotnet_g23.Models.Domain
         {
         }
 
-        public Post(String announcement) : this()
+        public Post(string announcement) : this()
         {
             Announcement = announcement;
         }

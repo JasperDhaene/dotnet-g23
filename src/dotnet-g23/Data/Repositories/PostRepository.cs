@@ -1,9 +1,7 @@
-﻿using dotnet_g23.Models.Domain.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace dotnet_g23.Data.Repositories

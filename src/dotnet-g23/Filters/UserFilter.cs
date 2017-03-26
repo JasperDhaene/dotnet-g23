@@ -1,5 +1,4 @@
-﻿using dotnet_g23.Models.Domain;
-using dotnet_g23.Models.Domain.Repositories;
+﻿using dotnet_g23.Models.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace dotnet_g23.Filters
@@ -17,7 +16,7 @@ namespace dotnet_g23.Filters
         {
             if (context.HttpContext.User.Identity.IsAuthenticated)
             {
-                GUser user = _userRepository.GetByEmail(context.HttpContext.User.Identity.Name);
+                var user = _userRepository.GetByEmail(context.HttpContext.User.Identity.Name);
                 context.ActionArguments["user"] = user;
             }
             base.OnActionExecuting(context);

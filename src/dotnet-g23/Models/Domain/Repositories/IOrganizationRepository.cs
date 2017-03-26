@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace dotnet_g23.Models.Domain.Repositories
 {
@@ -8,6 +7,6 @@ namespace dotnet_g23.Models.Domain.Repositories
         Organization GetBy(int organizationId);
         IEnumerable<Organization> GetAll();
         void SaveChanges();
-        IEnumerable<Organization> GetByKeyword(String query);
+        IEnumerable<Organization> GetByKeyword(string query);
     }
 }

@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using dotnet_g23.Data.Repositories;
+﻿using System.Linq;
 using dotnet_g23.Filters;
-using dotnet_g23.Models;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
-using dotnet_g23.Models.Domain.State;
 using dotnet_g23.Models.ViewModels.GroupViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_g23.Controllers
 {
@@ -21,18 +13,6 @@ namespace dotnet_g23.Controllers
     [ServiceFilter(typeof(ParticipantFilter))]
     public class GroupController : Controller
     {
-        #region Fields
-
-        private readonly IGroupRepository _groupRepository;
-        private readonly IParticipantRepository _participantRepository;
-        private readonly IInvitationRepository _invitationRepository;
-        private readonly ILabelRepository _labelRepository;
-        private readonly IPostRepository _postRepository;
-
-        private readonly IHostingEnvironment _hostingEnvironment;
-
-        #endregion
-
         #region Constructors
 
         public GroupController(IGroupRepository groupRepository,
@@ -53,6 +33,18 @@ namespace dotnet_g23.Controllers
 
         #endregion
 
+        #region Fields
+
+        private readonly IGroupRepository _groupRepository;
+        private readonly IParticipantRepository _participantRepository;
+        private readonly IInvitationRepository _invitationRepository;
+        private readonly ILabelRepository _labelRepository;
+        private readonly IPostRepository _postRepository;
+
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        #endregion
+
         #region Methods
 
         // GET /Groups
@@ -61,7 +53,7 @@ namespace dotnet_g23.Controllers
         {
             // Return list with invites and open organizations
 
-            IndexViewModel vm = new IndexViewModel
+            var vm = new IndexViewModel
             {
                 Organization = participant.Organization,
                 SubscribedGroup = participant.Group,
@@ -82,13 +74,13 @@ namespace dotnet_g23.Controllers
         // POST /Groups/Create
         [HttpPost]
         [Route("Groups/Create")]
-        public IActionResult Create(Participant participant, String name, Boolean closed = false)
+        public IActionResult Create(Participant participant, string name, bool closed = false)
         {
             // Create new group
-            Organization organization = participant.Organization;
+            var organization = participant.Organization;
             try
             {
-                Group group = organization.CreateGroup(participant, name, closed);
+                var group = organization.CreateGroup(participant, name, closed);
                 _groupRepository.SaveChanges();
 
                 TempData["success"] = $"De groep '{name}' is aangemaakt";
@@ -114,9 +106,9 @@ namespace dotnet_g23.Controllers
                 return RedirectToAction("Index");
             }
 
-            Group group = _groupRepository.GetBy(participant.Group.GroupId);
+            var group = _groupRepository.GetBy(participant.Group.GroupId);
 
-            ShowViewModel vm = new ShowViewModel
+            var vm = new ShowViewModel
             {
                 Group = group,
                 Participants = _participantRepository.GetByGroup(group),
@@ -132,9 +124,9 @@ namespace dotnet_g23.Controllers
         {
             // Show group
 
-            Group group = _groupRepository.GetBy(id);
+            var group = _groupRepository.GetBy(id);
 
-            ShowViewModel vm = new ShowViewModel
+            var vm = new ShowViewModel
             {
                 Group = group,
                 Participants = _participantRepository.GetByGroup(group),
@@ -151,7 +143,7 @@ namespace dotnet_g23.Controllers
         {
             // Register user with group
 
-            Group group = _groupRepository.GetBy(id);
+            var group = _groupRepository.GetBy(id);
             try
             {
                 group.Register(participant);
@@ -174,19 +166,19 @@ namespace dotnet_g23.Controllers
         {
             // Show invite form
 
-            Group group = _groupRepository.GetBy(id);
+            var group = _groupRepository.GetBy(id);
             return View(group);
         }
 
         // POST /Groups/{id}/Invite
         [HttpPost]
         [Route("Groups/{id}/Invite")]
-        public IActionResult Invite(Participant participant, int id, String address)
+        public IActionResult Invite(Participant participant, int id, string address)
         {
             // Invite user to group
 
-            Group group = _groupRepository.GetBy(id);
-            Participant invitee = _participantRepository.GetByEmail(address);
+            var group = _groupRepository.GetBy(id);
+            var invitee = _participantRepository.GetByEmail(address);
             try
             {
                 group.Invite(invitee);
@@ -207,9 +199,9 @@ namespace dotnet_g23.Controllers
         {
             // Show announce form
 
-            Label label = _labelRepository.GetByGroup(id);
+            var label = _labelRepository.GetByGroup(id);
 
-            AnnounceViewModel vm = new AnnounceViewModel
+            var vm = new AnnounceViewModel
             {
                 Label = label,
                 Message = ""
@@ -221,14 +213,14 @@ namespace dotnet_g23.Controllers
         // POST /Groups/{id}/Announce
         [HttpPost]
         [Route("Groups/{id}/Announce")]
-        public IActionResult Announce(Participant participant, int id, String message)
+        public IActionResult Announce(Participant participant, int id, string message)
         {
             // Announce label on social media
 
-            Group group = _groupRepository.GetBy(id);
+            var group = _groupRepository.GetBy(id);
             try
             {
-                Post post = group.Announce(message);
+                var post = group.Announce(message);
 
                 _postRepository.Add(post);
                 _postRepository.SaveChanges();

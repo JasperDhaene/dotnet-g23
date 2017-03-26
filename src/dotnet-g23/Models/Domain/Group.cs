@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using dotnet_g23.Models.Domain.State;
-using Action = dotnet_g23.Models.Domain.Action;
 
 namespace dotnet_g23.Models.Domain
 {
@@ -11,7 +9,7 @@ namespace dotnet_g23.Models.Domain
     {
         #region Fields
 
-        private String _name;
+        private string _name;
 
         #endregion
 
@@ -31,26 +29,24 @@ namespace dotnet_g23.Models.Domain
         public Context Context { get; set; }
 
         // Database serialisation property
-        public String StateContext
+        public string StateContext
         {
             get { return Context.SerializableState; }
             set { Context.SerializableState = value; }
         }
 
-        public String Name
+        public string Name
         {
             get { return _name; }
             private set
             {
-                if (value == null || value.Trim() == String.Empty || value == String.Empty)
-                {
+                if ((value == null) || (value.Trim() == string.Empty) || (value == string.Empty))
                     throw new GoedBezigException("Naam mag niet leeg zijn");
-                }
                 _name = value;
             }
         }
 
-        public Boolean Closed { get; set; }
+        public bool Closed { get; set; }
 
         #endregion
 
@@ -64,13 +60,13 @@ namespace dotnet_g23.Models.Domain
             Context = new Context();
         }
 
-        public Group(String name) : this()
+        public Group(string name) : this()
         {
             Name = name;
             Closed = false;
         }
 
-        public Group(String name, Boolean closed) : this(name)
+        public Group(string name, bool closed) : this(name)
         {
             Closed = closed;
         }
@@ -104,22 +100,22 @@ namespace dotnet_g23.Models.Domain
             Context.Grant(this, company);
         }
 
-        public Post Announce(String message)
+        public Post Announce(string message)
         {
             return Context.Announce(Label, message);
         }
 
-        public void SetupAction(String title, String description, DateTime? date = null)
+        public void SetupAction(string title, string description, DateTime? date = null)
         {
             Context.SetupAction(this, title, description, date);
         }
 
-        public Boolean CanInvite()
+        public bool CanInvite()
         {
             return Context.CanInvite();
         }
 
-        public Boolean CanSetup()
+        public bool CanSetup()
         {
             return Context.CanSetup();
         }

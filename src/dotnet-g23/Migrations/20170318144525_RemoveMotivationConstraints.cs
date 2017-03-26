@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dotnet_g23.Migrations
 {
@@ -9,32 +7,32 @@ namespace dotnet_g23.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "OrganizationWebsite",
-                table: "Motivations",
+                "OrganizationWebsite",
+                "Motivations",
                 nullable: true,
                 oldClrType: typeof(string));
 
             migrationBuilder.AlterColumn<string>(
-                name: "OrganizationName",
-                table: "Motivations",
+                "OrganizationName",
+                "Motivations",
                 nullable: true,
                 oldClrType: typeof(string));
 
             migrationBuilder.AlterColumn<string>(
-                name: "OrganizationEmail",
-                table: "Motivations",
+                "OrganizationEmail",
+                "Motivations",
                 nullable: true,
                 oldClrType: typeof(string));
 
             migrationBuilder.AlterColumn<string>(
-                name: "OrganizationAddress",
-                table: "Motivations",
+                "OrganizationAddress",
+                "Motivations",
                 nullable: true,
                 oldClrType: typeof(string));
 
             migrationBuilder.AlterColumn<string>(
-                name: "MotivationText",
-                table: "Motivations",
+                "MotivationText",
+                "Motivations",
                 nullable: true,
                 oldClrType: typeof(string));
         }
@@ -42,36 +40,36 @@ namespace dotnet_g23.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "OrganizationWebsite",
-                table: "Motivations",
+                "OrganizationWebsite",
+                "Motivations",
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "OrganizationName",
-                table: "Motivations",
+                "OrganizationName",
+                "Motivations",
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "OrganizationEmail",
-                table: "Motivations",
+                "OrganizationEmail",
+                "Motivations",
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "OrganizationAddress",
-                table: "Motivations",
+                "OrganizationAddress",
+                "Motivations",
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "MotivationText",
-                table: "Motivations",
+                "MotivationText",
+                "Motivations",
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);

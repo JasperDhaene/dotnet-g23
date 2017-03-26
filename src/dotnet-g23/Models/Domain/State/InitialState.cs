@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace dotnet_g23.Models.Domain.State
 {
@@ -19,7 +18,7 @@ namespace dotnet_g23.Models.Domain.State
             if (participant.Group != null)
                 throw new StateException("Gebruiker behoort al tot een groep");
 
-            Invitation invitation = new Invitation(group, participant);
+            var invitation = new Invitation(group, participant);
             participant.Invitations.Add(invitation);
         }
 
@@ -54,7 +53,7 @@ namespace dotnet_g23.Models.Domain.State
             group.Motivation = motivation;
         }
 
-        public override Boolean CanInvite()
+        public override bool CanInvite()
         {
             return true;
         }

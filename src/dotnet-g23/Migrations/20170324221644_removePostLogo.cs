@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dotnet_g23.Migrations
@@ -9,25 +8,25 @@ namespace dotnet_g23.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Logo",
-                table: "Posts");
+                "Logo",
+                "Posts");
 
             migrationBuilder.AlterColumn<string>(
-                name: "MotivationText",
-                table: "Motivations",
+                "MotivationText",
+                "Motivations",
                 maxLength: 250,
                 nullable: true,
                 oldClrType: typeof(string),
                 oldNullable: true);
 
             migrationBuilder.AddColumn<byte[]>(
-                name: "Logo",
-                table: "Companies",
+                "Logo",
+                "Companies",
                 nullable: true);
 
             migrationBuilder.AlterColumn<DateTime>(
-                name: "Date",
-                table: "Actions",
+                "Date",
+                "Actions",
                 nullable: true,
                 oldClrType: typeof(DateTime));
         }
@@ -35,26 +34,26 @@ namespace dotnet_g23.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Logo",
-                table: "Companies");
+                "Logo",
+                "Companies");
 
             migrationBuilder.AddColumn<byte[]>(
-                name: "Logo",
-                table: "Posts",
+                "Logo",
+                "Posts",
                 nullable: false,
                 defaultValue: new byte[] {});
 
             migrationBuilder.AlterColumn<string>(
-                name: "MotivationText",
-                table: "Motivations",
+                "MotivationText",
+                "Motivations",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldMaxLength: 250,
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<DateTime>(
-                name: "Date",
-                table: "Actions",
+                "Date",
+                "Actions",
                 nullable: false,
                 oldClrType: typeof(DateTime),
                 oldNullable: true);

@@ -1,18 +1,17 @@
-﻿using System;
-using dotnet_g23.Models;
-using dotnet_g23.Models.Domain;
-using dotnet_g23.Models.Domain.State;
+﻿using dotnet_g23.Models.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Action = dotnet_g23.Models.Domain.Action;
-using ApplicationUser = dotnet_g23.Models.Domain.ApplicationUser;
 
 namespace dotnet_g23.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
         // GiveADay database entities
         public DbSet<GUser> GUsers { get; private set; }
         public DbSet<Organization> Organizations { get; private set; }
@@ -33,11 +32,6 @@ namespace dotnet_g23.Data
         public DbSet<Post> Posts { get; private set; }
 
         public DbSet<Action> Actions { get; private set; }
-
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -244,7 +238,7 @@ namespace dotnet_g23.Data
                 .IsRequired();
         }
 
-        private static void MapAction(EntityTypeBuilder<Models.Domain.Action> a)
+        private static void MapAction(EntityTypeBuilder<Action> a)
         {
             a.ToTable("Actions");
             a.HasKey(ac => ac.ActionId);

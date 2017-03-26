@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace dotnet_g23.Models.Domain
 {
@@ -17,27 +13,27 @@ namespace dotnet_g23.Models.Domain
         [Required(ErrorMessage = "motivatie is vereist")]
         [MinLength(100, ErrorMessage = "motivatie moet langer dan 100 karakters zijn")]
         [MaxLength(250, ErrorMessage = "motivate mag niet langer dan 250 karakters zijn")]
-        public String MotivationText { get; set; }
+        public string MotivationText { get; set; }
 
-        public Boolean Approved { get; set; }
+        public bool Approved { get; set; }
 
         [Required(ErrorMessage = "naam van organizatie is vereist")]
-        public String OrganizationName { get; set; }
+        public string OrganizationName { get; set; }
 
         [Required(ErrorMessage = "adres van organizatie is vereist")]
-        public String OrganizationAddress { get; set; }
+        public string OrganizationAddress { get; set; }
 
         [Required(ErrorMessage = "website van organizatie is vereist")]
-        public String OrganizationWebsite { get; set; }
+        public string OrganizationWebsite { get; set; }
 
         [Required(ErrorMessage = "email van organizatie is vereist")]
         [DataType(DataType.EmailAddress, ErrorMessage = "email van organizatie moet een geldig emailadres zijn")]
-        public String OrganizationEmail { get; set; }
+        public string OrganizationEmail { get; set; }
 
-        public String OrganizationContactTitle { get; set; }
-        public String OrganizationContactFirstName { get; set; }
-        public String OrganizationContactName { get; set; }
-        public String OrganizationContactEmail { get; set; }
+        public string OrganizationContactTitle { get; set; }
+        public string OrganizationContactFirstName { get; set; }
+        public string OrganizationContactName { get; set; }
+        public string OrganizationContactEmail { get; set; }
 
         #endregion
 
@@ -47,7 +43,7 @@ namespace dotnet_g23.Models.Domain
         {
         }
 
-        public Motivation(String motivationText) : this()
+        public Motivation(string motivationText) : this()
         {
             MotivationText = motivationText;
             Approved = false;

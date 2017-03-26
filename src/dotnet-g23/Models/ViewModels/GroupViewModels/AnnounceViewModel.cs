@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using dotnet_g23.Models.Domain;
+﻿using dotnet_g23.Models.Domain;
 
 namespace dotnet_g23.Models.ViewModels.GroupViewModels
 {
@@ -11,7 +7,7 @@ namespace dotnet_g23.Models.ViewModels.GroupViewModels
         #region Properties
 
         public Label Label { get; set; }
-        public String Message { get; set; }
+        public string Message { get; set; }
 
         #endregion
     }

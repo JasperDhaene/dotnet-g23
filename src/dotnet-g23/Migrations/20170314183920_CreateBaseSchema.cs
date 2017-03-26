@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dotnet_g23.Migrations
 {
@@ -10,8 +9,8 @@ namespace dotnet_g23.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
+                "AspNetUsers",
+                table => new
                 {
                     Id = table.Column<string>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
@@ -32,8 +31,8 @@ namespace dotnet_g23.Migrations
                 constraints: table => { table.PrimaryKey("PK_AspNetUsers", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
+                "Users",
+                table => new
                 {
                     UserId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -46,8 +45,8 @@ namespace dotnet_g23.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Organizations",
-                columns: table => new
+                "Organizations",
+                table => new
                 {
                     OrganizationId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -58,8 +57,8 @@ namespace dotnet_g23.Migrations
                 constraints: table => { table.PrimaryKey("PK_Organizations", x => x.OrganizationId); });
 
             migrationBuilder.CreateTable(
-                name: "AspNetRoles",
-                columns: table => new
+                "AspNetRoles",
+                table => new
                 {
                     Id = table.Column<string>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
@@ -69,8 +68,8 @@ namespace dotnet_g23.Migrations
                 constraints: table => { table.PrimaryKey("PK_AspNetRoles", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserTokens",
-                columns: table => new
+                "AspNetUserTokens",
+                table => new
                 {
                     UserId = table.Column<string>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
@@ -81,8 +80,8 @@ namespace dotnet_g23.Migrations
                 table => { table.PrimaryKey("PK_AspNetUserTokens", x => new {x.UserId, x.LoginProvider, x.Name}); });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
-                columns: table => new
+                "AspNetUserClaims",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -94,16 +93,16 @@ namespace dotnet_g23.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        x => x.UserId,
+                        "AspNetUsers",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserLogins",
-                columns: table => new
+                "AspNetUserLogins",
+                table => new
                 {
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
@@ -114,16 +113,16 @@ namespace dotnet_g23.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUserLogins", x => new {x.LoginProvider, x.ProviderKey});
                     table.ForeignKey(
-                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        x => x.UserId,
+                        "AspNetUsers",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
-                columns: table => new
+                "AspNetRoleClaims",
+                table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -135,16 +134,16 @@ namespace dotnet_g23.Migrations
                 {
                     table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
+                        "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        x => x.RoleId,
+                        "AspNetRoles",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserRoles",
-                columns: table => new
+                "AspNetUserRoles",
+                table => new
                 {
                     UserId = table.Column<string>(nullable: false),
                     RoleId = table.Column<string>(nullable: false)
@@ -153,22 +152,22 @@ namespace dotnet_g23.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUserRoles", x => new {x.UserId, x.RoleId});
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
+                        "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        x => x.RoleId,
+                        "AspNetRoles",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        x => x.UserId,
+                        "AspNetUsers",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Invitations",
-                columns: table => new
+                "Invitations",
+                table => new
                 {
                     InvitationId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -178,8 +177,8 @@ namespace dotnet_g23.Migrations
                 constraints: table => { table.PrimaryKey("PK_Invitations", x => x.InvitationId); });
 
             migrationBuilder.CreateTable(
-                name: "Motivations",
-                columns: table => new
+                "Motivations",
+                table => new
                 {
                     MotivationId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -198,8 +197,8 @@ namespace dotnet_g23.Migrations
                 constraints: table => { table.PrimaryKey("PK_Motivations", x => x.MotivationId); });
 
             migrationBuilder.CreateTable(
-                name: "UserStates",
-                columns: table => new
+                "UserStates",
+                table => new
                 {
                     UserStateId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -213,28 +212,28 @@ namespace dotnet_g23.Migrations
                 {
                     table.PrimaryKey("PK_UserStates", x => x.UserStateId);
                     table.ForeignKey(
-                        name: "FK_UserStates_Users_UserForeignKey",
-                        column: x => x.UserForeignKey,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
+                        "FK_UserStates_Users_UserForeignKey",
+                        x => x.UserForeignKey,
+                        "Users",
+                        "UserId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserStates_UserStates_LectorUserStateId",
-                        column: x => x.LectorUserStateId,
-                        principalTable: "UserStates",
-                        principalColumn: "UserStateId",
+                        "FK_UserStates_UserStates_LectorUserStateId",
+                        x => x.LectorUserStateId,
+                        "UserStates",
+                        "UserStateId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserStates_Organizations_OrganizationId",
-                        column: x => x.OrganizationId,
-                        principalTable: "Organizations",
-                        principalColumn: "OrganizationId",
+                        "FK_UserStates_Organizations_OrganizationId",
+                        x => x.OrganizationId,
+                        "Organizations",
+                        "OrganizationId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Groups",
-                columns: table => new
+                "Groups",
+                table => new
                 {
                     GroupId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -249,131 +248,131 @@ namespace dotnet_g23.Migrations
                     table.PrimaryKey("PK_Groups", x => x.GroupId);
                     table.UniqueConstraint("AK_Groups_Name", x => x.Name);
                     table.ForeignKey(
-                        name: "FK_Groups_UserStates_LectorUserStateId",
-                        column: x => x.LectorUserStateId,
-                        principalTable: "UserStates",
-                        principalColumn: "UserStateId",
+                        "FK_Groups_UserStates_LectorUserStateId",
+                        x => x.LectorUserStateId,
+                        "UserStates",
+                        "UserStateId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Groups_Organizations_OrganizationId",
-                        column: x => x.OrganizationId,
-                        principalTable: "Organizations",
-                        principalColumn: "OrganizationId",
+                        "FK_Groups_Organizations_OrganizationId",
+                        x => x.OrganizationId,
+                        "Organizations",
+                        "OrganizationId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "EmailIndex",
-                table: "AspNetUsers",
-                column: "NormalizedEmail");
+                "EmailIndex",
+                "AspNetUsers",
+                "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
-                name: "UserNameIndex",
-                table: "AspNetUsers",
-                column: "NormalizedUserName",
+                "UserNameIndex",
+                "AspNetUsers",
+                "NormalizedUserName",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Groups_LectorUserStateId",
-                table: "Groups",
-                column: "LectorUserStateId");
+                "IX_Groups_LectorUserStateId",
+                "Groups",
+                "LectorUserStateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Groups_OrganizationId",
-                table: "Groups",
-                column: "OrganizationId");
+                "IX_Groups_OrganizationId",
+                "Groups",
+                "OrganizationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invitations_GroupId",
-                table: "Invitations",
-                column: "GroupId");
+                "IX_Invitations_GroupId",
+                "Invitations",
+                "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invitations_ParticipantUserStateId",
-                table: "Invitations",
-                column: "ParticipantUserStateId");
+                "IX_Invitations_ParticipantUserStateId",
+                "Invitations",
+                "ParticipantUserStateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Motivations_GroupForeignKey",
-                table: "Motivations",
-                column: "GroupForeignKey",
+                "IX_Motivations_GroupForeignKey",
+                "Motivations",
+                "GroupForeignKey",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserStates_UserForeignKey",
-                table: "UserStates",
-                column: "UserForeignKey",
+                "IX_UserStates_UserForeignKey",
+                "UserStates",
+                "UserForeignKey",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserStates_GroupId",
-                table: "UserStates",
-                column: "GroupId");
+                "IX_UserStates_GroupId",
+                "UserStates",
+                "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserStates_LectorUserStateId",
-                table: "UserStates",
-                column: "LectorUserStateId");
+                "IX_UserStates_LectorUserStateId",
+                "UserStates",
+                "LectorUserStateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserStates_OrganizationId",
-                table: "UserStates",
-                column: "OrganizationId");
+                "IX_UserStates_OrganizationId",
+                "UserStates",
+                "OrganizationId");
 
             migrationBuilder.CreateIndex(
-                name: "RoleNameIndex",
-                table: "AspNetRoles",
-                column: "NormalizedName");
+                "RoleNameIndex",
+                "AspNetRoles",
+                "NormalizedName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetRoleClaims_RoleId",
-                table: "AspNetRoleClaims",
-                column: "RoleId");
+                "IX_AspNetRoleClaims_RoleId",
+                "AspNetRoleClaims",
+                "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserClaims_UserId",
-                table: "AspNetUserClaims",
-                column: "UserId");
+                "IX_AspNetUserClaims_UserId",
+                "AspNetUserClaims",
+                "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserLogins_UserId",
-                table: "AspNetUserLogins",
-                column: "UserId");
+                "IX_AspNetUserLogins_UserId",
+                "AspNetUserLogins",
+                "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_RoleId",
-                table: "AspNetUserRoles",
-                column: "RoleId");
+                "IX_AspNetUserRoles_RoleId",
+                "AspNetUserRoles",
+                "RoleId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Invitations_UserStates_ParticipantUserStateId",
-                table: "Invitations",
-                column: "ParticipantUserStateId",
-                principalTable: "UserStates",
+                "FK_Invitations_UserStates_ParticipantUserStateId",
+                "Invitations",
+                "ParticipantUserStateId",
+                "UserStates",
                 principalColumn: "UserStateId",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Invitations_Groups_GroupId",
-                table: "Invitations",
-                column: "GroupId",
-                principalTable: "Groups",
+                "FK_Invitations_Groups_GroupId",
+                "Invitations",
+                "GroupId",
+                "Groups",
                 principalColumn: "GroupId",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Motivations_Groups_GroupForeignKey",
-                table: "Motivations",
-                column: "GroupForeignKey",
-                principalTable: "Groups",
+                "FK_Motivations_Groups_GroupForeignKey",
+                "Motivations",
+                "GroupForeignKey",
+                "Groups",
                 principalColumn: "GroupId",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_UserStates_Groups_GroupId",
-                table: "UserStates",
-                column: "GroupId",
-                principalTable: "Groups",
+                "FK_UserStates_Groups_GroupId",
+                "UserStates",
+                "GroupId",
+                "Groups",
                 principalColumn: "GroupId",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -381,47 +380,47 @@ namespace dotnet_g23.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Groups_UserStates_LectorUserStateId",
-                table: "Groups");
+                "FK_Groups_UserStates_LectorUserStateId",
+                "Groups");
 
             migrationBuilder.DropTable(
-                name: "Invitations");
+                "Invitations");
 
             migrationBuilder.DropTable(
-                name: "Motivations");
+                "Motivations");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoleClaims");
+                "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserClaims");
+                "AspNetUserClaims");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserLogins");
+                "AspNetUserLogins");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserRoles");
+                "AspNetUserRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
+                "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "UserStates");
+                "UserStates");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                "Users");
 
             migrationBuilder.DropTable(
-                name: "Groups");
+                "Groups");
 
             migrationBuilder.DropTable(
-                name: "Organizations");
+                "Organizations");
         }
     }
 }

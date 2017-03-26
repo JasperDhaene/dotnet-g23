@@ -1,5 +1,4 @@
 ﻿@using System.Threading.Tasks
-@using dotnet_g23.Models.Domain.State
 @model dotnet_g23.Models.ViewModels.GroupViewModels.ShowViewModel
 
 @{
@@ -57,7 +56,7 @@
                 foreach (var activity in Model.Group.Actions)
                 {
                     <div class="card m-t-1">
-                        @if (@activity.Date != null)
+                        @if (activity.Date != null)
                         {
                             <p class="f-sm-right">
                                 Datum: @activity.Date.Value.ToString("dd-MM-yyyy")

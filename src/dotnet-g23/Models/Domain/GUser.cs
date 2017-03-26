@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace dotnet_g23.Models.Domain
 {
@@ -10,7 +7,7 @@ namespace dotnet_g23.Models.Domain
     {
         #region Fields
 
-        private String _email;
+        private string _email;
 
         #endregion
 
@@ -19,7 +16,7 @@ namespace dotnet_g23.Models.Domain
         public int UserId { get; private set; }
         public UserState UserState { get; set; }
 
-        public String Email
+        public string Email
         {
             get { return _email; }
             set
@@ -31,7 +28,7 @@ namespace dotnet_g23.Models.Domain
         }
 
         [NotMapped]
-        public String Domain => Email?.Split('@').Last();
+        public string Domain => Email?.Split('@').Last();
 
         #endregion
 
@@ -41,13 +38,13 @@ namespace dotnet_g23.Models.Domain
         {
         }
 
-        public GUser(String email, UserState userState) : this()
+        public GUser(string email, UserState userState) : this()
         {
             Email = email;
             UserState = userState;
         }
 
-        public GUser(String email) : this(email, null)
+        public GUser(string email) : this(email, null)
         {
         }
 

@@ -1,10 +1,8 @@
-﻿@using System.Threading.Tasks
-@using dotnet_g23.Models.Domain
-
-@{
+﻿@{
     ViewData["Title"] = "Register";
 }
 
+@using System.Threading.Tasks
 @model dotnet_g23.Models.ViewModels.OrganizationViewModels.IndexViewModel
 
 @Html.Partial("_ContainerStart")
@@ -35,7 +33,7 @@
         <h1>Goed Bezig organisaties</h1>
 
         <br/>
-        @if (Model.Organizations == null || !Model.Organizations.Any())
+        @if ((Model.Organizations == null) || !Model.Organizations.Any())
         {
             <div class="alert alert-info m-t-1">
                 <i class="fa fa-info-circle"></i> Geen organisaties gevonden.
@@ -50,7 +48,7 @@
                         @org.Name (@org.Location)
                         <input type="hidden" value="@org.OrganizationId" name="organizationId"/>
 
-                        @if (Model.SubscribedOrganization == null && Model.User.Domain == org.Domain)
+                        @if ((Model.SubscribedOrganization == null) && (Model.User.Domain == org.Domain))
                         {
                             <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-primary btn-md f-right">Registreren</a>
                         }

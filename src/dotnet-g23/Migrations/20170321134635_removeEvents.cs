@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dotnet_g23.Migrations
@@ -9,12 +8,12 @@ namespace dotnet_g23.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "action_type",
-                table: "Actions");
+                "action_type",
+                "Actions");
 
             migrationBuilder.AlterColumn<DateTime>(
-                name: "Date",
-                table: "Actions",
+                "Date",
+                "Actions",
                 nullable: false,
                 oldClrType: typeof(DateTime),
                 oldNullable: true);
@@ -23,14 +22,14 @@ namespace dotnet_g23.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<DateTime>(
-                name: "Date",
-                table: "Actions",
+                "Date",
+                "Actions",
                 nullable: true,
                 oldClrType: typeof(DateTime));
 
             migrationBuilder.AddColumn<string>(
-                name: "action_type",
-                table: "Actions",
+                "action_type",
+                "Actions",
                 nullable: false,
                 defaultValue: "");
         }

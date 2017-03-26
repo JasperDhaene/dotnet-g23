@@ -1,11 +1,9 @@
-﻿@using System.Threading.Tasks
-@using dotnet_g23.Models.Domain
-@using dotnet_g23.Models.Domain.State
-
-@{
+﻿@{
     ViewData["Title"] = "Groepen";
 }
 
+@using System.Threading.Tasks
+@using dotnet_g23.Models.Domain.State
 @model dotnet_g23.Models.ViewModels.GroupViewModels.IndexViewModel
 @Html.Partial("_ContainerStart")
 <div class="row">
@@ -53,7 +51,7 @@
             }
         }
         <h3>Open groepen</h3>
-        @if (Model.OpenGroups == null || !Model.OpenGroups.Any())
+        @if ((Model.OpenGroups == null) || !Model.OpenGroups.Any())
         {
             <div class="alert alert-info m-t-1">
                 <i class="fa fa-info-circle"></i> Geen groepen gevonden binnen de organisatie.
@@ -66,7 +64,7 @@
                 <div class="card">
                     <form asp-controller="Group" asp-action="Register" asp-route-id="@group.GroupId" method="post">
                         @group.Name <span class="badge">@group.Participants.Count @(group.Participants.Count == 1 ? "cursist" : "cursisten")</span>
-                        @if (Model.SubscribedGroup == null && (group.Context.CurrentState is InitialState || group.Context.CurrentState is SubmittedState))
+                        @if ((Model.SubscribedGroup == null) && (group.Context.CurrentState is InitialState || group.Context.CurrentState is SubmittedState))
                         {
                             <a href="#" onclick="$(this).closest('form')[0].submit();" class="btn btn-secondary btn-md f-sm-right">Toetreden</a>
                         }

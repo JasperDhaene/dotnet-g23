@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using dotnet_g23.Controllers;
-using dotnet_g23.Models.Domain.Repositories;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace dotnet_g23.Models.Domain
@@ -10,9 +7,9 @@ namespace dotnet_g23.Models.Domain
     {
         #region Fields
 
-        private String _name;
-        private String _location;
-        private String _domain;
+        private string _name;
+        private string _location;
+        private string _domain;
 
         #endregion
 
@@ -22,15 +19,13 @@ namespace dotnet_g23.Models.Domain
         public ICollection<Participant> Participants { get; }
         public ICollection<Group> Groups { get; }
 
-        public String Name
+        public string Name
         {
             get { return _name; }
             private set
             {
-                if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
-                {
+                if (value.Equals(null) || (value.Trim() == string.Empty) || (value == string.Empty))
                     throw new GoedBezigException("Naam mag niet leeg zijn");
-                }
                 _name = value;
             }
         }
@@ -40,10 +35,8 @@ namespace dotnet_g23.Models.Domain
             get { return _location; }
             private set
             {
-                if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
-                {
+                if (value.Equals(null) || (value.Trim() == string.Empty) || (value == string.Empty))
                     throw new GoedBezigException("Locatie mag niet leeg zijn");
-                }
                 _location = value;
             }
         }
@@ -53,10 +46,8 @@ namespace dotnet_g23.Models.Domain
             get { return _domain; }
             private set
             {
-                if (value.Equals(null) || value.Trim() == String.Empty || value == String.Empty)
-                {
+                if (value.Equals(null) || (value.Trim() == string.Empty) || (value == string.Empty))
                     throw new GoedBezigException("Domein mag niet leeg zijn");
-                }
                 _domain = value;
             }
         }
@@ -71,7 +62,7 @@ namespace dotnet_g23.Models.Domain
             Groups = new List<Group>();
         }
 
-        public Organization(String name, String location, String domain) : this()
+        public Organization(string name, string location, string domain) : this()
         {
             Name = name;
             Location = location;
@@ -93,7 +84,7 @@ namespace dotnet_g23.Models.Domain
             user.UserState = new Participant(this);
         }
 
-        public Group CreateGroup(Participant participant, String name, Boolean closed)
+        public Group CreateGroup(Participant participant, string name, bool closed)
         {
             if (participant.Group != null)
                 throw new GoedBezigException("U bent reeds ingeschreven in een groep");
@@ -101,7 +92,7 @@ namespace dotnet_g23.Models.Domain
             if (Groups.Any(g => g.Name == name))
                 throw new GoedBezigException($"De naam '{name}' is al in gebruik binnen deze organisatie");
 
-            Group group = new Group(name, closed);
+            var group = new Group(name, closed);
 
             Groups.Add(group);
             group.Organization = this;

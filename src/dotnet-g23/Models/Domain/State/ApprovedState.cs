@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace dotnet_g23.Models.Domain.State
+﻿namespace dotnet_g23.Models.Domain.State
 {
     public class ApprovedState : State
     {
@@ -22,7 +17,7 @@ namespace dotnet_g23.Models.Domain.State
             if (company.Label != null)
                 throw new StateException($"Bedrijf '{company.Name}' beschikt al over een Goed Bezig-label");
 
-            Label label = new Label(group, company);
+            var label = new Label(group, company);
 
             group.Label = label;
             company.Label = label;

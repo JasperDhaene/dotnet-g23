@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace dotnet_g23.Models.Domain
 {
@@ -11,12 +7,12 @@ namespace dotnet_g23.Models.Domain
         #region Properties
 
         public int CompanyId { get; private set; }
-        public String Name { get; set; }
-        public String Description { get; set; }
-        public String Address { get; set; }
-        public String Website { get; set; }
-        public String Email { get; set; }
-        public Byte[] Logo { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Address { get; set; }
+        public string Website { get; set; }
+        public string Email { get; set; }
+        public byte[] Logo { get; set; }
         public ICollection<Contact> Contacts { get; }
         public Label Label { get; set; }
 
@@ -29,7 +25,7 @@ namespace dotnet_g23.Models.Domain
             Contacts = new List<Contact>();
         }
 
-        public Company(string name, string description, string address, string website, string email, Byte[] logo)
+        public Company(string name, string description, string address, string website, string email, byte[] logo)
             : this()
         {
             Name = name;

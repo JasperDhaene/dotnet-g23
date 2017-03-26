@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace dotnet_g23.Migrations
 {
@@ -10,8 +8,8 @@ namespace dotnet_g23.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Labels",
-                columns: table => new
+                "Labels",
+                table => new
                 {
                     LabelId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -22,36 +20,36 @@ namespace dotnet_g23.Migrations
                 {
                     table.PrimaryKey("PK_Labels", x => x.LabelId);
                     table.ForeignKey(
-                        name: "FK_Labels_Companies_CompanyForeignKey",
-                        column: x => x.CompanyForeignKey,
-                        principalTable: "Companies",
-                        principalColumn: "CompanyId",
+                        "FK_Labels_Companies_CompanyForeignKey",
+                        x => x.CompanyForeignKey,
+                        "Companies",
+                        "CompanyId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Labels_Groups_GroupForeignKey",
-                        column: x => x.GroupForeignKey,
-                        principalTable: "Groups",
-                        principalColumn: "GroupId",
+                        "FK_Labels_Groups_GroupForeignKey",
+                        x => x.GroupForeignKey,
+                        "Groups",
+                        "GroupId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Labels_CompanyForeignKey",
-                table: "Labels",
-                column: "CompanyForeignKey",
+                "IX_Labels_CompanyForeignKey",
+                "Labels",
+                "CompanyForeignKey",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Labels_GroupForeignKey",
-                table: "Labels",
-                column: "GroupForeignKey",
+                "IX_Labels_GroupForeignKey",
+                "Labels",
+                "GroupForeignKey",
                 unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Labels");
+                "Labels");
         }
     }
 }

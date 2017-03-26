@@ -1,9 +1,8 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotnet_g23.Data.Repositories
 {
@@ -53,7 +52,7 @@ namespace dotnet_g23.Data.Repositories
                 .Include(g => g.Label)
                 .Include(g => g.Actions)
                 .OrderBy(g => g.Name)
-                .Where(g => g.Organization != null && g.Organization == organization);
+                .Where(g => (g.Organization != null) && (g.Organization == organization));
         }
 
         public void SaveChanges()

@@ -1,9 +1,8 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotnet_g23.Data.Repositories
 {
@@ -30,7 +29,7 @@ namespace dotnet_g23.Data.Repositories
                 .SingleOrDefault(o => o.OrganizationId == OrganizationId);
         }
 
-        public IEnumerable<Organization> GetByKeyword(String query)
+        public IEnumerable<Organization> GetByKeyword(string query)
         {
             return _organizations
                 .Where(org => org.Name.Contains(query) || org.Location.Contains(query))

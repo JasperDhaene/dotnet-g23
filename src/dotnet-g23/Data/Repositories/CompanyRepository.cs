@@ -1,17 +1,15 @@
-﻿using dotnet_g23.Models.Domain;
+﻿using System.Collections.Generic;
+using System.Linq;
+using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace dotnet_g23.Data.Repositories
 {
     public class CompanyRepository : ICompanyRepository
     {
-        private readonly ApplicationDbContext _context;
         private readonly DbSet<Company> _companies;
+        private readonly ApplicationDbContext _context;
 
         public CompanyRepository(ApplicationDbContext context)
         {
@@ -36,7 +34,7 @@ namespace dotnet_g23.Data.Repositories
                 .SingleOrDefault(c => c.CompanyId == companyId);
         }
 
-        public IEnumerable<Company> GetByKeyword(String query)
+        public IEnumerable<Company> GetByKeyword(string query)
         {
             return _companies
                 .Include(c => c.Contacts)

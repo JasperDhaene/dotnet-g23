@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
+using dotnet_g23.Data;
+using dotnet_g23.Data.Repositories;
+using dotnet_g23.Filters;
+using dotnet_g23.Models.Domain;
+using dotnet_g23.Models.Domain.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using dotnet_g23.Data;
-using Microsoft.EntityFrameworkCore;
-using dotnet_g23.Models.Domain;
-using dotnet_g23.Data.Repositories;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using dotnet_g23.Services;
-using System.Security.Claims;
-using dotnet_g23.Filters;
-using dotnet_g23.Models.Domain.Repositories;
 
 namespace dotnet_g23
 {
@@ -25,18 +21,12 @@ namespace dotnet_g23
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                 .AddEnvironmentVariables();
 
             if (env.IsDevelopment())
-            {
-                //// For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                //builder.AddUserSecrets();
-
-                // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-                builder.AddApplicationInsightsSettings(developerMode: true);
-            }
+                builder.AddApplicationInsightsSettings(true);
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -132,8 +122,8 @@ namespace dotnet_g23
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
             });
 
             initializer.InitializeData().Wait();

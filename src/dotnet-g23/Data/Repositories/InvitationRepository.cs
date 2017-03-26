@@ -1,9 +1,8 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotnet_g23.Data.Repositories
 {
@@ -42,7 +41,7 @@ namespace dotnet_g23.Data.Repositories
                 _invitations
                     .Include(n => n.Participant)
                     .Include(n => n.Group)
-                    .Where(n => n.Participant == participant && n.Group == group)
+                    .Where(n => (n.Participant == participant) && (n.Group == group))
             );
         }
 

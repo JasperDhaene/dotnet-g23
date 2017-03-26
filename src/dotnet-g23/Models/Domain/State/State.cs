@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Diagnostics.Views;
 
 namespace dotnet_g23.Models.Domain.State
 {
@@ -35,22 +31,22 @@ namespace dotnet_g23.Models.Domain.State
             throw new StateException($"Operation not supported in {GetType()}: Grant");
         }
 
-        public virtual Post Announce(Context context, Label label, String message)
+        public virtual Post Announce(Context context, Label label, string message)
         {
             throw new StateException($"Operation not supported in {GetType()}: Announce");
         }
 
-        public virtual void SetupAction(Context context, Group group, String title, String description, DateTime? date)
+        public virtual void SetupAction(Context context, Group group, string title, string description, DateTime? date)
         {
             throw new StateException($"Operation not supported in {GetType()}: SetupAction");
         }
 
-        public virtual Boolean CanInvite()
+        public virtual bool CanInvite()
         {
             return false;
         }
 
-        public virtual Boolean CanSetup()
+        public virtual bool CanSetup()
         {
             return false;
         }

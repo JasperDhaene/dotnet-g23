@@ -1,9 +1,7 @@
-﻿using MailKit.Net.Smtp;
-using MimeKit;
-using MimeKit.Text;
-using System;
+﻿using System;
 using System.IO;
-using System.Diagnostics;
+using MailKit.Net.Smtp;
+using MimeKit;
 
 namespace dotnet_g23.Services
 {

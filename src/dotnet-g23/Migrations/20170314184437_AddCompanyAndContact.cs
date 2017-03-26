@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace dotnet_g23.Migrations
 {
@@ -10,8 +8,8 @@ namespace dotnet_g23.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Companies",
-                columns: table => new
+                "Companies",
+                table => new
                 {
                     CompanyId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -23,8 +21,8 @@ namespace dotnet_g23.Migrations
                 constraints: table => { table.PrimaryKey("PK_Companies", x => x.CompanyId); });
 
             migrationBuilder.CreateTable(
-                name: "Contacts",
-                columns: table => new
+                "Contacts",
+                table => new
                 {
                     ContactId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -38,26 +36,26 @@ namespace dotnet_g23.Migrations
                 {
                     table.PrimaryKey("PK_Contacts", x => x.ContactId);
                     table.ForeignKey(
-                        name: "FK_Contacts_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "CompanyId",
+                        "FK_Contacts_Companies_CompanyId",
+                        x => x.CompanyId,
+                        "Companies",
+                        "CompanyId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contacts_CompanyId",
-                table: "Contacts",
-                column: "CompanyId");
+                "IX_Contacts_CompanyId",
+                "Contacts",
+                "CompanyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Contacts");
+                "Contacts");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                "Companies");
         }
     }
 }

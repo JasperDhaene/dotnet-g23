@@ -1,29 +1,24 @@
-﻿using System.Linq;
-using System;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using dotnet_g23.Data;
-using dotnet_g23.Data.Repositories;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
 using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.ViewModels.AccountViewModels;
-using dotnet_g23.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace dotnet_g23.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _context;
         private readonly ILogger _logger;
         private readonly IParticipantRepository _participantRepository;
-        private readonly ApplicationDbContext _context;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -64,13 +59,13 @@ namespace dotnet_g23.Controllers
                 var result =
                     await
                         _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe,
-                            lockoutOnFailure: false);
+                            false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
 
                     // Redirect to appropriate page
-                    Participant participant = _participantRepository.GetByEmail(model.Email);
+                    var participant = _participantRepository.GetByEmail(model.Email);
                     if (participant == null)
                         return RedirectToAction("Index", "Organization");
 
@@ -83,11 +78,8 @@ namespace dotnet_g23.Controllers
                     _logger.LogWarning(2, "User account locked out.");
                     return View("Lockout");
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
-                }
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View(model);
             }
 
             // If we got this far, something failed, redisplay form
@@ -118,7 +110,7 @@ namespace dotnet_g23.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "participant"));
 
-                GUser guser = new GUser(model.Email);
+                var guser = new GUser(model.Email);
                 _context.GUsers.Add(guser);
                 _context.SaveChanges();
 
@@ -130,7 +122,7 @@ namespace dotnet_g23.Controllers
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _signInManager.SignInAsync(user, false);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -164,17 +156,14 @@ namespace dotnet_g23.Controllers
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
-            {
                 ModelState.AddModelError(string.Empty, error.Description);
-            }
         }
 
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
-            else
-                return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         #endregion
