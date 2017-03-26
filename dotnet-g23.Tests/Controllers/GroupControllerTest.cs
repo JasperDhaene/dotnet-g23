@@ -3,7 +3,6 @@ using dotnet_g23.Models.Domain;
 using dotnet_g23.Models.Domain.Repositories;
 using dotnet_g23.Models.ViewModels.GroupViewModels;
 using dotnet_g23.Tests.Data;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
@@ -30,7 +29,6 @@ namespace dotnet_g23.Tests.Controllers {
             Mock<IInvitationRepository> invRepo = new Mock<IInvitationRepository>();
             Mock<ILabelRepository> lRepo = new Mock<ILabelRepository>();
             Mock<IPostRepository> postRepo = new Mock<IPostRepository>();
-            Mock<IHostingEnvironment> hostEnv = new Mock<IHostingEnvironment>();
 
             groupRepo.Setup(g => g.GetAll()).Returns(_context.Groups);
             groupRepo.Setup(g => g.GetBy(1)).Returns(_context.HogentGroup);
