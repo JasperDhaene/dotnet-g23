@@ -101,15 +101,16 @@
                     foreach (var activity in Model.Group.Actions)
                     {
                         <div class="card m-t-1">
+                            @if (@activity.Date != null)
+                            {
+                                <p class="f-sm-right">
+                                    Datum: @activity.Date.Value.ToString("dd-MM-yyyy")
+                                </p>
+                            }
                             <p class="heading">@activity.Title</p>
                             <p>
                                 @activity.Description
                             </p>
-                            @if(@activity.Date != null){
-                                <p>
-                                    Datum: @activity.Date
-                                </p>
-                            }
                         </div>
                     }
                 }

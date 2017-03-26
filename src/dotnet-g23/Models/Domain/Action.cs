@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace dotnet_g23.Models.Domain
 {
@@ -13,17 +14,10 @@ namespace dotnet_g23.Models.Domain
 
         #region Properties
         public int ActionId { get; private set; }
+        [Required(ErrorMessage = "titel van actie is vereist")]
         public String Title { get; set; }
-        public String Description {
-            get {
-                return _description;
-            }
-            set {
-                if (value.Equals(null) || value.Equals("") || value.Trim(' ').Equals(""))
-                    throw new GoedBezigException("Omschrijving mag niet leeg zijn!");
-                _description = value;
-            }
-        }
+        [Required(ErrorMessage = "beschrijving van actie is vereist")]
+        public String Description { get; set; }
 
         public DateTime? Date { get;  private set; }
 

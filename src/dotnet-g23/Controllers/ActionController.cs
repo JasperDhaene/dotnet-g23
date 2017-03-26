@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Action = dotnet_g23.Models.Domain.Action;
+using Microsoft.EntityFrameworkCore.Internal;
 namespace dotnet_g23.Controllers
 {
     [Authorize(Policy = "participant")]
@@ -60,10 +61,15 @@ namespace dotnet_g23.Controllers
 
             try
 	        {
-                if (createEvent == "off")
+                if (!ModelState.IsValid)
+                    throw new GoedBezigException(ModelState.Values.SelectMany(v => v.Errors.Select(b => b.ErrorMessage)).Join());
+
+                if (createEvent == "off"){
 	                group.SetupAction(action.Title, action.Description);
-                else
+                }
+                else {
                     group.SetupAction(action.Title, action.Description, action.Date);
+                }
 
                 _groupRepository.SaveChanges();
 
@@ -73,7 +79,7 @@ namespace dotnet_g23.Controllers
 	        catch (GoedBezigException e)
 	        {
 	            TempData["error"] = e.Message;
-	            return View("Action");
+	            return RedirectToAction("Update", "Action", new { id = group.GroupId });
 	        }
         }
         #endregion
