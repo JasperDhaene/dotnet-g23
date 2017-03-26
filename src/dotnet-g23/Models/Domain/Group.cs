@@ -73,9 +73,9 @@ namespace dotnet_g23.Models.Domain {
         {
             Context.Register(this, participant);
         }
-        public void Submit(Motivation motivation)
+        public void Submit()
         {
-            Context.Submit(this, motivation);
+            Context.Submit(this);
         }
 
         public void Save(Motivation motivation)

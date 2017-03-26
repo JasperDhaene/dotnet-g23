@@ -19,7 +19,7 @@ namespace dotnet_g23.Models.Domain.State
             throw new StateException($"Operation not supported in { GetType() }: Register");
         }
 
-        public virtual void Submit(Context context, Group group, Motivation motivation)
+        public virtual void Submit(Context context, Group group)
         {
             throw new StateException($"Operation not supported in { GetType() }: Submit");
         }

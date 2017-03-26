@@ -25,6 +25,12 @@ namespace dotnet_g23.Models.Domain.State
 
         public override void Register(Context context, Group group, Participant participant)
         {
+            if (participant == null)
+                throw new StateException("Gebruiker niet gevonden in het systeem");
+
+            if (group == null)
+                throw new StateException("Group niet gevonden in het systeem");
+
             if (participant.Group != null)
                 throw new StateException("U behoort al tot een groep");
 
@@ -35,7 +41,7 @@ namespace dotnet_g23.Models.Domain.State
             group.Participants.Add(participant);
         }
 
-        public override void Submit(Context context, Group group, Motivation motivation)
+        public override void Submit(Context context, Group group)
         {
             if (group.Motivation == null)
                 throw new StateException("Motivatie moet aanwezig zijn");

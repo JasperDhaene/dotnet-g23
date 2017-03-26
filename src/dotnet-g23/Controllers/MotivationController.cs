@@ -58,7 +58,8 @@ namespace dotnet_g23.Controllers {
                     if (!ModelState.IsValid)
                         throw new GoedBezigException(ModelState.Values.SelectMany(v => v.Errors.Select(b => b.ErrorMessage)).Join());
 
-                    group.Submit(motivation);
+                    group.Save(motivation);
+                    group.Submit();
 
                     TempData["success"] = "Uw motivatie werd verzonden naar de begeleidende lector";
                 }

@@ -37,9 +37,9 @@ namespace dotnet_g23.Models.Domain.State
             CurrentState.Register(this, group, participant);
         }
 
-        public void Submit(Group group, Motivation motivation)
+        public void Submit(Group group)
         {
-            CurrentState.Submit(this, group, motivation);
+            CurrentState.Submit(this, group);
         }
 
         public void Save(Group group, Motivation motivation)
