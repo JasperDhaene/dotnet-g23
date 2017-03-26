@@ -60,10 +60,18 @@ namespace dotnet_g23.Tests.Controllers
         #region Show
 
         [Fact]
-        public void ParticipantCanShowDetailsOfCompany() {
+        public void ParticipantCanShowLabelForCompany() {
             ViewResult result = _controller.Show(_ownerApproved, 2) as ViewResult;
             ShowViewModel vm = (ShowViewModel)result?.Model;
             Assert.NotNull(vm.Label);
+        }
+
+        [Fact]
+        public void ParticipantCanSeeTheCompanyNameAndItsContacts() {
+            ViewResult result = _controller.Show(_ownerApproved, 2) as ViewResult;
+            ShowViewModel vm = (ShowViewModel)result?.Model;
+            Assert.Equal(context.Company2, vm.Company);
+            Assert.NotNull(vm.Contacts);
         }
 
         #endregion 

@@ -22,12 +22,5 @@ namespace dotnet_g23.Tests.Models {
             dotnet_g23.Models.Domain.Action action = new dotnet_g23.Models.Domain.Action(group, "Foobar", "Foobar", time);
             Assert.Equal(time, action.Date);
         }
-
-        [Fact]
-        public void ConstructorShouldThrowExceptionOnWrongDescription() {
-            Group group = new Group("open");
-            Assert.Throws<GoedBezigException>(() => new dotnet_g23.Models.Domain.Action(group, "Foobar", "    "));
-            
-        }
     }
 }
