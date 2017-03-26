@@ -25,7 +25,7 @@ namespace dotnet_g23.Models.Domain
             }
         }
 
-        public DateTime? Date { get;  set; } //TODO: private set? Don't know difference
+        public DateTime? Date { get;  private set; }
 
         public Group Group { get; private set; }
         #endregion

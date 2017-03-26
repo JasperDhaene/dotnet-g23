@@ -82,7 +82,6 @@ namespace dotnet_g23.Controllers {
                 foreach (var cId in contactId) { 
                     Contact contact = company.Contacts.First(co => co.ContactId == cId);
                     
-                    //TODO: uncomment this for production and add valid emailadress in datainitializer for demo purposes.
                     sender.SendEmail(company.Name, contact.Email,
                         group.Organization.Name, group.Motivation.MotivationText);
                 }

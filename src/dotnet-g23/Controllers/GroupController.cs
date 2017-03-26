@@ -206,7 +206,7 @@ namespace dotnet_g23.Controllers
             AnnounceViewModel vm = new AnnounceViewModel
             {
                 Label = label,
-                Message = "Mijn aankondiging" // TODO
+                Message = ""
             };
 
             return View(vm);

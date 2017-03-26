@@ -95,8 +95,7 @@ namespace dotnet_g23.Models.Domain
             if (closed)
                 group.Invite(participant);
 
-            // TODO: invitation doesn't get destroyed (because that usually happens in the controller)
-
+            // FIXME: invitation doesn't get destroyed (because that happens in the controller)
             group.Register(participant);
 		    return group;
 		}
