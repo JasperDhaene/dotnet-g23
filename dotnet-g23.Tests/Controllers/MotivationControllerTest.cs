@@ -32,7 +32,6 @@ namespace dotnet_g23.Tests.Controllers {
             GroupRepo.Setup(g => g.GetBy(3)).Returns(context.HogentGroupApproved);
             GroupRepo.Setup(o => o.GetBy(4)).Returns(context.HogentGroupGranted);
             GroupRepo.Setup(g => g.GetBy(5)).Returns(context.HogentGroupAnnounced);
-            GroupRepo.Setup(g => g.GetByName("HogentGroup")).Returns(context.Groups.First());
 
             _controller = new MotivationController(GroupRepo.Object);
             _controller.TempData = new Mock<ITempDataDictionary>().Object;
