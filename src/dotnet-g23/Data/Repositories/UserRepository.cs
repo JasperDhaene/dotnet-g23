@@ -15,18 +15,6 @@ namespace dotnet_g23.Data.Repositories {
             _users = context.GUsers;
         }
 
-        public IEnumerable<GUser> GetAll() {
-            return _users
-                .Include(u => u.UserState)
-                .ToList();
-        }
-
-        public GUser GetBy(int userId) {
-            return _users
-                .Include(u => u.UserState)
-                .SingleOrDefault(u => u.UserId == userId);
-        }
-
         public GUser GetByEmail(string userEmail) {
             return _users
                 .Include(u => u.UserState)

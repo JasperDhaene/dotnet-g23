@@ -37,18 +37,7 @@ namespace dotnet_g23.Data.Repositories {
                 .Include(g => g.Actions)
                 .SingleOrDefault(g => g.GroupId == groupId);
         }
-
-        public Group GetByName(string groupName) {
-            return _groups
-                .Include(g => g.Organization)
-                .Include(g => g.Motivation)
-                .Include(g => g.Lector)
-                .Include(g => g.Participants)
-                .Include(g => g.Label)
-                .Include(g => g.Actions)
-                .SingleOrDefault(g => g.Name == groupName);
-        }
-
+        
 		public IEnumerable<Group> GetByOrganization(Organization organization)
 		{
 		    return _groups

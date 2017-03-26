@@ -40,13 +40,6 @@ namespace dotnet_g23.Data.Repositories
                 .ToList();
         }
 
-        public Company GetByName(String orgName) {
-            return _companies
-                .Include(c => c.Contacts)
-                .Include(c => c.Label)
-                .SingleOrDefault(o => o.Name == orgName);
-        }
-
         public void SaveChanges() {
             _context.SaveChanges();
         }

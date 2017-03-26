@@ -14,29 +14,7 @@ namespace dotnet_g23.Data.Repositories {
             _context = context;
             _participants = context.Participants;
         }
-
-        public IEnumerable<Participant> GetAll() {
-            return _participants
-                .Include(p => p.Group)
-                .Include(p => p.Lector)
-                .Include(p => p.Organization)
-                .Include(p => p.User)
-                .Include(p => p.Invitations)
-                .ToList();
-        }
-
-
-
-        public Participant GetBy(int userStateId) {
-            return _participants
-                .Include(p => p.Group)
-                .Include(p => p.Lector)
-                .Include(p => p.Organization)
-                .Include(p => p.User)
-                .Include(p => p.Invitations)
-                .SingleOrDefault(p => p.UserStateId == userStateId);
-        }
-
+        
         public Participant GetByEmail(String email) {
             return _participants
                 .Include(p => p.Group)
@@ -57,6 +35,7 @@ namespace dotnet_g23.Data.Repositories {
                 .Where(p => p.Group != null && p.Group == group)
                 .ToList();
         }
+
         public void SaveChanges() {
             _context.SaveChanges();
         }

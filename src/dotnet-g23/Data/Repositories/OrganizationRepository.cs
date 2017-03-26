@@ -24,24 +24,13 @@ namespace dotnet_g23.Data.Repositories {
             return _organizations
                 .SingleOrDefault(o => o.OrganizationId == OrganizationId);
         }
-
-        public IEnumerable<Organization> GetByDomain(String domain) {
-            return _organizations
-                .Where(org => org.Domain == domain)
-                .ToList();
-        }
-
+        
         public IEnumerable<Organization> GetByKeyword(String query) {
             return _organizations
                 .Where(org => org.Name.Contains(query) || org.Location.Contains(query))
                 .ToList();
         }
-
-        public Organization GetByName(String orgName) {
-            return _organizations
-                .SingleOrDefault(o => o.Name == orgName);
-        }
-
+        
         public void SaveChanges() {
             _context.SaveChanges();
         }

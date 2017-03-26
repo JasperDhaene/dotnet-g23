@@ -16,15 +16,7 @@ namespace dotnet_g23.Data.Repositories
             _context = context;
             _invitations = context.Invitations;
         }
-
-        public Invitation GetBy(int invitationId)
-        {
-            return _invitations
-                .Include(n => n.Participant)
-                .Include(n => n.Group)
-                .SingleOrDefault(n => n.InvitationId == invitationId);
-        }
-
+        
         public IEnumerable<Invitation> GetByParticipant(Participant participant)
         {
             return _invitations
@@ -41,15 +33,7 @@ namespace dotnet_g23.Data.Repositories
                 .Include(n => n.Group)
                 .Where(n => n.Group == group);
         }
-
-        public IEnumerable<Invitation> GetAll()
-        {
-            return _invitations
-                .Include(n => n.Participant)
-                .Include(n => n.Group)
-                .ToList();
-        }
-
+        
         public void Destroy(Participant participant, Group group)
         {
             _invitations.RemoveRange(
