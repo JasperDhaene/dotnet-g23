@@ -35,7 +35,7 @@ namespace dotnet_g23.Tests.Controllers {
             groupRepo.Setup(g => g.GetAll()).Returns(_context.Groups);
             groupRepo.Setup(g => g.GetBy(1)).Returns(_context.HogentGroup);
 
-            _controller = new GroupController(groupRepo.Object, participantRepo.Object, invRepo.Object, lRepo.Object, postRepo.Object, hostEnv.Object);
+            _controller = new GroupController(groupRepo.Object, participantRepo.Object, invRepo.Object, lRepo.Object, postRepo.Object);
             _controller.TempData = new Mock<ITempDataDictionary>().Object;
 
             _participantHogent = _context.ParticipantHogent.UserState as Participant;
