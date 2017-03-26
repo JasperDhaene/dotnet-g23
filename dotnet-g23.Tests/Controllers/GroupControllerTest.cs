@@ -21,7 +21,7 @@ namespace dotnet_g23.Tests.Controllers {
         private DummyApplicationDbContext context;
         private readonly Participant _ParticipantHogent;
         private readonly Participant _OwnerHogent;
-        
+        private readonly Participant _OwnerGranted;
         #endregion
 
         #region Constructor
@@ -43,6 +43,7 @@ namespace dotnet_g23.Tests.Controllers {
 
             _ParticipantHogent = context.ParticipantHogent.UserState as Participant;
             _OwnerHogent = context.OwnerHogent.UserState as Participant;
+            _OwnerGranted = context.OwnerHogentGranted.UserState as Participant;
         }
         #endregion
 
@@ -169,5 +170,18 @@ namespace dotnet_g23.Tests.Controllers {
         }
 
         #endregion
+
+        #region HTTP GET Announce
+
+        [Fact]
+        public void ParticipantCanShowAnnounceForm() {
+            ViewResult res = _controller.Announce(_OwnerGranted, 4) as ViewResult;
+            AnnounceViewModel vm = (AnnounceViewModel)res?.Model;
+            Assert.Equal(context.Label2, vm.Label);
+            Assert.Equal("Mijn aankondiging", vm.Message);
+        }
+
+        #endregion
+
     }
 }
