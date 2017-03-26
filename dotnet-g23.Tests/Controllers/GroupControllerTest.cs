@@ -15,11 +15,13 @@ using Xunit;
 
 namespace dotnet_g23.Tests.Controllers {
     public class GroupControllerTest {
+
         #region Fields
         private readonly GroupController _controller;
+        private DummyApplicationDbContext context;
         private readonly Participant _ParticipantHogent;
         private readonly Participant _OwnerHogent;
-        private DummyApplicationDbContext context;
+        
         #endregion
 
         #region Constructor
@@ -41,6 +43,7 @@ namespace dotnet_g23.Tests.Controllers {
             ParticipantRepo.Setup(g => g.GetBy(2)).Returns(context.OwnerHogent.UserState as Participant);
 
             _controller = new GroupController(GroupRepo.Object, ParticipantRepo.Object, InvRepo.Object, LRepo.Object, PostRepo.Object, HostEnv.Object);
+            _controller.TempData = new Mock<ITempDataDictionary>().Object;
 
             _ParticipantHogent = context.ParticipantHogent.UserState as Participant;
             _OwnerHogent = context.OwnerHogent.UserState as Participant;
@@ -111,39 +114,63 @@ namespace dotnet_g23.Tests.Controllers {
 
         #endregion
 
-        #region Show
+        #region HTTP GET Show
 
-        //[Fact]
+        [Fact]
+        public void ParticipantWithGroupCanSeeSubscribedGroup() {
+            ViewResult result = _controller.Show(_OwnerHogent, 1) as ViewResult;
+            ShowViewModel vm = (ShowViewModel)result?.Model;
+            Assert.Equal(context.HogentGroup, vm.Group);
+        }
 
+        [Fact]
+        public void ParticipantWithGroupCanSeeInvitationsForGroup() {
+            ViewResult result = _controller.Show(_OwnerHogent, 1) as ViewResult;
+            ShowViewModel vm = (ShowViewModel)result?.Model;
+            Assert.Equal(context.HogentGroup.Invitations, vm.Invitations);
+        }
 
         #endregion
 
         #region HTTP POST Register
 
-        //[Fact]
-        //public void ParticipantShouldRedirectToIndexOfGroupsBecauseAlreadyInGroup() {
-        //    RedirectToActionResult result = _controller
-        //        .Register(_participant, context.Groups.First().GroupId)
-        //        as RedirectToActionResult;
-        //    Assert.Equal("Index", result.ActionName);
-        //}
+        [Fact]
+        public void ParticipantCanRegisterInGroup1() {
+            _controller.Register(_ParticipantHogent, 1);
+            Assert.Equal(context.HogentGroup, _ParticipantHogent.Group);
+        }
 
-        //[Fact]
-        //public void ParticipantShouldRegisterInGroup() {
-        //    RedirectToActionResult result = _controller
-        //        .Register(_participant2, context.Groups.First().GroupId)
-        //        as RedirectToActionResult;
-        //    Assert.Equal("Index", result.ActionName);
-        //}
+        [Fact]
+        public void ParticipantShouldRedirectToIndexOfGroupsBecauseAlreadyInGroup() {
+            RedirectToActionResult result = _controller
+                .Register(_OwnerHogent, 1)
+                as RedirectToActionResult;
+            Assert.Equal("Index", result.ActionName);
+        }
+
+        [Fact]
+        public void ParticipantShouldRegisterInGroupAndRedirectsToDashboard() {
+            RedirectToActionResult result = _controller
+                .Register(_ParticipantHogent, 1)
+                as RedirectToActionResult;
+            Assert.Equal("Dashboard", result.ActionName);
+        }
 
         #endregion
 
         #region HTTP POST Invite
-        //[Fact]
-        //public void InviteShouldReturnGroupSearchedById() {
-        //    ViewResult result = _controller.Invite(_participant2, context.Groups.First().GroupId, "test.test@hogent.be") as ViewResult;
-        //    Assert.Equal("Invite", result?.ViewName);
-        //}
+
+        [Fact]
+        public void InviteShouldRedirectToInviteOfController() {
+            ViewResult result = _controller.Invite(_OwnerHogent, 1, "participant@hogent.be") as ViewResult;
+            Assert.Equal("Invite", result?.ViewName);
+        }
+
+        [Fact]
+        public void InviteShouldRedirectToInviteOfControllerWhenAlreadyInGroup() {
+            ViewResult result = _controller.Invite(_OwnerHogent, 1, "owner_approved@hogent.be") as ViewResult;
+            Assert.Equal("Invite", result?.ViewName);
+        }
 
         #endregion
     }
